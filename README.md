@@ -3,19 +3,6 @@
 ## File Structure
 
 	app/
-	----- shared/   // acts as reusable components or partials of our site
-	---------- mainNavigation/
-	--------------- mainNavigation.js
-	--------------- mainNavigation.html
-	---------- sideNavigation/
-	--------------- sideNavigation.js
-	--------------- sideNavigation.html
-	---------- dashboard/
-	--------------- dashboard.js
-	--------------- dashboard.html
-	---------- table/
-	--------------- table.js
-	--------------- table.html
 	----- components/   // each component is treated as a mini Angular app
 	---------- sites/
 	--------------- sitesController.js

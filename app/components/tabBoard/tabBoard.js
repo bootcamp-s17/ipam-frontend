@@ -1,10 +1,10 @@
 'use strict';
 
-import tabBoardComponent from './tabBoard.component';
+import tabboardComponent from './tabboard.component';
 
-let tabBoardModule = angular.module('tabBoard',[])
-.component('tabBoard', tabBoardComponent);
+let tabboardModule = angular.module('tabboard',[])
+.component('tabboard', tabboardComponent);
 
-console.log('tabBoard.js');
+console.log('tabboard.js');
 
-export default tabBoardModule;
+export default tabboardModule;

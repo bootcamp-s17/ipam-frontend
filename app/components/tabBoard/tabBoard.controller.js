@@ -1,5 +1,5 @@
 console.log('tab controller is called');
-class tabBoardController {
+class tabboardController {
 
 	constructor($rootScope) {
 		let ctrl=this;
@@ -9,4 +9,4 @@ class tabBoardController {
 
 }
 
-export default tabBoardController;
+export default tabboardController;

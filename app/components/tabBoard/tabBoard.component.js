@@ -1,14 +1,14 @@
-import template from './tabBoard.html';
-import controller from './tabBoard.controller';
+import template from './tabboard.html';
+import controller from './tabboard.controller';
 console.log(controller);
 
-let tabBoardComponent = {
+let tabboardComponent = {
 	bindings : {},
 	template,
 	controller: ['$rootScope', '$interval', controller],
 	controllerAs : '$ctrl'
 };
 
-console.log('tabBoard.component');
+console.log('tabboard.component');
 
-export default tabBoardComponent;
+export default tabboardComponent;

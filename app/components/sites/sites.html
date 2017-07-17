@@ -3,24 +3,16 @@
 		<div class="col-4">
 			<div class="card card-block">
 				<div class="card-title">
-					<div class="row">
 						<h4 class="col-8">Site Name</h4>
 						<h5 class="col-4">ABBR</h5>
-					</div>
-					
 				</div>
-				<div class="row">
-					<div class="col">Address</div>
-				</div>
-				<div class="row">
-					<div class="col">Contact</div>
-				</div>
-				<div class="row">
-					<div class="col">Notes</div>
-				</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">Address:</li>
+					<li class="list-group-item">Contact:</li>
+					<li class="list-group-item">Notes</li>
+				</ul>
 			</div>
 		</div>
-
 
 		<div class="col-4">
 			<div class="card card-block">
@@ -51,7 +43,12 @@
 						<h4 class="col text-center">Add New Site</h4>
 					</div>
 				</div>
-				<i class="fa fa-plus fa-5x text-center"></i>
+				<div class="row">
+					<div class="col text-center">
+						
+				<a ng-click="$ctrl.addNewSite()" class="text-center"><i class="fa fa-plus fa-5x text-center"></i></a>
+					</div>
+				</div>
 			</div>
 		</div>
 

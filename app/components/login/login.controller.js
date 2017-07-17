@@ -3,6 +3,8 @@ class loginController {
 	constructor($rootScope) {
 		let ctrl=this;
 
+		
+
 	};
 }
 

@@ -67,11 +67,15 @@ var _users = require('./components/users/users.component');
 
 var _users2 = _interopRequireDefault(_users);
 
+var _login = require('./components/login/login.component');
+
+var _login2 = _interopRequireDefault(_login);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-angular.module('app', []).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default);
+angular.module('app', []).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default);
 
-},{"./app.component":1,"./components/equipment/equipment.component":5,"./components/sites/sites.component":8,"./components/subnets/subnets.component":11,"./components/users/users.component":14}],5:[function(require,module,exports){
+},{"./app.component":1,"./components/equipment/equipment.component":5,"./components/login/login.component":8,"./components/sites/sites.component":11,"./components/subnets/subnets.component":14,"./components/users/users.component":17}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -126,6 +130,54 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _login = require('./login.html');
+
+var _login2 = _interopRequireDefault(_login);
+
+var _login3 = require('./login.controller');
+
+var _login4 = _interopRequireDefault(_login3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var loginComponent = {
+	bindings: {},
+	template: _login2.default,
+	controller: ['$rootScope', '$interval', _login4.default],
+	controllerAs: '$ctrl'
+};
+
+console.log('login.component');
+
+exports.default = loginComponent;
+
+},{"./login.controller":9,"./login.html":10}],9:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var loginController = function loginController($rootScope) {
+	_classCallCheck(this, loginController);
+
+	var ctrl = this;
+};
+
+exports.default = loginController;
+
+},{}],10:[function(require,module,exports){
+module.exports = "";
+
+},{}],11:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
 var _sites = require('./sites.html');
 
 var _sites2 = _interopRequireDefault(_sites);
@@ -147,7 +199,7 @@ console.log('sites.component');
 
 exports.default = sitesComponent;
 
-},{"./sites.controller":9,"./sites.html":10}],9:[function(require,module,exports){
+},{"./sites.controller":12,"./sites.html":13}],12:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -164,10 +216,10 @@ var sitesController = function sitesController($rootScope) {
 
 exports.default = sitesController;
 
-},{}],10:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 module.exports = "<h1>this is the sites html</h1>";
 
-},{}],11:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -195,7 +247,7 @@ console.log('subnets.component');
 
 exports.default = subnetsComponent;
 
-},{"./subnets.controller":12,"./subnets.html":13}],12:[function(require,module,exports){
+},{"./subnets.controller":15,"./subnets.html":16}],15:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -212,10 +264,10 @@ var subnetsController = function subnetsController($rootScope) {
 
 exports.default = subnetsController;
 
-},{}],13:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 module.exports = "<h1>this is the subnets html</h1>";
 
-},{}],14:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -243,7 +295,7 @@ console.log('users.component');
 
 exports.default = usersComponent;
 
-},{"./users.controller":15,"./users.html":16}],15:[function(require,module,exports){
+},{"./users.controller":18,"./users.html":19}],18:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -260,7 +312,7 @@ var usersController = function usersController($rootScope) {
 
 exports.default = usersController;
 
-},{}],16:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 module.exports = "<h1>this is the users html</h1>";
 
 },{}]},{},[4]);

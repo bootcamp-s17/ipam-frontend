@@ -191,7 +191,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var sitesComponent = {
 	bindings: {},
 	template: _sites2.default,
-	controller: ['$rootScope', '$interval', _sites4.default],
+	controller: ['$rootScope', '$interval', '$http', _sites4.default],
 	controllerAs: '$ctrl'
 };
 
@@ -200,24 +200,40 @@ console.log('sites.component');
 exports.default = sitesComponent;
 
 },{"./sites.controller":12,"./sites.html":13}],12:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var sitesController = function sitesController($rootScope) {
-	_classCallCheck(this, sitesController);
+var sitesController = function () {
+	function sitesController($rootScope, $http) {
+		_classCallCheck(this, sitesController);
 
-	var ctrl = this;
-};
+		var ctrl = this;
+		ctrl.$http = $http;
+
+		// $http request for sites endpoint
+	}
+
+	_createClass(sitesController, [{
+		key: 'addNewSite',
+		value: function addNewSite() {
+			alert('You want to add a new site!');
+		}
+	}]);
+
+	return sitesController;
+}();
 
 exports.default = sitesController;
 
 },{}],13:[function(require,module,exports){
-module.exports = "<div class=\"container\">\n\t<div class=\"row\">\n\t\t<div class=\"col-4\">\n\t\t\t<div class=\"card card-block\">\n\t\t\t\t<div class=\"card-title\">\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t<h4 class=\"col-8\">Site Name</h4>\n\t\t\t\t\t\t<h5 class=\"col-4\">ABBR</h5>\n\t\t\t\t\t</div>\n\t\t\t\t\t\n\t\t\t\t</div>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col\">Address</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col\">Contact</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col\">Notes</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\n\n\t\t<div class=\"col-4\">\n\t\t\t<div class=\"card card-block\">\n\t\t\t\t<div class=\"card-title\">\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t<h4 class=\"col-8\">Site Name</h4>\n\t\t\t\t\t\t<h5 class=\"col-4\">ABBR</h5>\n\t\t\t\t\t</div>\n\t\t\t\t\t\n\t\t\t\t</div>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col\">Address</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col\">Contact</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col\">Notes</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\n\n\t\t<div class=\"col-4\">\n\t\t\t<div class=\"card card-block\">\n\t\t\t\t<div class=\"card-title\">\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t<h4 class=\"col text-center\">Add New Site</h4>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<i class=\"fa fa-plus fa-5x text-center\"></i>\n\t\t\t</div>\n\t\t</div>\n\n\n\n\t</div> <!-- end main row -->\n\n\n</div> <!-- end container -->";
+module.exports = "<div class=\"container\">\n\t<div class=\"row\">\n\t\t<div class=\"col-4\">\n\t\t\t<div class=\"card card-block\">\n\t\t\t\t<div class=\"card-title\">\n\t\t\t\t\t\t<h4 class=\"col-8\">Site Name</h4>\n\t\t\t\t\t\t<h5 class=\"col-4\">ABBR</h5>\n\t\t\t\t</div>\n\t\t\t\t<ul class=\"list-group list-group-flush\">\n\t\t\t\t\t<li class=\"list-group-item\">Address:</li>\n\t\t\t\t\t<li class=\"list-group-item\">Contact:</li>\n\t\t\t\t\t<li class=\"list-group-item\">Notes</li>\n\t\t\t\t</ul>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div class=\"col-4\">\n\t\t\t<div class=\"card card-block\">\n\t\t\t\t<div class=\"card-title\">\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t<h4 class=\"col-8\">Site Name</h4>\n\t\t\t\t\t\t<h5 class=\"col-4\">ABBR</h5>\n\t\t\t\t\t</div>\n\t\t\t\t\t\n\t\t\t\t</div>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col\">Address</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col\">Contact</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col\">Notes</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\n\n\t\t<div class=\"col-4\">\n\t\t\t<div class=\"card card-block\">\n\t\t\t\t<div class=\"card-title\">\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t<h4 class=\"col text-center\">Add New Site</h4>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col text-center\">\n\t\t\t\t\t\t\n\t\t\t\t<a ng-click=\"$ctrl.addNewSite()\" class=\"text-center\"><i class=\"fa fa-plus fa-5x text-center\"></i></a>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\n\n\n\t</div> <!-- end main row -->\n\n\n</div> <!-- end container -->";
 
 },{}],14:[function(require,module,exports){
 'use strict';

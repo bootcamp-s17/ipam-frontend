@@ -42,7 +42,7 @@ var appCtrl = function appCtrl() {
 exports.default = appCtrl;
 
 },{}],3:[function(require,module,exports){
-module.exports = "<!DOCTYPE html>\n<html ng-app=\"app\">\n<head>\n    <title>IPAM</title>\n</head>\n<body>\n    <div class=\"jumbotron\">\n        <div class=\"container\">\n        <h1>Hi</h1>\n            <div class=\"col-sm-8 col-sm-offset-2\">\n                <div ng-class=\"{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }\" ng-if=\"flash\" ng-bind=\"flash.message\"></div>\n                <div ng-view></div>\n            </div>\n        </div>\n    </div>\n    <login></login>\n    <users></users>\n\n    <script src=\"//code.jquery.com/jquery-3.1.1.min.js\"></script>\n    <script src=\"//code.angularjs.org/1.6.0/angular.min.js\"></script>\n    <script src=\"//code.angularjs.org/1.6.0/angular-route.min.js\"></script>\n    <script src=\"//code.angularjs.org/1.6.0/angular-cookies.min.js\"></script>\n\n    <script src=\"app.js\"></script>\n    <script src=\"login/services/authentication.service.js\"></script>\n    <script src=\"login/services/flash.service.js\"></script>\n\n    <!-- Real user service that uses an api -->\n    <!-- <script src=\"app-services/user.service.js\"></script> -->\n\n    <!-- Fake user service for demo that uses local storage -->\n    <script src=\"login/services/user.service.local.js\"></script>\n\n    <script src=\"tabboard/tabboard.controller.js\"></script>\n    <script src=\"login/login.controller.js\"></script>\n    <script src=\"users/users.controller.js\"></script>\n</body>\n</html>\n\n";
+module.exports = "<div class=\"jumbotron\">\n    <div class=\"container\">\n    <h1>His</h1>\n        <div class=\"col-sm-8 col-sm-offset-2\">\n            <div ng-class=\"{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }\" ng-if=\"flash\" ng-bind=\"flash.message\"></div>\n            <div ng-view></div>\n        </div>\n    </div>\n</div>\n\n\n\n\n";
 
 },{}],4:[function(require,module,exports){
 'use strict';
@@ -81,7 +81,7 @@ var _nav2 = _interopRequireDefault(_nav);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-angular.module('app', []).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('tabboard', _tabboard2.default).component('nav', _nav2.default);
+angular.module('app', ['ngRoute', 'ngCookies']).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('tabboard', _tabboard2.default).component('nav', _nav2.default);
 
 },{"./app.component":1,"./components/equipment/equipment.component":5,"./components/login/login.component":8,"./components/nav/nav.component":11,"./components/sites/sites.component":14,"./components/subnets/subnets.component":17,"./components/tabboard/tabboard.component":20,"./components/users/users.component":23}],5:[function(require,module,exports){
 'use strict';

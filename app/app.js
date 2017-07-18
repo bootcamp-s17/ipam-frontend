@@ -9,7 +9,7 @@ import navComponent from './components/nav/nav.component';
 
 
 
-angular.module('app',[])
+angular.module('app',['ngRoute','ngCookies'])
 .component('app', appComponent)
 .component('equipment', equipmentComponent)
 .component('sites', sitesComponent)

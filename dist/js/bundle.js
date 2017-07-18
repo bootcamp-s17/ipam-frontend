@@ -42,7 +42,7 @@ var appCtrl = function appCtrl() {
 exports.default = appCtrl;
 
 },{}],3:[function(require,module,exports){
-module.exports = "<equipment></equipment>\n<br />\n<sites></sites>\n<br />\n<subnets></subnets>\n<br />\n<users></users>";
+module.exports = "<equipment></equipment>\n<br />\n<sites></sites>\n<br />\n<subnets></subnets>\n<br />\n<users></users>\n<br />\n<login></login>";
 
 },{}],4:[function(require,module,exports){
 'use strict';
@@ -152,7 +152,7 @@ console.log('login.component');
 exports.default = loginComponent;
 
 },{"./login.controller":9,"./login.html":10}],9:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -164,12 +164,37 @@ var loginController = function loginController($rootScope) {
 	_classCallCheck(this, loginController);
 
 	var ctrl = this;
+	angular.module('app').controller('LoginController', LoginController);
+
+	LoginController.$inject = ['$location', 'AuthenticationService', 'FlashService'];
+	function LoginController($location, AuthenticationService, FlashService) {
+
+		ctrl.login = login;
+
+		(function initController() {
+			// reset login status
+			AuthenticationService.ClearCredentials();
+		})();
+
+		function login() {
+			ctrl.dataLoading = true;
+			AuthenticationService.Login(ctrl.email, ctrl.password, function (response) {
+				if (response.success) {
+					AuthenticationService.SetCredentials(ctrl.email, ctrl.password);
+					$location.path('/');
+				} else {
+					FlashService.Error(response.message);
+					ctrl.dataLoading = false;
+				}
+			});
+		};
+	}
 };
 
 exports.default = loginController;
 
 },{}],10:[function(require,module,exports){
-module.exports = "";
+module.exports = "<link rel=\"stylesheet\" type=\"text/css\" href=\"login.scss\">\n<div class=\"container\">\n\t<div class=\"jumbotron\">\n\t\t<h3>Login</h3>\n\t\t<form name=\"form\" ng-submit=\"vm.login()\" role=\"form\" id=\"form-login\">\n\t\t  <div class=\"form-group\" ng-class=\"{ 'has-error': form.email.$dirty && form.email.$error.required }\">\n\t\t    <label>Email Address</label>\n\t\t    <input type=\"text\" name=\"email\" id=\"email\" class=\"form-control\" ng-model=\"vm.email\" required />\n\t\t    <span ng-show=\"form.email.$dirty && form.email.$error.required\" class=\"help-block\">Email is required</span>\n\t\t  </div>\n\t\t  <div class=\"form-group\" ng-class=\"{ 'has-error': form.password.$dirty && form.password.$error.required }\">\n            <label for=\"password\">Password</label>\n            <input type=\"password\" name=\"password\" id=\"password\" class=\"form-control\" ng-model=\"vm.password\" required />\n            <span ng-show=\"form.password.$dirty && form.password.$error.required\" class=\"help-block\">Password is required</span>\n        </div>\n        <div class=\"form-actions\">\n\t\t<button type=\"submit\" class=\"btn btn-success\" ng-disabled=\"form.$invalid || vm.dataLoading\">Submit</button>\n\t\t<button type=\"button\" class=\"btn btn-secondary\">Forgot Password?</button>\n\t\t</div>\n\t\t</form>\n\t</div>\n</div>";
 
 },{}],11:[function(require,module,exports){
 'use strict';
@@ -313,6 +338,6 @@ var usersController = function usersController($rootScope) {
 exports.default = usersController;
 
 },{}],19:[function(require,module,exports){
-module.exports = "<h1>this is the users html</h1>";
+module.exports = "<div class=\"col-md-6 col-md-offset-3\">\n    <h2>Register</h2>\n    <form name=\"form\" ng-submit=\"ctrl.user()\" role=\"form\">\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }\">\n            <label for=\"username\">First name</label>\n            <input type=\"text\" name=\"firstName\" id=\"firstName\" class=\"form-control\" ng-model=\"ctrl.user.firstName\" required />\n            <span ng-show=\"form.firstName.$dirty && form.firstName.$error.required\" class=\"help-block\">First name is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.lastName.$dirty && form.lastName.$error.required }\">\n            <label for=\"username\">Last name</label>\n            <input type=\"text\" name=\"lastName\" id=\"Text1\" class=\"form-control\" ng-model=\"ctrl.user.lastName\" required />\n            <span ng-show=\"form.lastName.$dirty && form.lastName.$error.required\" class=\"help-block\">Last name is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.username.$dirty && form.username.$error.required }\">\n            <label for=\"username\">Username</label>\n            <input type=\"text\" name=\"username\" id=\"username\" class=\"form-control\" ng-model=\"ctrl.user.username\" required />\n            <span ng-show=\"form.username.$dirty && form.username.$error.required\" class=\"help-block\">Username is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.password.$dirty && form.password.$error.required }\">\n            <label for=\"password\">Password</label>\n            <input type=\"password\" name=\"password\" id=\"password\" class=\"form-control\" ng-model=\"ctrl.user.password\" required />\n            <span ng-show=\"form.password.$dirty && form.password.$error.required\" class=\"help-block\">Password is required</span>\n        </div>\n        <div class=\"form-actions\">\n            <button type=\"submit\" ng-disabled=\"form.$invalid || ctrl.dataLoading\" class=\"btn btn-primary\">Register</button>\n            \n            <a href=\"#!/login\" class=\"btn btn-link\">Cancel</a>\n        </div>\n    </form>\n</div>";
 
 },{}]},{},[4]);

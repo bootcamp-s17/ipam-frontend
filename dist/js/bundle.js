@@ -42,7 +42,7 @@ var appCtrl = function appCtrl() {
 exports.default = appCtrl;
 
 },{}],3:[function(require,module,exports){
-module.exports = "<equipment></equipment>\n<br />\n<sites></sites>\n<br />\n<subnets></subnets>\n<br />\n<users></users>\n<tabboard></tabboard>";
+module.exports = "<tabboard></tabboard>";
 
 },{}],4:[function(require,module,exports){
 'use strict';
@@ -221,7 +221,7 @@ var sitesController = function sitesController($rootScope) {
 exports.default = sitesController;
 
 },{}],13:[function(require,module,exports){
-module.exports = "<h1>this is the sites html</h1>";
+module.exports = "<div class=\"container\">\n    <div class=\"row\">\n        <div class=\"col-4\">\n            <div class=\"card card-block\">\n                <div class=\"card-title\">\n                    <div class=\"row\">\n                        <h4 class=\"col-8\">Site Name</h4>\n                        <h5 class=\"col-4\">ABBR</h5>\n                    </div>\n                    \n                </div>\n                <div class=\"row\">\n                    <div class=\"col\">Address</div>\n                </div>\n                <div class=\"row\">\n                    <div class=\"col\">Contact</div>\n                </div>\n                <div class=\"row\">\n                    <div class=\"col\">Notes</div>\n                </div>\n            </div>\n        </div>\n\n\n        <div class=\"col-4\">\n            <div class=\"card card-block\">\n                <div class=\"card-title\">\n                    <div class=\"row\">\n                        <h4 class=\"col-8\">Site Name</h4>\n                        <h5 class=\"col-4\">ABBR</h5>\n                    </div>\n                    \n                </div>\n                <div class=\"row\">\n                    <div class=\"col\">Address</div>\n                </div>\n                <div class=\"row\">\n                    <div class=\"col\">Contact</div>\n                </div>\n                <div class=\"row\">\n                    <div class=\"col\">Notes</div>\n                </div>\n            </div>\n        </div>\n\n\n        <div class=\"col-4\">\n            <div class=\"card card-block\">\n                <div class=\"card-title\">\n                    <div class=\"row\">\n                        <h4 class=\"col text-center\">Add New Site</h4>\n                    </div>\n                </div>\n                <i class=\"fa fa-plus fa-5x text-center\"></i>\n            </div>\n        </div>\n\n\n\n    </div> <!-- end main row -->\n\n\n</div> <!-- end container -->";
 
 },{}],14:[function(require,module,exports){
 'use strict';
@@ -308,21 +308,59 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 console.log('tab controller is called');
 
-var tabboardController = function tabboardController($rootScope) {
-	_classCallCheck(this, tabboardController);
+var tabboardController = function () {
+	function tabboardController($rootScope) {
+		_classCallCheck(this, tabboardController);
 
-	var ctrl = this;
-	console.log('tab constructor is called');
-};
+		var ctrl = this;
+		console.log('tab constructor is called');
+		ctrl.$rootScope = $rootScope;
+		ctrl.sitesTab = $('#sitesTab').attr('id');
+		ctrl.subnetsTab = $('#subnetsTab').attr('id');
+		ctrl.equipmentTab = $('#equipmentTab').attr('id');
+
+		ctrl.showTab = 'sites';
+
+		$(".nav-link").on("click", function () {
+			$(".nav-link").removeClass("active");
+			$(this).addClass("active");
+		});
+	}
+
+	_createClass(tabboardController, [{
+		key: 'switchTabView',
+		value: function switchTabView(event) {
+			var ctrl = this;
+			var showTab = ctrl.$rootScope.showTab;
+			var currentTab = $(event.target).attr('id');
+			switch (currentTab) {
+				case 'sitesTab':
+					ctrl.showTab = 'sites';
+
+					break;
+				case 'subnetsTab':
+					ctrl.showTab = 'subnets';
+					break;
+				case 'equipmentTab':
+					ctrl.showTab = 'equipment';
+					break;
+			}
+		}
+	}]);
+
+	return tabboardController;
+}();
 
 exports.default = tabboardController;
 
 },{}],19:[function(require,module,exports){
-module.exports = "<h1>Tab Board</h1>\n";
+module.exports = "<h1>Tab Board</h1>\n\n<ul class=\"nav nav-tabs\"> <!-- Tabs -->\n  <li class=\"nav-item\">\n    <a class=\"nav-link active\" id=\"sitesTab\" value=\"sites\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#\">Sites</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" id=\"subnetsTab\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#\">Subnets</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" id=\"equipmentTab\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#\">Equipment</a>\n  </li>\n</ul> <!-- End Tabs -->\n\n<sites ng-show=\"$ctrl.showTab == 'sites'\"></sites>\n<subnets ng-show=\"$ctrl.showTab == 'subnets'\"></subnets>\n<equipment ng-show=\"$ctrl.showTab == 'equipment'\"></equipment>";
 
 },{}],20:[function(require,module,exports){
 'use strict';

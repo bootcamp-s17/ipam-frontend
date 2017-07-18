@@ -42,9 +42,7 @@ var appCtrl = function appCtrl() {
 exports.default = appCtrl;
 
 },{}],3:[function(require,module,exports){
-  
-module.exports = "<equipment></equipment>\n<br />\n<sites></sites>\n<br />\n<subnets></subnets>\n<br />\n<users></users>\n<br />\n<nav></nav>\n<login></login>";
-
+module.exports = "<tabboard></tabboard>";
 
 },{}],4:[function(require,module,exports){
 'use strict';
@@ -77,11 +75,23 @@ var _nav = require('./components/nav/nav.component');
 
 var _nav2 = _interopRequireDefault(_nav);
 
+var _equipmentform = require('./components/equipmentform/equipmentform.component');
+
+var _equipmentform2 = _interopRequireDefault(_equipmentform);
+
+var _subnetform = require('./components/subnetform/subnetform.component');
+
+var _subnetform2 = _interopRequireDefault(_subnetform);
+
+var _usersform = require('./components/usersform/usersform.component');
+
+var _usersform2 = _interopRequireDefault(_usersform);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-angular.module('app', []).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('nav', _nav2.default);
+angular.module('app', []).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('nav', _nav2.default).component('equipmentform', _equipmentform2.default).component('subnetform', _subnetform2.default).component('userstform', _usersform2.default);
 
-},{"./app.component":1,"./components/equipment/equipment.component":5,"./components/login/login.component":8,"./components/nav/nav.component":11,"./components/sites/sites.component":14,"./components/subnets/subnets.component":17,"./components/users/users.component":20}],5:[function(require,module,exports){
+},{"./app.component":1,"./components/equipment/equipment.component":5,"./components/equipmentform/equipmentform.component":8,"./components/login/login.component":11,"./components/nav/nav.component":14,"./components/sites/sites.component":17,"./components/subnetform/subnetform.component":20,"./components/subnets/subnets.component":23,"./components/users/users.component":26,"./components/usersform/usersform.component":29}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -110,7 +120,88 @@ console.log('equipment.component');
 exports.default = equipmentComponent;
 
 },{"./equipment.controller":6,"./equipment.html":7}],6:[function(require,module,exports){
-"use strict";
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var equipmentController = function () {
+	function equipmentController($rootScope, ModalService) {
+		_classCallCheck(this, equipmentController);
+
+		var ctrl = this;
+		var vm = this;
+		ctrl.$rootScope = $rootScope;
+
+		// vm.openModal = openModal;
+		// vm.closeModal = closeModal;
+
+		// initcontroller();
+
+		// function initcontroller(){
+		// 	vm.bodyText = 'This is working!';
+		// };
+		// function openModal(id){
+		// 	ModalService.Open(id);
+		// 	console.log('Clicked!')
+		// };	
+		// function closeModal(id){
+		// 	ModalService.close(id);
+		// };
+	}
+
+	_createClass(equipmentController, [{
+		key: 'click',
+		value: function click() {
+			var ctrl = this;
+			console.log('im being clicked motherfucker');
+			ctrl.$rootScope.equipshow = true;
+		}
+	}]);
+
+	return equipmentController;
+}();
+
+exports.default = equipmentController;
+
+},{}],7:[function(require,module,exports){
+module.exports = "<!-- <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n  Launch demo modal\n</button>\n\n Modal\n div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Modal title</h5>\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        ...\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n        <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\n      </div>\n    </div>\n  </div>\n</div> -->\n\n<button id=\"addEquipment\" ng-click=\"$ctrl.click(); showme=true\"> Add Equipment</button>\n\n";
+
+},{}],8:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _equipmentform = require('./equipmentform.html');
+
+var _equipmentform2 = _interopRequireDefault(_equipmentform);
+
+var _equipmentform3 = require('./equipmentform.controller');
+
+var _equipmentform4 = _interopRequireDefault(_equipmentform3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var equipmentformComponent = {
+	bindings: {},
+	template: _equipmentform2.default,
+	controller: ['$rootScope', '$interval', _equipmentform4.default],
+	controllerAs: '$ctrl'
+};
+
+console.log('equipmentform.component');
+
+exports.default = equipmentformComponent;
+
+},{"./equipmentform.controller":9,"./equipmentform.html":10}],9:[function(require,module,exports){
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -118,18 +209,24 @@ Object.defineProperty(exports, "__esModule", {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var equipmentController = function equipmentController($rootScope) {
-	_classCallCheck(this, equipmentController);
+var equipmentformController = function equipmentformController($rootScope) {
+	_classCallCheck(this, equipmentformController);
 
 	var ctrl = this;
+	ctrl.equipshow = false;
+	ctrl.$rootScope = $rootScope;
+
+	ctrl.$rootScope.$watch('equipshow', function () {
+		ctrl.equipshow = ctrl.$rootScope.equipshow;
+	});
 };
 
-exports.default = equipmentController;
+exports.default = equipmentformController;
 
-},{}],7:[function(require,module,exports){
-module.exports = "<h1>this is the equipment html</h1>";
+},{}],10:[function(require,module,exports){
+module.exports = "<form>\n<div class=\"container\" ng-show=\"$ctrl.equipshow\">\n<h1>These are all the required equipment fields</h1>\n  <div class=\"form-group\">\n    <label for=\"siteSelect\">Site</label>\n    <select class=\"form-control\" id=\"siteSelect\">\n      <option>Moon Campus</option>\n      <option>Earth Campus</option>\n    </select>\n  </div> \n  <div class=\"form-group\">\n    <label for=\"typeSelect\" >Type</label>\n    <select class=\"form-control\" ng-model=\"type.Select\" ng-dropdown required ng-change=\"changeme()\">\n      <option ng-option value=\"other\">Other</option>\n      <option ng-option value=\"printer\">Printer</option>\n      <option ng-option value=\"computer\">Computer</option>\n    </select>\n  </div>\n  <div class=\"form-group\">\n    <label for=\"equipmentName\">Equipment Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"equipmentName\">\n  </div>\n  <div class=\"form-group\">\n    <label for=\"hostName\">Host Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"hostName\">\n  </div>\n  <div class=\"form-group\">\n    <label for=\"roomNumber\">Room Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"roomNumber\">\n  </div>\n  <div class=\"form-group\">\n    <label for=\"serialNumber\">Serial Number</label>\n      <input class=\"form-control\" type=\"text\" id=\"serialNumber\">\n  </div>\n  <div class=\"form-group\">\n    <label for=\"macAdress\">MAC Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"macAdress\">\n  </div>\n  <div class=\"form-group\">\n    <label for=\"ipAdress\">IP Adress</label>\n      <input class=\"form-control\" type=\"number\" id=\"ipAdress\">\n  </div>\n  <div class=\"form-check\">\n    <label class=\"form-check-label\">\n      <input class=\"form-check-input\" type=\"checkbox\" id=\"madBoxYes\"\n      value=\"option1\"> MAB\n    </label>\n  </div>\n  <div class=\"form-group\">\n    <label for=\"notesInput\">Notes</label>\n      <input class=\"form-control\" type=\"textarea\" id=\"notesInput\">\n  </div>\n  <h1>These are all the additional equipment fields for printers and computers</h1>\n  <!-- These will be additional fields -->\n  <div class=\"form-group\">\n    <label for=\"switchName\">Switch Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"switchName\">\n    <label for=\"switchManagementIp\">Switch Management IP</label>\n      <input class=\"form-control\" type=\"text\" id=\"switchManagementIp\">\n      <!-- Autofill from room number already entered -->\n    <label for=\"switchRoomNumber\">Switch Room Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"switchRoomNumber\">\n  </div>\n\n  <!-- Printer fields -->\n<div class=\"container\" ng-if=\"type.Select =='printer'\">\n  <div class=\"form-group\">\n    <label for=\"printServer\">Print Server</label>\n      <input class=\"form-control\" type=\"text\" id=\"printServer\">\n  </div>\n    <div class=\"form-group\">\n    <label for=\"driverInput\">Driver</label>\n      <input class=\"form-control\" type=\"text\" id=\"driverInput\">\n  </div>\n  <div class=\"form-group\">\n    <label for=\"printServer\">Print Server</label>\n      <input class=\"form-control\" type=\"text\" id=\"printServer\">\n  </div>\n  <!-- Need to autopopulate site abrev. & -room number -->\n  <div class=\"form-group\">\n    <label for=\"printerName\">Printer Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"printerName\">\n  </div> \n<!-- Should autopopulate again -->\n <div class=\"form-group\">\n    <label for=\"shareName\">Share Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"shareName\">\n  </div>\n  <!-- should autopopulate again -->\n  <div class=\"form-group\">\n    <label for=\"shareComment\">Share Comment</label>\n      <input class=\"form-control\" type=\"text\" id=\"shareComment\">\n  </div>\n\n  <div class=\"form-group\">\n    <label for=\"modelNumber\">Model Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"modelNumber\">\n  </div>\n  <!-- Computer Affitional Fields -->\n  <div class=\"form-group\">\n    <label for=\"operatingSystem\">Operating System</label>\n      <input class=\"form-control\" type=\"text\" id=\"operatingSystem\">\n  </div>\n  <div class=\"form-group\">\n    <label for=\"computerType\">Computer Type</label>\n      <select class=\"form-control\" id=\"computerType\">\n        <option>Virtual Machine</option>\n        <option>Physical Computer</option>\n      </select>\n  </div>\n</div>\n<button class=\"btn btn-primary\" type=\"submit\">Save Equipment</button>\n</div>\n</form>\n";
 
-},{}],8:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -157,7 +254,7 @@ console.log('login.component');
 
 exports.default = loginComponent;
 
-},{"./login.controller":9,"./login.html":10}],9:[function(require,module,exports){
+},{"./login.controller":12,"./login.html":13}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -199,10 +296,10 @@ var loginController = function loginController($rootScope) {
 
 exports.default = loginController;
 
-},{}],10:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 module.exports = "<link rel=\"stylesheet\" type=\"text/css\" href=\"login.scss\">\n<div class=\"container\">\n\t<div class=\"jumbotron\">\n\t\t<h3>Login</h3>\n\t\t<form name=\"form\" ng-submit=\"vm.login()\" role=\"form\" id=\"form-login\">\n\t\t  <div class=\"form-group\" ng-class=\"{ 'has-error': form.email.$dirty && form.email.$error.required }\">\n\t\t    <label>Email Address</label>\n\t\t    <input type=\"text\" name=\"email\" id=\"email\" class=\"form-control\" ng-model=\"vm.email\" required />\n\t\t    <span ng-show=\"form.email.$dirty && form.email.$error.required\" class=\"help-block\">Email is required</span>\n\t\t  </div>\n\t\t  <div class=\"form-group\" ng-class=\"{ 'has-error': form.password.$dirty && form.password.$error.required }\">\n            <label for=\"password\">Password</label>\n            <input type=\"password\" name=\"password\" id=\"password\" class=\"form-control\" ng-model=\"vm.password\" required />\n            <span ng-show=\"form.password.$dirty && form.password.$error.required\" class=\"help-block\">Password is required</span>\n        </div>\n        <div class=\"form-actions\">\n\t\t<button type=\"submit\" class=\"btn btn-success\" ng-disabled=\"form.$invalid || vm.dataLoading\">Submit</button>\n\t\t<button type=\"button\" class=\"btn btn-secondary\">Forgot Password?</button>\n\t\t</div>\n\t\t</form>\n\t</div>\n</div>";
 
-},{}],11:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -230,7 +327,7 @@ console.log('nav.component');
 
 exports.default = navComponent;
 
-},{"./nav.controller":12,"./nav.html":13}],12:[function(require,module,exports){
+},{"./nav.controller":15,"./nav.html":16}],15:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -247,10 +344,10 @@ var navController = function navController($rootScope) {
 
 exports.default = navController;
 
-},{}],13:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 module.exports = "<ul class=\"nav nav-tabs  navbar-light\" style=\"background-color: #DDD;\">\n  <li class=\"nav-item\">\n    <a class=\"navbar-brand\" href=\"../login/login.html\">IPAM</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" href=\"../../app.html\">Dashboard</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link disabled\" href=\"../users/users.html\">Manage Users</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" href=\"../login/login.html\">Logout</a>\n  </li>\n</ul>\n\n";
 
-},{}],14:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -278,10 +375,8 @@ console.log('sites.component');
 
 exports.default = sitesComponent;
 
-
-},{"./sites.controller":15,"./sites.html":16}],15:[function(require,module,exports){
-"use strict";
-
+},{"./sites.controller":18,"./sites.html":19}],18:[function(require,module,exports){
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -313,12 +408,63 @@ var sitesController = function () {
 
 exports.default = sitesController;
 
-
-},{}],13:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 module.exports = "<div class=\"container\">\n\t<div class=\"row\">\n\t\t<div class=\"col-4\">\n\t\t\t<div class=\"card card-block\">\n\t\t\t\t<div class=\"card-title\">\n\t\t\t\t\t\t<h4 class=\"col-8\">Site Name</h4>\n\t\t\t\t\t\t<h5 class=\"col-4\">ABBR</h5>\n\t\t\t\t</div>\n\t\t\t\t<ul class=\"list-group list-group-flush\">\n\t\t\t\t\t<li class=\"list-group-item\">Address:</li>\n\t\t\t\t\t<li class=\"list-group-item\">Contact:</li>\n\t\t\t\t\t<li class=\"list-group-item\">Notes</li>\n\t\t\t\t</ul>\n\t\t\t</div>\n\t\t</div>\n\n\t\t<div class=\"col-4\">\n\t\t\t<div class=\"card card-block\">\n\t\t\t\t<div class=\"card-title\">\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t<h4 class=\"col-8\">Site Name</h4>\n\t\t\t\t\t\t<h5 class=\"col-4\">ABBR</h5>\n\t\t\t\t\t</div>\n\t\t\t\t\t\n\t\t\t\t</div>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col\">Address</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col\">Contact</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col\">Notes</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\n\n\t\t<div class=\"col-4\">\n\t\t\t<div class=\"card card-block\">\n\t\t\t\t<div class=\"card-title\">\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t<h4 class=\"col text-center\">Add New Site</h4>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col text-center\">\n\t\t\t\t\t\t\n\t\t\t\t<a ng-click=\"$ctrl.addNewSite()\" class=\"text-center\"><i class=\"fa fa-plus fa-5x text-center\"></i></a>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\n\n\n\t</div> <!-- end main row -->\n\n\n</div> <!-- end container -->";
 
+},{}],20:[function(require,module,exports){
+'use strict';
 
-},{}],17:[function(require,module,exports){
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _subnetform = require('./subnetform.html');
+
+var _subnetform2 = _interopRequireDefault(_subnetform);
+
+var _subnetform3 = require('./subnetform.controller');
+
+var _subnetform4 = _interopRequireDefault(_subnetform3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var subnetformComponent = {
+	bindings: {},
+	template: _subnetform2.default,
+	controller: ['$rootScope', '$interval', _subnetform4.default],
+	controllerAs: '$ctrl'
+};
+
+console.log('subnetform.component');
+
+exports.default = subnetformComponent;
+
+},{"./subnetform.controller":21,"./subnetform.html":22}],21:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var subnetformController = function subnetformController($rootScope) {
+	_classCallCheck(this, subnetformController);
+
+	var ctrl = this;
+	ctrl.subshow = false;
+
+	ctrl.$rootScope.$watch('subshow', function () {
+		ctrl.subshow = ctrl.$rootScope.subshow;
+	});
+};
+
+exports.default = subnetformController;
+
+},{}],22:[function(require,module,exports){
+module.exports = "<form>\n<div class=\"container\">\n<div class=\"form-inline row\">\n  <div class=\"col-2\">\n      <label for=\"siteSelect\">Sites</label>\n      <select class=\"form-control form-inline\" id=\"siteSelect\">\n        <option>Moon Campus</option>\n        <option>Earth Campus</option>\n      </select>\n    </div>\n    <div class=\"col-2\">\n      <label for=\"subnetName\">Subnet Name</label>\n        <input class=\"form-control form-inline\" type=\"text\" id=\"subnetName\">\n    </div>\n</div>\n<div class=\"form-inline row\">\n  <div class=\"col-2\">\n    <label for=\"subnetIpAdress\">Subnet Ip Adress</label>\n      <input class=\"form-control\" type=\"text\" id=\"subnetIpAdress\">\n  </div>\n  <div class=\"col-2\">\n    <label for=\"subnetMaskBits\">Subnet Mask Bits</label>\n      <input class=\"form-control\" type=\"number\" id=\"subnetMaskBits\">\n  </div>\n</div>\n<div class=\"form-inline row\">\n  <div class=\"form-group col-2\">\n    <label for=\"vlanNumber\">VLAN Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"vlanNumber\">\n  </div>\n  <div class=\"form-group col-2\">\n    <label for=\"leaseTime\">Lease Time</label>\n      <input class=\"form-control\" type=\"time\" id=\"leaseTime\">\n  </div>\n</div>\n<div class=\"row\">\n  <div class=\"form-group col\">\n    <label for=\"subnetNotes\">Notes</label>\n      <input class=\"form-control\" type=\"text\" id=\"subnetNotes\">\n  </div>\n</div>\n\n  <button class=\"btn btn-primary\" type=\"submit\">Save Subnet</button>\n</form>";
+
+},{}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -346,10 +492,8 @@ console.log('subnets.component');
 
 exports.default = subnetsComponent;
 
-
-},{"./subnets.controller":18,"./subnets.html":19}],18:[function(require,module,exports){
+},{"./subnets.controller":24,"./subnets.html":25}],24:[function(require,module,exports){
 "use strict";
-
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -361,15 +505,14 @@ var subnetsController = function subnetsController($rootScope) {
 	_classCallCheck(this, subnetsController);
 
 	var ctrl = this;
-	var subnets = [{ name: 'BL-employee', site: 'Moon Campus', address: '10.34.138.0', maskBits: '24', vlan: '200' }, { name: 'BL-classroom', site: 'Moon Campus', address: '10.34.139.0', maskBits: '25', vlan: '320' }, { name: 'BL-server', site: 'Moon Campus', address: '10.34.140.0', maskBits: '26', vlan: '250' }];
 };
 
 exports.default = subnetsController;
 
-},{}],19:[function(require,module,exports){
-module.exports = "<h1>this is the subnets html</h1>";
+},{}],25:[function(require,module,exports){
+module.exports = "";
 
-},{}],20:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -397,7 +540,7 @@ console.log('users.component');
 
 exports.default = usersComponent;
 
-},{"./users.controller":21,"./users.html":22}],21:[function(require,module,exports){
+},{"./users.controller":27,"./users.html":28}],27:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -414,9 +557,55 @@ var usersController = function usersController($rootScope) {
 
 exports.default = usersController;
 
-
-},{}],19:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 module.exports = "<div class=\"col-md-6 col-md-offset-3\">\n    <h2>Register</h2>\n    <form name=\"form\" ng-submit=\"ctrl.user()\" role=\"form\">\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }\">\n            <label for=\"username\">First name</label>\n            <input type=\"text\" name=\"firstName\" id=\"firstName\" class=\"form-control\" ng-model=\"ctrl.user.firstName\" required />\n            <span ng-show=\"form.firstName.$dirty && form.firstName.$error.required\" class=\"help-block\">First name is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.lastName.$dirty && form.lastName.$error.required }\">\n            <label for=\"username\">Last name</label>\n            <input type=\"text\" name=\"lastName\" id=\"Text1\" class=\"form-control\" ng-model=\"ctrl.user.lastName\" required />\n            <span ng-show=\"form.lastName.$dirty && form.lastName.$error.required\" class=\"help-block\">Last name is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.username.$dirty && form.username.$error.required }\">\n            <label for=\"username\">Username</label>\n            <input type=\"text\" name=\"username\" id=\"username\" class=\"form-control\" ng-model=\"ctrl.user.username\" required />\n            <span ng-show=\"form.username.$dirty && form.username.$error.required\" class=\"help-block\">Username is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.password.$dirty && form.password.$error.required }\">\n            <label for=\"password\">Password</label>\n            <input type=\"password\" name=\"password\" id=\"password\" class=\"form-control\" ng-model=\"ctrl.user.password\" required />\n            <span ng-show=\"form.password.$dirty && form.password.$error.required\" class=\"help-block\">Password is required</span>\n        </div>\n        <div class=\"form-actions\">\n            <button type=\"submit\" ng-disabled=\"form.$invalid || ctrl.dataLoading\" class=\"btn btn-primary\">Register</button>\n            \n            <a href=\"#!/login\" class=\"btn btn-link\">Cancel</a>\n        </div>\n    </form>\n</div>";
 
+},{}],29:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _usersform = require('./usersform.html');
+
+var _usersform2 = _interopRequireDefault(_usersform);
+
+var _usersform3 = require('./usersform.controller');
+
+var _usersform4 = _interopRequireDefault(_usersform3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var usersformComponent = {
+	bindings: {},
+	template: _usersform2.default,
+	controller: ['$rootScope', '$interval', _usersform4.default],
+	controllerAs: '$ctrl'
+};
+
+console.log('usersform.component');
+
+exports.default = usersformComponent;
+
+},{"./usersform.controller":30,"./usersform.html":31}],30:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var usersformController = function usersformController($rootScope) {
+	_classCallCheck(this, usersformController);
+
+	var ctrl = this;
+};
+
+exports.default = usersformController;
+
+},{}],31:[function(require,module,exports){
+module.exports = "<div class=\"form-group\">\n    <label for=\"typeSelect\">Type</label>\n    <select class=\"form-control\" id=\"typeSelect\">\n      <option>Printer</option>\n      <option>Computer</option>\n    </select>\n  </div>\n  <div class=\"form-group\">\n    <label for=\"equipmentName\">Equipment Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"equipmentName\">\n  </div>\n  <div class=\"form-group\">\n    <label for=\"hostName\">Host Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"hostName\">\n  </div>";
 
 },{}]},{},[4]);

@@ -1,12 +1,10 @@
-console.log('tab controller is called');
 
 
 
 class tabboardController {
 
-	constructor($rootScope) {
+	constructor($rootScope, $http, $q, $interval) {
 		let ctrl=this;
-		console.log('tab constructor is called');
 		ctrl.$rootScope = $rootScope;
 		ctrl.sitesTab = $('#sitesTab').attr('id');
 		ctrl.subnetsTab = $('#subnetsTab').attr('id');
@@ -21,6 +19,7 @@ class tabboardController {
 
 	};
 
+		//tab logic
 		switchTabView(event) {
 			let ctrl = this;
 			let showTab = ctrl.$rootScope.showTab;
@@ -38,7 +37,7 @@ class tabboardController {
 				break;
 			}			
 
-		}
+		} //end tab logic
 
 
 

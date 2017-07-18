@@ -6,8 +6,7 @@ import usersComponent from './components/users/users.component';
 import loginComponent from './components/login/login.component';
 import tabboardComponent from './components/tabboard/tabboard.component';
 import navComponent from './components/nav/nav.component';
-
-
+import random from './app.services.js';
 
 angular.module('app',['ngRoute','ngCookies'])
 .component('app', appComponent)
@@ -18,6 +17,7 @@ angular.module('app',['ngRoute','ngCookies'])
 .component('login', loginComponent)
 .component('tabboard', tabboardComponent)
 .component('nav', navComponent)
+.factory('randomUserService', random)
 .config(config)
 .run(run);
 

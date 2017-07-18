@@ -6,11 +6,11 @@ import usersComponent from './components/users/users.component';
 import loginComponent from './components/login/login.component';
 import tabboardComponent from './components/tabboard/tabboard.component';
 import navComponent from './components/nav/nav.component';
+import random from './app.services.js';
 
+let app = angular.module('app',[]);
 
-
-angular.module('app',[])
-.component('app', appComponent)
+app.component('app', appComponent)
 .component('equipment', equipmentComponent)
 .component('sites', sitesComponent)
 .component('subnets', subnetsComponent)
@@ -18,3 +18,7 @@ angular.module('app',[])
 .component('login', loginComponent)
 .component('tabboard', tabboardComponent)
 .component('nav', navComponent)
+.factory('randomUserService', random)
+
+
+

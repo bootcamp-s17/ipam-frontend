@@ -2,7 +2,7 @@
 <div class="container">
 	<div class="jumbotron">
 		<h3>Login</h3>
-		<form name="form" ng-submit="vm.login()" role="form" id="form-login">
+		<form name="form" ng-submit="ctrl.login()" role="form" id="form-login">
 		  <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
 		    <label>Email Address</label>
 		    <input type="text" name="email" id="email" class="form-control" ng-model="ctrl.email" required />

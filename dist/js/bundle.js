@@ -42,7 +42,7 @@ var appCtrl = function appCtrl() {
 exports.default = appCtrl;
 
 },{}],3:[function(require,module,exports){
-module.exports = "<equipment></equipment>\n<br />\n<sites></sites>\n<br />\n<subnets></subnets>\n<br />\n<users></users>";
+module.exports = "<equipment></equipment>\n<br />\n<sites></sites>\n<br />\n<subnets></subnets>\n<br />\n<users></users>\n<br />\n<login></login>";
 
 },{}],4:[function(require,module,exports){
 'use strict';
@@ -248,7 +248,7 @@ console.log('subnets.component');
 exports.default = subnetsComponent;
 
 },{"./subnets.controller":15,"./subnets.html":16}],15:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -260,6 +260,7 @@ var subnetsController = function subnetsController($rootScope) {
 	_classCallCheck(this, subnetsController);
 
 	var ctrl = this;
+	var subnets = [{ name: 'BL-employee', site: 'Moon Campus', address: '10.34.138.0', maskBits: '24', vlan: '200' }, { name: 'BL-classroom', site: 'Moon Campus', address: '10.34.139.0', maskBits: '25', vlan: '320' }, { name: 'BL-server', site: 'Moon Campus', address: '10.34.140.0', maskBits: '26', vlan: '250' }];
 };
 
 exports.default = subnetsController;

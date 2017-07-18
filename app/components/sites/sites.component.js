@@ -4,7 +4,7 @@ import controller from './sites.controller';
 let sitesComponent = {
 	bindings : {},
 	template,
-	controller: ['$rootScope', '$interval', controller],
+	controller: ['$rootScope', '$interval', '$http', controller],
 	controllerAs : '$ctrl'
 };
 

@@ -34,7 +34,7 @@
  
             /* Use this for real authentication
              ----------------------------------------------*/
-            //$http.post('/api/authenticate', { username: username, password: password })
+            //$http.post('/api/authenticate', { email: email, password: password })
             //    .success(function (response) {
             //        callback(response);
             //    });

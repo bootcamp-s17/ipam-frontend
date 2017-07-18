@@ -1,4 +1,4 @@
-class usersController {
+class UsersController {
 
 	constructor($rootScope) {
 		let ctrl=this;
@@ -6,4 +6,4 @@ class usersController {
 	};
 }
 
-export default usersController;
+export default UsersController;

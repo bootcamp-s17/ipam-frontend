@@ -1,7 +1,7 @@
 import template from './app.html';
 import controller from './app.controller';
 
-controller.$inject = ['$rootScope', '$http', 'randomUserService'];
+controller.$inject = ['$rootScope', '$http', 'sitesService'];
 
 console.log(controller);
 

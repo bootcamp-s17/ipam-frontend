@@ -17,8 +17,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _app4.default.$inject = ['$rootScope', '$http', 'ipamService'];
 
-console.log(_app4.default);
-
 var appComponent = {
 	template: _app2.default,
 	controller: _app4.default
@@ -42,18 +40,56 @@ var appCtrl = function appCtrl($rootScope, $http, ipamService) {
 
 	ctrl.$rootScope = $rootScope;
 
-	// grabs api data for sites
-	ctrl.query = ipamService.getSites().query();
+	/*----------------------------------------------------------
+ 						SITES
+ ----------------------------------------------------------*/
 
-	// pushes data to sites object
-	ctrl.query.$promise.then(function (data) {
-		ctrl.$rootScope.sites = data;
-	});
+	// Setting a global function for getting ALL sites from API
+	ctrl.$rootScope.getSites = function () {
 
-	ctrl.$rootScope.$watch('sites', function () {
-		ctrl.$rootScope.sites;
-	});
-};
+		// grabs api data for all the sites with the ngresource query()
+		ctrl.query = ipamService.getSites().query();
+
+		// pushes data to sites object
+		ctrl.query.$promise.then(function (data) {
+			ctrl.$rootScope.sites = data;
+		});
+	}; // end getSites()
+
+	ctrl.$rootScope.getSite = function (id) {
+		ctrl.get = ipamService.getSites().get({ site: id });
+
+		ctrl.get.$promise.then(function (data) {
+			ctrl.$rootScope.site = data;
+		});
+
+		alert(id);
+	};
+
+	// ctrl.$rootScope.$watch('site', function() {
+	// 	console.log(ctrl.$rootScope.site);
+	// })
+
+	ipamService.getSites().save(JSON.stringify({ name: 'name', address: 'add', abbreviation: 'abbr', site_contact: 'me' }));
+
+	/* ------------------------------------------------------
+ 						SUBNETS
+ ----------------------------------------------------------*/
+
+	// Setting a global function for getting sites from API
+	ctrl.$rootScope.getSubnets = function () {
+		// grabs api data for all the sites with the ngresource query()
+		ctrl.query = ipamService.getSubnets().query();
+
+		// pushes data to sites object, .then means we wait on the promise
+		ctrl.query.$promise.then(function (data) {
+			ctrl.$rootScope.subnets = data;
+		});
+	}; // end getSubnets()
+
+} // end constructor
+
+; // end appCtrl
 
 exports.default = appCtrl;
 
@@ -151,6 +187,7 @@ function ipamService($resource) {
 				getSubnets: function getSubnets() {
 						return $resource('http://localhost:7000/api/subnets/:subnet', { subnet: "@subnet" });
 				}
+				// addSite: () => $resource('http://localhost:7000/api/sites', {});
 		};
 };
 
@@ -189,8 +226,6 @@ var equipmentComponent = {
 	controller: ['$rootScope', '$interval', _equipment4.default],
 	controllerAs: '$ctrl'
 };
-
-console.log('equipment.component');
 
 exports.default = equipmentComponent;
 
@@ -271,8 +306,6 @@ var loginComponent = {
 	controllerAs: '$ctrl'
 };
 
-console.log('login.component');
-
 exports.default = loginComponent;
 
 },{"./login.controller":10,"./login.html":11}],10:[function(require,module,exports){
@@ -342,8 +375,6 @@ var navComponent = {
 	controllerAs: '$ctrl'
 };
 
-console.log('nav.component');
-
 exports.default = navComponent;
 
 },{"./nav.controller":13,"./nav.html":14}],13:[function(require,module,exports){
@@ -390,8 +421,6 @@ var sitesComponent = {
 	controllerAs: '$ctrl'
 };
 
-console.log('sites.component');
-
 exports.default = sitesComponent;
 
 },{"./sites.controller":16,"./sites.html":17}],16:[function(require,module,exports){
@@ -410,8 +439,8 @@ var sitesController = function () {
 		_classCallCheck(this, sitesController);
 
 		var ctrl = this;
-		ctrl.$http = $http;
 		ctrl.$rootScope = $rootScope;
+		ctrl.$rootScope.getSites();
 
 		// $http request for sites endpoint
 	}
@@ -429,7 +458,7 @@ var sitesController = function () {
 exports.default = sitesController;
 
 },{}],17:[function(require,module,exports){
-module.exports = "\r\n<div class=\"container\">\r\n\t<div class=\"row\">\r\n\t\t<div  class=\"col-4\" ng-repeat=\"site in $ctrl.$rootScope.sites\">\r\n\t\t\t<div class=\"card card-block\" >\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t\t<h4 class=\"col-8\">{{site.name}}</h4>\r\n\t\t\t\t\t\t<h5 class=\"col-4\">{{site.abbreviation}}</h5>\r\n\t\t\t\t</div>\r\n\t\t\t\t<ul class=\"list-group list-group-flush\">\r\n\t\t\t\t\t<li class=\"list-group-item\">Address: {{site.address}} </li>\r\n\t\t\t\t\t<li class=\"list-group-item\">Contact: {{site.site_contact}} </li>\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<div class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<h4 class=\"col text-center\">Add New Site</h4>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col text-center\">\r\n\t\t\t\t\t\t\r\n\t\t\t\t<a ng-click=\"$ctrl.addNewSite()\" class=\"text-center\"><i class=\"fa fa-plus fa-5x text-center\"></i></a>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\r\n\r\n\t</div> <!-- end main row -->\r\n\r\n\r\n</div> <!-- end container -->\r\n\r\n";
+module.exports = "\r\n<div class=\"container\">\r\n\t<div class=\"row\">\r\n\t\t<div  class=\"col-4\" ng-repeat=\"site in $ctrl.$rootScope.sites\">\r\n\t\t\t<div class=\"card card-block\" >\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t\t<h4 class=\"col-8\" ng-click=\"$ctrl.$rootScope.getSite(site.id)\">{{site.name}}</h4>\r\n\t\t\t\t\t\t<h5 class=\"col-4\">{{site.abbreviation}}</h5>\r\n\t\t\t\t</div>\r\n\t\t\t\t<ul class=\"list-group list-group-flush\">\r\n\t\t\t\t\t<li class=\"list-group-item\">Address: {{site.address}} </li>\r\n\t\t\t\t\t<li class=\"list-group-item\">Contact: {{site.site_contact}} </li>\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<div class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<h4 class=\"col text-center\">Add New Site</h4>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col text-center\">\r\n\t\t\t\t\t\t\r\n\t\t\t\t<a ng-click=\"$ctrl.addNewSite()\" class=\"text-center\"><i class=\"fa fa-plus fa-5x text-center\"></i></a>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\r\n\r\n\t</div> <!-- end main row -->\r\n\r\n\r\n</div> <!-- end container -->\r\n\r\n";
 
 },{}],18:[function(require,module,exports){
 'use strict';
@@ -455,8 +484,6 @@ var subnetsComponent = {
 	controllerAs: '$ctrl'
 };
 
-console.log('subnets.component');
-
 exports.default = subnetsComponent;
 
 },{"./subnets.controller":19,"./subnets.html":20}],19:[function(require,module,exports){
@@ -474,6 +501,7 @@ var subnetsController = function subnetsController($rootScope) {
 	var ctrl = this;
 	ctrl.$rootScope = $rootScope;
 
+	ctrl.$rootScope.getSubnets();
 	// ctrl.$rootScope.$watch('sites', function() {
 	// console.log(ctrl.$rootScope.sites);
 	// })
@@ -482,7 +510,7 @@ var subnetsController = function subnetsController($rootScope) {
 exports.default = subnetsController;
 
 },{}],20:[function(require,module,exports){
-module.exports = "<h1>HELLO</h1>\n";
+module.exports = "<h1>HELLO</h1>\n<ul>\n\t<li ng-repeat=\"subnet in $ctrl.$rootScope.subnets\">{{subnet.name}}</li>\n</ul>";
 
 },{}],21:[function(require,module,exports){
 'use strict';
@@ -596,8 +624,6 @@ var usersComponent = {
 	controller: ['$rootScope', '$interval', _users4.default],
 	controllerAs: '$ctrl'
 };
-
-console.log('users.component');
 
 exports.default = usersComponent;
 

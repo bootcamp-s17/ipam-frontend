@@ -8,6 +8,5 @@ let loginComponent = {
 	controllerAs : '$ctrl'
 };
 
-console.log('login.component');
 
 export default loginComponent;

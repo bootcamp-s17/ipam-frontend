@@ -2,8 +2,10 @@ class sitesController {
 
 	constructor($rootScope, $http) {
 		let ctrl = this;
-        ctrl.$http = $http;
         ctrl.$rootScope = $rootScope;
+        ctrl.$rootScope.getSites();
+
+
 
 		// $http request for sites endpoint
 

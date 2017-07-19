@@ -8,6 +8,5 @@ let subnetsComponent = {
 	controllerAs : '$ctrl'
 };
 
-console.log('subnets.component');
 
 export default subnetsComponent;

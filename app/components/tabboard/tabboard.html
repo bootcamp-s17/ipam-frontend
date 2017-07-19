@@ -1,0 +1,17 @@
+<h1>Tab Board</h1>
+
+<ul class="nav nav-tabs"> <!-- Tabs -->
+  <li class="nav-item">
+    <a class="nav-link active" id="sitesTab" value="sites" ng-click="$ctrl.switchTabView($event)" href="#">Sites</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="subnetsTab" ng-click="$ctrl.switchTabView($event)" href="#">Subnets</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="equipmentTab" ng-click="$ctrl.switchTabView($event)" href="#">Equipment</a>
+  </li>
+</ul> <!-- End Tabs -->
+
+<sites ng-show="$ctrl.showTab == 'sites'"></sites>
+<subnets ng-show="$ctrl.showTab == 'subnets'"></subnets>
+<equipment ng-show="$ctrl.showTab == 'equipment'"></equipment>

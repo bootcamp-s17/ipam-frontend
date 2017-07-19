@@ -12,7 +12,7 @@ import subnetformComponent from './components/subnetform/subnetform.component';
 import usersformComponent from './components/usersform/usersform.component';
 
 
-angular.module('app',['ngRoute','ngCookies'])
+angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .component('app', appComponent)
 .component('equipment', equipmentComponent)
 .component('sites', sitesComponent)

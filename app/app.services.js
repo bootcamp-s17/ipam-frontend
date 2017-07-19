@@ -26,5 +26,11 @@ function random($http) {
 
 }
 
+// calling restful apis dynamically with $resource
+
+// .factory('UserService', function ($resource) {
+//     return $resource('http://jsonplaceholder.typicode.com/users/:user',{user: "@user"});
+// });
+
 export default random;
 

@@ -15,7 +15,9 @@ var _app4 = _interopRequireDefault(_app3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_app4.default.$inject = ['$rootScope', '$interval'];
+_app4.default.$inject = ['$rootScope', '$http', 'randomUserService'];
+
+console.log(_app4.default);
 
 var appComponent = {
 	template: _app2.default,
@@ -25,7 +27,7 @@ var appComponent = {
 exports.default = appComponent;
 
 },{"./app.controller":2,"./app.html":3}],2:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -33,16 +35,24 @@ Object.defineProperty(exports, "__esModule", {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var appCtrl = function appCtrl() {
+var appCtrl = function appCtrl($rootScope, $http, randomUserService) {
 	_classCallCheck(this, appCtrl);
 
 	var ctrl = this;
+	ctrl.$rootScope = $rootScope;
+	ctrl.$rootScope.getUsers = randomUserService.getUsers().then(function (response) {
+		ctrl.$rootScope.users = response.data.results;
+	});
+
+	ctrl.$rootScope.$watch('users', function () {
+		console.log(ctrl.$rootScope.users);
+	});
 };
 
 exports.default = appCtrl;
 
 },{}],3:[function(require,module,exports){
-module.exports = "<div class=\"jumbotron\">\n    <div class=\"container\">\n    <h1>His</h1>\n        <div class=\"col-sm-8 col-sm-offset-2\">\n            <div ng-class=\"{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }\" ng-if=\"flash\" ng-bind=\"flash.message\"></div>\n            <div ng-view></div>\n        </div>\n    </div>\n</div>\n\n\n\n\n";
+module.exports = "<div ng-view></div> \n<nav></nav>\n<tabboard></tabboard>\n\n\n";
 
 },{}],4:[function(require,module,exports){
 'use strict';
@@ -79,11 +89,85 @@ var _nav = require('./components/nav/nav.component');
 
 var _nav2 = _interopRequireDefault(_nav);
 
+var _appServices = require('./app.services.js');
+
+var _appServices2 = _interopRequireDefault(_appServices);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-angular.module('app', ['ngRoute', 'ngCookies']).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('tabboard', _tabboard2.default).component('nav', _nav2.default);
+angular.module('app', ['ngRoute', 'ngCookies', 'ngResource']).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('tabboard', _tabboard2.default).component('nav', _nav2.default).factory('randomUserService', _appServices2.default).config(config).run(run);
 
-},{"./app.component":1,"./components/equipment/equipment.component":5,"./components/login/login.component":8,"./components/nav/nav.component":11,"./components/sites/sites.component":14,"./components/subnets/subnets.component":17,"./components/tabboard/tabboard.component":20,"./components/users/users.component":23}],5:[function(require,module,exports){
+config.$inject = ['$routeProvider', '$locationProvider'];
+function config($routeProvider, $locationProvider) {
+    $routeProvider.when('/', {
+        templateUrl: 'app/components/tabboard/tabboard.html'
+    }).when('/login', {
+        templateUrl: 'app/components/login/login.html'
+    }).when('/users', {
+        templateUrl: 'app/components/users/users.html'
+    }).otherwise({ redirectTo: '/login' });
+}
+
+run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
+function run($rootScope, $location, $cookies, $http) {
+    // keep user logged in after page refresh
+    $rootScope.globals = $cookies.getObject('globals') || {};
+    if ($rootScope.globals.currentUser) {
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
+    }
+
+    $rootScope.$on('$locationChangeStart', function (event, next, current) {
+        // redirect to login page if not logged in and trying to access a restricted page
+        var restrictedPage = $.inArray($location.path(), ['./components/login/login.html', '.components/users/users.html']) === -1;
+        var loggedIn = $rootScope.globals.currentUser;
+        if (restrictedPage && !loggedIn) {
+            $location.path('/login');
+        }
+    });
+}
+
+},{"./app.component":1,"./app.services.js":5,"./components/equipment/equipment.component":6,"./components/login/login.component":9,"./components/nav/nav.component":12,"./components/sites/sites.component":15,"./components/subnets/subnets.component":18,"./components/tabboard/tabboard.component":21,"./components/users/users.component":24}],5:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+// function ipam ($http) {
+// 	console.log('ipam factory');
+// 	return {
+// 		data: function () {
+// 			console.log('data');
+// 			console.log($http.get('https://randomuser.me/api/?results=10'));
+// 			return;
+// 		}
+// 	};
+// }
+
+function random($http) {
+	return {
+		getUsers: function getUsers() {
+
+			// let users = {list:null};
+
+			return $http.get('https://randomuser.me/api/?results=10');
+			// .then(function(data) {
+			// 	users.list = data;
+			// });
+
+			// return users;
+		}
+	};
+}
+
+// calling restful apis dynamically with $resource
+
+// .factory('UserService', function ($resource) {
+//     return $resource('http://jsonplaceholder.typicode.com/users/:user',{user: "@user"});
+// });
+
+exports.default = random;
+
+},{}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -111,7 +195,7 @@ console.log('equipment.component');
 
 exports.default = equipmentComponent;
 
-},{"./equipment.controller":6,"./equipment.html":7}],6:[function(require,module,exports){
+},{"./equipment.controller":7,"./equipment.html":8}],7:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -128,10 +212,10 @@ var equipmentController = function equipmentController($rootScope) {
 
 exports.default = equipmentController;
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 module.exports = "<h1>this is the equipment html</h1>";
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -159,7 +243,7 @@ console.log('login.component');
 
 exports.default = loginComponent;
 
-},{"./login.controller":9,"./login.html":10}],9:[function(require,module,exports){
+},{"./login.controller":10,"./login.html":11}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -199,10 +283,10 @@ var loginController = function loginController($rootScope) {
 
 exports.default = loginController;
 
-},{}],10:[function(require,module,exports){
-module.exports = "\n<div class=\"container\">\n\t<div class=\"jumbotron\">\n\t\t<h3>Login</h3>\n\t\t<form name=\"form\" ng-submit=\"vm.login()\" role=\"form\" id=\"form-login\">\n\t\t  <div class=\"form-group\" ng-class=\"{ 'has-error': form.email.$dirty && form.email.$error.required }\">\n\t\t    <label>Email Address</label>\n\t\t    <input type=\"text\" name=\"email\" id=\"email\" class=\"form-control\" ng-model=\"ctrl.email\" required />\n\t\t    <span ng-show=\"form.email.$dirty && form.email.$error.required\" class=\"help-block\">Email is required</span>\n\t\t  </div>\n\t\t  <div class=\"form-group\" ng-class=\"{ 'has-error': form.password.$dirty && form.password.$error.required }\">\n            <label for=\"password\">Password</label>\n            <input type=\"password\" name=\"password\" id=\"password\" class=\"form-control\" ng-model=\"ctrl.password\" required />\n            <span ng-show=\"form.password.$dirty && form.password.$error.required\" class=\"help-block\">Password is required</span>\n        </div>\n        <div class=\"form-actions\">\n\t\t<button type=\"submit\" class=\"btn btn-success\" ng-disabled=\"form.$invalid || ctrl.dataLoading\">Submit</button>\n\t\t<button type=\"button\" class=\"btn btn-secondary\">Forgot Password?</button>\n\t\t</div>\n\t\t</form>\n\t</div>\n</div>";
-
 },{}],11:[function(require,module,exports){
+module.exports = "\n<div class=\"container\">\n\t<div class=\"jumbotron\">\n\t\t<h3>Login</h3>\n\t\t<form name=\"form\" ng-submit=\"ctrl.login()\" role=\"form\" id=\"form-login\">\n\t\t  <div class=\"form-group\" ng-class=\"{ 'has-error': form.email.$dirty && form.email.$error.required }\">\n\t\t    <label>Email Address</label>\n\t\t    <input type=\"text\" name=\"email\" id=\"email\" class=\"form-control\" ng-model=\"ctrl.email\" required />\n\t\t    <span ng-show=\"form.email.$dirty && form.email.$error.required\" class=\"help-block\">Email is required</span>\n\t\t  </div>\n\t\t  <div class=\"form-group\" ng-class=\"{ 'has-error': form.password.$dirty && form.password.$error.required }\">\n            <label for=\"password\">Password</label>\n            <input type=\"password\" name=\"password\" id=\"password\" class=\"form-control\" ng-model=\"ctrl.password\" required />\n            <span ng-show=\"form.password.$dirty && form.password.$error.required\" class=\"help-block\">Password is required</span>\n        </div>\n        <div class=\"form-actions\">\n\t\t<button type=\"submit\" class=\"btn btn-success\" ng-disabled=\"form.$invalid || ctrl.dataLoading\">Submit</button>\n\t\t<button type=\"button\" class=\"btn btn-secondary\">Forgot Password?</button>\n\t\t</div>\n\t\t</form>\n\t</div>\n</div>";
+
+},{}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -230,7 +314,7 @@ console.log('nav.component');
 
 exports.default = navComponent;
 
-},{"./nav.controller":12,"./nav.html":13}],12:[function(require,module,exports){
+},{"./nav.controller":13,"./nav.html":14}],13:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -247,10 +331,10 @@ var navController = function navController($rootScope) {
 
 exports.default = navController;
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 module.exports = "<ul class=\"nav nav-tabs  navbar-light\" style=\"background-color: #DDD;\">\n  <li class=\"nav-item\">\n    <a class=\"navbar-brand\" href=\"../login/login.html\">IPAM</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" href=\"../../app.html\">Dashboard</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link disabled\" href=\"../users/users.html\">Manage Users</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" href=\"../login/login.html\">Logout</a>\n  </li>\n</ul>\n\n";
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -278,7 +362,7 @@ console.log('sites.component');
 
 exports.default = sitesComponent;
 
-},{"./sites.controller":15,"./sites.html":16}],15:[function(require,module,exports){
+},{"./sites.controller":16,"./sites.html":17}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -311,10 +395,10 @@ var sitesController = function () {
 
 exports.default = sitesController;
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 module.exports = "\r\n<div class=\"container\">\r\n\t<div class=\"row\">\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<div class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t\t<h4 class=\"col-8\">Site Name</h4>\r\n\t\t\t\t\t\t<h5 class=\"col-4\">ABBR</h5>\r\n\t\t\t\t</div>\r\n\t\t\t\t<ul class=\"list-group list-group-flush\">\r\n\t\t\t\t\t<li class=\"list-group-item\">Address:</li>\r\n\t\t\t\t\t<li class=\"list-group-item\">Contact:</li>\r\n\t\t\t\t\t<li class=\"list-group-item\">Notes</li>\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<div class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<h4 class=\"col-8\">Site Name</h4>\r\n\t\t\t\t\t\t<h5 class=\"col-4\">ABBR</h5>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col\">Address</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col\">Contact</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col\">Notes</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<div class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<h4 class=\"col text-center\">Add New Site</h4>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col text-center\">\r\n\t\t\t\t\t\t\r\n\t\t\t\t<a ng-click=\"$ctrl.addNewSite()\" class=\"text-center\"><i class=\"fa fa-plus fa-5x text-center\"></i></a>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\r\n\r\n\t</div> <!-- end main row -->\r\n\r\n\r\n</div> <!-- end container -->\r\n\r\n";
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -342,7 +426,7 @@ console.log('subnets.component');
 
 exports.default = subnetsComponent;
 
-},{"./subnets.controller":18,"./subnets.html":19}],18:[function(require,module,exports){
+},{"./subnets.controller":19,"./subnets.html":20}],19:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -359,10 +443,10 @@ var subnetsController = function subnetsController($rootScope) {
 
 exports.default = subnetsController;
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 module.exports = "";
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -379,20 +463,16 @@ var _tabboard4 = _interopRequireDefault(_tabboard3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-console.log(_tabboard4.default);
-
 var tabboardComponent = {
 	bindings: {},
 	template: _tabboard2.default,
-	controller: ['$rootScope', '$interval', _tabboard4.default],
+	controller: ['$rootScope', '$interval', '$http', '$q', _tabboard4.default],
 	controllerAs: '$ctrl'
 };
 
-console.log('tabboard.component');
-
 exports.default = tabboardComponent;
 
-},{"./tabboard.controller":21,"./tabboard.html":22}],21:[function(require,module,exports){
+},{"./tabboard.controller":22,"./tabboard.html":23}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -403,14 +483,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-console.log('tab controller is called');
-
 var tabboardController = function () {
-	function tabboardController($rootScope) {
+	function tabboardController($rootScope, $http, $q, $interval) {
 		_classCallCheck(this, tabboardController);
 
 		var ctrl = this;
-		console.log('tab constructor is called');
 		ctrl.$rootScope = $rootScope;
 		ctrl.sitesTab = $('#sitesTab').attr('id');
 		ctrl.subnetsTab = $('#subnetsTab').attr('id');
@@ -426,6 +503,9 @@ var tabboardController = function () {
 
 	_createClass(tabboardController, [{
 		key: 'switchTabView',
+
+
+		//tab logic
 		value: function switchTabView(event) {
 			var ctrl = this;
 			var showTab = ctrl.$rootScope.showTab;
@@ -442,7 +522,9 @@ var tabboardController = function () {
 					ctrl.showTab = 'equipment';
 					break;
 			}
-		}
+		} //end tab logic
+
+
 	}]);
 
 	return tabboardController;
@@ -450,10 +532,10 @@ var tabboardController = function () {
 
 exports.default = tabboardController;
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 module.exports = "<h1>Tab Board</h1>\n\n<ul class=\"nav nav-tabs\"> <!-- Tabs -->\n  <li class=\"nav-item\">\n    <a class=\"nav-link active\" id=\"sitesTab\" value=\"sites\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#\">Sites</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" id=\"subnetsTab\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#\">Subnets</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" id=\"equipmentTab\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#\">Equipment</a>\n  </li>\n</ul> <!-- End Tabs -->\n\n<sites ng-show=\"$ctrl.showTab == 'sites'\"></sites>\n<subnets ng-show=\"$ctrl.showTab == 'subnets'\"></subnets>\n<equipment ng-show=\"$ctrl.showTab == 'equipment'\"></equipment>";
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -481,7 +563,7 @@ console.log('users.component');
 
 exports.default = usersComponent;
 
-},{"./users.controller":24,"./users.html":25}],24:[function(require,module,exports){
+},{"./users.controller":25,"./users.html":26}],25:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -498,7 +580,7 @@ var UsersController = function UsersController($rootScope) {
 
 exports.default = UsersController;
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 module.exports = "<div class=\"col-md-6 col-md-offset-3\">\n    <h2>Manage Users</h2>\n    <form name=\"form\" ng-submit=\"ctrl.user()\" role=\"form\">\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }\">\n            <label for=\"username\">First name</label>\n            <input type=\"text\" name=\"firstName\" id=\"firstName\" class=\"form-control\" ng-model=\"ctrl.user.firstName\" required />\n            <span ng-show=\"form.firstName.$dirty && form.firstName.$error.required\" class=\"help-block\">First name is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.lastName.$dirty && form.lastName.$error.required }\">\n            <label for=\"username\">Last name</label>\n            <input type=\"text\" name=\"lastName\" id=\"Text1\" class=\"form-control\" ng-model=\"ctrl.user.lastName\" required />\n            <span ng-show=\"form.lastName.$dirty && form.lastName.$error.required\" class=\"help-block\">Last name is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.username.$dirty && form.username.$error.required }\">\n            <label for=\"username\">Username</label>\n            <input type=\"text\" name=\"username\" id=\"username\" class=\"form-control\" ng-model=\"ctrl.user.username\" required />\n            <span ng-show=\"form.username.$dirty && form.username.$error.required\" class=\"help-block\">Username is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.password.$dirty && form.password.$error.required }\">\n            <label for=\"password\">Password</label>\n            <input type=\"password\" name=\"password\" id=\"password\" class=\"form-control\" ng-model=\"ctrl.user.password\" required />\n            <span ng-show=\"form.password.$dirty && form.password.$error.required\" class=\"help-block\">Password is required</span>\n        </div>\n        <div class=\"form-actions\">\n            <button type=\"submit\" ng-disabled=\"form.$invalid || ctrl.dataLoading\" class=\"btn btn-primary\">Register</button>\n            \n            <a href=\"#!/login\" class=\"btn btn-link\">Cancel</a>\n        </div>\n    </form>\n</div>";
 
 },{}]},{},[4]);

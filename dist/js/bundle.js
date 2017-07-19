@@ -27,7 +27,7 @@ var appComponent = {
 exports.default = appComponent;
 
 },{"./app.controller":2,"./app.html":3}],2:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -39,19 +39,20 @@ var appCtrl = function appCtrl($rootScope, $http, ipamService) {
 	_classCallCheck(this, appCtrl);
 
 	var ctrl = this;
+
 	ctrl.$rootScope = $rootScope;
+
+	// grabs api data for sites
 	ctrl.query = ipamService.getSites().query();
+
+	// pushes data to sites object
 	ctrl.query.$promise.then(function (data) {
 		ctrl.$rootScope.sites = data;
-		console.log(ctrl.$rootScope.sites.length);
 	});
-	// ctrl.$rootScope.getUsers = (randomUserService.getUsers().then(function(response){
-	// 	ctrl.$rootScope.users = response.data.results;
-	// }));
 
-	// ctrl.$rootScope.$watch('users', function() {
-	// 	console.log(ctrl.$rootScope.users);
-	// })
+	ctrl.$rootScope.$watch('sites', function () {
+		ctrl.$rootScope.sites;
+	});
 };
 
 exports.default = appCtrl;
@@ -134,35 +135,24 @@ function run($rootScope, $location, $cookies, $http) {
 }
 
 },{"./app.component":1,"./app.services.js":5,"./components/equipment/equipment.component":6,"./components/login/login.component":9,"./components/nav/nav.component":12,"./components/sites/sites.component":15,"./components/subnets/subnets.component":18,"./components/tabboard/tabboard.component":21,"./components/users/users.component":24}],5:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 		value: true
 });
 
-// function random($http) {
-// 	return {
-// 		getUsers: function() {
-
-
-// 			return $http.get('https://randomuser.me/api/?results=10');
-
-// 			// return users;
-// 		}
-// 	}
-
-// }
 
 function ipamService($resource) {
 
 		return {
 				getSites: function getSites() {
-						return $resource('http://localhost:7000/api/sites/:site', {
-								site: "@site"
-						});
+						return $resource('http://localhost:7000/api/sites/:site', { site: "@site" });
+				},
+				getSubnets: function getSubnets() {
+						return $resource('http://localhost:7000/api/subnets/:subnet', { subnet: "@subnet" });
 				}
 		};
-}
+};
 
 // function subnetsService($resource) {
 
@@ -255,7 +245,7 @@ var equipmentController = function () {
 exports.default = equipmentController;
 
 },{}],8:[function(require,module,exports){
-module.exports = "<!-- <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n  Launch demo modal\n</button>\n\n Modal\n div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Modal title</h5>\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        ...\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n        <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\n      </div>\n    </div>\n  </div>\n</div> -->\n\n<button id=\"addEquipment\" ng-click=\"$ctrl.click()\"> Add Equipment</button>\n<equipmentform ng-show=\"$ctrl.$rootScope.equipshow === true\"></equipmentform>\n\n";
+module.exports = "<!-- <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n  Launch demo modal\n</button>\n\n Modal\n div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Modal title</h5>\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        ...\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n        <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\n      </div>\n    </div>\n  </div>\n</div> -->\n\n<button id=\"addEquipment\" ng-click=\"$ctrl.click()\"> Add Equipment</button>\n<equipmentform></equipmentform>\n\n";
 
 },{}],9:[function(require,module,exports){
 'use strict';
@@ -421,6 +411,7 @@ var sitesController = function () {
 
 		var ctrl = this;
 		ctrl.$http = $http;
+		ctrl.$rootScope = $rootScope;
 
 		// $http request for sites endpoint
 	}
@@ -438,7 +429,7 @@ var sitesController = function () {
 exports.default = sitesController;
 
 },{}],17:[function(require,module,exports){
-module.exports = "\r\n<div class=\"container\">\r\n\t<div class=\"row\">\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<div class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t\t<h4 class=\"col-8\">Site Name</h4>\r\n\t\t\t\t\t\t<h5 class=\"col-4\">ABBR</h5>\r\n\t\t\t\t</div>\r\n\t\t\t\t<ul class=\"list-group list-group-flush\">\r\n\t\t\t\t\t<li class=\"list-group-item\">Address:</li>\r\n\t\t\t\t\t<li class=\"list-group-item\">Contact:</li>\r\n\t\t\t\t\t<li class=\"list-group-item\">Notes</li>\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<div class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<h4 class=\"col-8\">Site Name</h4>\r\n\t\t\t\t\t\t<h5 class=\"col-4\">ABBR</h5>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col\">Address</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col\">Contact</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col\">Notes</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<div class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<h4 class=\"col text-center\">Add New Site</h4>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col text-center\">\r\n\t\t\t\t\t\t\r\n\t\t\t\t<a ng-click=\"$ctrl.addNewSite()\" class=\"text-center\"><i class=\"fa fa-plus fa-5x text-center\"></i></a>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\r\n\r\n\t</div> <!-- end main row -->\r\n\r\n\r\n</div> <!-- end container -->\r\n\r\n";
+module.exports = "\r\n<div class=\"container\">\r\n\t<div class=\"row\">\r\n\t\t<div  class=\"col-4\" ng-repeat=\"site in $ctrl.$rootScope.sites\">\r\n\t\t\t<div class=\"card card-block\" >\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t\t<h4 class=\"col-8\">{{site.name}}</h4>\r\n\t\t\t\t\t\t<h5 class=\"col-4\">{{site.abbreviation}}</h5>\r\n\t\t\t\t</div>\r\n\t\t\t\t<ul class=\"list-group list-group-flush\">\r\n\t\t\t\t\t<li class=\"list-group-item\">Address: {{site.address}} </li>\r\n\t\t\t\t\t<li class=\"list-group-item\">Contact: {{site.site_contact}} </li>\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<div class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<h4 class=\"col text-center\">Add New Site</h4>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col text-center\">\r\n\t\t\t\t\t\t\r\n\t\t\t\t<a ng-click=\"$ctrl.addNewSite()\" class=\"text-center\"><i class=\"fa fa-plus fa-5x text-center\"></i></a>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\r\n\r\n\t</div> <!-- end main row -->\r\n\r\n\r\n</div> <!-- end container -->\r\n\r\n";
 
 },{}],18:[function(require,module,exports){
 'use strict';

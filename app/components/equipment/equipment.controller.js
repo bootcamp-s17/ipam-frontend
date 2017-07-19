@@ -4,6 +4,7 @@ class equipmentController {
 		let ctrl=this;
 		let vm=this;
 		ctrl.$rootScope = $rootScope;
+		ctrl.$rootScope.equipshow = false;
 
 		// vm.openModal = openModal;
 		// vm.closeModal = closeModal;
@@ -26,7 +27,9 @@ class equipmentController {
 	click(){
 		let ctrl=this;
 		console.log('im being clicked motherfucker');
+		console.log(ctrl.$rootScope.equipshow);
 		ctrl.$rootScope.equipshow = true;
+		console.log(ctrl.$rootScope.equipshow);
 	}
 
 

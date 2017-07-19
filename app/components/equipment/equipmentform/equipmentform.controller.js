@@ -6,7 +6,7 @@ class equipmentformController {
 		ctrl.$rootScope = $rootScope;
 
 		ctrl.$rootScope.$watch('equipshow',() => {
-			ctrl.equipshow = ctrl.$rootScope.equipshow;
+			ctrl.$rootScope.equipshow = ctrl.equipshow;
 		});
 
 	};

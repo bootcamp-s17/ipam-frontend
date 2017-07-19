@@ -6,10 +6,9 @@ import usersComponent from './components/users/users.component';
 import loginComponent from './components/login/login.component';
 import tabboardComponent from './components/tabboard/tabboard.component';
 import navComponent from './components/nav/nav.component';
-
-import equipmentformComponent from './components/equipmentform/equipmentform.component';
-import subnetformComponent from './components/subnetform/subnetform.component';
-import usersformComponent from './components/usersform/usersform.component';
+import random from './app.services.js'
+import FlashService from './components/login/services/flash.service.js';
+import UserService from './components/login/services/user.service.js';
 
 
 angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
@@ -21,12 +20,9 @@ angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .component('login', loginComponent)
 .component('tabboard', tabboardComponent)
 .component('nav', navComponent)
-
-.component('equipmentform', equipmentformComponent)
-.component('subnetform', subnetformComponent)
-.component('userstform', usersformComponent)
-
 .factory('randomUserService', random)
+.factory('FlashService', FlashService)
+.factory('UserService', UserService)
 .config(config)
 .run(run);
 

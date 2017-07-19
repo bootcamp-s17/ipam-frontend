@@ -41,24 +41,24 @@
             return deferred.promise;
         }
 
-        function Create(user) {
+        function Create(ctrl.user) {
             var deferred = $q.defer();
 
             // simulate api call with $timeout
             $timeout(function () {
-                GetByEmail(user.email)
+                GetByEmail(ctrl.user.email)
                     .then(function (duplicateUser) {
                         if (duplicateUser !== null) {
-                            deferred.resolve({ success: false, message: 'Email "' + user.email + '" is already taken' });
+                            deferred.resolve({ success: false, message: 'Email "' + ctrl.user.email + '" is already taken' });
                         } else {
                             var users = getUsers();
 
                             // assign id
                             var lastUser = users[users.length - 1] || { id: 0 };
-                            user.id = lastUser.id + 1;
+                            ctrl.user.id = lastUser.id + 1;
 
                             // save to local storage
-                            users.push(user);
+                            users.push(ctrl.user);
                             setUsers(users);
 
                             deferred.resolve({ success: true });

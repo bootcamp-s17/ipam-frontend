@@ -12,24 +12,28 @@
 
 // }
 
-function sitesService($resource) {
-		// return $resource('http://www.dnd5eapi.co/api/spells/:spell',
-		// {
-		// 	spell: '@spell'
-		// })
+function ipamService($resource) {
 
-	 return $resource('localhost:8080/api/sites/:site', 
-		 {
-		 	site: "@site"
-		 }
-	 	);
+		return {
+			getSites: () => {
+	 			return $resource('http://localhost:7000/api/sites/:site', 
+					 {
+					 	site: "@site"
+					 }
+	 			);
+			}
+		}
+
 }
 
-// calling restful apis dynamically with $resource
+// function subnetsService($resource) {
 
-// .factory('UserService', function ($resource) {
-//     return $resource('http://jsonplaceholder.typicode.com/users/:user',{user: "@user"});
-// });
+// 	 return $resource('http://localhost:7000/api/subnets/:subnet', 
+// 		 {
+// 		 	subnet: "@subnet"
+// 		 }
+// 	 	);
+// }
 
-export default sitesService;
 
+export default ipamService;

@@ -6,7 +6,7 @@ import usersComponent from './components/users/users.component';
 import loginComponent from './components/login/login.component';
 import tabboardComponent from './components/tabboard/tabboard.component';
 import navComponent from './components/nav/nav.component';
-import sitesService from './app.services.js';
+import ipamService from './app.services.js';
 
 angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .component('app', appComponent)
@@ -18,7 +18,7 @@ angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .component('tabboard', tabboardComponent)
 .component('nav', navComponent)
 // .factory('randomUserService', random)
-.factory('sitesService', sitesService)
+.factory('ipamService', ipamService)
 .config(config)
 .run(run);
 

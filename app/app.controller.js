@@ -3,12 +3,15 @@
 
 class appCtrl {
 
-	constructor($rootScope, $http, sitesService) {
+	constructor($rootScope, $http, ipamService) {
 		let ctrl = this;
-		ctrl.sites = sitesService.get();
-		console.log('sites console log');
-		console.log(ctrl.sites);
 		ctrl.$rootScope = $rootScope;
+		ctrl.query = ipamService.getSites().query();
+		ctrl.query.$promise.then( (data) => {
+			ctrl.$rootScope.sites = data;
+		console.log(ctrl.$rootScope.sites.length);
+
+		})
 		// ctrl.$rootScope.getUsers = (randomUserService.getUsers().then(function(response){
 		// 	ctrl.$rootScope.users = response.data.results;
 		// }));

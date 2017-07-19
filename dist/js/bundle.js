@@ -15,7 +15,7 @@ var _app4 = _interopRequireDefault(_app3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_app4.default.$inject = ['$rootScope', '$http', 'sitesService'];
+_app4.default.$inject = ['$rootScope', '$http', 'ipamService'];
 
 console.log(_app4.default);
 
@@ -27,7 +27,7 @@ var appComponent = {
 exports.default = appComponent;
 
 },{"./app.controller":2,"./app.html":3}],2:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -35,14 +35,16 @@ Object.defineProperty(exports, "__esModule", {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var appCtrl = function appCtrl($rootScope, $http, sitesService) {
+var appCtrl = function appCtrl($rootScope, $http, ipamService) {
 	_classCallCheck(this, appCtrl);
 
 	var ctrl = this;
-	ctrl.sites = sitesService.get();
-	console.log('sites console log');
-	console.log(ctrl.sites);
 	ctrl.$rootScope = $rootScope;
+	ctrl.query = ipamService.getSites().query();
+	ctrl.query.$promise.then(function (data) {
+		ctrl.$rootScope.sites = data;
+		console.log(ctrl.$rootScope.sites.length);
+	});
 	// ctrl.$rootScope.getUsers = (randomUserService.getUsers().then(function(response){
 	// 	ctrl.$rootScope.users = response.data.results;
 	// }));
@@ -100,7 +102,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 angular.module('app', ['ngRoute', 'ngCookies', 'ngResource']).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('tabboard', _tabboard2.default).component('nav', _nav2.default)
 // .factory('randomUserService', random)
-.factory('sitesService', _appServices2.default).config(config).run(run);
+.factory('ipamService', _appServices2.default).config(config).run(run);
 
 config.$inject = ['$routeProvider', '$locationProvider'];
 function config($routeProvider, $locationProvider) {
@@ -135,7 +137,7 @@ function run($rootScope, $location, $cookies, $http) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+		value: true
 });
 
 // function random($http) {
@@ -151,24 +153,28 @@ Object.defineProperty(exports, "__esModule", {
 
 // }
 
-function sitesService($resource) {
-	// return $resource('http://www.dnd5eapi.co/api/spells/:spell',
-	// {
-	// 	spell: '@spell'
-	// })
+function ipamService($resource) {
 
-	return $resource('localhost:8080/api/sites/:site', {
-		site: "@site"
-	});
+		return {
+				getSites: function getSites() {
+						return $resource('http://localhost:7000/api/sites/:site', {
+								site: "@site"
+						});
+				}
+		};
 }
 
-// calling restful apis dynamically with $resource
+// function subnetsService($resource) {
 
-// .factory('UserService', function ($resource) {
-//     return $resource('http://jsonplaceholder.typicode.com/users/:user',{user: "@user"});
-// });
+// 	 return $resource('http://localhost:7000/api/subnets/:subnet', 
+// 		 {
+// 		 	subnet: "@subnet"
+// 		 }
+// 	 	);
+// }
 
-exports.default = sitesService;
+
+exports.default = ipamService;
 
 },{}],6:[function(require,module,exports){
 'use strict';
@@ -199,7 +205,7 @@ console.log('equipment.component');
 exports.default = equipmentComponent;
 
 },{"./equipment.controller":7,"./equipment.html":8}],7:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -236,13 +242,10 @@ var equipmentController = function () {
 	}
 
 	_createClass(equipmentController, [{
-		key: 'click',
+		key: "click",
 		value: function click() {
 			var ctrl = this;
-			console.log('im being clicked motherfucker');
-			console.log(ctrl.$rootScope.equipshow);
 			ctrl.$rootScope.equipshow = true;
-			console.log(ctrl.$rootScope.equipshow);
 		}
 	}]);
 
@@ -252,7 +255,7 @@ var equipmentController = function () {
 exports.default = equipmentController;
 
 },{}],8:[function(require,module,exports){
-module.exports = "<!-- <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n  Launch demo modal\n</button>\n\n Modal\n div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Modal title</h5>\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        ...\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n        <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\n      </div>\n    </div>\n  </div>\n</div> -->\n\n<button id=\"addEquipment\" ng-click=\"$ctrl.click(); showme=true\"> Add Equipment</button>\n<equipmentform ng-show=\"$ctrl.$rootScope.equipshow\"></equipmentform>\n\n";
+module.exports = "<!-- <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n  Launch demo modal\n</button>\n\n Modal\n div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Modal title</h5>\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        ...\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n        <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\n      </div>\n    </div>\n  </div>\n</div> -->\n\n<button id=\"addEquipment\" ng-click=\"$ctrl.click()\"> Add Equipment</button>\n<equipmentform ng-show=\"$ctrl.$rootScope.equipshow === true\"></equipmentform>\n\n";
 
 },{}],9:[function(require,module,exports){
 'use strict';
@@ -457,7 +460,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var subnetsComponent = {
 	bindings: {},
 	template: _subnets2.default,
-	controller: ['$rootScope', '$interval', _subnets4.default],
+	controller: ['$rootScope', '$interval', 'ipamService', _subnets4.default],
 	controllerAs: '$ctrl'
 };
 
@@ -478,12 +481,17 @@ var subnetsController = function subnetsController($rootScope) {
 	_classCallCheck(this, subnetsController);
 
 	var ctrl = this;
+	ctrl.$rootScope = $rootScope;
+
+	// ctrl.$rootScope.$watch('sites', function() {
+	// console.log(ctrl.$rootScope.sites);
+	// })
 };
 
 exports.default = subnetsController;
 
 },{}],20:[function(require,module,exports){
-module.exports = "";
+module.exports = "<h1>HELLO</h1>\n";
 
 },{}],21:[function(require,module,exports){
 'use strict';

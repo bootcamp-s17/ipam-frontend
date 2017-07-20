@@ -15,9 +15,7 @@ var _app4 = _interopRequireDefault(_app3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_app4.default.$inject = ['$rootScope', '$http', 'randomUserService'];
-
-console.log(_app4.default);
+_app4.default.$inject = ['$rootScope', '$http', 'ipamService'];
 
 var appComponent = {
 	template: _app2.default,
@@ -27,7 +25,7 @@ var appComponent = {
 exports.default = appComponent;
 
 },{"./app.controller":2,"./app.html":3}],2:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -35,24 +33,69 @@ Object.defineProperty(exports, "__esModule", {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var appCtrl = function appCtrl($rootScope, $http, randomUserService) {
+var appCtrl = function appCtrl($rootScope, $http, ipamService) {
 	_classCallCheck(this, appCtrl);
 
 	var ctrl = this;
-	ctrl.$rootScope = $rootScope;
-	ctrl.$rootScope.getUsers = randomUserService.getUsers().then(function (response) {
-		ctrl.$rootScope.users = response.data.results;
-	});
 
-	ctrl.$rootScope.$watch('users', function () {
-		console.log(ctrl.$rootScope.users);
-	});
-};
+	ctrl.$rootScope = $rootScope;
+
+	/*----------------------------------------------------------
+ 						SITES
+ ----------------------------------------------------------*/
+
+	// Setting a global function for getting ALL sites from API
+	ctrl.$rootScope.getSites = function () {
+
+		// grabs api data for all the sites with the ngresource query()
+		ctrl.query = ipamService.getSites().query();
+
+		// pushes data to sites object
+		ctrl.query.$promise.then(function (data) {
+			ctrl.$rootScope.sites = data;
+		});
+	}; // end getSites()
+
+	ctrl.$rootScope.getSite = function (id) {
+		ctrl.get = ipamService.getSites().get({ site: id });
+
+		ctrl.get.$promise.then(function (data) {
+			ctrl.$rootScope.site = data;
+		});
+
+		alert(id);
+	};
+
+	// ctrl.$rootScope.$watch('site', function() {
+	// 	console.log(ctrl.$rootScope.site);
+	// })
+
+	// ipamService.getSites().save();
+
+
+	/* ------------------------------------------------------
+ 						SUBNETS
+ ----------------------------------------------------------*/
+
+	// Setting a global function for getting sites from API
+	ctrl.$rootScope.getSubnets = function () {
+		// grabs api data for all the sites with the ngresource query()
+		ctrl.query = ipamService.getSubnets().query();
+
+		// pushes data to sites object, .then means we wait on the promise
+		ctrl.query.$promise.then(function (data) {
+			ctrl.$rootScope.subnets = data;
+		});
+	}; // end getSubnets()
+
+} // end constructor
+
+; // end appCtrl
 
 exports.default = appCtrl;
 
 },{}],3:[function(require,module,exports){
-module.exports = "\n<div ng-view></div> \n<nav></nav>\n<tabboard></tabboard>\n<equipmentform></equipmentform>\n<subnetform></subnetform>\n\n\n";
+module.exports = "\n<!-- <div ng-view></div>  -->\n<nav></nav>\n<tabboard></tabboard>\n<equipmentform></equipmentform>\n<subnetform></subnetform>\n\n\n";
 
 },{}],4:[function(require,module,exports){
 'use strict';
@@ -103,7 +146,7 @@ var _subnetform2 = _interopRequireDefault(_subnetform);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-angular.module('app', ['ngRoute', 'ngCookies', 'ngResource']).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('tabboard', _tabboard2.default).component('nav', _nav2.default).component('equipmentform', _equipmentform2.default).component('subnetform', _subnetform2.default).factory('randomUserService', _appServices2.default).config(config).run(run);
+angular.module('app', ['ngRoute', 'ngCookies', 'ngResource']).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('tabboard', _tabboard2.default).component('nav', _nav2.default).factory('ipamService', _appServices2.default).component('equipmentform', _equipmentform2.default).component('subnetform', _subnetform2.default).config(config).run(run);
 
 config.$inject = ['$routeProvider', '$locationProvider'];
 function config($routeProvider, $locationProvider) {
@@ -138,42 +181,34 @@ function run($rootScope, $location, $cookies, $http) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+		value: true
 });
-// function ipam ($http) {
-// 	console.log('ipam factory');
-// 	return {
-// 		data: function () {
-// 			console.log('data');
-// 			console.log($http.get('https://randomuser.me/api/?results=10'));
-// 			return;
-// 		}
-// 	};
+
+
+function ipamService($resource) {
+
+		return {
+				getSites: function getSites() {
+						return $resource('http://localhost:7000/api/sites/:site', { site: "@site" });
+				},
+				getSubnets: function getSubnets() {
+						return $resource('http://localhost:7000/api/subnets/:subnet', { subnet: "@subnet" });
+				}
+				// addSite: () => $resource('http://localhost:7000/api/sites', {});
+		};
+};
+
+// function subnetsService($resource) {
+
+// 	 return $resource('http://localhost:7000/api/subnets/:subnet', 
+// 		 {
+// 		 	subnet: "@subnet"
+// 		 }
+// 	 	);
 // }
 
-function random($http) {
-	return {
-		getUsers: function getUsers() {
 
-			// let users = {list:null};
-
-			return $http.get('https://randomuser.me/api/?results=10');
-			// .then(function(data) {
-			// 	users.list = data;
-			// });
-
-			// return users;
-		}
-	};
-}
-
-// calling restful apis dynamically with $resource
-
-// .factory('UserService', function ($resource) {
-//     return $resource('http://jsonplaceholder.typicode.com/users/:user',{user: "@user"});
-// });
-
-exports.default = random;
+exports.default = ipamService;
 
 },{}],6:[function(require,module,exports){
 'use strict';
@@ -198,8 +233,6 @@ var equipmentComponent = {
 	controller: ['$rootScope', '$interval', _equipment4.default],
 	controllerAs: '$ctrl'
 };
-
-console.log('equipment.component');
 
 exports.default = equipmentComponent;
 
@@ -245,7 +278,6 @@ var equipmentController = function () {
 			console.log('hello from equipmentForm');
 			console.log(ctrl.$rootScope.equipshow);
 			ctrl.$rootScope.equipshow = true;
-			console.log(ctrl.$rootScope.equipshow);
 		}
 	}]);
 
@@ -255,7 +287,7 @@ var equipmentController = function () {
 exports.default = equipmentController;
 
 },{}],8:[function(require,module,exports){
-module.exports = "<!-- <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n  Launch demo modal\n</button>\n\n Modal\n div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Modal title</h5>\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        ...\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n        <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\n      </div>\n    </div>\n  </div>\n</div> -->\n\n<button id=\"addEquipment\" ng-click=\"$ctrl.click(); showme=true\"> Add Equipment</button>\n\n\n";
+module.exports = "<!-- <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n  Launch demo modal\n</button>\n\n Modal\n div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Modal title</h5>\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        ...\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n        <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\n      </div>\n    </div>\n  </div>\n</div> -->\n\n<button id=\"addEquipment\" ng-click=\"$ctrl.click(); showme=true\"> Add Equipment</button>\n\n";
 
 },{}],9:[function(require,module,exports){
 'use strict';
@@ -298,6 +330,7 @@ var equipmentformController = function equipmentformController($rootScope) {
 	_classCallCheck(this, equipmentformController);
 
 	var ctrl = this;
+	console.log('this is the equipmentformController');
 	ctrl.equipshow = false;
 	ctrl.$rootScope = $rootScope;
 	ctrl.ip = /\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/;
@@ -335,8 +368,6 @@ var loginComponent = {
 	controller: ['$rootScope', '$interval', _login4.default],
 	controllerAs: '$ctrl'
 };
-
-console.log('login.component');
 
 exports.default = loginComponent;
 
@@ -407,8 +438,6 @@ var navComponent = {
 	controllerAs: '$ctrl'
 };
 
-console.log('nav.component');
-
 exports.default = navComponent;
 
 },{"./nav.controller":16,"./nav.html":17}],16:[function(require,module,exports){
@@ -455,8 +484,6 @@ var sitesComponent = {
 	controllerAs: '$ctrl'
 };
 
-console.log('sites.component');
-
 exports.default = sitesComponent;
 
 },{"./sites.controller":19,"./sites.html":20}],19:[function(require,module,exports){
@@ -475,7 +502,8 @@ var sitesController = function () {
 		_classCallCheck(this, sitesController);
 
 		var ctrl = this;
-		ctrl.$http = $http;
+		ctrl.$rootScope = $rootScope;
+		ctrl.$rootScope.getSites();
 
 		// $http request for sites endpoint
 	}
@@ -493,7 +521,7 @@ var sitesController = function () {
 exports.default = sitesController;
 
 },{}],20:[function(require,module,exports){
-module.exports = "\r\n<div class=\"container\">\r\n\t<div class=\"row\">\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<div class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t\t<h4 class=\"col-8\">Site Name</h4>\r\n\t\t\t\t\t\t<h5 class=\"col-4\">ABBR</h5>\r\n\t\t\t\t</div>\r\n\t\t\t\t<ul class=\"list-group list-group-flush\">\r\n\t\t\t\t\t<li class=\"list-group-item\">Address:</li>\r\n\t\t\t\t\t<li class=\"list-group-item\">Contact:</li>\r\n\t\t\t\t\t<li class=\"list-group-item\">Notes</li>\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<div class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<h4 class=\"col-8\">Site Name</h4>\r\n\t\t\t\t\t\t<h5 class=\"col-4\">ABBR</h5>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col\">Address</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col\">Contact</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col\">Notes</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<div class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<h4 class=\"col text-center\">Add New Site</h4>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col text-center\">\r\n\t\t\t\t\t\t\r\n\t\t\t\t<a ng-click=\"$ctrl.addNewSite()\" class=\"text-center\"><i class=\"fa fa-plus fa-5x text-center\"></i></a>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\r\n\r\n\t</div> <!-- end main row -->\r\n\r\n\r\n</div> <!-- end container -->\r\n\r\n";
+module.exports = "\r\n<div class=\"container\">\r\n\t<div class=\"row\">\r\n\t\t<div  class=\"col-4\" ng-repeat=\"site in $ctrl.$rootScope.sites\">\r\n\t\t\t<div class=\"card card-block\" >\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t\t<h4 class=\"col-8\" ng-click=\"$ctrl.$rootScope.getSite(site.id)\">{{site.name}}</h4>\r\n\t\t\t\t\t\t<h5 class=\"col-4\">{{site.abbreviation}}</h5>\r\n\t\t\t\t</div>\r\n\t\t\t\t<ul class=\"list-group list-group-flush\">\r\n\t\t\t\t\t<li class=\"list-group-item\">Address: {{site.address}} </li>\r\n\t\t\t\t\t<li class=\"list-group-item\">Contact: {{site.site_contact}} </li>\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<div class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<h4 class=\"col text-center\">Add New Site</h4>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col text-center\">\r\n\t\t\t\t\t\t\r\n\t\t\t\t<a ng-click=\"$ctrl.addNewSite()\" class=\"text-center\"><i class=\"fa fa-plus fa-5x text-center\"></i></a>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\r\n\r\n\t</div> <!-- end main row -->\r\n\r\n\r\n</div> <!-- end container -->\r\n\r\n";
 
 },{}],21:[function(require,module,exports){
 'use strict';
@@ -569,11 +597,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var subnetsComponent = {
 	bindings: {},
 	template: _subnets2.default,
-	controller: ['$rootScope', '$interval', _subnets4.default],
+	controller: ['$rootScope', '$interval', 'ipamService', _subnets4.default],
 	controllerAs: '$ctrl'
 };
-
-console.log('subnets.component');
 
 exports.default = subnetsComponent;
 
@@ -593,7 +619,13 @@ var subnetsController = function () {
 		_classCallCheck(this, subnetsController);
 
 		var ctrl = this;
+
 		ctrl.$rootScope = $rootScope;
+
+		ctrl.$rootScope.getSubnets();
+		// ctrl.$rootScope.$watch('sites', function() {
+		// console.log(ctrl.$rootScope.sites);
+		// })
 	}
 
 	_createClass(subnetsController, [{
@@ -611,7 +643,7 @@ var subnetsController = function () {
 exports.default = subnetsController;
 
 },{}],26:[function(require,module,exports){
-module.exports = "\n<button id=\"addSubnet\" ng-click=\"$ctrl.subnet(); showme=true\">Add Subnet</button>\n<<<<<<< Updated upstream\n\n=======\n<table>\n\t<thead>\n\t\t<tr>\n\t\t\t<th>Name</th>\n\t\t\t<th>Address</th>\n\t\t\t<th>Mask Bits</th>\n\t\t\t<th>vLan</th>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets\">\n\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t</tr>\n\t</tbody>\n</table>\n>>>>>>> Stashed changes\n\n";
+module.exports = "\n<button id=\"addSubnet\" ng-click=\"$ctrl.subnet(); showme=true\">Add Subnet</button>\n<<<<<<< HEAD\n<<<<<<< Updated upstream\n\n=======\n=======\n>>>>>>> 16a12901c669dbda1d19e2083980368d89065d6c\n<table>\n\t<thead>\n\t\t<tr>\n\t\t\t<th>Name</th>\n\t\t\t<th>Address</th>\n\t\t\t<th>Mask Bits</th>\n\t\t\t<th>vLan</th>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets\">\n\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t</tr>\n\t</tbody>\n</table>\n<<<<<<< HEAD\n>>>>>>> Stashed changes\n=======\n>>>>>>> 16a12901c669dbda1d19e2083980368d89065d6c\n\n";
 
 },{}],27:[function(require,module,exports){
 'use strict';
@@ -725,8 +757,6 @@ var usersComponent = {
 	controller: ['$rootScope', '$interval', _users4.default],
 	controllerAs: '$ctrl'
 };
-
-console.log('users.component');
 
 exports.default = usersComponent;
 

@@ -8,6 +8,5 @@ let sitesComponent = {
 	controllerAs : '$ctrl'
 };
 
-console.log('sites.component');
 
 export default sitesComponent;

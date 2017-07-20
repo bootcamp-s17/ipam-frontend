@@ -611,7 +611,7 @@ var subnetsController = function () {
 exports.default = subnetsController;
 
 },{}],26:[function(require,module,exports){
-module.exports = "<button id=\"addSubnet\" ng-click=\"$ctrl.subnet(); showme=true\">Add Subnet</button>";
+module.exports = "\n<button id=\"addSubnet\" ng-click=\"$ctrl.subnet(); showme=true\">Add Subnet</button>\n\n\n";
 
 },{}],27:[function(require,module,exports){
 'use strict';

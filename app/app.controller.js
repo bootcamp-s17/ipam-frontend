@@ -40,6 +40,7 @@ class appCtrl {
 		// ctrl.$rootScope.$watch('site', function() {
 		// 	console.log(ctrl.$rootScope.site);
 		// })
+
 		ctrl.newSite = {
 		  "name": "Lexington",
 		  "abbreviation": "LEX",
@@ -48,6 +49,7 @@ class appCtrl {
 		}
 		// ipamService.addSite().save({}, ctrl.newSite);
 		// ipamService.updateSite().update({site:1}, ctrl.newSite);
+
 
 
 

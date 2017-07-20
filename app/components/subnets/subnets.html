@@ -1,6 +1,23 @@
 
 <button id="addSubnet" ng-click="$ctrl.subnet(); showme=true">Add Subnet</button>
-<ul>
-	<li ng-repeat="subnet in $ctrl.$rootScope.subnets">{{subnet.name}}</li>
-</ul>
+
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Address</th>
+			<th>Mask Bits</th>
+			<th>vLan</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="subnet in $ctrl.$rootScope.subnets">
+			<td class="pr-2">{{subnet.name}}</td>
+			<td class="pr-2">{{subnet.subnet_address}}</td>
+			<td class="pr-2">{{subnet.mask_bits}}</td>
+			<td class="pr-2">{{subnet.vLan}}</td>
+		</tr>
+	</tbody>
+</table>
+
 

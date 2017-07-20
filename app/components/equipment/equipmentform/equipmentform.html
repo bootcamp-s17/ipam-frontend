@@ -1,4 +1,4 @@
-<form>
+<form name="equipmentForm">
 <div class="container" ng-show="$ctrl.equipshow">
 <h1>These are all the required equipment fields</h1>
   <div class="form-group">
@@ -49,16 +49,14 @@
       <input class="form-control" type="text" id="serialNumber">
   </div>
 
-  <div class="form-group">
-    <label for="macAdress">MAC Number</label>
-      <input class="form-control" type="number" id="macAdress" required>
-  </div>
+Mac Address:<label for="macAdress">Mac Address</label>
+  <input id="macAddress" placeholder="" type="text" name="macaddress" ng-model="macpin" ng-pattern="/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/" />
+<span style="color:Red" ng-show="equipmentForm.macaddress.$error.pattern">Please Enter a Valid Mac Address</span>
+<br>
 
-  <div class="form-group">
-    <label for="ipAdress">IP Adress</label>
-      <input placeholder="xxx.xxx.xxx.xxx" class="form-control" type="text" id="ipAdress" ng-pattern='$ctrl.ip'  required>
-  <p ng-show='myform.ip.$invalid'>Error</p>
-  </div>
+Ip Address:<label for="ipaddress">IP Address</label>
+  <input id="ipaddress" placeholder="xx.xxx.xxx.xxx" type="text" name="ipaddress" ng-model="txtpin" ng-pattern="/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/" />
+<span style="color:Red" ng-show="equipmentForm.ipaddress.$error.pattern">Please Enter a Valid IP Address</span>
 
   <div class="form-check">
     <label class="form-check-label">

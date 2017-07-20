@@ -2,9 +2,7 @@ class equipmentController {
 
 	constructor($rootScope, ModalService) {
 		let ctrl=this;
-		let vm=this;
 		ctrl.$rootScope = $rootScope;
-		ctrl.$rootScope.equipshow = false;
 
 
 		// vm.openModal = openModal;
@@ -27,6 +25,8 @@ class equipmentController {
 
 	click(){
 		let ctrl=this;
+		console.log('hello from equipmentForm');
+		console.log(ctrl.$rootScope.equipshow);
 		ctrl.$rootScope.equipshow = true;
 	}
 

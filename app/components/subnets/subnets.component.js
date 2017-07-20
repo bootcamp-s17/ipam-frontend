@@ -4,10 +4,9 @@ import controller from './subnets.controller';
 let subnetsComponent = {
 	bindings : {},
 	template,
-	controller: ['$rootScope', '$interval', controller],
+	controller: ['$rootScope', '$interval', 'ipamService', controller],
 	controllerAs : '$ctrl'
 };
 
-console.log('subnets.component');
 
 export default subnetsComponent;

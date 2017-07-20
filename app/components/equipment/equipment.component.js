@@ -8,6 +8,5 @@ let equipmentComponent = {
 	controllerAs : '$ctrl'
 };
 
-console.log('equipment.component');
 
 export default equipmentComponent;

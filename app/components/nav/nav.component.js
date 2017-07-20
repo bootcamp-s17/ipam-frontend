@@ -8,6 +8,5 @@ let navComponent = {
 	controllerAs : '$ctrl'
 };
 
-console.log('nav.component');
 
 export default navComponent;

@@ -1,6 +1,3 @@
-
-
-
 class appCtrl {
 
 	constructor($rootScope, $http, ipamService) {

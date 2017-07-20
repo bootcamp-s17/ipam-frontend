@@ -1,20 +1,17 @@
 <form name="equipmentForm">
 <div class="container" ng-show="$ctrl.equipshow">
-<h1>These are all the required equipment fields</h1>
   <div class="form-group">
     <label for="siteSelect">Site</label>
     <select class="form-control" id="siteSelect" ng-model="site.Select" " required>
-      <option ng-option value="false"></option>
-      <option ng-option value="true">Moon Campus</option>
-      <option ng-option value="true">Earth Campus</option>
+      <option ng-repeat="site in $ctrl.$rootScope.sites" ng-value="site.id">{{site.name}}</option>
     </select>
   </div> 
 
       <div class="form-group" >
       <label for="subnetSelect" >Subnet</label>
       <select class="form-control"  ng-dropdown required ">
-        <option ng-option value="false">false</option>
-        <option ng-option value="true">true</option>
+        <option ng-repeat="subnet in $ctrl.$rootScope.subnets" ng-value="subnet.id">{{subnet.name}}</option>
+        
       </select>
     </div>
 
@@ -50,7 +47,7 @@
   </div>
 
 Mac Address:<label for="macAdress">Mac Address</label>
-  <input id="macAddress" placeholder="" type="text" name="macaddress" ng-model="macpin" ng-pattern="/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/" />
+  <input placeholder="xx.xx.xx.xx.xx" id="macAddress" placeholder="" type="text" name="macaddress" ng-model="macpin" ng-pattern="/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/" />
 <span style="color:Red" ng-show="equipmentForm.macaddress.$error.pattern">Please Enter a Valid Mac Address</span>
 <br>
 
@@ -69,8 +66,6 @@ Ip Address:<label for="ipaddress">IP Address</label>
     <label for="notesInput">Notes</label>
       <input class="form-control" type="textarea" id="notesInput" >
   </div>
-
-  <h1>These are all the additional equipment fields for printers and computers</h1>
   <!-- These will be additional fields -->
   <div class="form-group" ng-if="subnet.Select == 'true'; type.Select == 'switch'">
     <label for="switchName">Switch Name</label>

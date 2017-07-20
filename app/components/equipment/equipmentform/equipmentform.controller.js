@@ -5,6 +5,8 @@ class equipmentformController {
 		console.log('this is the equipmentformController');
 		ctrl.equipshow = false;
 		ctrl.$rootScope = $rootScope;
+		ctrl.$rootScope.getSites();
+		ctrl.$rootScope.getSubnets();
 		
 
 

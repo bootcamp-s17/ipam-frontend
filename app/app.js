@@ -9,7 +9,7 @@ import navComponent from './components/nav/nav.component';
 import ipamService from './app.services.js';
 import equipmentformComponent from './components/equipment/equipmentform/equipmentform.component';
 import subnetformComponent from './components/subnets/subnetform/subnetform.component';
-
+import tabboardController from './components/tabboard/tabboard.controller';
 
 angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .component('app', appComponent)
@@ -23,6 +23,7 @@ angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .factory('ipamService', ipamService)
 .component('equipmentform', equipmentformComponent)
 .component('subnetform', subnetformComponent)
+.controller('tabboardController', tabboardController)
 .config(config)
 .run(run);
 
@@ -30,7 +31,7 @@ config.$inject = ['$routeProvider', '$locationProvider'];
     function config($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: 'app/components/tabboard/tabboard.html',
+                templateUrl: 'app/components/login/login.html',
             })
 
             .when('/login', {
@@ -41,12 +42,29 @@ config.$inject = ['$routeProvider', '$locationProvider'];
                 templateUrl: 'app/components/users/users.html',
             })
 
+            .when('/home', {
+                controller: 'tabboardController',
+                templateUrl: 'app/components/tabboard/tabboard.html',
+                controllerAs: 'ctrl'
+
+            })
+
+            .when('/equipment', {
+
+                templateUrl: 'app/components/equipment/equipment.html',
+            })
+
+            .when('/equipmentform', {
+                //controller: 'equipmentController',
+                templateUrl: 'app/components/equipment/equipmentform/equipmentform.html'
+            })
+
             .otherwise({ redirectTo: '/login' });
     }
 
     run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
     function run($rootScope, $location, $cookies, $http) {
-        // keep user logged in after page refresh
+        //keep user logged in after page refresh
         $rootScope.globals = $cookies.getObject('globals') || {};
         if ($rootScope.globals.currentUser) {
             $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
@@ -54,11 +72,11 @@ config.$inject = ['$routeProvider', '$locationProvider'];
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
             // redirect to login page if not logged in and trying to access a restricted page
-            var restrictedPage = $.inArray($location.path(), ['./components/login/login.html', '.components/users/users.html']) === -1;
+            var restrictedPage = $.inArray($location.path(), ['./components/login/login.html', '.components/users/users.html', '.components/equipment/equipmentform/equipmentform.html']) === -1;
             var loggedIn = $rootScope.globals.currentUser;
-            if (restrictedPage && !loggedIn) {
-                $location.path('/login');
-            }
+            //if (restrictedPage && !loggedIn) {
+                //$location.path('/login');
+            //}
         });
     }
 

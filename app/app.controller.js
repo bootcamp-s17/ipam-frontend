@@ -51,6 +51,7 @@ class appCtrl {
 			ipamService.addSite().save({}, ctrl.newSite).$promise.then((data)=>{
 				ctrl.$rootScope.sites.push(data);
 			});
+		}
 			// ctrl.$rootScope.getSites();
 		// ipamService.updateSite().update({site:1}, ctrl.newSite);
 
@@ -77,5 +78,7 @@ class appCtrl {
 	} // end constructor
 
 } // end appCtrl
+
+
 
 export default appCtrl;

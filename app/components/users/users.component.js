@@ -8,6 +8,5 @@ let usersComponent = {
 	controllerAs : '$ctrl'
 };
 
-console.log('users.component');
 
 export default usersComponent;

@@ -1,11 +1,8 @@
 class UsersController {
-    constructor($rootScope, $interval, $location, UserService, FlashService) {
+    constructor($rootScope, $interval, $location, UserService) {
         let ctrl = this;
         ctrl.UserService = UserService;
-        console.log(ctrl.UserService);
-        ctrl.FlashService = FlashService;
-        ctrl.$location = $location;
-        console.log('hello world');
+        ctrl.$location = $location
         // UsersController.$inject = ['UserService', '$rootScope', '$location', 'FlashService'];
     };
     register() {
@@ -13,7 +10,7 @@ class UsersController {
         ctrl.dataLoading = true;
         console.log("hi");
       
-        ctrl.UserService.Create(ctrl.user)
+        UserService.Create(ctrl.user)
             .then(function (response) {
                 if (response.success) {
                     ctrl.FlashService.Success('Registration successful', true);

@@ -93,17 +93,9 @@ var _appServices = require('./app.services.js');
 
 var _appServices2 = _interopRequireDefault(_appServices);
 
-var _flashService = require('./components/login/services/flash.service.js');
-
-var _flashService2 = _interopRequireDefault(_flashService);
-
-var _userService = require('./components/login/services/user.service.js');
-
-var _userService2 = _interopRequireDefault(_userService);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-angular.module('app', ['ngRoute', 'ngCookies', 'ngResource']).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('tabboard', _tabboard2.default).component('nav', _nav2.default).factory('randomUserService', _appServices2.default).factory('FlashService', _flashService2.default).factory('UserService', _userService2.default).config(config).run(run);
+angular.module('app', ['ngRoute', 'ngCookies', 'ngResource']).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('tabboard', _tabboard2.default).component('nav', _nav2.default).factory('randomUserService', _appServices2.default).config(config).run(run);
 
 config.$inject = ['$routeProvider', '$locationProvider'];
 function config($routeProvider, $locationProvider) {
@@ -134,7 +126,7 @@ function run($rootScope, $location, $cookies, $http) {
     });
 }
 
-},{"./app.component":1,"./app.services.js":5,"./components/equipment/equipment.component":6,"./components/login/login.component":9,"./components/login/services/flash.service.js":12,"./components/login/services/user.service.js":13,"./components/nav/nav.component":14,"./components/sites/sites.component":17,"./components/subnets/subnets.component":20,"./components/tabboard/tabboard.component":23,"./components/users/users.component":26}],5:[function(require,module,exports){
+},{"./app.component":1,"./app.services.js":5,"./components/equipment/equipment.component":6,"./components/login/login.component":9,"./components/nav/nav.component":12,"./components/sites/sites.component":15,"./components/subnets/subnets.component":18,"./components/tabboard/tabboard.component":21,"./components/users/users.component":24}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -333,120 +325,6 @@ module.exports = "\n<div class=\"container\">\n\t<div class=\"jumbotron\">\n\t\t
 },{}],12:[function(require,module,exports){
 'use strict';
 
-(function () {
-    'use strict';
-
-    // angular
-    //     .module('app')
-    //     .factory('FlashService', FlashService);
-
-    FlashService.$inject = ['$rootScope'];
-    function FlashService($rootScope) {
-        var service = {};
-
-        service.Success = Success;
-        service.Error = Error;
-
-        initService();
-
-        return service;
-
-        function initService() {
-            $rootScope.$on('$locationChangeStart', function () {
-                clearFlashMessage();
-            });
-
-            function clearFlashMessage() {
-                var flash = $rootScope.flash;
-                if (flash) {
-                    if (!flash.keepAfterLocationChange) {
-                        delete $rootScope.flash;
-                    } else {
-                        // only keep for a single location change
-                        flash.keepAfterLocationChange = false;
-                    }
-                }
-            }
-        }
-
-        function Success(message, keepAfterLocationChange) {
-            $rootScope.flash = {
-                message: message,
-                type: 'success',
-                keepAfterLocationChange: keepAfterLocationChange
-            };
-        }
-
-        function Error(message, keepAfterLocationChange) {
-            $rootScope.flash = {
-                message: message,
-                type: 'error',
-                keepAfterLocationChange: keepAfterLocationChange
-            };
-        }
-    }
-})();
-
-},{}],13:[function(require,module,exports){
-'use strict';
-
-(function () {
-       'use strict';
-
-       UserService.$inject = ['$http'];
-       function UserService($http) {
-              var service = {};
-
-              service.GetAll = GetAll;
-              service.GetById = GetById;
-              service.GetByEmail = GetByEmail;
-              service.Create = Create;
-              service.Update = Update;
-              service.Delete = Delete;
-
-              return service;
-
-              function GetAll() {
-                     return $http.get('/api/users').then(handleSuccess, handleError('Error getting all users'));
-              }
-
-              function GetById(id) {
-                     return $http.get('/api/users/' + id).then(handleSuccess, handleError('Error getting user by id'));
-              }
-
-              function GetByEmail(email) {
-                     return $http.get('/api/users/' + email).then(handleSuccess, handleError('Error getting user by email'));
-              }
-
-              function Create(user) {
-                     return $http.post('/api/users', user).then(handleSuccess, handleError('Error creating user'));
-              }
-
-              function Update(user) {
-                     return $http.put('/api/users/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
-              }
-
-              function Delete(id) {
-                     return $http.delete('/api/users/' + id).then(handleSuccess, handleError('Error deleting user'));
-              }
-
-              // private functions
-
-              function handleSuccess(res) {
-                     return res.data;
-              }
-
-              function handleError(error) {
-                     return function () {
-                            return { success: false, message: error };
-                     };
-              }
-       }
-})();
-
-},{}],14:[function(require,module,exports){
-'use strict';
-
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
@@ -472,7 +350,7 @@ console.log('nav.component');
 
 exports.default = navComponent;
 
-},{"./nav.controller":15,"./nav.html":16}],15:[function(require,module,exports){
+},{"./nav.controller":13,"./nav.html":14}],13:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -489,10 +367,10 @@ var navController = function navController($rootScope) {
 
 exports.default = navController;
 
-},{}],16:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 module.exports = "<ul class=\"nav nav-tabs  navbar-light\" style=\"background-color: #DDD;\">\n  <li class=\"nav-item\">\n    <a class=\"navbar-brand\" href=\"../login/login.html\">IPAM</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" href=\"../../app.html\">Dashboard</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link disabled\" href=\"../users/users.html\">Manage Users</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" href=\"../login/login.html\">Logout</a>\n  </li>\n</ul>\n\n";
 
-},{}],17:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -520,7 +398,7 @@ console.log('sites.component');
 
 exports.default = sitesComponent;
 
-},{"./sites.controller":18,"./sites.html":19}],18:[function(require,module,exports){
+},{"./sites.controller":16,"./sites.html":17}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -553,10 +431,10 @@ var sitesController = function () {
 
 exports.default = sitesController;
 
-},{}],19:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 module.exports = "\r\n<div class=\"container\">\r\n\t<div class=\"row\">\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<div class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t\t<h4 class=\"col-8\">Site Name</h4>\r\n\t\t\t\t\t\t<h5 class=\"col-4\">ABBR</h5>\r\n\t\t\t\t</div>\r\n\t\t\t\t<ul class=\"list-group list-group-flush\">\r\n\t\t\t\t\t<li class=\"list-group-item\">Address:</li>\r\n\t\t\t\t\t<li class=\"list-group-item\">Contact:</li>\r\n\t\t\t\t\t<li class=\"list-group-item\">Notes</li>\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<div class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<h4 class=\"col-8\">Site Name</h4>\r\n\t\t\t\t\t\t<h5 class=\"col-4\">ABBR</h5>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col\">Address</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col\">Contact</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col\">Notes</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<div class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<h4 class=\"col text-center\">Add New Site</h4>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col text-center\">\r\n\t\t\t\t\t\t\r\n\t\t\t\t<a ng-click=\"$ctrl.addNewSite()\" class=\"text-center\"><i class=\"fa fa-plus fa-5x text-center\"></i></a>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\r\n\r\n\t</div> <!-- end main row -->\r\n\r\n\r\n</div> <!-- end container -->\r\n\r\n";
 
-},{}],20:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -584,7 +462,7 @@ console.log('subnets.component');
 
 exports.default = subnetsComponent;
 
-},{"./subnets.controller":21,"./subnets.html":22}],21:[function(require,module,exports){
+},{"./subnets.controller":19,"./subnets.html":20}],19:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -601,10 +479,10 @@ var subnetsController = function subnetsController($rootScope) {
 
 exports.default = subnetsController;
 
-},{}],22:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 module.exports = "";
 
-},{}],23:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -630,7 +508,7 @@ var tabboardComponent = {
 
 exports.default = tabboardComponent;
 
-},{"./tabboard.controller":24,"./tabboard.html":25}],24:[function(require,module,exports){
+},{"./tabboard.controller":22,"./tabboard.html":23}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -690,10 +568,10 @@ var tabboardController = function () {
 
 exports.default = tabboardController;
 
-},{}],25:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 module.exports = "<h1>Tab Board</h1>\n\n<ul class=\"nav nav-tabs\"> <!-- Tabs -->\n  <li class=\"nav-item\">\n    <a class=\"nav-link active\" id=\"sitesTab\" value=\"sites\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#\">Sites</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" id=\"subnetsTab\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#\">Subnets</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" id=\"equipmentTab\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#\">Equipment</a>\n  </li>\n</ul> <!-- End Tabs -->\n\n<sites ng-show=\"$ctrl.showTab == 'sites'\"></sites>\n<subnets ng-show=\"$ctrl.showTab == 'subnets'\"></subnets>\n<equipment ng-show=\"$ctrl.showTab == 'equipment'\"></equipment>";
 
-},{}],26:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -713,7 +591,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var usersComponent = {
 	bindings: {},
 	template: _users2.default,
-	controller: ['$rootScope', '$interval', _users4.default],
+	controller: ['$rootScope', '$interval', '$location', 'UserService', _users4.default],
 	controllerAs: '$ctrl'
 };
 
@@ -721,7 +599,7 @@ console.log('users.component');
 
 exports.default = usersComponent;
 
-},{"./users.controller":27,"./users.html":28}],27:[function(require,module,exports){
+},{"./users.controller":25,"./users.html":26}],25:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -733,15 +611,12 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var UsersController = function () {
-    function UsersController($rootScope, $interval, $location, UserService, FlashService) {
+    function UsersController($rootScope, $interval, $location, UserService) {
         _classCallCheck(this, UsersController);
 
         var ctrl = this;
         ctrl.UserService = UserService;
-        console.log(ctrl.UserService);
-        ctrl.FlashService = FlashService;
         ctrl.$location = $location;
-        console.log('hello world');
         // UsersController.$inject = ['UserService', '$rootScope', '$location', 'FlashService'];
     }
 
@@ -752,7 +627,7 @@ var UsersController = function () {
             ctrl.dataLoading = true;
             console.log("hi");
 
-            ctrl.UserService.Create(ctrl.user).then(function (response) {
+            UserService.Create(ctrl.user).then(function (response) {
                 if (response.success) {
                     ctrl.FlashService.Success('Registration successful', true);
                     ctrl.$location.path('.app/components/login/services/user.service.js');
@@ -769,7 +644,7 @@ var UsersController = function () {
 
 exports.default = UsersController;
 
-},{}],28:[function(require,module,exports){
-module.exports = "<div class=\"col-md-6 col-md-offset-3\">\n    <h1>hi!</h1>\n    <h2>Manage Users</h2>\n    <form name=\"form\" ng-submit=\"$ctrl.register()\" role=\"form\">\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }\">\n            <label for=\"username\">First name</label>\n            <input type=\"text\" name=\"firstName\" id=\"firstName\" class=\"form-control\" ng-model=\"$ctrl.register.firstName\" required />\n            <span ng-show=\"form.firstName.$dirty && form.firstName.$error.required\" class=\"help-block\">First name is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.lastName.$dirty && form.lastName.$error.required }\">\n            <label for=\"username\">Last name</label>\n            <input type=\"text\" name=\"lastName\" id=\"Text1\" class=\"form-control\" ng-model=\"$ctrl.register.lastName\" required />\n            <span ng-show=\"form.lastName.$dirty && form.lastName.$error.required\" class=\"help-block\">Last name is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.username.$dirty && form.username.$error.required }\">\n            <label for=\"username\">Username</label>\n            <input type=\"text\" name=\"username\" id=\"username\" class=\"form-control\" ng-model=\"$ctrl.register.username\" required />\n            <span ng-show=\"form.username.$dirty && form.username.$error.required\" class=\"help-block\">Username is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.password.$dirty && form.password.$error.required }\">\n            <label for=\"password\">Password</label>\n            <input type=\"password\" name=\"password\" id=\"password\" class=\"form-control\" ng-model=\"$ctrl.register.password\" required />\n            <span ng-show=\"form.password.$dirty && form.password.$error.required\" class=\"help-block\">Password is required</span>\n        </div>\n        <div class=\"form-actions\">\n            <button type=\"submit\" ng-disabled=\"form.$invalid || ctrl.dataLoading\" class=\"btn btn-primary\">Register</button>\n            \n            <a href=\"#!/login\" class=\"btn btn-link\">Cancel</a>\n        </div>\n    </form>\n</div>";
+},{}],26:[function(require,module,exports){
+module.exports = "<div class=\"col-md-6 col-md-offset-3\">\n    <h1>hi</h1>\n    <h2>Manage Users</h2>\n    <form name=\"form\" ng-submit=\"$ctrl.register()\" role=\"form\">\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }\">\n            <label for=\"username\">First name</label>\n            <input type=\"text\" name=\"firstName\" id=\"firstName\" class=\"form-control\" ng-model=\"$ctrl.register.firstName\" required />\n            <span ng-show=\"form.firstName.$dirty && form.firstName.$error.required\" class=\"help-block\">First name is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.lastName.$dirty && form.lastName.$error.required }\">\n            <label for=\"username\">Last name</label>\n            <input type=\"text\" name=\"lastName\" id=\"Text1\" class=\"form-control\" ng-model=\"$ctrl.register.lastName\" required />\n            <span ng-show=\"form.lastName.$dirty && form.lastName.$error.required\" class=\"help-block\">Last name is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.username.$dirty && form.username.$error.required }\">\n            <label for=\"username\">Username</label>\n            <input type=\"text\" name=\"username\" id=\"username\" class=\"form-control\" ng-model=\"$ctrl.register.username\" required />\n            <span ng-show=\"form.username.$dirty && form.username.$error.required\" class=\"help-block\">Username is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.password.$dirty && form.password.$error.required }\">\n            <label for=\"password\">Password</label>\n            <input type=\"password\" name=\"password\" id=\"password\" class=\"form-control\" ng-model=\"$ctrl.register.password\" required />\n            <span ng-show=\"form.password.$dirty && form.password.$error.required\" class=\"help-block\">Password is required</span>\n        </div>\n        <div class=\"form-actions\">\n            <button type=\"submit\" ng-disabled=\"form.$invalid || ctrl.dataLoading\" class=\"btn btn-primary\">Register</button>\n            \n            <a href=\"#!/login\" class=\"btn btn-link\">Cancel</a>\n        </div>\n    </form>\n</div>";
 
 },{}]},{},[4]);

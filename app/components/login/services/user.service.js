@@ -1,7 +1,7 @@
-(function () {
+//(function () {
     'use strict';
   
-    UserService.$inject = ['$http'];
+    //UserService.$inject = ['$http'];
     function UserService($http) {
         var service = {};
  
@@ -51,4 +51,6 @@
         }
     }
  
-})();
+//})();
+
+export default UserService;

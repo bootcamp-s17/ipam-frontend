@@ -4,7 +4,7 @@ import controller from './users.controller';
 let usersComponent = {
 	bindings : {},
 	template,
-	controller: ['$rootScope', '$interval', controller],
+	controller: ['$rootScope', '$interval', '$location', 'UserService', controller],
 	controllerAs : '$ctrl'
 };
 

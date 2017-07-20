@@ -37,16 +37,23 @@ class appCtrl {
 			alert(id);
 		}
 
-		// ctrl.$rootScope.$watch('site', function() {
-		// 	console.log(ctrl.$rootScope.site);
-		// })
-		ctrl.newSite = {
-		  "name": "Lexington",
-		  "abbreviation": "LEX",
-		  "address": "Douglas Adams Blvd",
-		  "site_contact": "Douglas Adams"
+		ctrl.$rootScope.$watch('sites', function() {
+			console.log('new site');
+		})
+
+		ctrl.$rootScope.addLexington = () => {
+			ctrl.newSite = {
+			  "name": "Lexington",
+			  "abbreviation": "LEX",
+			  "address": "Douglas Adams Blvd",
+			  "site_contact": "Douglas Adams"
+			}
+			ipamService.addSite().save({}, ctrl.newSite).$promise.then((data)=>{
+				ctrl.$rootScope.sites.push(data);
+			});
+			// ctrl.$rootScope.getSites();
+
 		}
-		// ipamService.addSite().save({}, ctrl.newSite);
 		// ipamService.updateSite().update({site:1}, ctrl.newSite);
 
 

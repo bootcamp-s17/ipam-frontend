@@ -8,6 +8,7 @@ import tabboardComponent from './components/tabboard/tabboard.component';
 import navComponent from './components/nav/nav.component';
 import ipamService from './app.services.js';
 
+
 angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .component('app', appComponent)
 .component('equipment', equipmentComponent)

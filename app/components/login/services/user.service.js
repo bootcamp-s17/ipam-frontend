@@ -1,11 +1,7 @@
-(function () {
+//(function () {
     'use strict';
- 
-    angular
-        .module('app')
-        .factory('UserService', UserService);
- 
-    UserService.$inject = ['$http'];
+  
+    //UserService.$inject = ['$http'];
     function UserService($http) {
         var service = {};
  
@@ -55,4 +51,6 @@
         }
     }
  
-})();
+//})();
+
+export default UserService;

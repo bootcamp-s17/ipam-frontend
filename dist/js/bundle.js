@@ -25,7 +25,7 @@ var appComponent = {
 exports.default = appComponent;
 
 },{"./app.controller":2,"./app.html":3}],2:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -70,7 +70,7 @@ var appCtrl = function appCtrl($rootScope, $http, ipamService) {
 	// 	console.log(ctrl.$rootScope.site);
 	// })
 
-	ipamService.getSites().save(JSON.stringify({ name: 'name', address: 'add', abbreviation: 'abbr', site_contact: 'me' }));
+	ipamService.getSites().save();
 
 	/* ------------------------------------------------------
  						SUBNETS
@@ -137,9 +137,7 @@ var _appServices2 = _interopRequireDefault(_appServices);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-angular.module('app', ['ngRoute', 'ngCookies', 'ngResource']).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('tabboard', _tabboard2.default).component('nav', _nav2.default)
-// .factory('randomUserService', random)
-.factory('ipamService', _appServices2.default).config(config).run(run);
+angular.module('app', ['ngRoute', 'ngCookies', 'ngResource']).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('tabboard', _tabboard2.default).component('nav', _nav2.default).factory('ipamService', _appServices2.default).config(config).run(run);
 
 config.$inject = ['$routeProvider', '$locationProvider'];
 function config($routeProvider, $locationProvider) {

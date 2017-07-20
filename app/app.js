@@ -17,7 +17,6 @@ angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .component('login', loginComponent)
 .component('tabboard', tabboardComponent)
 .component('nav', navComponent)
-// .factory('randomUserService', random)
 .factory('ipamService', ipamService)
 .config(config)
 .run(run);

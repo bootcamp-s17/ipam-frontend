@@ -41,7 +41,7 @@ class appCtrl {
 		// 	console.log(ctrl.$rootScope.site);
 		// })
 
-		ipamService.getSites().save(JSON.stringify({name:'name', address: 'add', abbreviation: 'abbr', site_contact: 'me'}));
+		ipamService.getSites().save();
 
 
 

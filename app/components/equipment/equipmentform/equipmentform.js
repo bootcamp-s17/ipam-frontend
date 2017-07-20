@@ -2,7 +2,7 @@
 
 import equipmentformComponent from './equipmentform.component';
 
-let equipmentformModule = angular.module('equipmentform',[])
+let equipmentformModule = angular.module('equipmentform',['ng-ip-address'])
 .component('equipmentform', equipmentformComponent)
 
 console.log('equipmentform.js');

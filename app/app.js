@@ -7,6 +7,9 @@ import loginComponent from './components/login/login.component';
 import tabboardComponent from './components/tabboard/tabboard.component';
 import navComponent from './components/nav/nav.component';
 import ipamService from './app.services.js';
+import equipmentformComponent from './components/equipment/equipmentform/equipmentform.component';
+import subnetformComponent from './components/subnets/subnetform/subnetform.component';
+
 
 angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .component('app', appComponent)
@@ -18,6 +21,8 @@ angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .component('tabboard', tabboardComponent)
 .component('nav', navComponent)
 .factory('ipamService', ipamService)
+.component('equipmentform', equipmentformComponent)
+.component('subnetform', subnetformComponent)
 .config(config)
 .run(run);
 

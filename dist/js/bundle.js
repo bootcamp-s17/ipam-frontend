@@ -69,15 +69,21 @@ var appCtrl = function appCtrl($rootScope, $http, ipamService) {
 	// ctrl.$rootScope.$watch('site', function() {
 	// 	console.log(ctrl.$rootScope.site);
 	// })
+	ctrl.newSite = {
+		"name": "Lexington",
+		"abbreviation": "LEX",
+		"address": "Douglas Adams Blvd",
+		"site_contact": "Douglas Adams"
+		// ipamService.addSite().save({}, ctrl.newSite);
+		// ipamService.updateSite().update({site:1}, ctrl.newSite);
 
-	ipamService.getSites().save();
 
-	/* ------------------------------------------------------
- 						SUBNETS
- ----------------------------------------------------------*/
+		/* ------------------------------------------------------
+  						SUBNETS
+  ----------------------------------------------------------*/
 
-	// Setting a global function for getting sites from API
-	ctrl.$rootScope.getSubnets = function () {
+		// Setting a global function for getting sites from API
+	};ctrl.$rootScope.getSubnets = function () {
 		// grabs api data for all the sites with the ngresource query()
 		ctrl.query = ipamService.getSubnets().query();
 
@@ -177,15 +183,26 @@ Object.defineProperty(exports, "__esModule", {
 
 
 function ipamService($resource) {
+		var getSites = function getSites() {
+				return $resource('http://localhost:7000/api/sites/:site', { site: "@site" });
+		};
+		var getSubnets = function getSubnets() {
+				return $resource('http://localhost:7000/api/subnets/:subnet', { subnet: "@subnet" });
+		};
+		var addSite = function addSite() {
+				return $resource('http://localhost:7000/api/sites');
+		};
+		var updateSite = function updateSite() {
+				return $resource('http://localhost:7000/api/sites/:site', { site: "@site" }, {
+						update: { method: 'PUT' }
+				});
+		};
 
 		return {
-				getSites: function getSites() {
-						return $resource('http://localhost:7000/api/sites/:site', { site: "@site" });
-				},
-				getSubnets: function getSubnets() {
-						return $resource('http://localhost:7000/api/subnets/:subnet', { subnet: "@subnet" });
-				}
-				// addSite: () => $resource('http://localhost:7000/api/sites', {});
+				getSites: getSites,
+				getSubnets: getSubnets,
+				addSite: addSite,
+				updateSite: updateSite
 		};
 };
 

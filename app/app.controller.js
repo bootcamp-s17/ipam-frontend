@@ -41,7 +41,7 @@ class appCtrl {
 		// 	console.log(ctrl.$rootScope.site);
 		// })
 
-		ipamService.getSites().save();
+		// ipamService.getSites().save();
 
 
 

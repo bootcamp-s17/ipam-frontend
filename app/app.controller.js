@@ -41,7 +41,15 @@ class appCtrl {
 		// 	console.log(ctrl.$rootScope.site);
 		// })
 
-		// ipamService.getSites().save();
+		ctrl.newSite = {
+		  "name": "Lexington",
+		  "abbreviation": "LEX",
+		  "address": "Douglas Adams Blvd",
+		  "site_contact": "Douglas Adams"
+		}
+		// ipamService.addSite().save({}, ctrl.newSite);
+		// ipamService.updateSite().update({site:1}, ctrl.newSite);
+
 
 
 

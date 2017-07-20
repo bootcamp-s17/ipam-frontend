@@ -1,44 +1,45 @@
 <form>
-<div class="container">
-<div class="form-inline row">
-  <div class="col-2">
+<div class="container " ng-show="$ctrl.subshow">
+<div class="form-inline ">
+  <div >
       <label for="siteSelect">Sites</label>
-      <select class="form-control form-inline" id="siteSelect">
+      <select class="form-control form-inline mr-2" id="siteSelect" required>
+        <option></option>
         <option>Moon Campus</option>
         <option>Earth Campus</option>
       </select>
     </div>
-    <div class="col-2">
+    <div >
       <label for="subnetName">Subnet Name</label>
-        <input class="form-control form-inline" type="text" id="subnetName">
+        <input class="form-control form-inline" type="text" id="subnetName" required>
     </div>
 </div>
-<div class="form-inline row">
-  <div class="col-2">
+<div >
+  <div >
     <label for="subnetIpAdress">Subnet Ip Adress</label>
-      <input class="form-control" type="text" id="subnetIpAdress">
+      <input class="form-control" type="text" id="subnetIpAdress" required>
   </div>
-  <div class="col-2">
+  <div >
     <label for="subnetMaskBits">Subnet Mask Bits</label>
-      <input class="form-control" type="number" id="subnetMaskBits">
+      <input class="form-control" type="number" id="subnetMaskBits" required>
   </div>
 </div>
-<div class="form-inline row">
-  <div class="form-group col-2">
+<div >
+  <div >
     <label for="vlanNumber">VLAN Number</label>
       <input class="form-control" type="number" id="vlanNumber">
   </div>
-  <div class="form-group col-2">
+  <div >
     <label for="leaseTime">Lease Time</label>
       <input class="form-control" type="time" id="leaseTime">
   </div>
 </div>
-<div class="row">
-  <div class="form-group col">
+<div >
+  <div >
     <label for="subnetNotes">Notes</label>
       <input class="form-control" type="text" id="subnetNotes">
   </div>
 </div>
 
-  <button class="btn btn-primary" type="submit">Save Subnet</button>
-</form>
+  <button class="btn btn-primary" type="submit">Save Subnet</button></form>
+</div>

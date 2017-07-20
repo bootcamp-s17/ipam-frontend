@@ -1,6 +1,11 @@
 
 <div class="container">
 	<div class="row">
+		<div class="col text-center">
+		<button class="btn btn-lg btn-danger" ng-click="$ctrl.$rootScope.addLexington()"> ADD LEXINGTON TO SITES LIST </button>
+		</div>
+	</div>
+	<div class="row">
 		<div  class="col-4" ng-repeat="site in $ctrl.$rootScope.sites">
 			<div class="card card-block" >
 				<div class="card-title">

@@ -333,7 +333,6 @@ var equipmentformController = function equipmentformController($rootScope) {
 	console.log('this is the equipmentformController');
 	ctrl.equipshow = false;
 	ctrl.$rootScope = $rootScope;
-	ctrl.ip = /\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/;
 
 	ctrl.$rootScope.$watch('equipshow', function () {
 		ctrl.equipshow = ctrl.$rootScope.equipshow;
@@ -643,7 +642,7 @@ var subnetsController = function () {
 exports.default = subnetsController;
 
 },{}],26:[function(require,module,exports){
-module.exports = "\n<button id=\"addSubnet\" ng-click=\"$ctrl.subnet(); showme=true\">Add Subnet</button>\n<<<<<<< HEAD\n<<<<<<< Updated upstream\n\n=======\n=======\n>>>>>>> 16a12901c669dbda1d19e2083980368d89065d6c\n<table>\n\t<thead>\n\t\t<tr>\n\t\t\t<th>Name</th>\n\t\t\t<th>Address</th>\n\t\t\t<th>Mask Bits</th>\n\t\t\t<th>vLan</th>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets\">\n\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t</tr>\n\t</tbody>\n</table>\n<<<<<<< HEAD\n>>>>>>> Stashed changes\n=======\n>>>>>>> 16a12901c669dbda1d19e2083980368d89065d6c\n\n";
+module.exports = "\n<button id=\"addSubnet\" ng-click=\"$ctrl.subnet(); showme=true\">Add Subnet</button>\n\n<table>\n\t<thead>\n\t\t<tr>\n\t\t\t<th>Name</th>\n\t\t\t<th>Address</th>\n\t\t\t<th>Mask Bits</th>\n\t\t\t<th>vLan</th>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets\">\n\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n\n";
 
 },{}],27:[function(require,module,exports){
 'use strict';

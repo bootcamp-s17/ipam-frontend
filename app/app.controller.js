@@ -52,9 +52,8 @@ class appCtrl {
 				ctrl.$rootScope.sites.push(data);
 			});
 			// ctrl.$rootScope.getSites();
-
-		}
 		// ipamService.updateSite().update({site:1}, ctrl.newSite);
+
 
 
 

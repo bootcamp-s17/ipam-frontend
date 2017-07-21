@@ -9,7 +9,6 @@ import navComponent from './components/nav/nav.component';
 import ipamService from './app.services.js';
 import equipmentformComponent from './components/equipment/equipmentform/equipmentform.component';
 import subnetformComponent from './components/subnets/subnetform/subnetform.component';
-import tabboardController from './components/tabboard/tabboard.controller';
 
 angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .component('app', appComponent)
@@ -23,43 +22,29 @@ angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .factory('ipamService', ipamService)
 .component('equipmentform', equipmentformComponent)
 .component('subnetform', subnetformComponent)
-.controller('tabboardController', tabboardController)
 .config(config)
 .run(run);
 
 config.$inject = ['$routeProvider', '$locationProvider'];
     function config($routeProvider, $locationProvider) {
         $routeProvider
-            .when('/', {
-                templateUrl: 'app/components/login/login.html',
-            })
-
             .when('/login', {
                 templateUrl: 'app/components/login/login.html',
             })
 
-            .when('/users', {
-                templateUrl: 'app/components/users/users.html',
-            })
-
-            .when('/home', {
-                controller: 'tabboardController',
-                templateUrl: 'app/components/tabboard/tabboard.html',
-                controllerAs: 'ctrl'
-
-            })
-
-            .when('/equipment', {
-
-                templateUrl: 'app/components/equipment/equipment.html',
-            })
-
             .when('/equipmentform', {
-                //controller: 'equipmentController',
                 templateUrl: 'app/components/equipment/equipmentform/equipmentform.html'
             })
 
-            .otherwise({ redirectTo: '/login' });
+            .when('/subnetform', {
+                templateUrl: 'app/components/subnets/subnetform/subnetform.html'
+            })
+
+            .when('/sitesform', {
+                templateUrl: 'app/components/sites/sitesform/sitesform.html'
+            })
+
+            .otherwise({ redirectTo: '/' });
     }
 
     run.$inject = ['$rootScope', '$location', '$cookies', '$http'];

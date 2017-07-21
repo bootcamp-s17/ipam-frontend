@@ -9,7 +9,7 @@ import navComponent from './components/nav/nav.component';
 import ipamService from './app.services.js';
 import equipmentformComponent from './components/equipment/equipmentform/equipmentform.component';
 import subnetformComponent from './components/subnets/subnetform/subnetform.component';
-import tabboardController from './components/tabboard/tabboard.controller';
+
 
 angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .component('app', appComponent)
@@ -23,7 +23,6 @@ angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .factory('ipamService', ipamService)
 .component('equipmentform', equipmentformComponent)
 .component('subnetform', subnetformComponent)
-.controller('tabboardController', tabboardController)
 .config(config)
 .run(run);
 
@@ -43,7 +42,7 @@ config.$inject = ['$routeProvider', '$locationProvider'];
             })
 
             .when('/home', {
-                controller: 'tabboardController',
+                controller: tabboardComponent.controller,
                 templateUrl: 'app/components/tabboard/tabboard.html',
                 controllerAs: 'ctrl'
 
@@ -58,6 +57,17 @@ config.$inject = ['$routeProvider', '$locationProvider'];
                 //controller: 'equipmentController',
                 templateUrl: 'app/components/equipment/equipmentform/equipmentform.html'
             })
+
+            .when('/subnetform', {
+                //controller: 'equipmentController',
+                templateUrl: 'app/components/subnets/subnetform/subnetform.html'
+            })
+            .when('/subnets', {
+                //controller: 'equipmentController',
+                templateUrl: 'app/components/subnets/subnets/subnets.html'
+            })
+
+
 
             .otherwise({ redirectTo: '/login' });
     }

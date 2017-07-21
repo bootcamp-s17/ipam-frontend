@@ -6,13 +6,16 @@ class sidebarController {
         ctrl.$rootScope.getSites();
 
         
-        }
-       
-          search(searchText) {
+ 
+ 	}
+       	
+
+        search(searchText) {
         const ctrl = this;
-        console.log('yo');
         ctrl.$rootScope.searchText = searchText;
+        console.log(ctrl.$rootScope.searchText);
     	}
+
 	};
 
 

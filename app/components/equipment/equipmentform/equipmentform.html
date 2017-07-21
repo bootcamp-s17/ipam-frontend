@@ -1,7 +1,7 @@
 <a href="/" ng-click="$ctrl.$rootScope.dashboard = true"><button><i class="fa fa-close fa-3x"></i></button></a>
-<form name="equipmentForm">
-<div class="container">
-<h1>These are all the required equipment fields</h1>
+<form id="eqipForm" name="equipmentForm">
+<div class="container main-center">
+<h1>Add Equipment</h1>
   <div class="form-group">
     <label for="siteSelect">Site</label>
     <select class="form-control" id="siteSelect" ng-model="site.Select" " required>
@@ -50,28 +50,27 @@
       <input class="form-control" type="text" id="serialNumber">
   </div>
 
-Mac Address:<label for="macAdress">Mac Address</label>
+Mac Address:<label for="macAdress"></label>
   <input id="macAddress" placeholder="" type="text" name="macaddress" ng-model="macpin" ng-pattern="/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/" />
 <span style="color:Red" ng-show="equipmentForm.macaddress.$error.pattern">Please Enter a Valid Mac Address</span>
 <br>
 
-Ip Address:<label for="ipaddress">IP Address</label>
+Ip Address:<label for="ipaddress"></label>
   <input id="ipaddress" placeholder="xx.xxx.xxx.xxx" type="text" name="ipaddress" ng-model="txtpin" ng-pattern="/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/" />
 <span style="color:Red" ng-show="equipmentForm.ipaddress.$error.pattern">Please Enter a Valid IP Address</span>
 
-  <div class="form-check">
-    <label class="form-check-label">
+  <div class="form-check form-inline">
+    <label class="form-check-label"> MAB
       <input class="form-check-input" type="checkbox" id="madBoxYes"
-      value="option1" required> MAB
+      value="option1" required>
     </label>
-  </div>
+  </div> 
 
   <div class="form-group">
     <label for="notesInput">Notes</label>
       <input class="form-control" type="textarea" id="notesInput" >
   </div>
 
-  <h1>These are all the additional equipment fields for printers and computers</h1>
   <!-- These will be additional fields -->
   <div class="form-group" ng-if="subnet.Select == 'true'; type.Select == 'switch'">
     <label for="switchName">Switch Name</label>

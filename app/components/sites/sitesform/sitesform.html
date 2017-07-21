@@ -1,25 +1,26 @@
+<a href="/#!/" ng-click="$ctrl.$rootScope.dashboard = true"><button><i class="fa fa-close fa-3x"></i></button></a>
 <form>
   <div class="form-group">
     <label for="siteName">Site Name</label>
-      <input class="form-control" type="text" id="siteName" required>
+      <input class="form-control" type="text" value="" id="siteName" required>
   </div>
    <div class="form-group">
     <label for="siteAbbreviation">Site Abbreviation</label>
-      <input class="form-control" type="text" id="siteAbbreviation" required>
+      <input class="form-control" type="text" value="" id="siteAbbreviation" required>
   </div>
    <div class="form-group">
     <label for="siteAddress">Site Address</label>
-      <input class="form-control" type="text" id="siteAddress" required>
+      <input class="form-control" type="text" value="" id="siteAddress" required>
   </div>
    <div class="form-group">
     <label for="siteContact">Site Contact</label>
-      <input class="form-control" type="text" id="siteContact" >
+      <input class="form-control" type="text" value="" id="siteContact" >
   </div>
    <div class="form-group">
     <label for="siteNotes">Notes</label>
-      <input class="form-control" type="textarea" id="siteNotes" >
+      <input class="form-control" type="textarea" value="" id="siteNotes" >
   </div>
-
+  <button ng-click='$ctrl.$rootScope.addSite()'>Submit Site</button>
 
 
 </form>

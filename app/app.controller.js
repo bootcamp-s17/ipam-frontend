@@ -3,16 +3,21 @@
 
 class appCtrl {
 
-	constructor($rootScope, $http, ipamService) {
+	constructor($rootScope, $http, $location, ipamService) {
 
 		let ctrl = this;
-
 		ctrl.$rootScope = $rootScope;
 
+		// define a dashbaord variable to work with the ng-clicks
+		// and to set value based on entry page
+		ctrl.$rootScope.dashboard = ($location.path() == '/') ? true : false;
 
 /*----------------------------------------------------------
 						SITES
 ----------------------------------------------------------*/
+
+
+
 
 		// Setting a global function for getting ALL sites from API
 		ctrl.$rootScope.getSites = () => {
@@ -37,21 +42,28 @@ class appCtrl {
 			alert(id);
 		}
 
-		ctrl.$rootScope.$watch('sites', function() {
-			console.log('new site');
-		})
+		// add a site from form
+		ctrl.$rootScope.addSite = () => {
 
-		ctrl.$rootScope.addLexington = () => {
+		// instantiate new site JSON
 			ctrl.newSite = {
-			  "name": "Lexington",
-			  "abbreviation": "LEX",
-			  "address": "Douglas Adams Blvd",
-			  "site_contact": "Douglas Adams"
+				// grab values with JQuery from form
+			  "name": $('#siteName').val(),
+			  "abbreviation": $('#siteAbbreviation').val(),
+			  "address": $('#siteAddress').val(),
+			  "site_contact": $('#siteContact').val(),
 			}
-			ipamService.addSite().save({}, ctrl.newSite).$promise.then((data)=>{
+
+ 			// specific call to save from $resource
+			ipamService.addSite().save({}, ctrl.newSite)
+				.$promise
+				// says wait for the data and push it to the array
+				.then((data) => {
 				ctrl.$rootScope.sites.push(data);
 			});
 		}
+
+
 			// ctrl.$rootScope.getSites();
 		// ipamService.updateSite().update({site:1}, ctrl.newSite);
 

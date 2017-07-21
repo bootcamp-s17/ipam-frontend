@@ -1,0 +1,41 @@
+<div class="row">
+
+	<div class="col-4">
+		<a href='' ng-click="$ctrl.fake()">Hello</a>
+		    <form class="navbar-form" role="search" ng-submit="$ctrl.search($ctrl.searchText)">
+      <div class="input-group" id="custom-search-input">
+        <input type="text" class="form-control" placeholder="Search" ng-model="$ctrl.searchText" ng-change="$ctrl.search($ctrl.searchText)">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit" ng-click="$ctrl.search($ctrl.searchText)"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+      </div>		<span ng-repeat="site in $ctrl.$rootScope.sites"><input type="checkbox">{{site.name}}</input><br /></span>
+	</div>
+	<div class="col-8">
+		<table class="data">
+		  <tr>
+		    <th>Entry Header 1</th>
+		    <th>Entry Header 2</th>
+		    <th>Entry Header 3</th>
+		    <th>Entry Header 4</th>
+		  </tr>
+		  <tr>
+		    <td>Entry First Line 1</td>
+		    <td>Entry First Line 2</td>
+		    <td>Entry First Line 3</td>
+		    <td>Entry First Line 4</td>
+		  </tr>
+		  <tr>
+		    <td>Entry Line 1</td>
+		    <td>Entry Line 2</td>
+		    <td>Entry Line 3</td>
+		    <td>Entry Line 4</td>
+		  </tr>
+		  <tr>
+		    <td>Entry Last Line 1</td>
+		    <td>Entry Last Line 2</td>
+		    <td>Entry Last Line 3</td>
+		    <td>Entry Last Line 4</td>
+		  </tr>
+</table>
+	</div>
+</div>

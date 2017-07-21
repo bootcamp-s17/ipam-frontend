@@ -10,7 +10,6 @@ import ipamService from './app.services.js';
 import equipmentformComponent from './components/equipment/equipmentform/equipmentform.component';
 import subnetformComponent from './components/subnets/subnetform/subnetform.component';
 
-
 angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .component('app', appComponent)
 .component('equipment', equipmentComponent)
@@ -29,24 +28,28 @@ angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 config.$inject = ['$routeProvider', '$locationProvider'];
     function config($routeProvider, $locationProvider) {
         $routeProvider
-            .when('/', {
-                templateUrl: 'app/components/tabboard/tabboard.html',
-            })
-
             .when('/login', {
                 templateUrl: 'app/components/login/login.html',
             })
 
-            .when('/users', {
-                templateUrl: 'app/components/users/users.html',
+            .when('/equipmentform', {
+                templateUrl: 'app/components/equipment/equipmentform/equipmentform.html'
             })
 
-            .otherwise({ redirectTo: '/login' });
+            .when('/subnetform', {
+                templateUrl: 'app/components/subnets/subnetform/subnetform.html'
+            })
+
+            .when('/sitesform', {
+                templateUrl: 'app/components/sites/sitesform/sitesform.html'
+            })
+
+            .otherwise({ redirectTo: '/' });
     }
 
     run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
     function run($rootScope, $location, $cookies, $http) {
-        // keep user logged in after page refresh
+        //keep user logged in after page refresh
         $rootScope.globals = $cookies.getObject('globals') || {};
         if ($rootScope.globals.currentUser) {
             $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
@@ -54,11 +57,11 @@ config.$inject = ['$routeProvider', '$locationProvider'];
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
             // redirect to login page if not logged in and trying to access a restricted page
-            var restrictedPage = $.inArray($location.path(), ['./components/login/login.html', '.components/users/users.html']) === -1;
+            var restrictedPage = $.inArray($location.path(), ['./components/login/login.html', '.components/users/users.html', '.components/equipment/equipmentform/equipmentform.html']) === -1;
             var loggedIn = $rootScope.globals.currentUser;
-            if (restrictedPage && !loggedIn) {
-                $location.path('/login');
-            }
+            //if (restrictedPage && !loggedIn) {
+                //$location.path('/login');
+            //}
         });
     }
 

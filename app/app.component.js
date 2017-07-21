@@ -1,7 +1,7 @@
 import template from './app.html';
 import controller from './app.controller';
 
-controller.$inject = ['$rootScope', '$http', 'ipamService'];
+controller.$inject = ['$rootScope', '$http', '$location', 'ipamService'];
 
 
 let appComponent = {

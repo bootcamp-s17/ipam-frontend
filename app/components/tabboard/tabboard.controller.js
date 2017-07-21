@@ -9,7 +9,6 @@ class tabboardController {
 		ctrl.sitesTab = $('#sitesTab').attr('id');
 		ctrl.subnetsTab = $('#subnetsTab').attr('id');
 		ctrl.equipmentTab = $('#equipmentTab').attr('id');
-
 		ctrl.showTab = 'sites';
 
 		$(".nav-link").on("click", function() {
@@ -27,7 +26,6 @@ class tabboardController {
 			switch (currentTab) {
 				case 'sitesTab':
 				 ctrl.showTab = 'sites';
-
 				break;
 				case 'subnetsTab':
 				 ctrl.showTab = 'subnets';

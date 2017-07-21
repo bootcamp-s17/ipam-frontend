@@ -1,8 +1,7 @@
 
-<!-- <div ng-view></div>  -->
+
 <nav></nav>
-<tabboard></tabboard>
-<equipmentform></equipmentform>
-<subnetform></subnetform>
+<ng-view></ng-view> 
+<tabboard ng-if="$ctrl.$rootScope.dashboard"></tabboard>
 
 

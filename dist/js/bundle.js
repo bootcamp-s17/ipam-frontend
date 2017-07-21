@@ -15,7 +15,7 @@ var _app4 = _interopRequireDefault(_app3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_app4.default.$inject = ['$rootScope', '$http', 'ipamService'];
+_app4.default.$inject = ['$rootScope', '$http', '$location', 'ipamService'];
 
 var appComponent = {
 	template: _app2.default,
@@ -33,12 +33,15 @@ Object.defineProperty(exports, "__esModule", {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var appCtrl = function appCtrl($rootScope, $http, ipamService) {
+var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 	_classCallCheck(this, appCtrl);
 
 	var ctrl = this;
-
 	ctrl.$rootScope = $rootScope;
+
+	// define a dashbaord variable to work with the ng-clicks
+	// and to set value based on entry page
+	ctrl.$rootScope.dashboard = $location.path() == '/' || $location.path() == '' ? true : false;
 
 	/*----------------------------------------------------------
  						SITES
@@ -66,21 +69,25 @@ var appCtrl = function appCtrl($rootScope, $http, ipamService) {
 		alert(id);
 	};
 
-	ctrl.$rootScope.$watch('sites', function () {
-		console.log('new site');
-	});
+	// add a site from form
+	ctrl.$rootScope.addSite = function () {
 
-	ctrl.$rootScope.addLexington = function () {
+		// instantiate new site JSON
 		ctrl.newSite = {
-			"name": "Lexington",
-			"abbreviation": "LEX",
-			"address": "Douglas Adams Blvd",
-			"site_contact": "Douglas Adams"
-		};
-		ipamService.addSite().save({}, ctrl.newSite).$promise.then(function (data) {
+			// grab values with JQuery from form
+			"name": $('#siteName').val(),
+			"abbreviation": $('#siteAbbreviation').val(),
+			"address": $('#siteAddress').val(),
+			"site_contact": $('#siteContact').val()
+
+			// specific call to save from $resource
+		};ipamService.addSite().save({}, ctrl.newSite).$promise
+		// says wait for the data and push it to the array
+		.then(function (data) {
 			ctrl.$rootScope.sites.push(data);
 		});
 	};
+
 	// ctrl.$rootScope.getSites();
 	// ipamService.updateSite().update({site:1}, ctrl.newSite);
 
@@ -108,7 +115,7 @@ var appCtrl = function appCtrl($rootScope, $http, ipamService) {
 exports.default = appCtrl;
 
 },{}],3:[function(require,module,exports){
-module.exports = "\n\n<nav></nav>\n<ng-view></ng-view> \n\n\n";
+module.exports = "\n\n<nav></nav>\n<ng-view></ng-view> \n<tabboard ng-if=\"$ctrl.$rootScope.dashboard\"></tabboard>\n\n\n";
 
 },{}],4:[function(require,module,exports){
 'use strict';
@@ -163,9 +170,7 @@ angular.module('app', ['ngRoute', 'ngCookies', 'ngResource']).component('app', _
 
 config.$inject = ['$routeProvider', '$locationProvider'];
 function config($routeProvider, $locationProvider) {
-    $routeProvider.when('/', {
-        templateUrl: 'app/components/login/login.html'
-    }).when('/login', {
+    $routeProvider.when('/login', {
         templateUrl: 'app/components/login/login.html'
     }).when('/users', {
         templateUrl: 'app/components/users/users.html'
@@ -174,12 +179,10 @@ function config($routeProvider, $locationProvider) {
         templateUrl: 'app/components/tabboard/tabboard.html',
         controllerAs: 'ctrl'
 
-    }).when('/equipment', {
-
-        templateUrl: 'app/components/equipment/equipment.html'
-    }).when('/equipmentform', {
-        //controller: 'equipmentController',
-        templateUrl: 'app/components/equipment/equipmentform/equipmentform.html'
+    }).when('/subnetform', {
+        templateUrl: 'app/components/subnets/subnetform/subnetform.html'
+    }).when('/sitesform', {
+        templateUrl: 'app/components/sites/sitesform/sitesform.html'
     }).when('/subnetform', {
         //controller: 'equipmentController',
         templateUrl: 'app/components/subnets/subnetform/subnetform.html'
@@ -328,7 +331,7 @@ var equipmentController = function () {
 exports.default = equipmentController;
 
 },{}],8:[function(require,module,exports){
-module.exports = "<!-- <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n  Launch demo modal\n</button>\n\n Modal\n div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Modal title</h5>\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        ...\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n        <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\n      </div>\n    </div>\n  </div>\n</div> -->\n\n<a href=\"#!/equipmentform\"><button id=\"addEquipment\"> Add Equipment</button></a>\n\n";
+module.exports = "<!-- <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n  Launch demo modal\n</button>\n\n Modal\n div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Modal title</h5>\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        ...\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n        <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\n      </div>\n    </div>\n  </div>\n</div> -->\n\n<a href=\"/#!/equipmentform\" ng-click=\"$ctrl.$rootScope.dashboard = false\"><button id=\"addEquipment\"> Add Equipment</button></a>\n\n";
 
 },{}],9:[function(require,module,exports){
 'use strict';
@@ -383,7 +386,7 @@ var equipmentformController = function equipmentformController($rootScope) {
 exports.default = equipmentformController;
 
 },{}],11:[function(require,module,exports){
-module.exports = "<ng-view>\n<form name=\"equipmentForm\">\n<div class=\"container\">\n<h1>These are all the required equipment fields</h1>\n  <div class=\"form-group\">\n    <label for=\"siteSelect\">Site</label>\n    <select class=\"form-control\" id=\"siteSelect\" ng-model=\"site.Select\" \" required>\n      <option ng-option value=\"false\"></option>\n      <option ng-option value=\"true\">Moon Campus</option>\n      <option ng-option value=\"true\">Earth Campus</option>\n    </select>\n  </div> \n\n      <div class=\"form-group\" >\n      <label for=\"subnetSelect\" >Subnet</label>\n      <select class=\"form-control\"  ng-dropdown required \">\n        <option ng-option value=\"false\">false</option>\n        <option ng-option value=\"true\">true</option>\n      </select>\n    </div>\n\n     <div class=\"form-group\" >\n      <label for=\"typeSelect\">Type</label>\n      <select class=\"form-control\" ng-model=\"type.Select\" ng-dropdown ng-change=\"changeme()\" required >\n        <option ng-option value=\"other\">Other</option>\n        <option ng-option value=\"printer\">Printer</option>\n        <option ng-option value=\"computer\">Computer</option>\n        <option ng-option value=\"switch\">Switch</option>\n      </select>\n    </div>\n \n\n  <div class=\"form-group\">\n    <label for=\"equipmentName\">Equipment Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"equipmentName\" ng-pattern='/^[a-zA-Z][a-zA-Z0-9]*$/' required>\n  </div>\n\n  <div class=\"form-group\">\n    <label for=\"hostName\">Host Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"hostName\" required>\n  </div>\n\n  <div class=\"form-group\">\n    <label for=\"roomNumber\">Room Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"roomNumber\" required>\n  </div>\n\n  <div class=\"form-group\">\n    <label for=\"serialNumber\">Serial Number</label>\n      <input class=\"form-control\" type=\"text\" id=\"serialNumber\">\n  </div>\n\nMac Address:<label for=\"macAdress\">Mac Address</label>\n  <input id=\"macAddress\" placeholder=\"\" type=\"text\" name=\"macaddress\" ng-model=\"macpin\" ng-pattern=\"/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/\" />\n<span style=\"color:Red\" ng-show=\"equipmentForm.macaddress.$error.pattern\">Please Enter a Valid Mac Address</span>\n<br>\n\nIp Address:<label for=\"ipaddress\">IP Address</label>\n  <input id=\"ipaddress\" placeholder=\"xx.xxx.xxx.xxx\" type=\"text\" name=\"ipaddress\" ng-model=\"txtpin\" ng-pattern=\"/\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b/\" />\n<span style=\"color:Red\" ng-show=\"equipmentForm.ipaddress.$error.pattern\">Please Enter a Valid IP Address</span>\n\n  <div class=\"form-check\">\n    <label class=\"form-check-label\">\n      <input class=\"form-check-input\" type=\"checkbox\" id=\"madBoxYes\"\n      value=\"option1\" required> MAB\n    </label>\n  </div>\n\n  <div class=\"form-group\">\n    <label for=\"notesInput\">Notes</label>\n      <input class=\"form-control\" type=\"textarea\" id=\"notesInput\" >\n  </div>\n\n  <h1>These are all the additional equipment fields for printers and computers</h1>\n  <!-- These will be additional fields -->\n  <div class=\"form-group\" ng-if=\"subnet.Select == 'true'; type.Select == 'switch'\">\n    <label for=\"switchName\">Switch Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"switchName\" required>\n    <label for=\"switchManagementIp\">Switch Management IP</label>\n      <input class=\"form-control\" type=\"text\" id=\"switchManagementIp\" required>\n      <!-- Autofill from room number already entered -->\n    <label for=\"switchRoomNumber\">Switch Room Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"switchRoomNumber\" required>\n  </div>\n\n  <!-- Printer fields -->\n<div class=\"container\" ng-if=\"type.Select =='printer'\">\n  <div class=\"form-group\">\n    <label for=\"printServer\">Print Server</label>\n      <input class=\"form-control\" type=\"text\" id=\"printServer\" required>\n  </div>\n    <div class=\"form-group\">\n    <label for=\"driverInput\">Driver</label>\n      <input class=\"form-control\" type=\"text\" id=\"driverInput\" required>\n  </div>\n  <div class=\"form-group\">\n    <label for=\"printServer\">Print Server</label>\n      <input class=\"form-control\" type=\"text\" id=\"printServer\" required>\n  </div>\n  <!-- Need to autopopulate site abrev. & -room number -->\n  <div class=\"form-group\">\n    <label for=\"printerName\">Printer Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"printerName\" required>\n  </div> \n<!-- Should autopopulate again -->\n <div class=\"form-group\">\n    <label for=\"shareName\">Share Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"shareName\" required>\n  </div>\n  <!-- should autopopulate again -->\n  <div class=\"form-group\">\n    <label for=\"shareComment\">Share Comment</label>\n      <input class=\"form-control\" type=\"text\" id=\"shareComment\" required>\n  </div>\n\n  <div class=\"form-group\">\n    <label for=\"modelNumber\">Model Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"modelNumber\" required>\n  </div>\n  </div>\n  <!-- Computer Affitional Fields -->\n  <div  ng-if=\"type.Select =='computer'\">\n  <div class=\"form-group\">\n    <label for=\"operatingSystem\">Operating System</label>\n      <input class=\"form-control\" type=\"text\" id=\"operatingSystem\" required>\n  </div>\n  <div class=\"form-group\">\n    <label for=\"computerType\">Computer Type</label>\n      <select class=\"form-control\" id=\"computerType\" required>\n        <option>Virtual Machine</option>\n        <option>Physical Computer</option>\n      </select>\n  </div>\n  </div>\n<button class=\"btn btn-primary\" type=\"submit\">Save Equipment</button>\n</div>\n</form>\n\n <script src=\"./node_modules/ng-ip-address/ngIpAddress.vanilla.min.js\"></script>\n</ng-view>";
+module.exports = "\n<ng-view>\n\n<a href=\"/\" ng-click=\"$ctrl.$rootScope.dashboard = true\"><button><i class=\"fa fa-close fa-3x\"></i></button></a>\n\n<form name=\"equipmentForm\">\n<div class=\"container\">\n<h1>These are all the required equipment fields</h1>\n  <div class=\"form-group\">\n    <label for=\"siteSelect\">Site</label>\n    <select class=\"form-control\" id=\"siteSelect\" ng-model=\"site.Select\" \" required>\n      <option ng-option value=\"false\"></option>\n      <option ng-option value=\"true\">Moon Campus</option>\n      <option ng-option value=\"true\">Earth Campus</option>\n    </select>\n  </div> \n\n      <div class=\"form-group\" >\n      <label for=\"subnetSelect\" >Subnet</label>\n      <select class=\"form-control\"  ng-dropdown required \">\n        <option ng-option value=\"false\">false</option>\n        <option ng-option value=\"true\">true</option>\n      </select>\n    </div>\n\n     <div class=\"form-group\" >\n      <label for=\"typeSelect\">Type</label>\n      <select class=\"form-control\" ng-model=\"type.Select\" ng-dropdown ng-change=\"changeme()\" required >\n        <option ng-option value=\"other\">Other</option>\n        <option ng-option value=\"printer\">Printer</option>\n        <option ng-option value=\"computer\">Computer</option>\n        <option ng-option value=\"switch\">Switch</option>\n      </select>\n    </div>\n \n\n  <div class=\"form-group\">\n    <label for=\"equipmentName\">Equipment Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"equipmentName\" ng-pattern='/^[a-zA-Z][a-zA-Z0-9]*$/' required>\n  </div>\n\n  <div class=\"form-group\">\n    <label for=\"hostName\">Host Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"hostName\" required>\n  </div>\n\n  <div class=\"form-group\">\n    <label for=\"roomNumber\">Room Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"roomNumber\" required>\n  </div>\n\n  <div class=\"form-group\">\n    <label for=\"serialNumber\">Serial Number</label>\n      <input class=\"form-control\" type=\"text\" id=\"serialNumber\">\n  </div>\n\nMac Address:<label for=\"macAdress\">Mac Address</label>\n  <input id=\"macAddress\" placeholder=\"\" type=\"text\" name=\"macaddress\" ng-model=\"macpin\" ng-pattern=\"/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/\" />\n<span style=\"color:Red\" ng-show=\"equipmentForm.macaddress.$error.pattern\">Please Enter a Valid Mac Address</span>\n<br>\n\nIp Address:<label for=\"ipaddress\">IP Address</label>\n  <input id=\"ipaddress\" placeholder=\"xx.xxx.xxx.xxx\" type=\"text\" name=\"ipaddress\" ng-model=\"txtpin\" ng-pattern=\"/\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b/\" />\n<span style=\"color:Red\" ng-show=\"equipmentForm.ipaddress.$error.pattern\">Please Enter a Valid IP Address</span>\n\n  <div class=\"form-check\">\n    <label class=\"form-check-label\">\n      <input class=\"form-check-input\" type=\"checkbox\" id=\"madBoxYes\"\n      value=\"option1\" required> MAB\n    </label>\n  </div>\n\n  <div class=\"form-group\">\n    <label for=\"notesInput\">Notes</label>\n      <input class=\"form-control\" type=\"textarea\" id=\"notesInput\" >\n  </div>\n\n  <h1>These are all the additional equipment fields for printers and computers</h1>\n  <!-- These will be additional fields -->\n  <div class=\"form-group\" ng-if=\"subnet.Select == 'true'; type.Select == 'switch'\">\n    <label for=\"switchName\">Switch Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"switchName\" required>\n    <label for=\"switchManagementIp\">Switch Management IP</label>\n      <input class=\"form-control\" type=\"text\" id=\"switchManagementIp\" required>\n      <!-- Autofill from room number already entered -->\n    <label for=\"switchRoomNumber\">Switch Room Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"switchRoomNumber\" required>\n  </div>\n\n  <!-- Printer fields -->\n<div class=\"container\" ng-if=\"type.Select =='printer'\">\n  <div class=\"form-group\">\n    <label for=\"printServer\">Print Server</label>\n      <input class=\"form-control\" type=\"text\" id=\"printServer\" required>\n  </div>\n    <div class=\"form-group\">\n    <label for=\"driverInput\">Driver</label>\n      <input class=\"form-control\" type=\"text\" id=\"driverInput\" required>\n  </div>\n  <div class=\"form-group\">\n    <label for=\"printServer\">Print Server</label>\n      <input class=\"form-control\" type=\"text\" id=\"printServer\" required>\n  </div>\n  <!-- Need to autopopulate site abrev. & -room number -->\n  <div class=\"form-group\">\n    <label for=\"printerName\">Printer Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"printerName\" required>\n  </div> \n<!-- Should autopopulate again -->\n <div class=\"form-group\">\n    <label for=\"shareName\">Share Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"shareName\" required>\n  </div>\n  <!-- should autopopulate again -->\n  <div class=\"form-group\">\n    <label for=\"shareComment\">Share Comment</label>\n      <input class=\"form-control\" type=\"text\" id=\"shareComment\" required>\n  </div>\n\n  <div class=\"form-group\">\n    <label for=\"modelNumber\">Model Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"modelNumber\" required>\n  </div>\n  </div>\n  <!-- Computer Affitional Fields -->\n  <div  ng-if=\"type.Select =='computer'\">\n  <div class=\"form-group\">\n    <label for=\"operatingSystem\">Operating System</label>\n      <input class=\"form-control\" type=\"text\" id=\"operatingSystem\" required>\n  </div>\n  <div class=\"form-group\">\n    <label for=\"computerType\">Computer Type</label>\n      <select class=\"form-control\" id=\"computerType\" required>\n        <option>Virtual Machine</option>\n        <option>Physical Computer</option>\n      </select>\n  </div>\n  </div>\n<button class=\"btn btn-primary\" type=\"submit\">Save Equipment</button>\n</div>\n</form>\n\n <script src=\"./node_modules/ng-ip-address/ngIpAddress.vanilla.min.js\"></script>\n</ng-view>";
 
 },{}],12:[function(require,module,exports){
 'use strict';
@@ -561,7 +564,7 @@ var sitesController = function () {
 exports.default = sitesController;
 
 },{}],20:[function(require,module,exports){
-module.exports = "\r\n<div class=\"container\">\r\n\t<div class=\"row\">\r\n\t\t<div class=\"col text-center\">\r\n\t\t<button class=\"btn btn-lg btn-danger\" ng-click=\"$ctrl.$rootScope.addLexington()\"> ADD LEXINGTON TO SITES LIST </button>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class=\"row\">\r\n\t\t<div  class=\"col-4\" ng-repeat=\"site in $ctrl.$rootScope.sites\">\r\n\t\t\t<div class=\"card card-block\" >\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t\t<h4 class=\"col-8\" ng-click=\"$ctrl.$rootScope.getSite(site.id)\">{{site.name}}</h4>\r\n\t\t\t\t\t\t<h5 class=\"col-4\">{{site.abbreviation}}</h5>\r\n\t\t\t\t</div>\r\n\t\t\t\t<ul class=\"list-group list-group-flush\">\r\n\t\t\t\t\t<li class=\"list-group-item\">Address: {{site.address}} </li>\r\n\t\t\t\t\t<li class=\"list-group-item\">Contact: {{site.site_contact}} </li>\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<div class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<h4 class=\"col text-center\">Add New Site</h4>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col text-center\">\r\n\t\t\t\t\t\t\r\n\t\t\t\t<a ng-click=\"$ctrl.addNewSite()\" class=\"text-center\"><i class=\"fa fa-plus fa-5x text-center\"></i></a>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\r\n\r\n\t</div> <!-- end main row -->\r\n\r\n\r\n</div> <!-- end container -->\r\n\r\n";
+module.exports = "\r\n<div class=\"container\">\r\n\t<div class=\"row\">\r\n\t\t<div  class=\"col-4\" ng-repeat=\"site in $ctrl.$rootScope.sites\">\r\n\t\t\t<div class=\"card card-block\" >\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t\t<h4 class=\"col-8\" ng-click=\"$ctrl.$rootScope.getSite(site.id)\">{{site.name}}</h4>\r\n\t\t\t\t\t\t<h5 class=\"col-4\">{{site.abbreviation}}</h5>\r\n\t\t\t\t</div>\r\n\t\t\t\t<ul class=\"list-group list-group-flush\">\r\n\t\t\t\t\t<li class=\"list-group-item\">Address: {{site.address}} </li>\r\n\t\t\t\t\t<li class=\"list-group-item\">Contact: {{site.site_contact}} </li>\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<a href='/#!/sitesform'  ng-click=\"$ctrl.$rootScope.dashboard = false\" class=\"text-center\">\r\n\t\t\t<div class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<h4 class=\"col text-center\">Add New Site</h4>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col text-center\">\r\n\t\t\t\t\t\t<i class=\"fa fa-plus fa-5x text-center\"></i>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t</a>\r\n\t\t</div>\r\n\r\n\r\n\r\n\t</div> <!-- end main row -->\r\n\r\n\r\n</div> <!-- end container -->\r\n\r\n";
 
 },{}],21:[function(require,module,exports){
 'use strict';
@@ -615,7 +618,7 @@ var subnetformController = function subnetformController($rootScope) {
 exports.default = subnetformController;
 
 },{}],23:[function(require,module,exports){
-module.exports = "<ng-view>\n<form>\n<div class=\"container \" ng-show=\"$ctrl.subshow\">\n<div class=\"form-inline \">\n  <div >\n      <label for=\"siteSelect\">Sites</label>\n      <select class=\"form-control form-inline mr-2\" id=\"siteSelect\" required>\n        <option></option>\n        <option>Moon Campus</option>\n        <option>Earth Campus</option>\n      </select>\n    </div>\n    <div >\n      <label for=\"subnetName\">Subnet Name</label>\n        <input class=\"form-control form-inline\" type=\"text\" id=\"subnetName\" required>\n    </div>\n</div>\n<div >\n  <div >\n    <label for=\"subnetIpAdress\">Subnet Ip Adress</label>\n      <input class=\"form-control\" type=\"text\" id=\"subnetIpAdress\" required>\n  </div>\n  <div >\n    <label for=\"subnetMaskBits\">Subnet Mask Bits</label>\n      <input class=\"form-control\" type=\"number\" id=\"subnetMaskBits\" required>\n  </div>\n</div>\n<div >\n  <div >\n    <label for=\"vlanNumber\">VLAN Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"vlanNumber\">\n  </div>\n  <div >\n    <label for=\"leaseTime\">Lease Time</label>\n      <input class=\"form-control\" type=\"time\" id=\"leaseTime\">\n  </div>\n</div>\n<div >\n  <div >\n    <label for=\"subnetNotes\">Notes</label>\n      <input class=\"form-control\" type=\"text\" id=\"subnetNotes\">\n  </div>\n</div>\n\n  <button class=\"btn btn-primary\" type=\"submit\">Save Subnet</button></form>\n</div>\n</form>";
+module.exports = "\n<ng-view>\n\n<a href=\"/\"  ng-click=\"$ctrl.$rootScope.dashboard = true\"><button><i class=\"fa fa-close fa-3x\"></i></button></a>\n\n<form>\n<div class=\"container\" >\n<div class=\"form-inline\">\n  <div >\n      <label for=\"siteSelect\">Sites</label>\n      <select class=\"form-control form-inline mr-2\" id=\"siteSelect\" required>\n        <option></option>\n        <option>Moon Campus</option>\n        <option>Earth Campus</option>\n      </select>\n    </div>\n    <div >\n      <label for=\"subnetName\">Subnet Name</label>\n        <input class=\"form-control form-inline\" type=\"text\" id=\"subnetName\" required>\n    </div>\n</div>\n<div >\n  <div >\n    <label for=\"subnetIpAdress\">Subnet Ip Adress</label>\n      <input class=\"form-control\" type=\"text\" id=\"subnetIpAdress\" required>\n  </div>\n  <div >\n    <label for=\"subnetMaskBits\">Subnet Mask Bits</label>\n      <input class=\"form-control\" type=\"number\" id=\"subnetMaskBits\" required>\n  </div>\n</div>\n<div >\n  <div >\n    <label for=\"vlanNumber\">VLAN Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"vlanNumber\">\n  </div>\n  <div >\n    <label for=\"leaseTime\">Lease Time</label>\n      <input class=\"form-control\" type=\"time\" id=\"leaseTime\">\n  </div>\n</div>\n<div >\n  <div >\n    <label for=\"subnetNotes\">Notes</label>\n      <input class=\"form-control\" type=\"text\" id=\"subnetNotes\">\n  </div>\n</div>\n\n  <button class=\"btn btn-primary\" type=\"submit\">Save Subnet</button></form>\n</div>\n</form>";
 
 },{}],24:[function(require,module,exports){
 'use strict';
@@ -683,7 +686,7 @@ var subnetsController = function () {
 exports.default = subnetsController;
 
 },{}],26:[function(require,module,exports){
-module.exports = "\n<button id=\"addSubnet\" ng-click=\"$ctrl.subnet(); showme=true\">Add Subnet</button>\n\n<table>\n\t<thead>\n\t\t<tr>\n\t\t\t<th>Name</th>\n\t\t\t<th>Address</th>\n\t\t\t<th>Mask Bits</th>\n\t\t\t<th>vLan</th>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets\">\n\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n\n";
+module.exports = "\n<a href=\"/#!/subnetform\"  ng-click=\"$ctrl.$rootScope.dashboard = false\"><button id=\"addSubnet\">Add Subnet</button></a>\n\n<table>\n\t<thead>\n\t\t<tr>\n\t\t\t<th>Name</th>\n\t\t\t<th>Address</th>\n\t\t\t<th>Mask Bits</th>\n\t\t\t<th>vLan</th>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets\">\n\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n\n";
 
 },{}],27:[function(require,module,exports){
 'use strict';
@@ -731,7 +734,6 @@ var tabboardController = function () {
 		ctrl.sitesTab = $('#sitesTab').attr('id');
 		ctrl.subnetsTab = $('#subnetsTab').attr('id');
 		ctrl.equipmentTab = $('#equipmentTab').attr('id');
-
 		ctrl.showTab = 'sites';
 
 		$(".nav-link").on("click", function () {
@@ -752,7 +754,6 @@ var tabboardController = function () {
 			switch (currentTab) {
 				case 'sitesTab':
 					ctrl.showTab = 'sites';
-
 					break;
 				case 'subnetsTab':
 					ctrl.showTab = 'subnets';
@@ -772,7 +773,7 @@ var tabboardController = function () {
 exports.default = tabboardController;
 
 },{}],29:[function(require,module,exports){
-module.exports = "<h1>Tab Board</h1>\n\n<ul class=\"nav nav-tabs\"> <!-- Tabs -->\n  <li class=\"nav-item\">\n    <a class=\"nav-link active\" id=\"sitesTab\" value=\"sites\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#\">Sites</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" id=\"subnetsTab\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#\">Subnets</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" id=\"equipmentTab\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#\">Equipment</a>\n  </li>\n</ul> <!-- End Tabs -->\n\n<sites ng-show=\"$ctrl.showTab == 'sites'\"></sites>\n<subnets ng-show=\"$ctrl.showTab == 'subnets'\"></subnets>\n<equipment ng-show=\"$ctrl.showTab == 'equipment'\"></equipment>";
+module.exports = "\n<ul class=\"nav nav-tabs\"> <!-- Tabs -->\n  <li class=\"nav-item\">\n    <a class=\"nav-link active\" id=\"sitesTab\" value=\"sites\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#\">Sites</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" id=\"subnetsTab\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#\">Subnets</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" id=\"equipmentTab\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#\">Equipment</a>\n  </li>\n</ul> <!-- End Tabs -->\n\n<sites ng-show=\"$ctrl.showTab == 'sites'\"></sites>\n<subnets ng-show=\"$ctrl.showTab == 'subnets'\"></subnets>\n<equipment ng-show=\"$ctrl.showTab == 'equipment'\"></equipment>";
 
 },{}],30:[function(require,module,exports){
 'use strict';

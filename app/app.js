@@ -29,10 +29,6 @@ angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 config.$inject = ['$routeProvider', '$locationProvider'];
     function config($routeProvider, $locationProvider) {
         $routeProvider
-            .when('/', {
-                templateUrl: 'app/components/login/login.html',
-            })
-
             .when('/login', {
                 templateUrl: 'app/components/login/login.html',
             })
@@ -48,15 +44,14 @@ config.$inject = ['$routeProvider', '$locationProvider'];
 
             })
 
-            .when('/equipment', {
-
-                templateUrl: 'app/components/equipment/equipment.html',
+            .when('/subnetform', {
+                templateUrl: 'app/components/subnets/subnetform/subnetform.html'
             })
 
-            .when('/equipmentform', {
-                //controller: 'equipmentController',
-                templateUrl: 'app/components/equipment/equipmentform/equipmentform.html'
+            .when('/sitesform', {
+                templateUrl: 'app/components/sites/sitesform/sitesform.html'
             })
+
 
             .when('/subnetform', {
                 //controller: 'equipmentController',
@@ -70,6 +65,7 @@ config.$inject = ['$routeProvider', '$locationProvider'];
 
 
             .otherwise({ redirectTo: '/login' });
+
     }
 
     run.$inject = ['$rootScope', '$location', '$cookies', '$http'];

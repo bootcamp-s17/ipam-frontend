@@ -1,7 +1,11 @@
+
 <ng-view>
+
+<a href="/"  ng-click="$ctrl.$rootScope.dashboard = true"><button><i class="fa fa-close fa-3x"></i></button></a>
+
 <form>
-<div class="container " ng-show="$ctrl.subshow">
-<div class="form-inline ">
+<div class="container" >
+<div class="form-inline">
   <div >
       <label for="siteSelect">Sites</label>
       <select class="form-control form-inline mr-2" id="siteSelect" required>

@@ -41,7 +41,7 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 
 	// define a dashbaord variable to work with the ng-clicks
 	// and to set value based on entry page
-	ctrl.$rootScope.dashboard = $location.path() == '/' ? true : false;
+	ctrl.$rootScope.dashboard = $location.path() == '/' || $location.path() == '' ? true : false;
 
 	/*----------------------------------------------------------
  						SITES

@@ -25,6 +25,8 @@ class sidebarController {
             .every(function (key) { return !filterObj[key]; });
         }
 
+
+
  
     }
         

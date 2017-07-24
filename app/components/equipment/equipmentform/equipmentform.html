@@ -20,7 +20,12 @@
   <div class="form-group" >
     <label for="typeSelect">Type</label>
       <select id="typeId" class="form-control" ng-model="type.Select" ng-dropdown ng-change="changeme()" required >
-          <option ng-repeat="equipment_type in $ctrl.$rootScope.equipment_types" value="{{equipment_type.id}}">{{equipment_type.name}}</option>
+        <option value="8">Other</option>
+        <option value="1">Printer</option>
+        <option value="2">Computer</option>
+    </select>
+
+          <!-- <option ng-repeat="equipment_type in $ctrl.$rootScope.equipment_types" value="{{equipment_type.id}}">{{equipment_type.name}}</option> -->
   </div>
  
 
@@ -76,7 +81,7 @@
   </div>
 
   <!-- Printer fields -->
-<div class="container" ng-if="type.Select =='printer'">
+<div class="container" ng-if="type.Select =='1'">
   <div class="form-group">
     <label for="printServer">Print Server</label>
       <input class="form-control" type="text" id="printServer" required>
@@ -111,7 +116,7 @@
   </div>
   </div>
   <!-- Computer Affitional Fields -->
-  <div  ng-if="type.Select =='computer'">
+  <div  ng-if="type.Select =='2'">
   <div class="form-group">
     <label for="operatingSystem">Operating System</label>
       <input class="form-control" type="text" id="operatingSystem" required>

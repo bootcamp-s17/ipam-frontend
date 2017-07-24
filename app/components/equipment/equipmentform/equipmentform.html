@@ -45,12 +45,12 @@
       <input class="form-control" type="text" id="serialNumber">
   </div>
 
-Mac Address:<label for="macAdress">Mac Address</label>
+<label for="macAdress">Mac Address:</label>
   <input id="macAddress" placeholder="xx.xx.xx.xx.xx" id="macAddress" placeholder="" type="text" name="macaddress" ng-model="macpin" ng-pattern="/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/" />
 <span style="color:Red" ng-show="equipmentForm.macaddress.$error.pattern">Please Enter a Valid Mac Address</span>
 <br>
 
-Ip Address:<label for="ipaddress">IP Address</label>
+<label for="ipaddress">IP Address:</label>
   <input id="equipipaddress" placeholder="xx.xxx.xxx.xxx" type="text" name="equipipaddress" ng-model="txtpin" ng-pattern="/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/" />
 <span style="color:Red" ng-show="equipmentForm.equipipaddress.$error.pattern">Please Enter a Valid IP Address</span>
 

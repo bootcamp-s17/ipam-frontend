@@ -81,7 +81,7 @@ class appCtrl {
 				ctrl.$rootScope.subnets = data;
 			})	
 
-
+		} 
 		ctrl.$rootScope.addSubnet = () => {
 		// instantiate new subnet JSON
 			ctrl.newSubnet = {
@@ -99,9 +99,7 @@ class appCtrl {
 				.then((data) => {
 				ctrl.$rootScope.subnets.push(data);
 			});
-		}
-
-		} // end getSubnets()
+		}// end getSubnets()
 /* ------------------------------------------------------
 						IP Adsress
 ----------------------------------------------------------*/ 
@@ -142,6 +140,9 @@ class appCtrl {
 			ctrl.query.$promise.then( (data) => {
 				ctrl.$rootScope.equipments = data;
 			})	
+		}
+
+
 
 		ctrl.$rootScope.addEquipment = () => {
 		// instantiate new equipment JSON
@@ -160,10 +161,7 @@ class appCtrl {
 				.then((data) => {
 				ctrl.$rootScope.equipments.push(data);
 			});
-		}
-	}//end equipments
-
-
+		}//end equipments
 
 
 	} // end constructor

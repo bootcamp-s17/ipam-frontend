@@ -105,24 +105,23 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 		ctrl.query.$promise.then(function (data) {
 			ctrl.$rootScope.subnets = data;
 		});
+	};
+	ctrl.$rootScope.addSubnet = function () {
+		// instantiate new subnet JSON
+		ctrl.newSubnet = {}
+		// grab values with JQuery from form
+		// "name": $('#siteName').val(),
+		// "abbreviation": $('#siteAbbreviation').val(),
+		// "address": $('#siteAddress').val(),
+		// "site_contact": $('#siteContact').val(),
 
-		ctrl.$rootScope.addSubnet = function () {
-			// instantiate new subnet JSON
-			ctrl.newSubnet = {}
-			// grab values with JQuery from form
-			// "name": $('#siteName').val(),
-			// "abbreviation": $('#siteAbbreviation').val(),
-			// "address": $('#siteAddress').val(),
-			// "site_contact": $('#siteContact').val(),
 
-
-			// specific call to save from $resource
-			;ipamService.addSubnet().save({}, ctrl.newSubnet).$promise
-			// says wait for the data and push it to the array
-			.then(function (data) {
-				ctrl.$rootScope.subnets.push(data);
-			});
-		};
+		// specific call to save from $resource
+		;ipamService.addSubnet().save({}, ctrl.newSubnet).$promise
+		// says wait for the data and push it to the array
+		.then(function (data) {
+			ctrl.$rootScope.subnets.push(data);
+		});
 	}; // end getSubnets()
 	/* ------------------------------------------------------
  						IP Adsress
@@ -162,24 +161,24 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 		ctrl.query.$promise.then(function (data) {
 			ctrl.$rootScope.equipments = data;
 		});
+	};
 
-		ctrl.$rootScope.addEquipment = function () {
-			// instantiate new equipment JSON
-			ctrl.newEquipment = {}
-			// grab values with JQuery from form
-			//   "name": $('#siteName').val(),
-			//   "abbreviation": $('#siteAbbreviation').val(),
-			//   "address": $('#siteAddress').val(),
-			//   "site_contact": $('#siteContact').val(),
+	ctrl.$rootScope.addEquipment = function () {
+		// instantiate new equipment JSON
+		ctrl.newEquipment = {}
+		// grab values with JQuery from form
+		//   "name": $('#siteName').val(),
+		//   "abbreviation": $('#siteAbbreviation').val(),
+		//   "address": $('#siteAddress').val(),
+		//   "site_contact": $('#siteContact').val(),
 
 
-			// specific call to save from $resource
-			;ipamService.addEquipment().save({}, ctrl.newEquipment).$promise
-			// says wait for the data and push it to the array
-			.then(function (data) {
-				ctrl.$rootScope.equipments.push(data);
-			});
-		};
+		// specific call to save from $resource
+		;ipamService.addEquipment().save({}, ctrl.newEquipment).$promise
+		// says wait for the data and push it to the array
+		.then(function (data) {
+			ctrl.$rootScope.equipments.push(data);
+		});
 	}; //end equipments
 
 } // end constructor

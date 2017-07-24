@@ -1,23 +1,32 @@
-
-<a href="/#!/subnetform"  ng-click="$ctrl.$rootScope.dashboard = false"><button id="addSubnet">Add Subnet</button></a>
-
-<table>
-	<thead>
-		<tr>
-			<th>Name</th>
-			<th>Address</th>
-			<th>Mask Bits</th>
-			<th>vLan</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="subnet in $ctrl.$rootScope.subnets">
-			<td class="pr-2">{{subnet.name}}</td>
-			<td class="pr-2">{{subnet.subnet_address}}</td>
-			<td class="pr-2">{{subnet.mask_bits}}</td>
-			<td class="pr-2">{{subnet.vLan}}</td>
-		</tr>
-	</tbody>
-</table>
+<div class="container-fluid">
+	<sidebar></sidebar>
+	<div class="row">
+  <a href="/#!/subnetform" ng-click="$ctrl.$rootScope.dashboard = false"><button id="addSubnet"> Add Subnet</button></a>
+  </div>
+	<div class="row">
+		<div class= "col">
+		<table class="data">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Site Id</th>
+					<th>Address</th>
+					<th>Mask Bits</th>
+					<th>vLan</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid">
+					<td class="pr-2">{{subnet.name}}</td>
+					<td class="pr-2">{{subnet.site_id}}</td>
+					<td class="pr-2">{{subnet.subnet_address}}</td>
+					<td class="pr-2">{{subnet.mask_bits}}</td>
+					<td class="pr-2">{{subnet.vLan}}</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
+</div>
 
 

@@ -1,0 +1,21 @@
+<div class="container-fluid highz">
+	<div class="row">
+		<div class="col-4">
+			<input type="text" id="searchText" class="col" placeholder="Keyword Search..." ng-change="$ctrl.$rootScope.search($ctrl.$rootScope.searchText)" ng-model="$ctrl.$rootScope.searchText">
+		</div>
+		<div class="col-4">
+			<div class="dropdown">
+			  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Site Filter</button>
+			  
+			  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			  	<span ng-repeat="site in $ctrl.$rootScope.sites" class="dropdown-item">
+			  	<input type="checkbox" ng-model="$ctrl.filter[site.id]" ng-value="site.id" class="filterbox">{{site.name}}</input><br />
+			  	</span>
+			  </div>
+			</div>
+		</div>
+		<div class="col-4">
+		</div>
+	</div>
+</div>
+	

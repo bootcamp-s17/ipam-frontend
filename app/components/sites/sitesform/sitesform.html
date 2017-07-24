@@ -22,10 +22,12 @@
     <label for="siteNotes">Notes</label>
       <input class="form-control" type="textarea" value="" id="siteNotes" >
   </div>
+
   <div class="clearfix">
   <a href="/" ng-click="$ctrl.$rootScope.dashboard = true"><button class="btn btn-danger">Cancel</button></a>
-    <button class="btn btn-primary" type="submit">Save Site</button>
+    <button ng-click='$ctrl.$rootScope.addSite()' class="btn btn-primary" type="submit">Save Site</button>
   </div>
 </div>
+
 
 </form>

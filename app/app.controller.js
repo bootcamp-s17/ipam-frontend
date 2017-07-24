@@ -1,6 +1,3 @@
-
-
-
 class appCtrl {
 
 	constructor($rootScope, $http, $location, ipamService) {
@@ -15,8 +12,6 @@ class appCtrl {
 /*----------------------------------------------------------
 						SITES
 ----------------------------------------------------------*/
-
-
 
 
 		// Setting a global function for getting ALL sites from API
@@ -37,10 +32,10 @@ class appCtrl {
 
 			ctrl.get.$promise.then( (data) => {
 				ctrl.$rootScope.site = data;
+				console.log(ctrl.$rootScope.site);
 			})
 
-			alert(id);
-		}
+		} // end getSite
 
 		// add a site from form
 		ctrl.$rootScope.addSite = () => {
@@ -61,14 +56,41 @@ class appCtrl {
 				.then((data) => {
 				ctrl.$rootScope.sites.push(data);
 			});
-		}
+		} //end addSite
 
+		ctrl.$rootScope.updateSite = (id) => {
 
-			// ctrl.$rootScope.getSites();
-		// ipamService.updateSite().update({site:1}, ctrl.newSite);
+			// instantiate new site JSON
+			ctrl.saveSite = {
+				// grab values with JQuery from form
+			  "id": id,
+			  "name": $('#editSiteName').val(),
+			  "abbreviation": $('#editSiteAbbreviation').val(),
+			  "address": $('#editSiteAddress').val(),
+			  "site_contact": $('#editSiteContact').val(),
+			}
 
+			// ctrl.saveSite = {
+			// 	// grab values with JQuery from form
+			//   "id": id,
+			//   "name": 'test2',
+			//   "address": '300 Rose',
+			//   "abbreviation": 'tst',
+			//   "site_contact": 'david',
+			// }
+			console.log(ctrl.saveSite);
+ 			// specific call to save from $resource
+			ipamService.updateSite().update({site:id}, ctrl.saveSite)
+				.$promise
+				// says wait for the data and push it to the array
+				.then((data) => {
+				//pull the sites from db for fresh info with updated site
+				ctrl.$rootScope.getSites();
+				// console.log(data);
+				});
+		} //end updateSite
 
-
+		// ctrl.$rootScope.updateSite(1);
 
 /* ------------------------------------------------------
 						SUBNETS
@@ -84,13 +106,107 @@ class appCtrl {
 				ctrl.$rootScope.subnets = data;
 			})	
 
-		} // end getSubnets()
+		} 
+		ctrl.$rootScope.addSubnet = () => {
+		// instantiate new subnet JSON
+			ctrl.newSubnet = {
+				// grab values with JQuery from form
+			   "site_id": $('#siteSelect').val(),
+			   "name": $('#subnetName').val(),
+			   "subnet_address": $('#subnetIpAddress').val(),
+			   "mask_bits": $('#subnetMaskBits').val(),
+			   "vLan": $('#vlanNumber').val(),	
+
+			}
+
+ 			// specific call to save from $resource
+			ipamService.addSubnet().save({}, ctrl.newSubnet)
+				.$promise
+				// says wait for the data and push it to the array
+				.then((data) => {
+				ctrl.$rootScope.subnets.push(data);
+			});
+		}// end getSubnets()
+/* ------------------------------------------------------
+						IP Adsress
+----------------------------------------------------------*/ 
+	// Setting a global function for getting sites from API
+		ctrl.$rootScope.getIpBySubnet = (id) => {
+			// grabs api data for all the sites with the ngresource query()
+			ctrl.query = ipamService.getIpBySubnet().query();
+
+			// pushes data to sites object, .then means we wait on the promise
+			ctrl.query.$promise.then( (data) => {
+				ctrl.$rootScope.usedIps = data;
+			})	
+
+		} // end getIpBySubnet()
+		
+// Setting a global function for getting sites from API
+		ctrl.$rootScope.getNextIp = (id) => {
+			// grabs api data for all the sites with the ngresource query()
+			ctrl.query = ipamService.getNextIp().query();
+
+			// pushes data to sites object, .then means we wait on the promise
+			ctrl.get.$promise.then( (data) => {
+				ctrl.$rootScope.NextIp = data;
+			})	
+
+		}// end getNextUp()
+
+
+/* ------------------------------------------------------
+						EQUIPMENT
+----------------------------------------------------------*/
+		// Setting a global function for getting equipments from API
+		ctrl.$rootScope.getEquipments = () => {
+			// grabs api data for all the sites with the ngresource query()
+			ctrl.query = ipamService.getEquipments().query();
+
+			// pushes data to sites object, .then means we wait on the promise
+			ctrl.query.$promise.then( (data) => {
+				ctrl.$rootScope.equipments = data;
+			})	
+		}
+
+
+
+		ctrl.$rootScope.addEquipment = () => {
+		// instantiate new equipment JSON
+			ctrl.newEquipment = {
+				// grab values with JQuery from form
+			  "site_id": $('#siteSelect').val(),
+			  "subnet_id": $('#subnetSelect').val(),
+			  "equipment_type_id": $('#typeId').val(),
+			  "name": $('#equipmentName').val(),
+			  "host_name": $('#hostName').val(),
+			  "room_id": $('#room_id').val(),
+			  "serial_number": $('#serialNumber').val(),
+			  "mac_address": $('#macAddress').val(),
+			  "ip_address": $('#equipaddress').val(),
+			  "mab": $('#mabBoxYes').val(),
+			  "switch_name":$('#switchName').val(),
+			  "switch_ip":$('#switchManagementIp').val(),
+			  "switch_room_number":$('#switchRoomNumber').val(),
+			  "printer_server": $('#printerServer').val(),
+			  "driver": $('#driverInput').val(),
+			  "printer_name": $('#printerName').val(),
+			  "share_name": $('#shareName').val(),
+			  "share_comment": $('#shareComment').val(),
+			  "model": $('#modelType').val(),
+			  "operating_system":$('#operatingSystem').val(),
+			  "computer_type":$('#computerType').val()
+			 }
+ 			// specific call to save from $resource
+			ipamService.addEquipment().save({}, ctrl.newEquipment)
+				.$promise
+				// says wait for the data and push it to the array
+				.then((data) => {
+				ctrl.$rootScope.equipments.push(data);
+			});
+		} //end quipments
 
 
 	} // end constructor
-
 } // end appCtrl
-
-
-
 export default appCtrl;

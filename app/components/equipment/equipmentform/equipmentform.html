@@ -10,19 +10,18 @@
     </select>
   </div> 
 
-      <div class="form-group" >
-      <label for="subnetSelect" >Subnet</label>
+  <div class="form-group" >
+    <label for="subnetSelect" >Subnet</label>
       <select class="form-control" id="subnetSelect" ng-dropdown required ">
-        <option ng-repeat="subnet in $ctrl.$rootScope.subnets" value="{{subnet.id}}">{{subnet.name}}</option>
-        
+        <option ng-repeat="subnet in $ctrl.$rootScope.subnets" value="{{subnet.id}}">{{subnet.name}}</option> 
       </select>
-    </div>
+  </div>
 
-     <div class="form-group" >
-      <label for="typeSelect">Type</label>
+  <div class="form-group" >
+    <label for="typeSelect">Type</label>
       <select id="typeId" class="form-control" ng-model="type.Select" ng-dropdown ng-change="changeme()" required >
           <option ng-repeat="equipment_type in $ctrl.$rootScope.equipment_types" value="{{equipment_type.id}}">{{equipment_type.name}}</option>
-    </div>
+  </div>
  
 
   <div class="form-group">

@@ -81,7 +81,25 @@ class appCtrl {
 				ctrl.$rootScope.subnets = data;
 			})	
 
-		} // end getSubnets()
+		} 
+		ctrl.$rootScope.addSubnet = () => {
+		// instantiate new subnet JSON
+			ctrl.newSubnet = {
+				// grab values with JQuery from form
+			  // "name": $('#siteName').val(),
+			  // "abbreviation": $('#siteAbbreviation').val(),
+			  // "address": $('#siteAddress').val(),
+			  // "site_contact": $('#siteContact').val(),
+			}
+
+ 			// specific call to save from $resource
+			ipamService.addSubnet().save({}, ctrl.newSubnet)
+				.$promise
+				// says wait for the data and push it to the array
+				.then((data) => {
+				ctrl.$rootScope.subnets.push(data);
+			});
+		}// end getSubnets()
 /* ------------------------------------------------------
 						IP Adsress
 ----------------------------------------------------------*/ 
@@ -109,9 +127,43 @@ class appCtrl {
 
 		}// end getNextUp()
 
+
+/* ------------------------------------------------------
+						EQUIPMENT
+----------------------------------------------------------*/
+		// Setting a global function for getting equipments from API
+		ctrl.$rootScope.getEquipments = () => {
+			// grabs api data for all the sites with the ngresource query()
+			ctrl.query = ipamService.getEquipments().query();
+
+			// pushes data to sites object, .then means we wait on the promise
+			ctrl.query.$promise.then( (data) => {
+				ctrl.$rootScope.equipments = data;
+			})	
+		}
+
+
+
+		ctrl.$rootScope.addEquipment = () => {
+		// instantiate new equipment JSON
+			ctrl.newEquipment = {
+				// grab values with JQuery from form
+			//   "name": $('#siteName').val(),
+			//   "abbreviation": $('#siteAbbreviation').val(),
+			//   "address": $('#siteAddress').val(),
+			//   "site_contact": $('#siteContact').val(),
+			 }
+
+ 			// specific call to save from $resource
+			ipamService.addEquipment().save({}, ctrl.newEquipment)
+				.$promise
+				// says wait for the data and push it to the array
+				.then((data) => {
+				ctrl.$rootScope.equipments.push(data);
+			});
+		}//end equipments
+
+
 	} // end constructor
-
 } // end appCtrl
-
-
 export default appCtrl;

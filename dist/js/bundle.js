@@ -105,6 +105,23 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 		ctrl.query.$promise.then(function (data) {
 			ctrl.$rootScope.subnets = data;
 		});
+	};
+	ctrl.$rootScope.addSubnet = function () {
+		// instantiate new subnet JSON
+		ctrl.newSubnet = {}
+		// grab values with JQuery from form
+		// "name": $('#siteName').val(),
+		// "abbreviation": $('#siteAbbreviation').val(),
+		// "address": $('#siteAddress').val(),
+		// "site_contact": $('#siteContact').val(),
+
+
+		// specific call to save from $resource
+		;ipamService.addSubnet().save({}, ctrl.newSubnet).$promise
+		// says wait for the data and push it to the array
+		.then(function (data) {
+			ctrl.$rootScope.subnets.push(data);
+		});
 	}; // end getSubnets()
 	/* ------------------------------------------------------
  						IP Adsress
@@ -130,8 +147,41 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 			ctrl.$rootScope.NextIp = data;
 		});
 	}; // end getNextUp()
-} // end constructor
 
+
+	/* ------------------------------------------------------
+ 						EQUIPMENT
+ ----------------------------------------------------------*/
+	// Setting a global function for getting equipments from API
+	ctrl.$rootScope.getEquipments = function () {
+		// grabs api data for all the sites with the ngresource query()
+		ctrl.query = ipamService.getEquipments().query();
+
+		// pushes data to sites object, .then means we wait on the promise
+		ctrl.query.$promise.then(function (data) {
+			ctrl.$rootScope.equipments = data;
+		});
+	};
+
+	ctrl.$rootScope.addEquipment = function () {
+		// instantiate new equipment JSON
+		ctrl.newEquipment = {}
+		// grab values with JQuery from form
+		//   "name": $('#siteName').val(),
+		//   "abbreviation": $('#siteAbbreviation').val(),
+		//   "address": $('#siteAddress').val(),
+		//   "site_contact": $('#siteContact').val(),
+
+
+		// specific call to save from $resource
+		;ipamService.addEquipment().save({}, ctrl.newEquipment).$promise
+		// says wait for the data and push it to the array
+		.then(function (data) {
+			ctrl.$rootScope.equipments.push(data);
+		});
+	}; //end equipments
+
+} // end constructor
 ; // end appCtrl
 
 
@@ -227,40 +277,69 @@ function run($rootScope, $location, $cookies, $http) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-		value: true
+	value: true
 });
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function ipamService($resource) {
-		var getSites = function getSites() {
-				return $resource('http://localhost:7000/api/sites/:site', { site: "@site" });
-		};
-		var getSubnets = function getSubnets() {
-				return $resource('http://localhost:7000/api/subnets/:subnet', { subnet: "@subnet" });
-		};
-		var addSite = function addSite() {
-				return $resource('http://localhost:7000/api/sites');
-		};
-		var updateSite = function updateSite() {
-				return $resource('http://localhost:7000/api/sites/:site', { site: "@site" }, {
-						update: { method: 'PUT' }
-				});
-		};
-		var getIpBySubnet = function getIpBySubnet() {
-				return $resource('http://localhost:7000/api/ip/:subnet', { subnet: "@subnet" });
-		};
-		var getNextIp = function getNextIp() {
-				return $resource('http://localhost:7000/api/ip/:subnet/next', { subnet: "@subnet" });
-		};
-
-		return {
-				getSites: getSites,
-				getSubnets: getSubnets,
-				addSite: addSite,
-				updateSite: updateSite,
-				getIpBySubnet: getIpBySubnet,
-				getNextIp: getNextIp
-		};
+	// All of the site api functions
+	var getSites = function getSites() {
+		return $resource('http://localhost:7000/api/sites/:site', { site: "@site" });
+	};
+	var addSite = function addSite() {
+		return $resource('http://localhost:7000/api/sites');
+	};
+	var updateSite = function updateSite() {
+		return $resource('http://localhost:7000/api/sites/:site', { site: "@site" }, {
+			update: { method: 'PUT' }
+		});
+	};
+	// All of the Subnet api functions
+	var getSubnets = function getSubnets() {
+		return $resource('http://localhost:7000/api/subnets/:subnet', { subnet: "@subnet" });
+	};
+	var addSubnet = function addSubnet() {
+		return $resource('http://localhost:7000/api/subnets');
+	};
+	var updateSubnet = function updateSubnet() {
+		return $resource('http://localhost:7000/api/subnets/:subnet', { subnet: "@subnet" }, { upadte: { metod: 'PUT' }
+		});
+	};
+	// All of the ip endpoint api functions
+	var getIpBySubnet = function getIpBySubnet() {
+		return $resource('http://localhost:7000/api/ip/:subnet', { subnet: "@subnet" });
+	};
+	var getNextIp = function getNextIp() {
+		return $resource('http://localhost:7000/api/ip/:subnet/next', { subnet: "@subnet" });
+	};
+	// all of the equipment api functions
+	var getEquipments = function getEquipments() {
+		return $resource('http://localhost:7000/api/equipment/:equipment', { equipment: "@equipment" });
+	};
+	var addEquipment = function addEquipment() {
+		return $resource('http://localhost:7000/api/equipment');
+	};
+	var updateEquipment = function updateEquipment() {
+		return $resource('http://localhost:7000/api/equipment/:equipment', { equipment: "@equipment" }, { update: { method: 'PUT' }
+		});
+	};
+	return _defineProperty({
+		// SITES
+		getSites: getSites,
+		addSite: addSite,
+		updateSite: updateSite,
+		// SUBNETS
+		getSubnets: getSubnets,
+		addSubnet: addSubnet,
+		updateSubnet: updateSubnet,
+		// IP ENDPOINTS
+		getIpBySubnet: getIpBySubnet,
+		getNextIp: getNextIp,
+		// EQUIPMENT
+		getEquipments: getEquipments,
+		addEquipment: addEquipment
+	}, 'updateSubnet', updateSubnet);
 };
 
 // function subnetsService($resource) {

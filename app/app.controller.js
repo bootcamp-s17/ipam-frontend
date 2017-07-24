@@ -14,8 +14,6 @@ class appCtrl {
 ----------------------------------------------------------*/
 
 
-
-
 		// Setting a global function for getting ALL sites from API
 		ctrl.$rootScope.getSites = () => {
 
@@ -34,10 +32,10 @@ class appCtrl {
 
 			ctrl.get.$promise.then( (data) => {
 				ctrl.$rootScope.site = data;
+				console.log(ctrl.$rootScope.site);
 			})
 
-			alert(id);
-		}
+		} // end getSite
 
 		// add a site from form
 		ctrl.$rootScope.addSite = () => {
@@ -58,14 +56,41 @@ class appCtrl {
 				.then((data) => {
 				ctrl.$rootScope.sites.push(data);
 			});
-		}
+		} //end addSite
 
+		ctrl.$rootScope.updateSite = (id) => {
 
-			// ctrl.$rootScope.getSites();
-		// ipamService.updateSite().update({site:1}, ctrl.newSite);
+			// instantiate new site JSON
+			ctrl.saveSite = {
+				// grab values with JQuery from form
+			  "id": id,
+			  "name": $('#editSiteName').val(),
+			  "abbreviation": $('#editSiteAbbreviation').val(),
+			  "address": $('#editSiteAddress').val(),
+			  "site_contact": $('#editSiteContact').val(),
+			}
 
+			// ctrl.saveSite = {
+			// 	// grab values with JQuery from form
+			//   "id": id,
+			//   "name": 'test2',
+			//   "address": '300 Rose',
+			//   "abbreviation": 'tst',
+			//   "site_contact": 'david',
+			// }
+			console.log(ctrl.saveSite);
+ 			// specific call to save from $resource
+			ipamService.updateSite().update({site:id}, ctrl.saveSite)
+				.$promise
+				// says wait for the data and push it to the array
+				.then((data) => {
+				//pull the sites from db for fresh info with updated site
+				ctrl.$rootScope.getSites();
+				// console.log(data);
+				});
+		} //end updateSite
 
-
+		// ctrl.$rootScope.updateSite(1);
 
 /* ------------------------------------------------------
 						SUBNETS

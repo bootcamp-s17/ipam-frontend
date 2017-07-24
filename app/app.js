@@ -35,6 +35,7 @@ config.$inject = ['$routeProvider', '$locationProvider'];
             })
 
             .when('/equipmentform', {
+                controller: equipmentformComponent.controller,
                 templateUrl: 'app/components/equipment/equipmentform/equipmentform.html'
             })
 

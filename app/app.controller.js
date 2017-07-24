@@ -86,10 +86,12 @@ class appCtrl {
 		// instantiate new subnet JSON
 			ctrl.newSubnet = {
 				// grab values with JQuery from form
-			  // "name": $('#siteName').val(),
-			  // "abbreviation": $('#siteAbbreviation').val(),
-			  // "address": $('#siteAddress').val(),
-			  // "site_contact": $('#siteContact').val(),
+			   "site_id": $('#siteSelect').val(),
+			   "name": $('#subnetName').val(),
+			   "subnet_address": $('#subnetIpAddress').val(),
+			   "mask_bits": $('#subnetMaskBits').val(),
+			   "vLan": $('#vlanNumber').val(),	
+
 			}
 
  			// specific call to save from $resource
@@ -148,11 +150,22 @@ class appCtrl {
 		// instantiate new equipment JSON
 			ctrl.newEquipment = {
 				// grab values with JQuery from form
-			//   "name": $('#siteName').val(),
-			//   "abbreviation": $('#siteAbbreviation').val(),
-			//   "address": $('#siteAddress').val(),
-			//   "site_contact": $('#siteContact').val(),
+			  "name": $('#equipmentName').val(),
+			  "equipment_type_id": $('#typeId').val(),
+			  "room_id": $('#roomNumber').val(),
+			  "model": $('#modelType').val(),
+			  "driver": $('#driverInpur').val(),
+			  "ip_address": $('#equipaddress').val(),
+			  "site_id": $('#siteSelect').val(),
+			  "host_name": $('#hostName').val(),
+			  "mac_address": $('#macAddress').val(),
+			  "mab": $('#mabBoxYes').val(),
+			  "printer_server": $('#printerServer').val(),
+			  "printer_name": $('#printerName').val(),
+			  "share_name": $('#shareName').val(),
+			  "share_comment": $('#shareComment').val()
 			 }
+			 console.log($('#siteSelect').val())
 
  			// specific call to save from $resource
 			ipamService.addEquipment().save({}, ctrl.newEquipment)

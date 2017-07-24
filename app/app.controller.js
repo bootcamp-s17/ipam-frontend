@@ -167,7 +167,7 @@ class appCtrl {
 			  "driver": $('#driverInpur').val(),
 			  "printer_name": $('#printerName').val(),
 			  "share_name": $('#shareName').val(),
-			  "share_comment": $('#shareComment').val()
+			  "share_comment": $('#shareComment').val(),
 			  "model": $('#modelType').val(),
 			  "operating_system":$('#operatingSystem').val(),
 			  "computer_type":$('#computerType').val()

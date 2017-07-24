@@ -678,13 +678,13 @@ var sidebarController = function sidebarController($rootScope, $http) {
     ctrl.$rootScope.filterByid = filterByid;
     ctrl.getid = getid;
 
-    function filterByid(site) {
-        return ctrl.filter[site.id] || noFilter(ctrl.filter);
+    function filterByid(subnet) {
+        return ctrl.filter[subnet.site_id] || noFilter(ctrl.filter);
     }
 
     function getid() {
-        return (ctrl.sites || []).map(function (site) {
-            return site.id;
+        return (ctrl.sites || []).map(function (subnet) {
+            return subnet.site_id;
         }).filter(function (cat, idx, arr) {
             return arr.indexOf(cat) === idx;
         });

@@ -417,6 +417,7 @@ var equipmentController = function () {
 
 		var ctrl = this;
 		ctrl.$rootScope = $rootScope;
+		ctrl.$rootScope.getEquipments();
 
 		// vm.openModal = openModal;
 		// vm.closeModal = closeModal;
@@ -451,7 +452,7 @@ var equipmentController = function () {
 exports.default = equipmentController;
 
 },{}],8:[function(require,module,exports){
-module.exports = "<!-- <button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">\n  Launch demo modal\n</button>\n\n Modal\n div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" id=\"exampleModalLabel\">Modal title</h5>\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n      </div>\n      <div class=\"modal-body\">\n        ...\n      </div>\n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n        <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\n      </div>\n    </div>\n  </div>\n</div> -->\n\n<a href=\"/#!/equipmentform\" ng-click=\"$ctrl.$rootScope.dashboard = false\"><button id=\"addEquipment\"> Add Equipment</button></a>\n\n\n";
+module.exports = "\n<a href=\"/#!/equipmentform\" ng-click=\"$ctrl.$rootScope.dashboard = false\"><button id=\"addEquipment\"> Add Equipment</button></a>\n\n<div class=\"container-fluid\">\n<div class=\"row\">\n<!-- <div class=\"col-3\">\n<sidebar></sidebar>\n</div> -->\n<div class=\"col-9\">\n<table class=\"table data\">\n  <thead>\n    <tr>\n      <th>Name</th>\n      <th>Type</th>\n      <th>Hostname</th>\n      <th>Room Number</th>\n      <th>IP Address</th>\n      <th>MAC Address</th>\n      <th>MAB</th>\n      <th>Print Server</th>\n      <th>Driver</th>\n      <th>Printer Name</th>\n      <th>Share Name</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat=\"equipment in $ctrl.$rootScope.equipments | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid\"\">\n      <td class=\"pr-2\">{{equipment.name}}</td>\n      <td class=\"pr-2\">{{equipment.type[0].name}}</td>\n      <td class=\"pr-2\">{{equipment.host_name}}</td>\n      <td class=\"pr-2\">ROOM NAME</td>\n      <td class=\"pr-2\">{{equipment.ip_address}}</td>\n      <td class=\"pr-2\">{{equipment.mac_address}}</td>\n      <td class=\"pr-2\">{{equipment.mab}}</td>\n      <td class=\"pr-2\">{{equipment.printer_server}}</td>\n      <td class=\"pr-2\">{{equipment.driver}}</td>\n      <td class=\"pr-2\">{{equipment.printer_name}}</td>\n      <td class=\"pr-2\">{{equipment.share_name}}</td>\n    </tr>\n  </tbody>\n</table>\n</div>\n</div>\n</div>\n\n\n";
 
 },{}],9:[function(require,module,exports){
 'use strict';

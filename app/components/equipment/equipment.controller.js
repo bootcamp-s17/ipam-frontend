@@ -3,6 +3,7 @@ class equipmentController {
 	constructor($rootScope, ModalService) {
 		let ctrl=this;
 		ctrl.$rootScope = $rootScope;
+		ctrl.$rootScope.getEquipments();
 
 
 		// vm.openModal = openModal;

@@ -1,27 +1,21 @@
-
-	<button ng-click="$ctrl.sidebar = !$ctrl.sidebar">
-	<i class="fa fa-arrow-left" ng-show="$ctrl.sidebar"></i>
-	<i class="fa fa-arrow-right" ng-show="!$ctrl.sidebar"></i>
-	</button>
-		<div ng-show="$ctrl.sidebar" ng-init="$ctrl.sidebar = true">
-	<input type="text" id="searchText" class="col" ng-change="$ctrl.$rootScope.search($ctrl.$rootScope.searchText)" ng-model="$ctrl.$rootScope.searchText">
-	<span ng-repeat="site in $ctrl.$rootScope.sites">
-	<input type="checkbox" ng-model="$ctrl.filter[site.id]" ng-value="site.id" class="filterbox">{{site.name}}</input><br /></span>
+<div class="container-fluid highz">
+	<div class="row">
+		<div class="col-4">
+			<input type="text" id="searchText" class="col" placeholder="Keyword Search..." ng-change="$ctrl.$rootScope.search($ctrl.$rootScope.searchText)" ng-model="$ctrl.$rootScope.searchText">
+		</div>
+		<div class="col-4">
+			<div class="dropdown">
+			  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Site Filter</button>
+			  
+			  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			  	<span ng-repeat="site in $ctrl.$rootScope.sites" class="dropdown-item">
+			  	<input type="checkbox" ng-model="$ctrl.filter[site.id]" ng-value="site.id" class="filterbox">{{site.name}}</input><br />
+			  	</span>
+			  </div>
+			</div>
+		</div>
+		<div class="col-4">
+		</div>
 	</div>
-	<!-- <div class="col-9">
-		<table class="data" >
-		  <tr>
-		    <th>Entry Header 1</th>
-		    <th>Entry Header 2</th>
-		    <th>Entry Header 3</th>
-		    <th>Entry Header 4</th>
-		  </tr>
-		  <tr ng-repeat="site in $ctrl.$rootScope.sites | filter: $ctrl.searchText | filter:$ctrl.filterByid">
-		  	<td>{{site.name}}</td>
-		  	<td>{{site.site_contact}}</td>
-		  	<td>{{site.address}}</td>
-		  	<td>{{site.abbreviation}}</td>
-		  </tr>
-	</div> -->
-	<!-- </table> -->
+</div>
 	

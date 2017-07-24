@@ -1,9 +1,4 @@
-
-	<button ng-click="$ctrl.sidebar = !$ctrl.sidebar">
-	<i class="fa fa-arrow-left" ng-show="$ctrl.sidebar"></i>
-	<i class="fa fa-arrow-right" ng-show="!$ctrl.sidebar"></i>
-	</button>
-		<div ng-show="$ctrl.sidebar" ng-init="$ctrl.sidebar = true">
+	<div>
 	<input type="text" id="searchText" class="col" ng-change="$ctrl.$rootScope.search($ctrl.$rootScope.searchText)" ng-model="$ctrl.$rootScope.searchText">
 	<span ng-repeat="site in $ctrl.$rootScope.sites">
 	<input type="checkbox" ng-model="$ctrl.filter[site.id]" ng-value="site.id" class="filterbox">{{site.name}}</input><br /></span>

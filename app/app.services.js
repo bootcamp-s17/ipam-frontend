@@ -37,7 +37,7 @@ function ipamService($resource) {
 			// EQUIPMENT
 				getEquipments: getEquipments,
 				addEquipment: addEquipment,
-				updateSubnet: updateSubnet
+				updateEquipment: updateEquipment
 
 				}
 

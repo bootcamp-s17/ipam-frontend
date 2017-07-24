@@ -148,10 +148,20 @@ class appCtrl {
 		// instantiate new equipment JSON
 			ctrl.newEquipment = {
 				// grab values with JQuery from form
-			//   "name": $('#siteName').val(),
-			//   "abbreviation": $('#siteAbbreviation').val(),
-			//   "address": $('#siteAddress').val(),
-			//   "site_contact": $('#siteContact').val(),
+			  "name": $('#equipmentName').val(),
+			  "equipment_type_id": $('#typeId').val(),
+			  "room_id": $('#roomNumber').val(),
+			  "model": $('#modelType').val(),
+			  "driver": $('#driverInpur').val(),
+			  "ip_address": $('#equipaddress').val(),
+			  "site_id": $('#siteSelect').val(),
+			  "host_name": $('#hostName').val(),
+			  "mac_address": $('#macAddress').val(),
+			  "mab": $('#mabBoxYes').val(),
+			  "printer_server": $('#printerServer').val(),
+			  "printer_name": $('#printerName').val(),
+			  "share_name": $('#shareName').val(),
+			  "share_comment": $('#shareComment').val()
 			 }
 
  			// specific call to save from $resource

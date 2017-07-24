@@ -1,7 +1,12 @@
 
 <a href="/#!/subnetform"  ng-click="$ctrl.$rootScope.dashboard = false"><button id="addSubnet">Add Subnet</button></a>
-
-<table>
+<div class="container-fluid">
+<div class="row">
+<div class="col-3">
+<sidebar></sidebar>
+</div>
+<div class="col-9">
+<table class="data">
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -11,7 +16,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="subnet in $ctrl.$rootScope.subnets">
+		<tr ng-repeat="subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid"">
 			<td class="pr-2">{{subnet.name}}</td>
 			<td class="pr-2">{{subnet.subnet_address}}</td>
 			<td class="pr-2">{{subnet.mask_bits}}</td>
@@ -19,5 +24,9 @@
 		</tr>
 	</tbody>
 </table>
+<button ng-click="$ctrl.$rootScope.test()">Test</button>
+</div>
+</div>
+</div>
 
 

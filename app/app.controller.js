@@ -150,23 +150,28 @@ class appCtrl {
 		// instantiate new equipment JSON
 			ctrl.newEquipment = {
 				// grab values with JQuery from form
-			  "name": $('#equipmentName').val(),
-			  "equipment_type_id": $('#typeId').val(),
-			  "room_id": $('#roomNumber').val(),
-			  "model": $('#modelType').val(),
-			  "driver": $('#driverInpur').val(),
-			  "ip_address": $('#equipaddress').val(),
 			  "site_id": $('#siteSelect').val(),
+			  "subnet_id": $('#subnetSelect').val(),
+			  "equipment_type_id": $('#typeId').val(),
+			  "name": $('#equipmentName').val(),
 			  "host_name": $('#hostName').val(),
+			  "room_id": $('#roomNumber').val(),
+			  "serial": $('serialNumber').val(),
 			  "mac_address": $('#macAddress').val(),
+			  "ip_address": $('#equipaddress').val(),
 			  "mab": $('#mabBoxYes').val(),
+			  "switch_name":$('#switchName').val(),
+			  "switch_ip":$('#switchManagementIp').val(),
+			  "switch_room_number":$('#switchRoomNumber').val,
 			  "printer_server": $('#printerServer').val(),
+			  "driver": $('#driverInpur').val(),
 			  "printer_name": $('#printerName').val(),
 			  "share_name": $('#shareName').val(),
 			  "share_comment": $('#shareComment').val()
+			  "model": $('#modelType').val(),
+			  "operating_system":$('#operatingSystem').val(),
+			  "computer_type":$('#computerType').val()
 			 }
-			 console.log($('#siteSelect').val())
-
  			// specific call to save from $resource
 			ipamService.addEquipment().save({}, ctrl.newEquipment)
 				.$promise

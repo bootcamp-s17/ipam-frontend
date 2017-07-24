@@ -86,10 +86,12 @@ class appCtrl {
 		// instantiate new subnet JSON
 			ctrl.newSubnet = {
 				// grab values with JQuery from form
-			  // "name": $('#siteName').val(),
-			  // "abbreviation": $('#siteAbbreviation').val(),
-			  // "address": $('#siteAddress').val(),
-			  // "site_contact": $('#siteContact').val(),
+			   "site_id": $('#siteSelect').val(),
+			   "name": $('#subnetName').val(),
+			   "subnet_address": $('#subnetIpAddress').val(),
+			   "mask_bits": $('#subnetMaskBits').val(),
+			   "vLan": $('#vlanNumber').val(),	
+
 			}
 
  			// specific call to save from $resource
@@ -163,6 +165,7 @@ class appCtrl {
 			  "share_name": $('#shareName').val(),
 			  "share_comment": $('#shareComment').val()
 			 }
+			 console.log($('#siteSelect').val())
 
  			// specific call to save from $resource
 			ipamService.addEquipment().save({}, ctrl.newEquipment)

@@ -6,14 +6,14 @@
   <div class="form-group">
     <label for="siteSelect">Site</label>
     <select class="form-control" id="siteSelect" ng-model="site.Select" " required>
-      <option ng-repeat="site in $ctrl.$rootScope.sites" ng-value="site.id">{{site.name}}</option>
+      <option ng-repeat="site in $ctrl.$rootScope.sites" value="{{site.id}}">{{site.name}}</option>
     </select>
   </div> 
 
       <div class="form-group" >
       <label for="subnetSelect" >Subnet</label>
       <select class="form-control"  ng-dropdown required ">
-        <option ng-repeat="subnet in $ctrl.$rootScope.subnets" ng-value="subnet.id">{{subnet.name}}</option>
+        <option ng-repeat="subnet in $ctrl.$rootScope.subnets" value="{{subnet.id}}">{{subnet.name}}</option>
         
       </select>
     </div>

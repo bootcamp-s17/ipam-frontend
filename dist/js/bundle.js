@@ -178,6 +178,8 @@ function config($routeProvider, $locationProvider) {
         templateUrl: 'app/components/subnets/subnetform/subnetform.html'
     }).when('/sitesform', {
         templateUrl: 'app/components/sites/sitesform/sitesform.html'
+    }).when('/editsite', {
+        templateUrl: 'app/components/sites/editsite/editsite.html'
     }).otherwise({ redirectTo: '/' });
 }
 

@@ -6,7 +6,7 @@ class sidebarController {
         ctrl.$rootScope.getSites();
         ctrl.filter = {};
 
-        ctrl.filterByid = filterByid;
+        ctrl.$rootScope.filterByid = filterByid;
         ctrl.getid = getid;
 
         function filterByid(site) {
@@ -24,17 +24,16 @@ class sidebarController {
             .keys(filterObj)
             .every(function (key) { return !filterObj[key]; });
         }
+         ctrl.$rootScope.test = ()=>{
+            console.log("hi from sidebarController");
+        }
 
-
-
- 
-    }
-        
-
-        search(searchText) {
+        ctrl.$rootScope.search = (searchText) => {
         const ctrl = this;
         ctrl.$rootScope.searchText = searchText;
         }
+ 
+    }
 
         // Functions - Definitions
 

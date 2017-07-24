@@ -533,62 +533,59 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var sidebarController = function () {
-    function sidebarController($rootScope, $http) {
-        _classCallCheck(this, sidebarController);
+var sidebarController = function sidebarController($rootScope, $http) {
+    var _this = this;
 
-        var ctrl = this;
-        ctrl.$rootScope = $rootScope;
-        ctrl.$rootScope.getSites();
-        ctrl.filter = {};
+    _classCallCheck(this, sidebarController);
 
-        ctrl.filterByid = filterByid;
-        ctrl.getid = getid;
+    var ctrl = this;
+    ctrl.$rootScope = $rootScope;
+    ctrl.$rootScope.getSites();
+    ctrl.filter = {};
 
-        function filterByid(site) {
-            return ctrl.filter[site.id] || noFilter(ctrl.filter);
-        }
+    ctrl.$rootScope.filterByid = filterByid;
+    ctrl.getid = getid;
 
-        function getid() {
-            return (ctrl.sites || []).map(function (site) {
-                return site.id;
-            }).filter(function (cat, idx, arr) {
-                return arr.indexOf(cat) === idx;
-            });
-        }
-
-        function noFilter(filterObj) {
-            return Object.keys(filterObj).every(function (key) {
-                return !filterObj[key];
-            });
-        }
+    function filterByid(site) {
+        return ctrl.filter[site.id] || noFilter(ctrl.filter);
     }
 
-    _createClass(sidebarController, [{
-        key: "search",
-        value: function search(searchText) {
-            var ctrl = this;
-            ctrl.$rootScope.searchText = searchText;
-        }
+    function getid() {
+        return (ctrl.sites || []).map(function (site) {
+            return site.id;
+        }).filter(function (cat, idx, arr) {
+            return arr.indexOf(cat) === idx;
+        });
+    }
 
-        // Functions - Definitions
+    function noFilter(filterObj) {
+        return Object.keys(filterObj).every(function (key) {
+            return !filterObj[key];
+        });
+    }
+    ctrl.$rootScope.test = function () {
+        console.log("hi from sidebarController");
+    };
+
+    ctrl.$rootScope.search = function (searchText) {
+        var ctrl = _this;
+        ctrl.$rootScope.searchText = searchText;
+    };
+}
+
+// Functions - Definitions
 
 
-    }]);
-
-    return sidebarController;
-}();
+;
 
 ;
 
 exports.default = sidebarController;
 
 },{}],20:[function(require,module,exports){
-module.exports = "\t<div class=\"row mt-5 ml-1\">\n\t<button ng-click=\"$ctrl.sidebar = !$ctrl.sidebar\">\n\t<i class=\"fa fa-arrow-left\" ng-show=\"$ctrl.sidebar\"></i>\n\t<i class=\"fa fa-arrow-right\" ng-show=\"!$ctrl.sidebar\"></i>\n\t</button>\n\t</div>\n\t<div class=\"row\">\n\t<div class=\"col-3\" ng-show=\"$ctrl.sidebar\" ng-init=\"$ctrl.sidebar = true\">\n\t\t<input type=\"text\" id=\"searchText\" class=\"col\" ng-change=\"$ctrl.search($ctrl.searchText)\" ng-model=\"$ctrl.searchText\">\n\t\t<span ng-repeat=\"site in $ctrl.$rootScope.sites\">\n\t\t<input type=\"checkbox\" ng-model=\"$ctrl.filter[site.id]\" ng-value=\"site.id\" class=\"filterbox\">{{site.name}}</input><br /></span>\n\t</div>\n\t<div class=\"col-9\">\n\t\t<table class=\"data\" >\n\t\t  <tr>\n\t\t    <th>Entry Header 1</th>\n\t\t    <th>Entry Header 2</th>\n\t\t    <th>Entry Header 3</th>\n\t\t    <th>Entry Header 4</th>\n\t\t  </tr>\n\t\t  <tr ng-repeat=\"site in $ctrl.$rootScope.sites | filter: $ctrl.searchText | filter:$ctrl.filterByid\">\n\t\t  \t<td>{{site.name}}</td>\n\t\t  \t<td>{{site.site_contact}}</td>\n\t\t  \t<td>{{site.address}}</td>\n\t\t  \t<td>{{site.abbreviation}}</td>\n\t\t  </tr>\n\t\n\t</table>\n\t</div>\n\t</div>\n";
+module.exports = "\n\t<button ng-click=\"$ctrl.sidebar = !$ctrl.sidebar\">\n\t<i class=\"fa fa-arrow-left\" ng-show=\"$ctrl.sidebar\"></i>\n\t<i class=\"fa fa-arrow-right\" ng-show=\"!$ctrl.sidebar\"></i>\n\t</button>\n\t\t<div ng-show=\"$ctrl.sidebar\" ng-init=\"$ctrl.sidebar = true\">\n\t<input type=\"text\" id=\"searchText\" class=\"col\" ng-change=\"$ctrl.$rootScope.search($ctrl.$rootScope.searchText)\" ng-model=\"$ctrl.$rootScope.searchText\">\n\t<span ng-repeat=\"site in $ctrl.$rootScope.sites\">\n\t<input type=\"checkbox\" ng-model=\"$ctrl.filter[site.id]\" ng-value=\"site.id\" class=\"filterbox\">{{site.name}}</input><br /></span>\n\t</div>\n\t<!-- <div class=\"col-9\">\n\t\t<table class=\"data\" >\n\t\t  <tr>\n\t\t    <th>Entry Header 1</th>\n\t\t    <th>Entry Header 2</th>\n\t\t    <th>Entry Header 3</th>\n\t\t    <th>Entry Header 4</th>\n\t\t  </tr>\n\t\t  <tr ng-repeat=\"site in $ctrl.$rootScope.sites | filter: $ctrl.searchText | filter:$ctrl.filterByid\">\n\t\t  \t<td>{{site.name}}</td>\n\t\t  \t<td>{{site.site_contact}}</td>\n\t\t  \t<td>{{site.address}}</td>\n\t\t  \t<td>{{site.abbreviation}}</td>\n\t\t  </tr>\n\t</div> -->\n\t<!-- </table> -->\n\t\n";
 
 },{}],21:[function(require,module,exports){
 'use strict';
@@ -773,7 +770,7 @@ var subnetsController = function () {
 exports.default = subnetsController;
 
 },{}],29:[function(require,module,exports){
-module.exports = "\n<a href=\"/#!/subnetform\"  ng-click=\"$ctrl.$rootScope.dashboard = false\"><button id=\"addSubnet\">Add Subnet</button></a>\n\n<table>\n\t<thead>\n\t\t<tr>\n\t\t\t<th>Name</th>\n\t\t\t<th>Address</th>\n\t\t\t<th>Mask Bits</th>\n\t\t\t<th>vLan</th>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets\">\n\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n\n";
+module.exports = "\n<a href=\"/#!/subnetform\"  ng-click=\"$ctrl.$rootScope.dashboard = false\"><button id=\"addSubnet\">Add Subnet</button></a>\n<div class=\"container-fluid\">\n<div class=\"row\">\n<div class=\"col-3\">\n<sidebar></sidebar>\n</div>\n<div class=\"col-9\">\n<table class=\"data\">\n\t<thead>\n\t\t<tr>\n\t\t\t<th>Name</th>\n\t\t\t<th>Address</th>\n\t\t\t<th>Mask Bits</th>\n\t\t\t<th>vLan</th>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid\"\">\n\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t</tr>\n\t</tbody>\n</table>\n<button ng-click=\"$ctrl.$rootScope.test()\">Test</button>\n</div>\n</div>\n</div>\n\n\n";
 
 },{}],30:[function(require,module,exports){
 'use strict';

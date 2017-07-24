@@ -1,16 +1,14 @@
-	<div class="row mt-5 ml-1">
+
 	<button ng-click="$ctrl.sidebar = !$ctrl.sidebar">
 	<i class="fa fa-arrow-left" ng-show="$ctrl.sidebar"></i>
 	<i class="fa fa-arrow-right" ng-show="!$ctrl.sidebar"></i>
 	</button>
+		<div ng-show="$ctrl.sidebar" ng-init="$ctrl.sidebar = true">
+	<input type="text" id="searchText" class="col" ng-change="$ctrl.$rootScope.search($ctrl.$rootScope.searchText)" ng-model="$ctrl.$rootScope.searchText">
+	<span ng-repeat="site in $ctrl.$rootScope.sites">
+	<input type="checkbox" ng-model="$ctrl.filter[site.id]" ng-value="site.id" class="filterbox">{{site.name}}</input><br /></span>
 	</div>
-	<div class="row">
-	<div class="col-3" ng-show="$ctrl.sidebar" ng-init="$ctrl.sidebar = true">
-		<input type="text" id="searchText" class="col" ng-change="$ctrl.search($ctrl.searchText)" ng-model="$ctrl.searchText">
-		<span ng-repeat="site in $ctrl.$rootScope.sites">
-		<input type="checkbox" ng-model="$ctrl.filter[site.id]" ng-value="site.id" class="filterbox">{{site.name}}</input><br /></span>
-	</div>
-	<div class="col-9">
+	<!-- <div class="col-9">
 		<table class="data" >
 		  <tr>
 		    <th>Entry Header 1</th>
@@ -24,7 +22,6 @@
 		  	<td>{{site.address}}</td>
 		  	<td>{{site.abbreviation}}</td>
 		  </tr>
+	</div> -->
+	<!-- </table> -->
 	
-	</table>
-	</div>
-	</div>

@@ -1,10 +1,9 @@
 #subnetForm {
 
-input {
+input, select, textarea {
 	margin: 0 auto;
 	width: 100%;
 	height: 40px;
-	border-radius: 10px;
 }
 
 select {
@@ -15,6 +14,11 @@ select {
 .form-control {
 	height: 40px;
 	padding: 8px 12px;
+}
+
+div.container.main-center {
+	margin-top: 20px;
+	margin-bottom: 10px;
 }
 
 .main-center {
@@ -34,6 +38,19 @@ select {
 
 h1 {
 	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 600px;
+}
+
+button.btn.btn-primary {
+	float: right;
+	margin-top: 8px;
+	margin-right: 5px;
+}
+
+button.btn.btn-danger {
+	float: right;
+	margin-top: 8px;
 }
 
 }

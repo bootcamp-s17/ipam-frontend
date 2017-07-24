@@ -1,4 +1,4 @@
-<a href="/#!/" ng-click="$ctrl.$rootScope.dashboard = true"><button><i class="fa fa-close fa-3x"></i></button></a>
+<!-- <a href="/#!/" ng-click="$ctrl.$rootScope.dashboard = true"><button><i class="fa fa-close fa-3x"></i></button></a> -->
 <form id="sitesForm">
 <div class="container main-center">
 <h1>Add Site</h1>
@@ -22,7 +22,10 @@
     <label for="siteNotes">Notes</label>
       <input class="form-control" type="textarea" value="" id="siteNotes" >
   </div>
-  <button ng-click='$ctrl.$rootScope.addSite()'>Submit Site</button>
+  <div class="clearfix">
+  <a href="/" ng-click="$ctrl.$rootScope.dashboard = true"><button class="btn btn-danger">Cancel</button></a>
+    <button class="btn btn-primary" type="submit">Save Site</button>
+  </div>
 </div>
 
 </form>

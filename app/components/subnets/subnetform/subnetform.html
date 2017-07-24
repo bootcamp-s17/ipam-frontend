@@ -1,9 +1,7 @@
-<a href="/"  ng-click="$ctrl.$rootScope.dashboard = true"><button><i class="fa fa-close fa-3x"></i></button></a>
 <form id="subnetForm">
 <div class="container main-center" >
-<h1>Add Subnet</h1>
-<div class="form-inline">
-  <div >
+<h1>Add A Subnet</h1>
+  <div class="" >
       <label for="siteSelect">Sites</label>
       <select class="form-control form-inline mr-2" id="siteSelect" required>
         <option></option>
@@ -15,10 +13,9 @@
       <label for="subnetName">Subnet Name</label>
         <input class="form-control form-inline" type="text" id="subnetName" required>
     </div>
-</div>
 <div >
   <div >
-    <label for="subnetIpAdress">Subnet IP Adress</label>
+    <label for="subnetIpAdress">Subnet Ip Adress</label>
       <input class="form-control" type="text" id="subnetIpAdress" required>
   </div>
   <div >
@@ -39,9 +36,12 @@
 <div >
   <div >
     <label for="subnetNotes">Notes</label>
-      <input class="form-control" type="text" id="subnetNotes">
+      <textarea class="form-control" type="text" id="subnetNotes"></textarea>
   </div>
 </div>
-
-  <button class="btn btn-primary" type="submit">Save Subnet</button></form>
+  <div class="clearfix">
+  <a href="/"  ng-click="$ctrl.$rootScope.dashboard = true"><button class="btn btn-danger  "><class="">Cancel</button></a>
+    <button class="btn btn-primary" type="submit">Save Subnet</button>
+  </div>
+  </form>
 </div>

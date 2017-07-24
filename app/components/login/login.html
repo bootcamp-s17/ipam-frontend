@@ -1,6 +1,6 @@
 
-<div class="container">
-	<div class="jumbotron">
+<div id="login" class="container">
+	<div class="jumbotron main-center">
 		<h3>Login</h3>
 		<form name="form" ng-submit="ctrl.login()" role="form" id="form-login">
 		  <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
@@ -13,7 +13,7 @@
             <input type="password" name="password" id="password" class="form-control" ng-model="ctrl.password" required />
             <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
         </div>
-        <div class="form-actions">
+        <div class="clearfix">
 		<button type="submit" class="btn btn-success" ng-disabled="form.$invalid || ctrl.dataLoading">Submit</button>
 		<button type="button" class="btn btn-secondary">Forgot Password?</button>
 		</div>

@@ -179,7 +179,7 @@ class appCtrl {
 				.then((data) => {
 				ctrl.$rootScope.equipments.push(data);
 			});
-		}//end equipments
+		} //end quipments
 
 
 	} // end constructor

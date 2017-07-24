@@ -86,10 +86,12 @@ class appCtrl {
 		// instantiate new subnet JSON
 			ctrl.newSubnet = {
 				// grab values with JQuery from form
-			  // "name": $('#siteName').val(),
-			  // "abbreviation": $('#siteAbbreviation').val(),
-			  // "address": $('#siteAddress').val(),
-			  // "site_contact": $('#siteContact').val(),
+			   "site_id": $('#siteSelect').val(),
+			   "name": $('#subnetName').val(),
+			   "subnet_address": $('#subnetIpAddress').val(),
+			   "mask_bits": $('#subnetMaskBits').val(),
+			   "vLan": $('#vlanNumber').val(),	
+
 			}
 
  			// specific call to save from $resource
@@ -148,12 +150,28 @@ class appCtrl {
 		// instantiate new equipment JSON
 			ctrl.newEquipment = {
 				// grab values with JQuery from form
-			//   "name": $('#siteName').val(),
-			//   "abbreviation": $('#siteAbbreviation').val(),
-			//   "address": $('#siteAddress').val(),
-			//   "site_contact": $('#siteContact').val(),
+			  "site_id": $('#siteSelect').val(),
+			  "subnet_id": $('#subnetSelect').val(),
+			  "equipment_type_id": $('#typeId').val(),
+			  "name": $('#equipmentName').val(),
+			  "host_name": $('#hostName').val(),
+			  "room_id": $('#room_id').val(),
+			  "serial_number": $('#serialNumber').val(),
+			  "mac_address": $('#macAddress').val(),
+			  "ip_address": $('#equipaddress').val(),
+			  "mab": $('#mabBoxYes').val(),
+			  "switch_name":$('#switchName').val(),
+			  "switch_ip":$('#switchManagementIp').val(),
+			  "switch_room_number":$('#switchRoomNumber').val(),
+			  "printer_server": $('#printerServer').val(),
+			  "driver": $('#driverInput').val(),
+			  "printer_name": $('#printerName').val(),
+			  "share_name": $('#shareName').val(),
+			  "share_comment": $('#shareComment').val(),
+			  "model": $('#modelType').val(),
+			  "operating_system":$('#operatingSystem').val(),
+			  "computer_type":$('#computerType').val()
 			 }
-
  			// specific call to save from $resource
 			ipamService.addEquipment().save({}, ctrl.newEquipment)
 				.$promise
@@ -161,7 +179,7 @@ class appCtrl {
 				.then((data) => {
 				ctrl.$rootScope.equipments.push(data);
 			});
-		}//end equipments
+		} //end quipments
 
 
 	} // end constructor

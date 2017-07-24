@@ -2,14 +2,12 @@
 <form>
 <div class="container" >
 <div class="form-inline">
-  <div >
-      <label for="siteSelect">Sites</label>
-      <select class="form-control form-inline mr-2" id="siteSelect" required>
-        <option></option>
-        <option>Moon Campus</option>
-        <option>Earth Campus</option>
-      </select>
-    </div>
+  <div class="form-group">
+    <label for="siteSelect">Site</label>
+    <select class="form-control" id="siteSelect" ng-model="site.Select" " required>
+      <option ng-repeat="site in $ctrl.$rootScope.sites" value="{{site.id}}">{{site.name}}</option>
+    </select>
+  </div> 
     <div >
       <label for="subnetName">Subnet Name</label>
         <input class="form-control form-inline" type="text" id="subnetName" required>
@@ -17,8 +15,8 @@
 </div>
 <div >
   <div >
-    <label for="subnetIpAdress">Subnet Ip Adress</label>
-      <input class="form-control" type="text" id="subnetIpAdress" required>
+    <label for="subnetIpAddress">Subnet Ip Address</label>
+      <input class="form-control" type="text" id="subnetIpAddress" required>
   </div>
   <div >
     <label for="subnetMaskBits">Subnet Mask Bits</label>
@@ -42,5 +40,5 @@
   </div>
 </div>
 
-  <button class="btn btn-primary" type="submit">Save Subnet</button></form>
+  <button ng-click="$ctrl.$rootScope.addSubnet()" class="btn btn-primary" type="submit">Save Subnet</button></form>
 </div>

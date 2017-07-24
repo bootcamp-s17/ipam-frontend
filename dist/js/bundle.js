@@ -108,16 +108,16 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 	};
 	ctrl.$rootScope.addSubnet = function () {
 		// instantiate new subnet JSON
-		ctrl.newSubnet = {}
-		// grab values with JQuery from form
-		// "name": $('#siteName').val(),
-		// "abbreviation": $('#siteAbbreviation').val(),
-		// "address": $('#siteAddress').val(),
-		// "site_contact": $('#siteContact').val(),
+		ctrl.newSubnet = {
+			// grab values with JQuery from form
+			"site_id": $('#siteSelect').val(),
+			"name": $('#subnetName').val(),
+			"subnet_address": $('#subnetIpAddress').val(),
+			"mask_bits": $('#subnetMaskBits').val(),
+			"vLan": $('#vlanNumber').val()
 
-
-		// specific call to save from $resource
-		;ipamService.addSubnet().save({}, ctrl.newSubnet).$promise
+			// specific call to save from $resource
+		};ipamService.addSubnet().save({}, ctrl.newSubnet).$promise
 		// says wait for the data and push it to the array
 		.then(function (data) {
 			ctrl.$rootScope.subnets.push(data);
@@ -165,21 +165,36 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 
 	ctrl.$rootScope.addEquipment = function () {
 		// instantiate new equipment JSON
-		ctrl.newEquipment = {}
-		// grab values with JQuery from form
-		//   "name": $('#siteName').val(),
-		//   "abbreviation": $('#siteAbbreviation').val(),
-		//   "address": $('#siteAddress').val(),
-		//   "site_contact": $('#siteContact').val(),
-
-
-		// specific call to save from $resource
-		;ipamService.addEquipment().save({}, ctrl.newEquipment).$promise
+		ctrl.newEquipment = {
+			// grab values with JQuery from form
+			"site_id": $('#siteSelect').val(),
+			"subnet_id": $('#subnetSelect').val(),
+			"equipment_type_id": $('#typeId').val(),
+			"name": $('#equipmentName').val(),
+			"host_name": $('#hostName').val(),
+			"room_id": $('#room_id').val(),
+			"serial_number": $('#serialNumber').val(),
+			"mac_address": $('#macAddress').val(),
+			"ip_address": $('#equipaddress').val(),
+			"mab": $('#mabBoxYes').val(),
+			"switch_name": $('#switchName').val(),
+			"switch_ip": $('#switchManagementIp').val(),
+			"switch_room_number": $('#switchRoomNumber').val(),
+			"printer_server": $('#printerServer').val(),
+			"driver": $('#driverInput').val(),
+			"printer_name": $('#printerName').val(),
+			"share_name": $('#shareName').val(),
+			"share_comment": $('#shareComment').val(),
+			"model": $('#modelType').val(),
+			"operating_system": $('#operatingSystem').val(),
+			"computer_type": $('#computerType').val()
+			// specific call to save from $resource
+		};ipamService.addEquipment().save({}, ctrl.newEquipment).$promise
 		// says wait for the data and push it to the array
 		.then(function (data) {
 			ctrl.$rootScope.equipments.push(data);
 		});
-	}; //end equipments
+	}; //end quipments
 
 } // end constructor
 ; // end appCtrl
@@ -221,6 +236,10 @@ var _tabboard = require('./components/tabboard/tabboard.component');
 
 var _tabboard2 = _interopRequireDefault(_tabboard);
 
+var _sidebar = require('./components/sidebar/sidebar.component');
+
+var _sidebar2 = _interopRequireDefault(_sidebar);
+
 var _nav = require('./components/nav/nav.component');
 
 var _nav2 = _interopRequireDefault(_nav);
@@ -239,7 +258,7 @@ var _subnetform2 = _interopRequireDefault(_subnetform);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-angular.module('app', ['ngRoute', 'ngCookies', 'ngResource']).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('tabboard', _tabboard2.default).component('nav', _nav2.default).factory('ipamService', _appServices2.default).component('equipmentform', _equipmentform2.default).component('subnetform', _subnetform2.default).config(config).run(run);
+angular.module('app', ['ngRoute', 'ngCookies', 'ngResource']).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('tabboard', _tabboard2.default).component('nav', _nav2.default).factory('ipamService', _appServices2.default).component('equipmentform', _equipmentform2.default).component('subnetform', _subnetform2.default).component('sidebar', _sidebar2.default).config(config).run(run);
 
 config.$inject = ['$routeProvider', '$locationProvider'];
 function config($routeProvider, $locationProvider) {
@@ -252,6 +271,10 @@ function config($routeProvider, $locationProvider) {
         templateUrl: 'app/components/subnets/subnetform/subnetform.html'
     }).when('/sitesform', {
         templateUrl: 'app/components/sites/sitesform/sitesform.html'
+    }).when('/side', {
+        controller: _sidebar2.default.controller,
+        templateUrl: 'app/components/sidebar/sidebar.html',
+        controllerAs: '$ctrl'
     }).otherwise({ redirectTo: '/' });
 }
 
@@ -273,14 +296,13 @@ function run($rootScope, $location, $cookies, $http) {
     });
 }
 
-},{"./app.component":1,"./app.services.js":5,"./components/equipment/equipment.component":6,"./components/equipment/equipmentform/equipmentform.component":9,"./components/login/login.component":12,"./components/nav/nav.component":15,"./components/sites/sites.component":18,"./components/subnets/subnetform/subnetform.component":21,"./components/subnets/subnets.component":24,"./components/tabboard/tabboard.component":27,"./components/users/users.component":30}],5:[function(require,module,exports){
+},{"./app.component":1,"./app.services.js":5,"./components/equipment/equipment.component":6,"./components/equipment/equipmentform/equipmentform.component":9,"./components/login/login.component":12,"./components/nav/nav.component":15,"./components/sidebar/sidebar.component":18,"./components/sites/sites.component":21,"./components/subnets/subnetform/subnetform.component":24,"./components/subnets/subnets.component":27,"./components/tabboard/tabboard.component":30,"./components/users/users.component":33}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function ipamService($resource) {
 	// All of the site api functions
@@ -324,7 +346,7 @@ function ipamService($resource) {
 		return $resource('http://localhost:7000/api/equipment/:equipment', { equipment: "@equipment" }, { update: { method: 'PUT' }
 		});
 	};
-	return _defineProperty({
+	return {
 		// SITES
 		getSites: getSites,
 		addSite: addSite,
@@ -338,8 +360,10 @@ function ipamService($resource) {
 		getNextIp: getNextIp,
 		// EQUIPMENT
 		getEquipments: getEquipments,
-		addEquipment: addEquipment
-	}, 'updateSubnet', updateSubnet);
+		addEquipment: addEquipment,
+		updateEquipment: updateEquipment
+
+	};
 };
 
 // function subnetsService($resource) {
@@ -397,22 +421,6 @@ var equipmentController = function () {
 
 		var ctrl = this;
 		ctrl.$rootScope = $rootScope;
-
-		// vm.openModal = openModal;
-		// vm.closeModal = closeModal;
-
-		// initcontroller();
-
-		// function initcontroller(){
-		// 	vm.bodyText = 'This is working!';
-		// };
-		// function openModal(id){
-		// 	ModalService.Open(id);
-		// 	console.log('Clicked!')
-		// };	
-		// function closeModal(id){
-		// 	ModalService.close(id);
-		// };
 	}
 
 	_createClass(equipmentController, [{
@@ -475,8 +483,8 @@ var equipmentformController = function equipmentformController($rootScope) {
 
 	var ctrl = this;
 	ctrl.$rootScope = $rootScope;
-	$("#equipipaddress").focusout(function () {
-		ctrl.ip = $("#equipipaddress").val();
+	$("#equipaddress").focusout(function () {
+		ctrl.ip = $("#equipaddress").val();
 		for (var i = 0; i < ctrl.$rootScope.usedIps.length - 1; i++) {
 			if (ctrl.ip == ctrl.$rootScope.usedIps[i]) {
 				alert('Ray just Stop!');
@@ -487,23 +495,12 @@ var equipmentformController = function equipmentformController($rootScope) {
 	ctrl.$rootScope.$watch('equipshow', function () {
 		ctrl.equipshow = ctrl.$rootScope.equipshow;
 	});
-
-	// ctrl.$rootScope.checkIp = () => {
-	// 	ctrl.ip = $("#equipipaddress").val();
-	// 	for (i = 0; i < ctrl.$rootScope.usedIps.length-1; i++){
-	// 		if(ctrl.ip == ctrl.$rootScope.usedIps)
-	// 		{
-	// 			alert('Ray just Stop!')
-	// 		}
-	// 	}
-
-	// };
 };
 
 exports.default = equipmentformController;
 
 },{}],11:[function(require,module,exports){
-module.exports = "<a href=\"/\" ng-click=\"$ctrl.$rootScope.dashboard = true\"><button><i class=\"fa fa-close fa-3x\"></i></button></a>\n<form name=\"equipmentForm\">\n<div class=\"container\">\n\n\n  <div class=\"form-group\">\n    <label for=\"siteSelect\">Site</label>\n    <select class=\"form-control\" id=\"siteSelect\" ng-model=\"site.Select\" \" required>\n      <option ng-repeat=\"site in $ctrl.$rootScope.sites\" ng-value=\"site.id\">{{site.name}}</option>\n    </select>\n  </div> \n\n      <div class=\"form-group\" >\n      <label for=\"subnetSelect\" >Subnet</label>\n      <select class=\"form-control\"  ng-dropdown required \">\n        <option ng-repeat=\"subnet in $ctrl.$rootScope.subnets\" ng-value=\"subnet.id\">{{subnet.name}}</option>\n        \n      </select>\n    </div>\n\n     <div class=\"form-group\" >\n      <label for=\"typeSelect\">Type</label>\n      <select class=\"form-control\" ng-model=\"type.Select\" ng-dropdown ng-change=\"changeme()\" required >\n        <option ng-option value=\"other\">Other</option>\n        <option ng-option value=\"printer\">Printer</option>\n        <option ng-option value=\"computer\">Computer</option>\n        <option ng-option value=\"switch\">Switch</option>\n      </select>\n    </div>\n \n\n  <div class=\"form-group\">\n    <label for=\"equipmentName\">Equipment Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"equipmentName\" ng-pattern='/^[a-zA-Z][a-zA-Z0-9]*$/' required>\n  </div>\n\n  <div class=\"form-group\">\n    <label for=\"hostName\">Host Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"hostName\" required>\n  </div>\n\n  <div class=\"form-group\">\n    <label for=\"roomNumber\">Room Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"roomNumber\" required>\n  </div>\n\n  <div class=\"form-group\">\n    <label for=\"serialNumber\">Serial Number</label>\n      <input class=\"form-control\" type=\"text\" id=\"serialNumber\">\n  </div>\n\nMac Address:<label for=\"macAdress\">Mac Address</label>\n  <input placeholder=\"xx.xx.xx.xx.xx\" id=\"macAddress\" placeholder=\"\" type=\"text\" name=\"macaddress\" ng-model=\"macpin\" ng-pattern=\"/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/\" />\n<span style=\"color:Red\" ng-show=\"equipmentForm.macaddress.$error.pattern\">Please Enter a Valid Mac Address</span>\n<br>\n\nIp Address:<label for=\"ipaddress\">IP Address</label>\n  <input id=\"equipipaddress\" placeholder=\"xx.xxx.xxx.xxx\" type=\"text\" name=\"equipipaddress\" ng-model=\"txtpin\" ng-pattern=\"/\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b/\" />\n<span style=\"color:Red\" ng-show=\"equipmentForm.equipipaddress.$error.pattern\">Please Enter a Valid IP Address</span>\n\n  <div class=\"form-check\">\n    <label class=\"form-check-label\">\n      <input class=\"form-check-input\" type=\"checkbox\" id=\"madBoxYes\"\n      value=\"option1\" required> MAB\n    </label>\n  </div>\n\n  <div class=\"form-group\">\n    <label for=\"notesInput\">Notes</label>\n      <input class=\"form-control\" type=\"textarea\" id=\"notesInput\" >\n  </div>\n  <!-- These will be additional fields -->\n  <div class=\"form-group\" ng-if=\"subnet.Select == 'true'; type.Select == 'switch'\">\n    <label for=\"switchName\">Switch Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"switchName\" required>\n    <label for=\"switchManagementIp\">Switch Management IP</label>\n      <input class=\"form-control\" type=\"text\" id=\"switchManagementIp\" required>\n      <!-- Autofill from room number already entered -->\n    <label for=\"switchRoomNumber\">Switch Room Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"switchRoomNumber\" required>\n  </div>\n\n  <!-- Printer fields -->\n<div class=\"container\" ng-if=\"type.Select =='printer'\">\n  <div class=\"form-group\">\n    <label for=\"printServer\">Print Server</label>\n      <input class=\"form-control\" type=\"text\" id=\"printServer\" required>\n  </div>\n    <div class=\"form-group\">\n    <label for=\"driverInput\">Driver</label>\n      <input class=\"form-control\" type=\"text\" id=\"driverInput\" required>\n  </div>\n  <div class=\"form-group\">\n    <label for=\"printServer\">Print Server</label>\n      <input class=\"form-control\" type=\"text\" id=\"printServer\" required>\n  </div>\n  <!-- Need to autopopulate site abrev. & -room number -->\n  <div class=\"form-group\">\n    <label for=\"printerName\">Printer Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"printerName\" required>\n  </div> \n<!-- Should autopopulate again -->\n <div class=\"form-group\">\n    <label for=\"shareName\">Share Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"shareName\" required>\n  </div>\n  <!-- should autopopulate again -->\n  <div class=\"form-group\">\n    <label for=\"shareComment\">Share Comment</label>\n      <input class=\"form-control\" type=\"text\" id=\"shareComment\" required>\n  </div>\n\n  <div class=\"form-group\">\n    <label for=\"modelNumber\">Model Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"modelNumber\" required>\n  </div>\n  </div>\n  <!-- Computer Affitional Fields -->\n  <div  ng-if=\"type.Select =='computer'\">\n  <div class=\"form-group\">\n    <label for=\"operatingSystem\">Operating System</label>\n      <input class=\"form-control\" type=\"text\" id=\"operatingSystem\" required>\n  </div>\n  <div class=\"form-group\">\n    <label for=\"computerType\">Computer Type</label>\n      <select class=\"form-control\" id=\"computerType\" required>\n        <option>Virtual Machine</option>\n        <option>Physical Computer</option>\n      </select>\n  </div>\n  </div>\n<button class=\"btn btn-primary\" type=\"submit\">Save Equipment</button>\n</div>\n</form>\n\n <script src=\"./node_modules/ng-ip-address/ngIpAddress.vanilla.min.js\"></script>\n";
+module.exports = "<a href=\"/\" ng-click=\"$ctrl.$rootScope.dashboard = true\"><button><i class=\"fa fa-close fa-3x\"></i></button></a>\n<form name=\"equipmentForm\">\n  <div class=\"container\">\n    <div class=\"form-group\">\n      <label for=\"siteSelect\">Site</label>\n      <select class=\"form-control\" id=\"siteSelect\" ng-model=\"site.Select\" \" required>\n        <option ng-repeat=\"site in $ctrl.$rootScope.sites\" value=\"{{site.id}}\">{{site.name}}</option>\n      </select>\n    </div>\n    <div class=\"form-group\" >\n      <label for=\"subnetSelect\" >Subnet</label>\n      <select class=\"form-control\" id=\"subnetSelect\" ng-dropdown required \">\n        <option ng-repeat=\"subnet in $ctrl.$rootScope.subnets\" value=\"{{subnet.id}}\">{{subnet.name}}</option>\n      </select>\n    </div>\n    <div class=\"form-group\" >\n      <label for=\"typeSelect\">Type</label>\n      <select id=\"typeId\" class=\"form-control\" ng-model=\"type.Select\" ng-dropdown ng-change=\"changeme()\" required >\n        <option value=\"8\">Other</option>\n        <option value=\"1\">Printer</option>\n        <option value=\"2\">Computer</option>\n      </select>\n      <!-- <option ng-repeat=\"equipment_type in $ctrl.$rootScope.equipment_types\" value=\"{{equipment_type.id}}\">{{equipment_type.name}}</option> -->\n    </div>\n    \n    <div class=\"form-group\">\n      <label for=\"equipmentName\">Equipment Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"equipmentName\" ng-pattern='/^[a-zA-Z][a-zA-Z0-9]*$/' required>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"hostName\">Host Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"hostName\" required>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"room_id\">Room Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"room_id\" required>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"serialNumber\">Serial Number</label>\n      <input class=\"form-control\" type=\"text\" id=\"serialNumber\">\n    </div>\n    <label for=\"macAdress\">Mac Address:</label>\n    <input id=\"macAddress\" placeholder=\"xx.xx.xx.xx.xx\" id=\"macAddress\" placeholder=\"\" type=\"text\" name=\"macaddress\" ng-model=\"macpin\" ng-pattern=\"/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/\" />\n    <span style=\"color:Red\" ng-show=\"equipmentForm.macaddress.$error.pattern\">Please Enter a Valid Mac Address</span>\n    <br>\n    <label for=\"ipaddress\">IP Address:</label>\n    <input id=\"equipaddress\" placeholder=\"xx.xxx.xxx.xxx\" type=\"text\" name=\"equipaddress\" ng-model=\"txtpin\" ng-pattern=\"/\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b/\" />\n    <span style=\"color:Red\" ng-show=\"equipmentForm.equipipaddress.$error.pattern\">Please Enter a Valid IP Address</span>\n    <div class=\"form-check\">\n      <label class=\"form-check-label\">\n        <input class=\"form-check-input\" type=\"checkbox\" id=\"mabBoxYes\"\n        value=\"1\" required> MAB\n      </label>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"notesInput\">Notes</label>\n      <textarea class=\"form-control\" type=\"textarea\" id=\"notesInput\"></textarea>\n    </div>\n    <!-- These will be additional fields -->\n    <div class=\"form-group\" ng-if=\"subnet.Select == 'true'; type.Select == 'switch'\">\n      <label for=\"switchName\">Switch Name</label>\n      <input class=\"form-control\" type=\"text\" id=\"switchName\" required>\n      <label for=\"switchManagementIp\">Switch Management IP</label>\n      <input class=\"form-control\" type=\"text\" id=\"switchManagementIp\" required>\n      <!-- Autofill from room number already entered -->\n      <label for=\"switchRoomNumber\">Switch Room Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"switchRoomNumber\" required>\n    </div>\n    <!-- Printer fields -->\n    <div class=\"container\" ng-if=\"type.Select =='1'\">\n      <div class=\"form-group\">\n        <label for=\"printServer\">Print Server</label>\n        <input class=\"form-control\" type=\"text\" id=\"printServer\" required>\n      </div>\n      <div class=\"form-group\">\n        <label for=\"driverInput\">Driver</label>\n        <input class=\"form-control\" type=\"text\" id=\"driverInput\" required>\n      </div>\n      <div class=\"form-group\">\n        <label for=\"printServer\">Print Server</label>\n        <input class=\"form-control\" type=\"text\" id=\"printServer\" required>\n      </div>\n      <!-- Need to autopopulate site abrev. & -room number -->\n      <div class=\"form-group\">\n        <label for=\"printerName\">Printer Name</label>\n        <input class=\"form-control\" type=\"text\" id=\"printerName\" required>\n      </div>\n      <!-- Should autopopulate again -->\n      <div class=\"form-group\">\n        <label for=\"shareName\">Share Name</label>\n        <input class=\"form-control\" type=\"text\" id=\"shareName\" required>\n      </div>\n      <!-- should autopopulate again -->\n      <div class=\"form-group\">\n        <label for=\"shareComment\">Share Comment</label>\n        <input class=\"form-control\" type=\"text\" id=\"shareComment\" required>\n      </div>\n      <div class=\"form-group\">\n        <label for=\"modelNumber\">Model Type</label>\n        <input class=\"form-control\" type=\"text\" id=\"modelType\" required>\n      </div>\n    </div>\n    <!-- Computer Affitional Fields -->\n    <div  ng-if=\"type.Select =='2'\">\n      <div class=\"form-group\">\n        <label for=\"operatingSystem\">Operating System</label>\n        <input class=\"form-control\" type=\"text\" id=\"operatingSystem\" required>\n      </div>\n      <div class=\"form-group\">\n        <label for=\"computerType\">Computer Type</label>\n        <select class=\"form-control\" id=\"computerType\" required>\n          <option>Virtual Machine</option>\n          <option>Physical Computer</option>\n        </select>\n      </div>\n    </div>\n    <a href=\"/\" ng-click=\"$ctrl.$rootScope.dashboard = true\">\n      <button  ng-click='$ctrl.$rootScope.addEquipment()' class=\"btn btn-primary\" type=\"submit\">Save Equipment</button>\n    </a>\n  </div>\n</form>";
 
 },{}],12:[function(require,module,exports){
 'use strict';
@@ -627,6 +624,93 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _sidebar = require('./sidebar.html');
+
+var _sidebar2 = _interopRequireDefault(_sidebar);
+
+var _sidebar3 = require('./sidebar.controller');
+
+var _sidebar4 = _interopRequireDefault(_sidebar3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var sidebarComponent = {
+	bindings: {},
+	template: _sidebar2.default,
+	controller: ['$rootScope', '$interval', '$http', _sidebar4.default],
+	controllerAs: '$ctrl'
+};
+
+exports.default = sidebarComponent;
+
+},{"./sidebar.controller":19,"./sidebar.html":20}],19:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var sidebarController = function sidebarController($rootScope, $http) {
+    var _this = this;
+
+    _classCallCheck(this, sidebarController);
+
+    var ctrl = this;
+    ctrl.$rootScope = $rootScope;
+    ctrl.$rootScope.getSites();
+    ctrl.filter = {};
+
+    ctrl.$rootScope.filterByid = filterByid;
+    ctrl.getid = getid;
+
+    function filterByid(site) {
+        return ctrl.filter[site.id] || noFilter(ctrl.filter);
+    }
+
+    function getid() {
+        return (ctrl.sites || []).map(function (site) {
+            return site.id;
+        }).filter(function (cat, idx, arr) {
+            return arr.indexOf(cat) === idx;
+        });
+    }
+
+    function noFilter(filterObj) {
+        return Object.keys(filterObj).every(function (key) {
+            return !filterObj[key];
+        });
+    }
+    ctrl.$rootScope.test = function () {
+        console.log("hi from sidebarController");
+    };
+
+    ctrl.$rootScope.search = function (searchText) {
+        var ctrl = _this;
+        ctrl.$rootScope.searchText = searchText;
+    };
+}
+
+// Functions - Definitions
+
+
+;
+
+;
+
+exports.default = sidebarController;
+
+},{}],20:[function(require,module,exports){
+module.exports = "\n\t<button ng-click=\"$ctrl.sidebar = !$ctrl.sidebar\">\n\t<i class=\"fa fa-arrow-left\" ng-show=\"$ctrl.sidebar\"></i>\n\t<i class=\"fa fa-arrow-right\" ng-show=\"!$ctrl.sidebar\"></i>\n\t</button>\n\t\t<div ng-show=\"$ctrl.sidebar\" ng-init=\"$ctrl.sidebar = true\">\n\t<input type=\"text\" id=\"searchText\" class=\"col\" ng-change=\"$ctrl.$rootScope.search($ctrl.$rootScope.searchText)\" ng-model=\"$ctrl.$rootScope.searchText\">\n\t<span ng-repeat=\"site in $ctrl.$rootScope.sites\">\n\t<input type=\"checkbox\" ng-model=\"$ctrl.filter[site.id]\" ng-value=\"site.id\" class=\"filterbox\">{{site.name}}</input><br /></span>\n\t</div>\n\t<!-- <div class=\"col-9\">\n\t\t<table class=\"data\" >\n\t\t  <tr>\n\t\t    <th>Entry Header 1</th>\n\t\t    <th>Entry Header 2</th>\n\t\t    <th>Entry Header 3</th>\n\t\t    <th>Entry Header 4</th>\n\t\t  </tr>\n\t\t  <tr ng-repeat=\"site in $ctrl.$rootScope.sites | filter: $ctrl.searchText | filter:$ctrl.filterByid\">\n\t\t  \t<td>{{site.name}}</td>\n\t\t  \t<td>{{site.site_contact}}</td>\n\t\t  \t<td>{{site.address}}</td>\n\t\t  \t<td>{{site.abbreviation}}</td>\n\t\t  </tr>\n\t</div> -->\n\t<!-- </table> -->\n\t\n";
+
+},{}],21:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
 var _sites = require('./sites.html');
 
 var _sites2 = _interopRequireDefault(_sites);
@@ -646,7 +730,7 @@ var sitesComponent = {
 
 exports.default = sitesComponent;
 
-},{"./sites.controller":19,"./sites.html":20}],19:[function(require,module,exports){
+},{"./sites.controller":22,"./sites.html":23}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -680,10 +764,10 @@ var sitesController = function () {
 
 exports.default = sitesController;
 
-},{}],20:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 module.exports = "\r\n<div class=\"container\">\r\n\t<div class=\"row\">\r\n\t\t<div  class=\"col-4\" ng-repeat=\"site in $ctrl.$rootScope.sites\">\r\n\t\t\t<div class=\"card card-block\" >\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t\t<h4 class=\"col-8\" ng-click=\"$ctrl.$rootScope.getSite(site.id)\">{{site.name}}</h4>\r\n\t\t\t\t\t\t<h5 class=\"col-4\">{{site.abbreviation}}</h5>\r\n\t\t\t\t</div>\r\n\t\t\t\t<ul class=\"list-group list-group-flush\">\r\n\t\t\t\t\t<li class=\"list-group-item\">Address: {{site.address}} </li>\r\n\t\t\t\t\t<li class=\"list-group-item\">Contact: {{site.site_contact}} </li>\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<a href='/#!/sitesform'  ng-click=\"$ctrl.$rootScope.dashboard = false\" class=\"text-center\">\r\n\t\t\t<div class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<h4 class=\"col text-center\">Add New Site</h4>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col text-center\">\r\n\t\t\t\t\t\t<i class=\"fa fa-plus fa-5x text-center\"></i>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t</a>\r\n\t\t</div>\r\n\r\n\r\n\r\n\t</div> <!-- end main row -->\r\n\r\n\r\n</div> <!-- end container -->\r\n\r\n";
 
-},{}],21:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -711,7 +795,7 @@ console.log('subnetform.component');
 
 exports.default = subnetformComponent;
 
-},{"./subnetform.controller":22,"./subnetform.html":23}],22:[function(require,module,exports){
+},{"./subnetform.controller":25,"./subnetform.html":26}],25:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -734,10 +818,10 @@ var subnetformController = function subnetformController($rootScope) {
 
 exports.default = subnetformController;
 
-},{}],23:[function(require,module,exports){
-module.exports = "<a href=\"/\"  ng-click=\"$ctrl.$rootScope.dashboard = true\"><button><i class=\"fa fa-close fa-3x\"></i></button></a>\n<form>\n<div class=\"container\" >\n<div class=\"form-inline\">\n  <div >\n      <label for=\"siteSelect\">Sites</label>\n      <select class=\"form-control form-inline mr-2\" id=\"siteSelect\" required>\n        <option></option>\n        <option>Moon Campus</option>\n        <option>Earth Campus</option>\n      </select>\n    </div>\n    <div >\n      <label for=\"subnetName\">Subnet Name</label>\n        <input class=\"form-control form-inline\" type=\"text\" id=\"subnetName\" required>\n    </div>\n</div>\n<div >\n  <div >\n    <label for=\"subnetIpAdress\">Subnet Ip Adress</label>\n      <input class=\"form-control\" type=\"text\" id=\"subnetIpAdress\" required>\n  </div>\n  <div >\n    <label for=\"subnetMaskBits\">Subnet Mask Bits</label>\n      <input class=\"form-control\" type=\"number\" id=\"subnetMaskBits\" required>\n  </div>\n</div>\n<div >\n  <div >\n    <label for=\"vlanNumber\">VLAN Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"vlanNumber\">\n  </div>\n  <div >\n    <label for=\"leaseTime\">Lease Time</label>\n      <input class=\"form-control\" type=\"time\" id=\"leaseTime\">\n  </div>\n</div>\n<div >\n  <div >\n    <label for=\"subnetNotes\">Notes</label>\n      <input class=\"form-control\" type=\"text\" id=\"subnetNotes\">\n  </div>\n</div>\n\n  <button class=\"btn btn-primary\" type=\"submit\">Save Subnet</button></form>\n</div>";
+},{}],26:[function(require,module,exports){
+module.exports = "<a href=\"/\"  ng-click=\"$ctrl.$rootScope.dashboard = true\"><button><i class=\"fa fa-close fa-3x\"></i></button></a>\n<form>\n<div class=\"container\" >\n<div class=\"form-inline\">\n  <div class=\"form-group\">\n    <label for=\"siteSelect\">Site</label>\n    <select class=\"form-control\" id=\"siteSelect\" ng-model=\"site.Select\" \" required>\n      <option ng-repeat=\"site in $ctrl.$rootScope.sites\" value=\"{{site.id}}\">{{site.name}}</option>\n    </select>\n  </div> \n    <div >\n      <label for=\"subnetName\">Subnet Name</label>\n        <input class=\"form-control form-inline\" type=\"text\" id=\"subnetName\" required>\n    </div>\n</div>\n<div >\n  <div >\n    <label for=\"subnetIpAddress\">Subnet Ip Address</label>\n      <input class=\"form-control\" type=\"text\" id=\"subnetIpAddress\" required>\n  </div>\n  <div >\n    <label for=\"subnetMaskBits\">Subnet Mask Bits</label>\n      <input class=\"form-control\" type=\"number\" id=\"subnetMaskBits\" required>\n  </div>\n</div>\n<div >\n  <div >\n    <label for=\"vlanNumber\">VLAN Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"vlanNumber\">\n  </div>\n  <div >\n    <label for=\"leaseTime\">Lease Time</label>\n      <input class=\"form-control\" type=\"time\" id=\"leaseTime\">\n  </div>\n</div>\n<div >\n  <div >\n    <label for=\"subnetNotes\">Notes</label>\n      <input class=\"form-control\" type=\"text\" id=\"subnetNotes\">\n  </div>\n</div>\n\n  <button ng-click=\"$ctrl.$rootScope.addSubnet()\" class=\"btn btn-primary\" type=\"submit\">Save Subnet</button></form>\n</div>";
 
-},{}],24:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -763,7 +847,7 @@ var subnetsComponent = {
 
 exports.default = subnetsComponent;
 
-},{"./subnets.controller":25,"./subnets.html":26}],25:[function(require,module,exports){
+},{"./subnets.controller":28,"./subnets.html":29}],28:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -802,10 +886,10 @@ var subnetsController = function () {
 
 exports.default = subnetsController;
 
-},{}],26:[function(require,module,exports){
-module.exports = "\n<a href=\"/#!/subnetform\"  ng-click=\"$ctrl.$rootScope.dashboard = false\"><button id=\"addSubnet\">Add Subnet</button></a>\n\n<table>\n\t<thead>\n\t\t<tr>\n\t\t\t<th>Name</th>\n\t\t\t<th>Address</th>\n\t\t\t<th>Mask Bits</th>\n\t\t\t<th>vLan</th>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets\">\n\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n\n";
+},{}],29:[function(require,module,exports){
+module.exports = "\n<a href=\"/#!/subnetform\"  ng-click=\"$ctrl.$rootScope.dashboard = false\"><button id=\"addSubnet\">Add Subnet</button></a>\n<div class=\"container-fluid\">\n<div class=\"row\">\n<div class=\"col-3\">\n<sidebar></sidebar>\n</div>\n<div class=\"col-9\">\n<table class=\"data\">\n\t<thead>\n\t\t<tr>\n\t\t\t<th>Name</th>\n\t\t\t<th>Address</th>\n\t\t\t<th>Mask Bits</th>\n\t\t\t<th>vLan</th>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid\"\">\n\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t</tr>\n\t</tbody>\n</table>\n<button ng-click=\"$ctrl.$rootScope.test()\">Test</button>\n</div>\n</div>\n</div>\n\n\n";
 
-},{}],27:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -831,7 +915,7 @@ var tabboardComponent = {
 
 exports.default = tabboardComponent;
 
-},{"./tabboard.controller":28,"./tabboard.html":29}],28:[function(require,module,exports){
+},{"./tabboard.controller":31,"./tabboard.html":32}],31:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -889,10 +973,10 @@ var tabboardController = function () {
 
 exports.default = tabboardController;
 
-},{}],29:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 module.exports = "\n<ul class=\"nav nav-tabs\"> <!-- Tabs -->\n  <li class=\"nav-item\">\n    <a class=\"nav-link active\" id=\"sitesTab\" value=\"sites\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#\">Sites</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" id=\"subnetsTab\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#\">Subnets</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" id=\"equipmentTab\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#\">Equipment</a>\n  </li>\n</ul> <!-- End Tabs -->\n\n<sites ng-show=\"$ctrl.showTab == 'sites'\"></sites>\n<subnets ng-show=\"$ctrl.showTab == 'subnets'\"></subnets>\n<equipment ng-show=\"$ctrl.showTab == 'equipment'\"></equipment>";
 
-},{}],30:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -918,7 +1002,7 @@ var usersComponent = {
 
 exports.default = usersComponent;
 
-},{"./users.controller":31,"./users.html":32}],31:[function(require,module,exports){
+},{"./users.controller":34,"./users.html":35}],34:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -935,7 +1019,7 @@ var UsersController = function UsersController($rootScope) {
 
 exports.default = UsersController;
 
-},{}],32:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 module.exports = "<div class=\"col-md-6 col-md-offset-3\">\n    <h2>Manage Users</h2>\n    <form name=\"form\" ng-submit=\"ctrl.user()\" role=\"form\">\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }\">\n            <label for=\"username\">First name</label>\n            <input type=\"text\" name=\"firstName\" id=\"firstName\" class=\"form-control\" ng-model=\"ctrl.user.firstName\" required />\n            <span ng-show=\"form.firstName.$dirty && form.firstName.$error.required\" class=\"help-block\">First name is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.lastName.$dirty && form.lastName.$error.required }\">\n            <label for=\"username\">Last name</label>\n            <input type=\"text\" name=\"lastName\" id=\"Text1\" class=\"form-control\" ng-model=\"ctrl.user.lastName\" required />\n            <span ng-show=\"form.lastName.$dirty && form.lastName.$error.required\" class=\"help-block\">Last name is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.username.$dirty && form.username.$error.required }\">\n            <label for=\"username\">Username</label>\n            <input type=\"text\" name=\"username\" id=\"username\" class=\"form-control\" ng-model=\"ctrl.user.username\" required />\n            <span ng-show=\"form.username.$dirty && form.username.$error.required\" class=\"help-block\">Username is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.password.$dirty && form.password.$error.required }\">\n            <label for=\"password\">Password</label>\n            <input type=\"password\" name=\"password\" id=\"password\" class=\"form-control\" ng-model=\"ctrl.user.password\" required />\n            <span ng-show=\"form.password.$dirty && form.password.$error.required\" class=\"help-block\">Password is required</span>\n        </div>\n        <div class=\"form-actions\">\n            <button type=\"submit\" ng-disabled=\"form.$invalid || ctrl.dataLoading\" class=\"btn btn-primary\">Register</button>\n            \n            <a href=\"#!/login\" class=\"btn btn-link\">Cancel</a>\n        </div>\n    </form>\n</div>";
 
 },{}]},{},[4]);

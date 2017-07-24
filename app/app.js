@@ -5,6 +5,7 @@ import subnetsComponent from './components/subnets/subnets.component';
 import usersComponent from './components/users/users.component';
 import loginComponent from './components/login/login.component';
 import tabboardComponent from './components/tabboard/tabboard.component';
+import sidebarComponent from './components/sidebar/sidebar.component';
 import navComponent from './components/nav/nav.component';
 import ipamService from './app.services.js';
 import equipmentformComponent from './components/equipment/equipmentform/equipmentform.component';
@@ -22,6 +23,7 @@ angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .factory('ipamService', ipamService)
 .component('equipmentform', equipmentformComponent)
 .component('subnetform', subnetformComponent)
+.component('sidebar', sidebarComponent)
 .config(config)
 .run(run);
 
@@ -43,6 +45,12 @@ config.$inject = ['$routeProvider', '$locationProvider'];
 
             .when('/sitesform', {
                 templateUrl: 'app/components/sites/sitesform/sitesform.html'
+            })
+
+            .when('/side', {
+                controller: sidebarComponent.controller,
+                templateUrl: 'app/components/sidebar/sidebar.html',
+                controllerAs: '$ctrl'
             })
 
             .otherwise({ redirectTo: '/' });

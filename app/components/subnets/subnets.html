@@ -1,37 +1,29 @@
-
-<a href="/#!/subnetform"  ng-click="$ctrl.$rootScope.dashboard = false"><button id="addSubnet">Add Subnet</button></a>
-<button ng-click="$ctrl.$rootScope.sidebar = !$ctrl.$rootScope.sidebar">
-	<i class="fa fa-arrow-left" ng-show="$ctrl.$rootScope.sidebar"></i>
-	<i class="fa fa-arrow-right" ng-show="!$ctrl.$rootScope.sidebar"></i>
-</button>
 <div class="container-fluid">
-<div class="row">
-<div class="col-3" ng-show="$ctrl.$rootScope.sidebar" ng-init="$ctrl.$rootScope.sidebar = true">
-<sidebar></sidebar>
-</div>
-<table class="data">
-	<thead>
-		<tr>
-			<th>Name</th>
-			<th>Site Id</th>
-			<th>Address</th>
-			<th>Mask Bits</th>
-			<th>vLan</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid"">
-			<td class="pr-2">{{subnet.name}}</td>
-			<td class="pr-2">{{subnet.site_id}}</td>
-			<td class="pr-2">{{subnet.subnet_address}}</td>
-			<td class="pr-2">{{subnet.mask_bits}}</td>
-			<td class="pr-2">{{subnet.vLan}}</td>
-		</tr>
-	</tbody>
-</table>
-<button ng-click="$ctrl.$rootScope.test()">Test</button>
-</div>
-</div>
+	<sidebar></sidebar>
+	<div class="row">
+		<div class= "col">
+		<table class="data">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Site Id</th>
+					<th>Address</th>
+					<th>Mask Bits</th>
+					<th>vLan</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid">
+					<td class="pr-2">{{subnet.name}}</td>
+					<td class="pr-2">{{subnet.site_id}}</td>
+					<td class="pr-2">{{subnet.subnet_address}}</td>
+					<td class="pr-2">{{subnet.mask_bits}}</td>
+					<td class="pr-2">{{subnet.vLan}}</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
 </div>
 
 

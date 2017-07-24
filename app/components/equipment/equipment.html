@@ -1,46 +1,41 @@
-
-<a href="/#!/equipmentform" ng-click="$ctrl.$rootScope.dashboard = false"><button id="addEquipment"> Add Equipment</button></a>
-
 <div class="container-fluid">
-<div class="row">
-<!-- <div class="col-3">
-<sidebar></sidebar>
-</div> -->
-<div class="col-9">
-<table class="table data">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Hostname</th>
-      <th>Room Number</th>
-      <th>IP Address</th>
-      <th>MAC Address</th>
-      <th>MAB</th>
-      <th>Print Server</th>
-      <th>Driver</th>
-      <th>Printer Name</th>
-      <th>Share Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="equipment in $ctrl.$rootScope.equipments | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid"">
-      <td class="pr-2">{{equipment.name}}</td>
-      <td class="pr-2">{{equipment.type[0].name}}</td>
-      <td class="pr-2">{{equipment.host_name}}</td>
-      <td class="pr-2">ROOM NAME</td>
-      <td class="pr-2">{{equipment.ip_address}}</td>
-      <td class="pr-2">{{equipment.mac_address}}</td>
-      <td class="pr-2">{{equipment.mab}}</td>
-      <td class="pr-2">{{equipment.printer_server}}</td>
-      <td class="pr-2">{{equipment.driver}}</td>
-      <td class="pr-2">{{equipment.printer_name}}</td>
-      <td class="pr-2">{{equipment.share_name}}</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
+  <sidebar></sidebar>
+  <div class="row">
+    <div class="col">
+    <table class="table data lowz">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Hostname</th>
+          <th>Room Number</th>
+          <th>IP Address</th>
+          <th>MAC Address</th>
+          <th>MAB</th>
+          <th>Print Server</th>
+          <th>Driver</th>
+          <th>Printer Name</th>
+          <th>Share Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="equipment in $ctrl.$rootScope.equipments | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid">
+          <td class="pr-2">{{equipment.name}}</td>
+          <td class="pr-2">{{equipment.type[0].name}}</td>
+          <td class="pr-2">{{equipment.host_name}}</td>
+          <td class="pr-2">ROOM NAME</td>
+          <td class="pr-2">{{equipment.ip_address}}</td>
+          <td class="pr-2">{{equipment.mac_address}}</td>
+          <td class="pr-2">{{equipment.mab}}</td>
+          <td class="pr-2">{{equipment.printer_server}}</td>
+          <td class="pr-2">{{equipment.driver}}</td>
+          <td class="pr-2">{{equipment.printer_name}}</td>
+          <td class="pr-2">{{equipment.share_name}}</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
 </div>
 
 

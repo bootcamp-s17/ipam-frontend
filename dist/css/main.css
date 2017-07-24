@@ -1,3 +1,8 @@
+.equipmentpage {
+  overflow-x: hidden; }
+
+.lowz {
+  z-index: -100; }
 
 .form-control {
   width: 61%; }
@@ -11,6 +16,8 @@ input[type="password"]:focus {
   outline: 0 none; }
 
 
+.highz {
+  z-index: 1000; }
 
 
 

@@ -11,6 +11,7 @@ class sidebarController {
 
         function filterByid(subnet) {
             return ctrl.filter[subnet.site_id] || noFilter(ctrl.filter);
+            console.log(rootScope);
         }
 
         function getid() {
@@ -24,13 +25,9 @@ class sidebarController {
             .keys(filterObj)
             .every(function (key) { return !filterObj[key]; });
         }
-         ctrl.$rootScope.test = ()=>{
-            console.log("hi from sidebarController");
-        }
-
         ctrl.$rootScope.search = (searchText) => {
-        const ctrl = this;
-        ctrl.$rootScope.searchText = searchText;
+            const ctrl = this;
+            ctrl.$rootScope.searchText = searchText;
         }
  
     }

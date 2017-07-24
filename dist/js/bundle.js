@@ -401,58 +401,26 @@ var equipmentComponent = {
 exports.default = equipmentComponent;
 
 },{"./equipment.controller":7,"./equipment.html":8}],7:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var equipmentController = function () {
-	function equipmentController($rootScope, ModalService) {
-		_classCallCheck(this, equipmentController);
+var equipmentController = function equipmentController($rootScope, ModalService) {
+	_classCallCheck(this, equipmentController);
 
-		var ctrl = this;
-		ctrl.$rootScope = $rootScope;
-		ctrl.$rootScope.getEquipments();
-
-		// vm.openModal = openModal;
-		// vm.closeModal = closeModal;
-
-		// initcontroller();
-
-		// function initcontroller(){
-		// 	vm.bodyText = 'This is working!';
-		// };
-		// function openModal(id){
-		// 	ModalService.Open(id);
-		// 	console.log('Clicked!')
-		// };	
-		// function closeModal(id){
-		// 	ModalService.close(id);
-		// };
-	}
-
-	_createClass(equipmentController, [{
-		key: 'click',
-		value: function click() {
-			var ctrl = this;
-			console.log('hello from equipmentForm');
-			console.log(ctrl.$rootScope.equipshow);
-			ctrl.$rootScope.equipshow = true;
-		}
-	}]);
-
-	return equipmentController;
-}();
+	var ctrl = this;
+	ctrl.$rootScope = $rootScope;
+	ctrl.$rootScope.getEquipments();
+};
 
 exports.default = equipmentController;
 
 },{}],8:[function(require,module,exports){
-module.exports = "\n<a href=\"/#!/equipmentform\" ng-click=\"$ctrl.$rootScope.dashboard = false\"><button id=\"addEquipment\"> Add Equipment</button></a>\n\n<div class=\"container-fluid\">\n<div class=\"row\">\n<!-- <div class=\"col-3\">\n<sidebar></sidebar>\n</div> -->\n<div class=\"col-9\">\n<table class=\"table data\">\n  <thead>\n    <tr>\n      <th>Name</th>\n      <th>Type</th>\n      <th>Hostname</th>\n      <th>Room Number</th>\n      <th>IP Address</th>\n      <th>MAC Address</th>\n      <th>MAB</th>\n      <th>Print Server</th>\n      <th>Driver</th>\n      <th>Printer Name</th>\n      <th>Share Name</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat=\"equipment in $ctrl.$rootScope.equipments | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid\"\">\n      <td class=\"pr-2\">{{equipment.name}}</td>\n      <td class=\"pr-2\">{{equipment.type[0].name}}</td>\n      <td class=\"pr-2\">{{equipment.host_name}}</td>\n      <td class=\"pr-2\">ROOM NAME</td>\n      <td class=\"pr-2\">{{equipment.ip_address}}</td>\n      <td class=\"pr-2\">{{equipment.mac_address}}</td>\n      <td class=\"pr-2\">{{equipment.mab}}</td>\n      <td class=\"pr-2\">{{equipment.printer_server}}</td>\n      <td class=\"pr-2\">{{equipment.driver}}</td>\n      <td class=\"pr-2\">{{equipment.printer_name}}</td>\n      <td class=\"pr-2\">{{equipment.share_name}}</td>\n    </tr>\n  </tbody>\n</table>\n</div>\n</div>\n</div>\n\n\n";
+module.exports = "<div class=\"container-fluid\">\n  <sidebar></sidebar>\n  <div class=\"row\">\n    <div class=\"col\">\n    <table class=\"table data lowz\">\n      <thead>\n        <tr>\n          <th>Name</th>\n          <th>Type</th>\n          <th>Hostname</th>\n          <th>Room Number</th>\n          <th>IP Address</th>\n          <th>MAC Address</th>\n          <th>MAB</th>\n          <th>Print Server</th>\n          <th>Driver</th>\n          <th>Printer Name</th>\n          <th>Share Name</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr ng-repeat=\"equipment in $ctrl.$rootScope.equipments | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid\">\n          <td class=\"pr-2\">{{equipment.name}}</td>\n          <td class=\"pr-2\">{{equipment.type[0].name}}</td>\n          <td class=\"pr-2\">{{equipment.host_name}}</td>\n          <td class=\"pr-2\">ROOM NAME</td>\n          <td class=\"pr-2\">{{equipment.ip_address}}</td>\n          <td class=\"pr-2\">{{equipment.mac_address}}</td>\n          <td class=\"pr-2\">{{equipment.mab}}</td>\n          <td class=\"pr-2\">{{equipment.printer_server}}</td>\n          <td class=\"pr-2\">{{equipment.driver}}</td>\n          <td class=\"pr-2\">{{equipment.printer_name}}</td>\n          <td class=\"pr-2\">{{equipment.share_name}}</td>\n        </tr>\n      </tbody>\n    </table>\n    </div>\n  </div>\n</div>\n\n\n";
 
 },{}],9:[function(require,module,exports){
 'use strict';
@@ -680,6 +648,7 @@ var sidebarController = function sidebarController($rootScope, $http) {
 
     function filterByid(subnet) {
         return ctrl.filter[subnet.site_id] || noFilter(ctrl.filter);
+        console.log(rootScope);
     }
 
     function getid() {
@@ -695,10 +664,6 @@ var sidebarController = function sidebarController($rootScope, $http) {
             return !filterObj[key];
         });
     }
-    ctrl.$rootScope.test = function () {
-        console.log("hi from sidebarController");
-    };
-
     ctrl.$rootScope.search = function (searchText) {
         var ctrl = _this;
         ctrl.$rootScope.searchText = searchText;
@@ -715,7 +680,7 @@ var sidebarController = function sidebarController($rootScope, $http) {
 exports.default = sidebarController;
 
 },{}],20:[function(require,module,exports){
-module.exports = "\t<div>\n\t<input type=\"text\" id=\"searchText\" class=\"col\" ng-change=\"$ctrl.$rootScope.search($ctrl.$rootScope.searchText)\" ng-model=\"$ctrl.$rootScope.searchText\">\n\t<span ng-repeat=\"site in $ctrl.$rootScope.sites\">\n\t<input type=\"checkbox\" ng-model=\"$ctrl.filter[site.id]\" ng-value=\"site.id\" class=\"filterbox\">{{site.name}}</input><br /></span>\n\t</div>\n\t<!-- <div class=\"col-9\">\n\t\t<table class=\"data\" >\n\t\t  <tr>\n\t\t    <th>Entry Header 1</th>\n\t\t    <th>Entry Header 2</th>\n\t\t    <th>Entry Header 3</th>\n\t\t    <th>Entry Header 4</th>\n\t\t  </tr>\n\t\t  <tr ng-repeat=\"site in $ctrl.$rootScope.sites | filter: $ctrl.searchText | filter:$ctrl.filterByid\">\n\t\t  \t<td>{{site.name}}</td>\n\t\t  \t<td>{{site.site_contact}}</td>\n\t\t  \t<td>{{site.address}}</td>\n\t\t  \t<td>{{site.abbreviation}}</td>\n\t\t  </tr>\n\t</div> -->\n\t<!-- </table> -->\n\t\n";
+module.exports = "<div class=\"container-fluid highz\">\n\t<div class=\"row\">\n\t\t<div class=\"col-4\">\n\t\t\t<input type=\"text\" id=\"searchText\" class=\"col\" placeholder=\"Keyword Search...\" ng-change=\"$ctrl.$rootScope.search($ctrl.$rootScope.searchText)\" ng-model=\"$ctrl.$rootScope.searchText\">\n\t\t</div>\n\t\t<div class=\"col-4\">\n\t\t\t<div class=\"dropdown\">\n\t\t\t  <button class=\"btn btn-secondary dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Site Filter</button>\n\t\t\t  \n\t\t\t  <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n\t\t\t  \t<span ng-repeat=\"site in $ctrl.$rootScope.sites\" class=\"dropdown-item\">\n\t\t\t  \t<input type=\"checkbox\" ng-model=\"$ctrl.filter[site.id]\" ng-value=\"site.id\" class=\"filterbox\">{{site.name}}</input><br />\n\t\t\t  \t</span>\n\t\t\t  </div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"col-4\">\n\t\t\t<a href=\"/#!/equipmentform\" ng-click=\"$ctrl.$rootScope.dashboard = false\"><button id=\"addEquipment\"> Add Equipment</button></a>\n\t\t</div>\n\t</div>\n</div>\n\t\n";
 
 },{}],21:[function(require,module,exports){
 'use strict';
@@ -867,40 +832,21 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var subnetsController = function () {
-	function subnetsController($rootScope) {
-		_classCallCheck(this, subnetsController);
+var subnetsController = function subnetsController($rootScope) {
+	_classCallCheck(this, subnetsController);
 
-		var ctrl = this;
-
-		ctrl.$rootScope = $rootScope;
-
-		ctrl.$rootScope.getSubnets();
-		// ctrl.$rootScope.$watch('sites', function() {
-		// console.log(ctrl.$rootScope.sites);
-		// })
-	}
-
-	_createClass(subnetsController, [{
-		key: "subnet",
-		value: function subnet() {
-			var ctrl = this;
-			console.log("hello from subnet");
-			ctrl.$rootScope.subshow = true;
-		}
-	}]);
-
-	return subnetsController;
-}();
+	var ctrl = this;
+	ctrl.$rootScope = $rootScope;
+	ctrl.$rootScope.getSubnets();
+	console.log(ctrl.$rootScope);
+};
 
 exports.default = subnetsController;
 
 },{}],29:[function(require,module,exports){
-module.exports = "\n<a href=\"/#!/subnetform\"  ng-click=\"$ctrl.$rootScope.dashboard = false\"><button id=\"addSubnet\">Add Subnet</button></a>\n<button ng-click=\"$ctrl.$rootScope.sidebar = !$ctrl.$rootScope.sidebar\">\n\t<i class=\"fa fa-arrow-left\" ng-show=\"$ctrl.$rootScope.sidebar\"></i>\n\t<i class=\"fa fa-arrow-right\" ng-show=\"!$ctrl.$rootScope.sidebar\"></i>\n</button>\n<div class=\"container-fluid\">\n<div class=\"row\">\n<div class=\"col-3\" ng-show=\"$ctrl.$rootScope.sidebar\" ng-init=\"$ctrl.$rootScope.sidebar = true\">\n<sidebar></sidebar>\n</div>\n<table class=\"data\">\n\t<thead>\n\t\t<tr>\n\t\t\t<th>Name</th>\n\t\t\t<th>Site Id</th>\n\t\t\t<th>Address</th>\n\t\t\t<th>Mask Bits</th>\n\t\t\t<th>vLan</th>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid\"\">\n\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.site_id}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t</tr>\n\t</tbody>\n</table>\n<button ng-click=\"$ctrl.$rootScope.test()\">Test</button>\n</div>\n</div>\n</div>\n\n\n";
+module.exports = "<div class=\"container-fluid\">\n\t<sidebar></sidebar>\n\t<div class=\"row\">\n\t\t<div class= \"col\">\n\t\t<table class=\"data\">\n\t\t\t<thead>\n\t\t\t\t<tr>\n\t\t\t\t\t<th>Name</th>\n\t\t\t\t\t<th>Site Id</th>\n\t\t\t\t\t<th>Address</th>\n\t\t\t\t\t<th>Mask Bits</th>\n\t\t\t\t\t<th>vLan</th>\n\t\t\t\t</tr>\n\t\t\t</thead>\n\t\t\t<tbody>\n\t\t\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid\">\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.site_id}}</td>\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t\t\t</tr>\n\t\t\t</tbody>\n\t\t</table>\n\t\t</div>\n\t</div>\n</div>\n\n\n";
 
 },{}],30:[function(require,module,exports){
 'use strict';

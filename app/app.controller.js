@@ -82,12 +82,36 @@ class appCtrl {
 			})	
 
 		} // end getSubnets()
+/* ------------------------------------------------------
+						IP Adsress
+----------------------------------------------------------*/ 
+	// Setting a global function for getting sites from API
+		ctrl.$rootScope.getIpBySubnet = (id) => {
+			// grabs api data for all the sites with the ngresource query()
+			ctrl.query = ipamService.getIpBySubnet().query();
 
+			// pushes data to sites object, .then means we wait on the promise
+			ctrl.query.$promise.then( (data) => {
+				ctrl.$rootScope.usedIps = data;
+			})	
+
+		} // end getIpBySubnet()
+		
+// Setting a global function for getting sites from API
+		ctrl.$rootScope.getNextIp = (id) => {
+			// grabs api data for all the sites with the ngresource query()
+			ctrl.query = ipamService.getNextIp().query();
+
+			// pushes data to sites object, .then means we wait on the promise
+			ctrl.get.$promise.then( (data) => {
+				ctrl.$rootScope.NextIp = data;
+			})	
+
+		}// end getNextUp()
 
 	} // end constructor
 
 } // end appCtrl
-
 
 
 export default appCtrl;

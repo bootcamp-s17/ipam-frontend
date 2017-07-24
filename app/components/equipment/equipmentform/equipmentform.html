@@ -1,6 +1,7 @@
-<a href="/" ng-click="$ctrl.$rootScope.dashboard = true"><button><i class="fa fa-close fa-3x"></i></button></a>
-<form name="equipmentForm">
-  <div class="container">
+
+
+<form id="eqipForm" name="equipmentForm">
+  <div class="container main-center">
     <div class="form-group">
       <label for="siteSelect">Site</label>
       <select class="form-control" id="siteSelect" ng-model="site.Select" " required>
@@ -19,6 +20,7 @@
         <option value="8">Other</option>
         <option value="1">Printer</option>
         <option value="2">Computer</option>
+
       </select>
       <!-- <option ng-repeat="equipment_type in $ctrl.$rootScope.equipment_types" value="{{equipment_type.id}}">{{equipment_type.name}}</option> -->
     </div>
@@ -38,6 +40,7 @@
     <div class="form-group">
       <label for="serialNumber">Serial Number</label>
       <input class="form-control" type="text" id="serialNumber">
+
     </div>
     <label for="macAdress">Mac Address:</label>
     <input id="macAddress" placeholder="xx.xx.xx.xx.xx" id="macAddress" placeholder="" type="text" name="macaddress" ng-model="macpin" ng-pattern="/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/" />
@@ -59,6 +62,7 @@
     <!-- These will be additional fields -->
     <div class="form-group" ng-if="subnet.Select == 'true'; type.Select == 'switch'">
       <label for="switchName">Switch Name</label>
+
       <input class="form-control" type="text" id="switchName" required>
       <label for="switchManagementIp">Switch Management IP</label>
       <input class="form-control" type="text" id="switchManagementIp" required>
@@ -118,4 +122,62 @@
       <button  ng-click='$ctrl.$rootScope.addEquipment()' class="btn btn-primary" type="submit">Save Equipment</button>
     </a>
   </div>
+
+
+  <!-- Printer fields -->
+<div class="container" ng-if="type.Select =='printer'">
+  <div class="form-group">
+    <label for="printServer">Print Server</label>
+      <input class="form-control" type="text" id="printServer" required>
+  </div>
+    <div class="form-group">
+    <label for="driverInput">Driver</label>
+      <input class="form-control" type="text" id="driverInput" required>
+  </div>
+  <div class="form-group">
+    <label for="printServer">Print Server</label>
+      <input class="form-control" type="text" id="printServer" required>
+  </div>
+  <!-- Need to autopopulate site abrev. & -room number -->
+  <div class="form-group">
+    <label for="printerName">Printer Name</label>
+      <input class="form-control" type="text" id="printerName" required>
+  </div> 
+<!-- Should autopopulate again -->
+ <div class="form-group">
+    <label for="shareName">Share Name</label>
+      <input class="form-control" type="text" id="shareName" required>
+  </div>
+  <!-- should autopopulate again -->
+  <div class="form-group">
+    <label for="shareComment">Share Comment</label>
+      <input class="form-control" type="text" id="shareComment" required>
+  </div>
+
+  <div class="form-group">
+    <label for="modelNumber">Model Number</label>
+      <input class="form-control" type="number" id="modelNumber" required>
+  </div>
+  </div>
+  <!-- Computer Additional Fields -->
+  <div  ng-if="type.Select =='computer'">
+  <div class="form-group">
+    <label for="operatingSystem">Operating System</label>
+      <input class="form-control" type="text" id="operatingSystem" required>
+  </div>
+  <div class="form-group">
+    <label for="computerType">Computer Type</label>
+      <select class="form-control" id="computerType" required>
+        <option>Virtual Machine</option>
+        <option>Physical Computer</option>
+      </select>
+  </div>
+  </div>
+  <div class="clearfix">
+  <a href="/" ng-click="$ctrl.$rootScope.dashboard = true"><button class="btn btn-danger">Cancel</button></a>
+    <button class="btn btn-primary" type="submit">Save Equipment</button>
+  </div>
 </form>
+
+
+

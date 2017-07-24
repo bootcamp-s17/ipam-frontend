@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+
+#sitesForm {
+
+input {
+	margin: 0 auto;
+	width: 100%;
+	height: 40px;
+}
+
+select {
+	margin: 0 auto;
+
+}
+
+.form-control {
+	height: 40px;
+	padding: 8px 12px;
+}
+
+div.container.main-center {
+	margin-top: 20px;
+}
+
+.main-center {
+	margin-top: 30px;
+	margin: 0 auto;
+	max-width: 800px;
+	padding: 20px 100px;
+	background: #F2F2F2;
+	color: #666666;
+	text-shadow: none;
+	border-radius: 10px;
+	-webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.31);
+	-moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.31);
+	box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.31);
+	font-family: 'Open Sans', sans-serif;
+
+}
+
+h1 {
+	text-align: center;
+	font-family: 'Open Sans', sans-serif;
+}
+
+button.btn.btn-primary {
+	float: right;
+	margin-top: 8px;
+	margin-right: 5px;
+}
+
+button.btn.btn-danger {
+	float: right;
+	margin-top: 8px;
+}
+
+}

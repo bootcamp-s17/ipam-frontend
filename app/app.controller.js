@@ -37,9 +37,9 @@ class appCtrl {
 
 			ctrl.get.$promise.then( (data) => {
 				ctrl.$rootScope.site = data;
+				console.log(ctrl.$rootScope.site);
 			})
 
-			alert(id);
 		}
 
 		// add a site from form

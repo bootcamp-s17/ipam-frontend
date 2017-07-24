@@ -47,10 +47,15 @@ config.$inject = ['$routeProvider', '$locationProvider'];
                 templateUrl: 'app/components/sites/sitesform/sitesform.html'
             })
 
+
+            .when('/editsite', {
+                templateUrl: 'app/components/sites/editsite/editsite.html'
+
             .when('/side', {
                 controller: sidebarComponent.controller,
                 templateUrl: 'app/components/sidebar/sidebar.html',
                 controllerAs: '$ctrl'
+
             })
 
             .otherwise({ redirectTo: '/' });

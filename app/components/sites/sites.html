@@ -4,12 +4,12 @@
 		<div  class="col-4" ng-repeat="site in $ctrl.$rootScope.sites">
 			<div class="card card-block" >
 				<div class="card-title">
-						<h4 class="col-8" ng-click="$ctrl.$rootScope.getSite(site.id)">{{site.name}}</h4>
+						<h4 class="col-8" ng-click="">{{site.name}}</h4>
 						<h5 class="col-4">{{site.abbreviation}}</h5>
 				</div>
 				<ul class="list-group list-group-flush">
 					<li class="list-group-item">Address: {{site.address}} </li>
-					<li class="list-group-item">Contact: {{site.site_contact}} </li>
+					<li class="list-group-item btn"><a href='/#!/editsite' ng-click="$ctrl.$rootScope.dashboard = false; $ctrl.$rootScope.getSite(site.id) ">Edit Site</a></li>	
 				</ul>
 			</div>
 		</div>

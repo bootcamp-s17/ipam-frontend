@@ -3,8 +3,8 @@ class equipmentformController {
 	constructor($rootScope) {
 		let ctrl=this;
 		ctrl.$rootScope = $rootScope;
-		 $("#equipipaddress").focusout(() => {
-			ctrl.ip = $("#equipipaddress").val();
+		 $("#equipaddress").focusout(() => {
+			ctrl.ip = $("#equipaddress").val();
 			for (let i = 0; i < ctrl.$rootScope.usedIps.length-1; i++){
 				if(ctrl.ip == ctrl.$rootScope.usedIps[i])
 				{

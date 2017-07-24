@@ -1,31 +1,30 @@
 <a href="/" ng-click="$ctrl.$rootScope.dashboard = true"><button><i class="fa fa-close fa-3x"></i></button></a>
 <form name="equipmentForm">
 <div class="container">
-<h1>These are all the required equipment fields</h1>
+
+
   <div class="form-group">
     <label for="siteSelect">Site</label>
     <select class="form-control" id="siteSelect" ng-model="site.Select" " required>
-      <option ng-option value="false"></option>
-      <option ng-option value="true">Moon Campus</option>
-      <option ng-option value="true">Earth Campus</option>
+      <option ng-repeat="site in $ctrl.$rootScope.sites" value="{{site.id}}">{{site.name}}</option>
     </select>
   </div> 
 
       <div class="form-group" >
       <label for="subnetSelect" >Subnet</label>
       <select class="form-control"  ng-dropdown required ">
-        <option ng-option value="false">false</option>
-        <option ng-option value="true">true</option>
+        <option ng-repeat="subnet in $ctrl.$rootScope.subnets" value="{{subnet.id}}">{{subnet.name}}</option>
+        
       </select>
     </div>
 
      <div class="form-group" >
       <label for="typeSelect">Type</label>
-      <select class="form-control" ng-model="type.Select" ng-dropdown ng-change="changeme()" required >
-        <option ng-option value="other">Other</option>
-        <option ng-option value="printer">Printer</option>
-        <option ng-option value="computer">Computer</option>
-        <option ng-option value="switch">Switch</option>
+      <select id="typeId" class="form-control" ng-model="type.Select" ng-dropdown ng-change="changeme()" required >
+        <option ng-option value="8">Other</option>
+        <option ng-option value="1">Printer</option>
+        <option ng-option value="2">Computer</option>
+        <option ng-option value="8">Switch</option>
       </select>
     </div>
  
@@ -51,17 +50,17 @@
   </div>
 
 Mac Address:<label for="macAdress">Mac Address</label>
-  <input id="macAddress" placeholder="" type="text" name="macaddress" ng-model="macpin" ng-pattern="/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/" />
+  <input id="macAddress" placeholder="xx.xx.xx.xx.xx" id="macAddress" placeholder="" type="text" name="macaddress" ng-model="macpin" ng-pattern="/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/" />
 <span style="color:Red" ng-show="equipmentForm.macaddress.$error.pattern">Please Enter a Valid Mac Address</span>
 <br>
 
 Ip Address:<label for="ipaddress">IP Address</label>
-  <input id="ipaddress" placeholder="xx.xxx.xxx.xxx" type="text" name="ipaddress" ng-model="txtpin" ng-pattern="/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/" />
-<span style="color:Red" ng-show="equipmentForm.ipaddress.$error.pattern">Please Enter a Valid IP Address</span>
+  <input id="equipipaddress" placeholder="xx.xxx.xxx.xxx" type="text" name="equipipaddress" ng-model="txtpin" ng-pattern="/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/" />
+<span style="color:Red" ng-show="equipmentForm.equipipaddress.$error.pattern">Please Enter a Valid IP Address</span>
 
   <div class="form-check">
     <label class="form-check-label">
-      <input class="form-check-input" type="checkbox" id="madBoxYes"
+      <input class="form-check-input" type="checkbox" id="mabBoxYes"
       value="option1" required> MAB
     </label>
   </div>
@@ -70,8 +69,6 @@ Ip Address:<label for="ipaddress">IP Address</label>
     <label for="notesInput">Notes</label>
       <input class="form-control" type="textarea" id="notesInput" >
   </div>
-
-  <h1>These are all the additional equipment fields for printers and computers</h1>
   <!-- These will be additional fields -->
   <div class="form-group" ng-if="subnet.Select == 'true'; type.Select == 'switch'">
     <label for="switchName">Switch Name</label>
@@ -114,8 +111,8 @@ Ip Address:<label for="ipaddress">IP Address</label>
   </div>
 
   <div class="form-group">
-    <label for="modelNumber">Model Number</label>
-      <input class="form-control" type="number" id="modelNumber" required>
+    <label for="modelNumber">Model Type</label>
+      <input class="form-control" type="text" id="modelType" required>
   </div>
   </div>
   <!-- Computer Affitional Fields -->
@@ -132,8 +129,7 @@ Ip Address:<label for="ipaddress">IP Address</label>
       </select>
   </div>
   </div>
-<button class="btn btn-primary" type="submit">Save Equipment</button>
+<button  ng-click='$ctrl.$rootScope.addEquipment()' class="btn btn-primary" type="submit">Save Equipment</button>
 </div>
 </form>
 
- <script src="./node_modules/ng-ip-address/ngIpAddress.vanilla.min.js"></script>

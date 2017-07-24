@@ -22,7 +22,7 @@
     <label for="editSiteNotes">Notes</label>
       <textarea class="form-control" type="textarea" value="" id="editSiteNotes" ></textarea>
   </div>
-  <button ng-click=''>Save Changes</button>
+  <a href="/#!/" ng-click="$ctrl.$rootScope.dashboard = true"><button ng-click='$ctrl.$rootScope.updateSite($ctrl.$rootScope.site.id);'>Save Changes</button></a>
   <a href="/#!/" ng-click="$ctrl.$rootScope.dashboard = true"><button>Cancel</button></a>
 
 

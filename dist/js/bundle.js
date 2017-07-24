@@ -66,7 +66,7 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 			ctrl.$rootScope.site = data;
 			console.log(ctrl.$rootScope.site);
 		});
-	};
+	}; // end getSite
 
 	// add a site from form
 	ctrl.$rootScope.addSite = function () {
@@ -85,11 +85,39 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 		.then(function (data) {
 			ctrl.$rootScope.sites.push(data);
 		});
-	};
+	}; //end addSite
 
-	// ctrl.$rootScope.getSites();
-	// ipamService.updateSite().update({site:1}, ctrl.newSite);
+	ctrl.$rootScope.updateSite = function (id) {
 
+		// instantiate new site JSON
+		ctrl.saveSite = {
+			// grab values with JQuery from form
+			"id": id,
+			"name": $('#editSiteName').val(),
+			"abbreviation": $('#editSiteAbbreviation').val(),
+			"address": $('#editSiteAddress').val(),
+			"site_contact": $('#editSiteContact').val()
+
+			// ctrl.saveSite = {
+			// 	// grab values with JQuery from form
+			//   "id": id,
+			//   "name": 'test2',
+			//   "address": '300 Rose',
+			//   "abbreviation": 'tst',
+			//   "site_contact": 'david',
+			// }
+		};console.log(ctrl.saveSite);
+		// specific call to save from $resource
+		ipamService.updateSite().update({ site: id }, ctrl.saveSite).$promise
+		// says wait for the data and push it to the array
+		.then(function (data) {
+			//pull the sites from db for fresh info with updated site
+			ctrl.$rootScope.getSites();
+			// console.log(data);
+		});
+	}; //end updateSite
+
+	// ctrl.$rootScope.updateSite(1);
 
 	/* ------------------------------------------------------
  						SUBNETS
@@ -293,9 +321,11 @@ function ipamService($resource) {
 	};
 	var updateSite = function updateSite() {
 		return $resource('http://localhost:7000/api/sites/:site', { site: "@site" }, {
-			update: { method: 'PUT' }
+			'update': { method: 'PUT' }
 		});
 	};
+	// console.log(updateSite().update());
+	// console.log(updateSite().update());
 	// All of the Subnet api functions
 	var getSubnets = function getSubnets() {
 		return $resource('http://localhost:7000/api/subnets/:subnet', { subnet: "@subnet" });
@@ -304,7 +334,7 @@ function ipamService($resource) {
 		return $resource('http://localhost:7000/api/subnets');
 	};
 	var updateSubnet = function updateSubnet() {
-		return $resource('http://localhost:7000/api/subnets/:subnet', { subnet: "@subnet" }, { upadte: { metod: 'PUT' }
+		return $resource('http://localhost:7000/api/subnets/:subnet', { subnet: "@subnet" }, { 'update': { metod: 'PUT' }
 		});
 	};
 	// All of the ip endpoint api functions
@@ -322,9 +352,10 @@ function ipamService($resource) {
 		return $resource('http://localhost:7000/api/equipment');
 	};
 	var updateEquipment = function updateEquipment() {
-		return $resource('http://localhost:7000/api/equipment/:equipment', { equipment: "@equipment" }, { update: { method: 'PUT' }
+		return $resource('http://localhost:7000/api/equipment/:equipment', { equipment: "@equipment" }, { 'update': { method: 'PUT' }
 		});
 	};
+
 	return _defineProperty({
 		// SITES
 		getSites: getSites,
@@ -342,7 +373,6 @@ function ipamService($resource) {
 		addEquipment: addEquipment
 	}, 'updateSubnet', updateSubnet);
 };
-
 // function subnetsService($resource) {
 
 // 	 return $resource('http://localhost:7000/api/subnets/:subnet', 

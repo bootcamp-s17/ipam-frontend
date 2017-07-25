@@ -52,14 +52,14 @@ config.$inject = ['$routeProvider', '$locationProvider'];
                 templateUrl: 'app/components/sites/editsite/editsite.html'
             })
 
-            .when('/side', {
-                controller: sidebarComponent.controller,
-                templateUrl: 'app/components/sidebar/sidebar.html',
+            .when('/home', {
+                controller: tabboardComponent.controller,
+                templateUrl: 'app/components/tabboard/tabboard.html',
                 controllerAs: '$ctrl'
 
             })
 
-            .otherwise({ redirectTo: '/' });
+            .otherwise({ redirectTo: '/home' });
     }
 
     run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
@@ -78,27 +78,6 @@ config.$inject = ['$routeProvider', '$locationProvider'];
                 //$location.path('/login');
             //}
         });
-
-        $rootScope.$on('$locationChangeSuccess', function() {
-            $rootScope.currentpath = $location.path();
-
-            if ($rootScope.currentpath === '') {
-                $rootScope.dashboard = true;
-            }
-            console.log('change');
-            console.log($rootScope.dashboard);
-
-            });
-
-            $rootScope.$watch(function () {
-                return $location.path()}, function () {
-                if($rootScope.currentpath == '#!/') {
-                    $rootScope.dashboard = true;
-                    console.log($rootScope.dashboard);
-                // run a function or perform a reload
-                } else $rootScope.dashboard = false;
-            });
-
     }
 
 

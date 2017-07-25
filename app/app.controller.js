@@ -5,21 +5,6 @@ class appCtrl {
 		let ctrl = this;
 		ctrl.$rootScope = $rootScope;
 
-		// define a dashbaord variable to work with the ng-clicks
-		// and to set value based on entry page
-		// ctrl.$rootScope.dashboard = true;
-
-		// ctrl.$rootScope.changeHash = () => {
-		// 	console.log('yo');
-		// 	ctrl.$rootScope.currentHash = $location.hash();
-		// 	if (ctrl.$rootScope.currentHash === '#!/' || ctrl.$rootScope.currentHash === '') {
-		// 		ctrl.$rootScope.dashboard  = true;
-		// 	} else {
-		// 		ctrl.$rootScope.dashboard = false;
-
-		// 	} 
-		// }
-
 
 
 /*----------------------------------------------------------

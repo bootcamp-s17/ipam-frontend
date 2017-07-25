@@ -4,13 +4,14 @@
   <div class="container main-center">
     <div class="form-group">
       <label for="siteSelect">Site</label>
-      <select class="form-control" id="siteSelect" ng-model="site.Select" " required>
+      <select class="form-control" id="siteSelect" ng-model="$ctrl.rootScope.site.name" " required>
         <option ng-repeat="site in $ctrl.$rootScope.sites" value="{{site.id}}">{{site.name}}</option>
       </select>
     </div>
     <div class="form-group" >
       <label for="subnetSelect" >Subnet</label>
       <select class="form-control" id="subnetSelect" ng-dropdown required ">
+        <option value="none">Select a Subnet</option>
         <option ng-repeat="subnet in $ctrl.$rootScope.currentSubnets" value="{{subnet.id}}">{{subnet.name}}</option>
       </select>
     </div>
@@ -48,7 +49,7 @@
     <br>
     
     <label for="ipaddress">IP Address:</label>
-    <input id="equipaddress" placeholder="xx.xxx.xxx.xxx" value="ctrl.$rootScope.NextIp" type="text" name="equipaddress" ng-model="txtpin" ng-pattern="/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/" />
+    <input id="equipaddress" placeholder="Please Select A Site And Subnet" type="text" name="equipaddress" ng-model="$ctrl.$rootScope.NextIp" ng-pattern="/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/" />
     <span style="color:Red" ng-show="equipmentForm.equipaddress.$error.pattern">Please Enter a Valid IP Address</span>
     <div class="form-check">
       <label class="form-check-label">

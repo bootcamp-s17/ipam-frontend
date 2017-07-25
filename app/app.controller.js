@@ -137,6 +137,7 @@ class appCtrl {
 			// pushes data to sites object, .then means we wait on the promise
 			ctrl.query.$promise.then( (data) => {
 				ctrl.$rootScope.usedIps = data;
+
 			})	
 
 		} // end getIpBySubnet()
@@ -148,11 +149,33 @@ class appCtrl {
 
 			// pushes data to sites object, .then means we wait on the promise
 			ctrl.get.$promise.then( (data) => {
+
 				ctrl.$rootScope.NextIp = data;
-				console.log(data);
+
+				ctrl.length = Object.values(data).length;
+
+				ctrl.$rootScope.NextIp = Object.values(ctrl.$rootScope.NextIp).join('').slice(0, ctrl.length-2);
+
+				console.log('data');
+				console.log(Object.values(data).join('').slice(0, ctrl.length-2));
+
+				console.log('next');
+				console.log(ctrl.$rootScope.NextIp);
+
 			})	
 
 		}// end getNextUp()
+
+//Check ip input for availability
+		ctrl.$rootScope.checkIp = (id, ip) => {
+			console.log('id: ' + id + ' ' + 'ip: ' + ip);
+			ctrl.get = ipamService.checkIp().get({subnet: id, checkIp: ip});
+
+			ctrl.get.$promise.then((data) => {
+				console.log(data);
+			})
+		}// end checkIp()
+
 
 
 /* ------------------------------------------------------

@@ -50,14 +50,14 @@
       <input id="equipaddress" placeholder="xx.xxx.xxx.xxx" type="text" name="equipaddress" ng-model="txtpin" ng-pattern="/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/" />
       <span style="color:Red" ng-show="equipmentForm.equipipaddress.$error.pattern">Please Enter a Valid IP Address</span>
 
-      <form class="form-inline">
+      <div class="form-inline">
         <label class="mr-sm-2" for="mabBoxYes">MAB</label>
         <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="mabBoxYes">
           <option selected>Choose...</option>
           <option value="1">Yes</option>
           <option value="0">No</option>
         </select>
-      </form>
+      </div>
       <div class="form-group">
         <label for="notesInput">Notes</label>
         <textarea class="form-control" type="textarea" id="notesInput"></textarea>

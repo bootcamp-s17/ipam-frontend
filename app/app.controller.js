@@ -5,9 +5,7 @@ class appCtrl {
 		let ctrl = this;
 		ctrl.$rootScope = $rootScope;
 
-		// define a dashbaord variable to work with the ng-clicks
-		// and to set value based on entry page
-		ctrl.$rootScope.dashboard = ($location.path() == '/' || $location.path() == '') ? true : false;
+
 
 /*----------------------------------------------------------
 						SITES

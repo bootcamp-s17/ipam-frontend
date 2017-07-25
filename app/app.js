@@ -52,14 +52,14 @@ config.$inject = ['$routeProvider', '$locationProvider'];
                 templateUrl: 'app/components/sites/editsite/editsite.html'
             })
 
-            .when('/side', {
-                controller: sidebarComponent.controller,
-                templateUrl: 'app/components/sidebar/sidebar.html',
+            .when('/home', {
+                controller: tabboardComponent.controller,
+                templateUrl: 'app/components/tabboard/tabboard.html',
                 controllerAs: '$ctrl'
 
             })
 
-            .otherwise({ redirectTo: '/' });
+            .otherwise({ redirectTo: '/home' });
     }
 
     run.$inject = ['$rootScope', '$location', '$cookies', '$http'];

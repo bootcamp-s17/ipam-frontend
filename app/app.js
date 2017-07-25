@@ -50,6 +50,7 @@ config.$inject = ['$routeProvider', '$locationProvider'];
 
             .when('/editsite', {
                 templateUrl: 'app/components/sites/editsite/editsite.html'
+            })
 
             .when('/side', {
                 controller: sidebarComponent.controller,

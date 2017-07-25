@@ -31,6 +31,7 @@ class appCtrl {
 			ctrl.get.$promise.then( (data) => {
 				ctrl.$rootScope.site = data;
 				console.log(ctrl.$rootScope.site);
+				ctrl.$rootScope.currentSubnets  = data.subnets;
 			})
 
 		} // end getSite
@@ -143,11 +144,12 @@ class appCtrl {
 // Setting a global function for getting sites from API
 		ctrl.$rootScope.getNextIp = (id) => {
 			// grabs api data for all the sites with the ngresource query()
-			ctrl.query = ipamService.getNextIp().query();
+			ctrl.get = ipamService.getNextIp().get({subnet: id});
 
 			// pushes data to sites object, .then means we wait on the promise
 			ctrl.get.$promise.then( (data) => {
 				ctrl.$rootScope.NextIp = data;
+				console.log(data);
 			})	
 
 		}// end getNextUp()

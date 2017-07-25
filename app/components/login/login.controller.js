@@ -7,10 +7,10 @@ class loginController {
 
             var credentials = {
                 grant_type: 'password',
-                client_id: 4,
-                client_secret: '9QLheYiT0Dp8fBxFiNK0oHnulzFtaHaoxG0ALkiS',
-                username: 'josh@example.com',
-                password: 'justlax1'
+                client_id: 1,
+                client_secret: 'sdAg9SX5KsdKzxngrpFbnvgk5v4iki8MevI14kvj',
+                username: ctrl.email,
+                password: ctrl.password
             }
 
             // Use Satellizer's $auth service to login
@@ -21,7 +21,7 @@ class loginController {
 
                 console.log($http.defaults.headers.common);
                 // If login is successful, redirect to the users state
-                // window.location.href = "#!/home";
+                window.location.href = "#!/home";
             })
         }
 

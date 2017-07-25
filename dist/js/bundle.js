@@ -338,9 +338,7 @@ function ipamService($resource) {
 	var ctrl = this;
 	// All of the site api functions
 	var getSites = function getSites() {
-		return $resource('http://localhost:7000/api/sites/:site', { site: "@site" }, {
-			headers: { Authorization: 'anything', Accept: 'application/json' }
-		});
+		return $resource('http://localhost:7000/api/sites/:site', { site: "@site" });
 	};
 	var addSite = function addSite() {
 		return $resource('http://localhost:7000/api/sites');
@@ -569,10 +567,10 @@ var loginController = function loginController($rootScope, $auth, $http) {
 
         var credentials = {
             grant_type: 'password',
-            client_id: 4,
-            client_secret: '9QLheYiT0Dp8fBxFiNK0oHnulzFtaHaoxG0ALkiS',
-            username: 'josh@example.com',
-            password: 'justlax1'
+            client_id: 1,
+            client_secret: 'sdAg9SX5KsdKzxngrpFbnvgk5v4iki8MevI14kvj',
+            username: ctrl.email,
+            password: ctrl.password
 
             // Use Satellizer's $auth service to login
         };$auth.login(credentials).then(function (data) {
@@ -582,7 +580,7 @@ var loginController = function loginController($rootScope, $auth, $http) {
 
             console.log($http.defaults.headers.common);
             // If login is successful, redirect to the users state
-            // window.location.href = "#!/home";
+            window.location.href = "#!/home";
         });
     };
 };
@@ -590,7 +588,7 @@ var loginController = function loginController($rootScope, $auth, $http) {
 exports.default = loginController;
 
 },{}],14:[function(require,module,exports){
-module.exports = "\n<!-- <div id=\"login\" class=\"container\">\n    <div class=\"jumbotron main-center\">\n        <h3>Login</h3>\n        <form name=\"form\" ng-submit=\"ctrl.login()\" role=\"form\" id=\"form-login\">\n          <div class=\"form-group\" ng-class=\"{ 'has-error': form.email.$dirty && form.email.$error.required }\">\n            <label>Email Address</label>\n            <input type=\"text\" name=\"email\" id=\"email\" class=\"form-control\" ng-model=\"ctrl.email\" required />\n            <span ng-show=\"form.email.$dirty && form.email.$error.required\" class=\"help-block\">Email is required</span>\n          </div>\n          <div class=\"form-group\" ng-class=\"{ 'has-error': form.password.$dirty && form.password.$error.required }\">\n            <label for=\"password\">Password</label>\n            <input type=\"password\" name=\"password\" id=\"password\" class=\"form-control\" ng-model=\"ctrl.password\" required />\n            <span ng-show=\"form.password.$dirty && form.password.$error.required\" class=\"help-block\">Password is required</span>\n        </div>\n        <div class=\"clearfix\">\n        <button type=\"submit\" class=\"btn btn-success\" ng-disabled=\"form.$invalid || ctrl.dataLoading\">Submit</button>\n        <button type=\"button\" class=\"btn btn-secondary\">Forgot Password?</button>\n        </div>\n        </form>\n    </div>\n</div> -->\n<div class=\"col-sm-4 col-sm-offset-4\">\n    <div class=\"well\">\n        <h3>Login</h3>\n        <form>\n            <div class=\"form-group\">\n                <input type=\"email\" class=\"form-control\" placeholder=\"Email\" ng-model=\"auth.email\">\n            </div>\n            <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control\" placeholder=\"Password\" ng-model=\"auth.password\">\n            </div>\n            <button class=\"btn btn-primary\" ng-click=\"$ctrl.login()\">Submit</button>\n        </form>\n    </div>\n</div>";
+module.exports = "\n<!-- <div id=\"login\" class=\"container\">\n    <div class=\"jumbotron main-center\">\n        <h3>Login</h3>\n        <form name=\"form\" ng-submit=\"ctrl.login()\" role=\"form\" id=\"form-login\">\n          <div class=\"form-group\" ng-class=\"{ 'has-error': form.email.$dirty && form.email.$error.required }\">\n            <label>Email Address</label>\n            <input type=\"text\" name=\"email\" id=\"email\" class=\"form-control\" ng-model=\"ctrl.email\" required />\n            <span ng-show=\"form.email.$dirty && form.email.$error.required\" class=\"help-block\">Email is required</span>\n          </div>\n          <div class=\"form-group\" ng-class=\"{ 'has-error': form.password.$dirty && form.password.$error.required }\">\n            <label for=\"password\">Password</label>\n            <input type=\"password\" name=\"password\" id=\"password\" class=\"form-control\" ng-model=\"ctrl.password\" required />\n            <span ng-show=\"form.password.$dirty && form.password.$error.required\" class=\"help-block\">Password is required</span>\n        </div>\n        <div class=\"clearfix\">\n        <button type=\"submit\" class=\"btn btn-success\" ng-disabled=\"form.$invalid || ctrl.dataLoading\">Submit</button>\n        <button type=\"button\" class=\"btn btn-secondary\">Forgot Password?</button>\n        </div>\n        </form>\n    </div>\n</div> -->\n<div class=\"col-sm-4 col-sm-offset-4\">\n    <div class=\"well\">\n        <h3>Login</h3>\n        <form>\n            <div class=\"form-group\">\n                <input type=\"email\" class=\"form-control\" placeholder=\"Email\" ng-model=\"$ctrl.email\">\n            </div>\n            <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control\" placeholder=\"Password\" ng-model=\"$ctrl.password\">\n            </div>\n            <button class=\"btn btn-primary\" ng-click=\"$ctrl.login()\">Submit</button>\n        </form>\n    </div>\n</div>";
 
 },{}],15:[function(require,module,exports){
 'use strict';

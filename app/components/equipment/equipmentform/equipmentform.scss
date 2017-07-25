@@ -61,12 +61,18 @@ div.form-check.form-inline input[type="checkbox"]{
 }
 
 input#ipaddress.ng-pristine.ng-untouched.ng-valid.ng-empty.ng-valid-pattern {
+	border-radius: .25rem;
 	padding-left: 10px;
 }
 
-.btn {
-	overflow: hidden;
+label.form-check-label {
+	text-align: left;
+	clear: both;
 }
+
+/*.btn {
+	overflow: hidden;
+}*/
 
 button.btn.btn-primary {
 	float: right;

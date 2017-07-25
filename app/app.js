@@ -78,6 +78,27 @@ config.$inject = ['$routeProvider', '$locationProvider'];
                 //$location.path('/login');
             //}
         });
+
+        $rootScope.$on('$locationChangeSuccess', function() {
+            $rootScope.currentpath = $location.path();
+
+            if ($rootScope.currentpath === '') {
+                $rootScope.dashboard = true;
+            }
+            console.log('change');
+            console.log($rootScope.dashboard);
+
+            });
+
+            $rootScope.$watch(function () {
+                return $location.path()}, function () {
+                if($rootScope.currentpath == '#!/') {
+                    $rootScope.dashboard = true;
+                    console.log($rootScope.dashboard);
+                // run a function or perform a reload
+                } else $rootScope.dashboard = false;
+            });
+
     }
 
 

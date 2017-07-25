@@ -4,7 +4,6 @@ class equipmentformController {
 		let ctrl=this;
 		ctrl.$rootScope = $rootScope;
 
-		ctrl.$rootScope.changeHash();
 
 		 $("#equipaddress").focusout(() => {
 			ctrl.ip = $("#equipaddress").val();

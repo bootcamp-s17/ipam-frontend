@@ -25,7 +25,7 @@ var appComponent = {
 exports.default = appComponent;
 
 },{"./app.controller":2,"./app.html":3}],2:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
@@ -41,25 +41,19 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 
 	// define a dashbaord variable to work with the ng-clicks
 	// and to set value based on entry page
-	ctrl.$rootScope.dashboard = true;
-	ctrl.$rootScope.currentHash = window.location.hash;
+	// ctrl.$rootScope.dashboard = true;
 
-	ctrl.$rootScope.changeHash = function () {
-		ctrl.$rootScope.currentHash = window.location.hash;
-		if (ctrl.$rootScope.currentHash === '#!/' || ctrl.$rootScope.currentHash === '') {
-			ctrl.$rootScope.dashboard = true;
-			console.log(ctrl.$rootScope.currentHash);
-		} else {
-			ctrl.$rootScope.dashboard = false;
-			console.log(ctrl.$rootScope.currentHash);
-		}
-	};
+	// ctrl.$rootScope.changeHash = () => {
+	// 	console.log('yo');
+	// 	ctrl.$rootScope.currentHash = $location.hash();
+	// 	if (ctrl.$rootScope.currentHash === '#!/' || ctrl.$rootScope.currentHash === '') {
+	// 		ctrl.$rootScope.dashboard  = true;
+	// 	} else {
+	// 		ctrl.$rootScope.dashboard = false;
 
-	ctrl.$rootScope.changeHash();
+	// 	} 
+	// }
 
-	ctrl.$rootScope.$watch('currentHash', function () {
-		console.log('changed');
-	});
 
 	/*----------------------------------------------------------
  						SITES
@@ -342,6 +336,26 @@ function run($rootScope, $location, $cookies, $http) {
         //$location.path('/login');
         //}
     });
+
+    $rootScope.$on('$locationChangeSuccess', function () {
+        $rootScope.currentpath = $location.path();
+
+        if ($rootScope.currentpath === '') {
+            $rootScope.dashboard = true;
+        }
+        console.log('change');
+        console.log($rootScope.dashboard);
+    });
+
+    $rootScope.$watch(function () {
+        return $location.path();
+    }, function () {
+        if ($rootScope.currentpath == '#!/') {
+            $rootScope.dashboard = true;
+            console.log($rootScope.dashboard);
+            // run a function or perform a reload
+        } else $rootScope.dashboard = false;
+    });
 }
 
 },{"./app.component":1,"./app.services.js":5,"./components/equipment/equipment.component":6,"./components/equipment/equipmentform/equipmentform.component":9,"./components/login/login.component":12,"./components/nav/nav.component":15,"./components/sidebar/sidebar.component":18,"./components/sites/sites.component":21,"./components/subnets/subnetform/subnetform.component":24,"./components/subnets/subnets.component":27,"./components/tabboard/tabboard.component":30,"./components/users/users.component":33}],5:[function(require,module,exports){
@@ -519,8 +533,6 @@ var equipmentformController = function equipmentformController($rootScope) {
 
 	var ctrl = this;
 	ctrl.$rootScope = $rootScope;
-
-	ctrl.$rootScope.changeHash();
 
 	$("#equipaddress").focusout(function () {
 		ctrl.ip = $("#equipaddress").val();
@@ -846,8 +858,6 @@ var subnetformController = function subnetformController($rootScope) {
 	var ctrl = this;
 	ctrl.subshow = false;
 	ctrl.$rootScope = $rootScope;
-
-	ctrl.$rootScope.changeHash();
 
 	ctrl.$rootScope.$watch('subshow', function () {
 		ctrl.subshow = ctrl.$rootScope.subshow;

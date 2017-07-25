@@ -7,26 +7,19 @@ class appCtrl {
 
 		// define a dashbaord variable to work with the ng-clicks
 		// and to set value based on entry page
-		ctrl.$rootScope.dashboard = true;
-		ctrl.$rootScope.currentHash = window.location.hash;
+		// ctrl.$rootScope.dashboard = true;
 
-		ctrl.$rootScope.changeHash = () => {
-			ctrl.$rootScope.currentHash = window.location.hash;
-			if (ctrl.$rootScope.currentHash === '#!/' || ctrl.$rootScope.currentHash === '') {
-				ctrl.$rootScope.dashboard  = true;
-				console.log(ctrl.$rootScope.currentHash);
-			} else {
-				ctrl.$rootScope.dashboard = false;
-				console.log(ctrl.$rootScope.currentHash);
+		// ctrl.$rootScope.changeHash = () => {
+		// 	console.log('yo');
+		// 	ctrl.$rootScope.currentHash = $location.hash();
+		// 	if (ctrl.$rootScope.currentHash === '#!/' || ctrl.$rootScope.currentHash === '') {
+		// 		ctrl.$rootScope.dashboard  = true;
+		// 	} else {
+		// 		ctrl.$rootScope.dashboard = false;
 
-			} 
-		}
+		// 	} 
+		// }
 
-		ctrl.$rootScope.changeHash();
-
-		ctrl.$rootScope.$watch('currentHash', () => {
-        	console.log('changed');
-    	});
 
 
 /*----------------------------------------------------------

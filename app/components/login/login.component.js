@@ -4,7 +4,7 @@ import controller from './login.controller';
 let loginComponent = {
 	bindings : {},
 	template,
-	controller: ['$rootScope', '$interval', controller],
+	controller: ['$rootScope', '$auth', '$http', controller],
 	controllerAs : '$ctrl'
 };
 

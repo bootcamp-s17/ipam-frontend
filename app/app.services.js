@@ -1,8 +1,11 @@
 
 
 function ipamService($resource) {
+	let ctrl = this;
 	// All of the site api functions
-		let getSites = () => $resource('http://localhost:7000/api/sites/:site', {site: "@site"});
+		let getSites = () => $resource('http://localhost:7000/api/sites/:site', {site: "@site"}, {
+        headers: { Authorization: 'anything', Accept: 'application/json' }
+    });
 		let	addSite = () => $resource('http://localhost:7000/api/sites');
 		let updateSite = () => $resource('http://localhost:7000/api/sites/:site', {site: "@site"}, {
             'update': {method: 'PUT'}

@@ -11,7 +11,7 @@ import ipamService from './app.services.js';
 import equipmentformComponent from './components/equipment/equipmentform/equipmentform.component';
 import subnetformComponent from './components/subnets/subnetform/subnetform.component';
 
-angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
+angular.module('app', ['ngRoute','ngCookies', 'ngResource', 'satellizer'])
 .component('app', appComponent)
 .component('equipment', equipmentComponent)
 .component('sites', sitesComponent)
@@ -27,12 +27,16 @@ angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .config(config)
 .run(run);
 
-config.$inject = ['$routeProvider', '$locationProvider'];
-    function config($routeProvider, $locationProvider) {
+config.$inject = ['$routeProvider', '$locationProvider', '$authProvider'];
+    function config($routeProvider, $locationProvider, $authProvider) {
+        $authProvider.loginUrl = 'http://localhost:7000/oauth/token';
+
         $routeProvider
-            .when('/login', {
-                templateUrl: 'app/components/login/login.html',
-            })
+            .when('/auth', {
+                    templateUrl: 'app/components/login/login.html',
+                    controller: loginComponent.controller,
+                    controllerAs: '$ctrl'
+                })
 
             .when('/equipmentform', {
                 controller: equipmentformComponent.controller,

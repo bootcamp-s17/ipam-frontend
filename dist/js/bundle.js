@@ -281,12 +281,16 @@ var _subnetform2 = _interopRequireDefault(_subnetform);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-angular.module('app', ['ngRoute', 'ngCookies', 'ngResource']).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('tabboard', _tabboard2.default).component('nav', _nav2.default).factory('ipamService', _appServices2.default).component('equipmentform', _equipmentform2.default).component('subnetform', _subnetform2.default).component('sidebar', _sidebar2.default).config(config).run(run);
+angular.module('app', ['ngRoute', 'ngCookies', 'ngResource', 'satellizer']).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('tabboard', _tabboard2.default).component('nav', _nav2.default).factory('ipamService', _appServices2.default).component('equipmentform', _equipmentform2.default).component('subnetform', _subnetform2.default).component('sidebar', _sidebar2.default).config(config).run(run);
 
-config.$inject = ['$routeProvider', '$locationProvider'];
-function config($routeProvider, $locationProvider) {
-    $routeProvider.when('/login', {
-        templateUrl: 'app/components/login/login.html'
+config.$inject = ['$routeProvider', '$locationProvider', '$authProvider'];
+function config($routeProvider, $locationProvider, $authProvider) {
+    $authProvider.loginUrl = 'http://localhost:7000/oauth/token';
+
+    $routeProvider.when('/auth', {
+        templateUrl: 'app/components/login/login.html',
+        controller: _login2.default.controller,
+        controllerAs: '$ctrl'
     }).when('/equipmentform', {
         controller: _equipmentform2.default.controller,
         templateUrl: 'app/components/equipment/equipmentform/equipmentform.html'
@@ -331,9 +335,12 @@ Object.defineProperty(exports, "__esModule", {
 
 
 function ipamService($resource) {
+	var ctrl = this;
 	// All of the site api functions
 	var getSites = function getSites() {
-		return $resource('http://localhost:7000/api/sites/:site', { site: "@site" });
+		return $resource('http://localhost:7000/api/sites/:site', { site: "@site" }, {
+			headers: { Authorization: 'anything', Accept: 'application/json' }
+		});
 	};
 	var addSite = function addSite() {
 		return $resource('http://localhost:7000/api/sites');
@@ -537,7 +544,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var loginComponent = {
 	bindings: {},
 	template: _login2.default,
-	controller: ['$rootScope', '$interval', _login4.default],
+	controller: ['$rootScope', '$auth', '$http', _login4.default],
 	controllerAs: '$ctrl'
 };
 
@@ -547,44 +554,43 @@ exports.default = loginComponent;
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+    value: true
 });
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var loginController = function loginController($rootScope) {
-	_classCallCheck(this, loginController);
+var loginController = function loginController($rootScope, $auth, $http) {
+    _classCallCheck(this, loginController);
 
-	var ctrl = this;
-	LoginController.$inject = ['$location', 'AuthenticationService', 'FlashService'];
-	function LoginController($location, AuthenticationService, FlashService) {
+    var ctrl = this;
+    ctrl.$rootScope = $rootScope;
 
-		ctrl.login = login;
+    ctrl.login = function () {
 
-		(function initController() {
-			// reset login status
-			AuthenticationService.ClearCredentials();
-		})();
+        var credentials = {
+            grant_type: 'password',
+            client_id: 4,
+            client_secret: '9QLheYiT0Dp8fBxFiNK0oHnulzFtaHaoxG0ALkiS',
+            username: 'josh@example.com',
+            password: 'justlax1'
 
-		function login() {
-			ctrl.dataLoading = true;
-			AuthenticationService.Login(ctrl.email, ctrl.password, function (response) {
-				if (response.success) {
-					AuthenticationService.SetCredentials(ctrl.email, ctrl.password);
-					$location.path('/');
-				} else {
-					FlashService.Error(response.message);
-					ctrl.dataLoading = false;
-				}
-			});
-		};
-	}
+            // Use Satellizer's $auth service to login
+        };$auth.login(credentials).then(function (data) {
+            ctrl.$rootScope.token = data.data.access_token;
+            $http.defaults.headers.common['Authorization'] = 'Bearer ' + ctrl.$rootScope.token;
+            $http.defaults.headers.common['Accept'] = 'application/json';
+
+            console.log($http.defaults.headers.common);
+            // If login is successful, redirect to the users state
+            // window.location.href = "#!/home";
+        });
+    };
 };
 
 exports.default = loginController;
 
 },{}],14:[function(require,module,exports){
-module.exports = "\n<div id=\"login\" class=\"container\">\n\t<div class=\"jumbotron main-center\">\n\t\t<h3>Login</h3>\n\t\t<form name=\"form\" ng-submit=\"ctrl.login()\" role=\"form\" id=\"form-login\">\n\t\t  <div class=\"form-group\" ng-class=\"{ 'has-error': form.email.$dirty && form.email.$error.required }\">\n\t\t    <label>Email Address</label>\n\t\t    <input type=\"text\" name=\"email\" id=\"email\" class=\"form-control\" ng-model=\"ctrl.email\" required />\n\t\t    <span ng-show=\"form.email.$dirty && form.email.$error.required\" class=\"help-block\">Email is required</span>\n\t\t  </div>\n\t\t  <div class=\"form-group\" ng-class=\"{ 'has-error': form.password.$dirty && form.password.$error.required }\">\n            <label for=\"password\">Password</label>\n            <input type=\"password\" name=\"password\" id=\"password\" class=\"form-control\" ng-model=\"ctrl.password\" required />\n            <span ng-show=\"form.password.$dirty && form.password.$error.required\" class=\"help-block\">Password is required</span>\n        </div>\n        <div class=\"clearfix\">\n\t\t<button type=\"submit\" class=\"btn btn-success\" ng-disabled=\"form.$invalid || ctrl.dataLoading\">Submit</button>\n\t\t<button type=\"button\" class=\"btn btn-secondary\">Forgot Password?</button>\n\t\t</div>\n\t\t</form>\n\t</div>\n</div>";
+module.exports = "\n<!-- <div id=\"login\" class=\"container\">\n    <div class=\"jumbotron main-center\">\n        <h3>Login</h3>\n        <form name=\"form\" ng-submit=\"ctrl.login()\" role=\"form\" id=\"form-login\">\n          <div class=\"form-group\" ng-class=\"{ 'has-error': form.email.$dirty && form.email.$error.required }\">\n            <label>Email Address</label>\n            <input type=\"text\" name=\"email\" id=\"email\" class=\"form-control\" ng-model=\"ctrl.email\" required />\n            <span ng-show=\"form.email.$dirty && form.email.$error.required\" class=\"help-block\">Email is required</span>\n          </div>\n          <div class=\"form-group\" ng-class=\"{ 'has-error': form.password.$dirty && form.password.$error.required }\">\n            <label for=\"password\">Password</label>\n            <input type=\"password\" name=\"password\" id=\"password\" class=\"form-control\" ng-model=\"ctrl.password\" required />\n            <span ng-show=\"form.password.$dirty && form.password.$error.required\" class=\"help-block\">Password is required</span>\n        </div>\n        <div class=\"clearfix\">\n        <button type=\"submit\" class=\"btn btn-success\" ng-disabled=\"form.$invalid || ctrl.dataLoading\">Submit</button>\n        <button type=\"button\" class=\"btn btn-secondary\">Forgot Password?</button>\n        </div>\n        </form>\n    </div>\n</div> -->\n<div class=\"col-sm-4 col-sm-offset-4\">\n    <div class=\"well\">\n        <h3>Login</h3>\n        <form>\n            <div class=\"form-group\">\n                <input type=\"email\" class=\"form-control\" placeholder=\"Email\" ng-model=\"auth.email\">\n            </div>\n            <div class=\"form-group\">\n                <input type=\"password\" class=\"form-control\" placeholder=\"Password\" ng-model=\"auth.password\">\n            </div>\n            <button class=\"btn btn-primary\" ng-click=\"$ctrl.login()\">Submit</button>\n        </form>\n    </div>\n</div>";
 
 },{}],15:[function(require,module,exports){
 'use strict';
@@ -998,18 +1004,32 @@ var usersComponent = {
 exports.default = usersComponent;
 
 },{"./users.controller":34,"./users.html":35}],34:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+    value: true
 });
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var UsersController = function UsersController($rootScope) {
-	_classCallCheck(this, UsersController);
+    _classCallCheck(this, UsersController);
 
-	var ctrl = this;
+    var ctrl = this;
+
+    ctrl.users;
+    ctrl.error;
+
+    ctrl.getUsers = function () {
+
+        // This request will hit the index method in the AuthenticateController
+        // on the Laravel side and will return the list of users
+        $http.get('http://localhost:7000/oauth/clients').success(function (users) {
+            ctrl.users = users;
+        }).error(function (error) {
+            ctrl.error = error;
+        });
+    };
 };
 
 exports.default = UsersController;

@@ -453,7 +453,7 @@ var equipmentController = function equipmentController($rootScope, ModalService)
 exports.default = equipmentController;
 
 },{}],8:[function(require,module,exports){
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <sidebar class=\"col-9\"></sidebar>\n    <a href=\"/#!/equipmentform\" class=\"col-3\"><button id=\"addEquipment\"> Add Equipment</button></a>\n  </div>\n  <div class=\"row\">\n    <div class=\"col\">\n    <table class=\"table data lowz\">\n      <thead>\n        <tr>\n          <th>Name</th>\n          <th>Type</th>\n          <th>Hostname</th>\n          <th>Room Number</th>\n          <th>IP Address</th>\n          <th>MAC Address</th>\n          <th>MAB</th>\n          <th>Print Server</th>\n          <th>Driver</th>\n          <th>Printer Name</th>\n          <th>Share Name</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr ng-repeat=\"equipment in $ctrl.$rootScope.equipments | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid\">\n          <td class=\"pr-2\">{{equipment.name}}</td>\n          <td class=\"pr-2\">{{equipment.type[0].name}}</td>\n          <td class=\"pr-2\">{{equipment.host_name}}</td>\n          <td class=\"pr-2\">ROOM NAME</td>\n          <td class=\"pr-2\">{{equipment.ip_address}}</td>\n          <td class=\"pr-2\">{{equipment.mac_address}}</td>\n          <td class=\"pr-2\">{{equipment.mab}}</td>\n          <td class=\"pr-2\">{{equipment.printer_server}}</td>\n          <td class=\"pr-2\">{{equipment.driver}}</td>\n          <td class=\"pr-2\">{{equipment.printer_name}}</td>\n          <td class=\"pr-2\">{{equipment.share_name}}</td>\n        </tr>\n      </tbody>\n    </table>\n    </div>\n  </div>\n</div>\n\n\n";
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <a href=\"/#!/equipmentform\" class=\"col-3\"><button id=\"addEquipment\"> Add Equipment</button></a>\n  </div>\n  <div class=\"row\">\n    <div class=\"col\">\n    <table class=\"table data lowz\">\n      <thead>\n        <tr>\n          <th>Name</th>\n          <th>Type</th>\n          <th>Hostname</th>\n          <th>Room Number</th>\n          <th>IP Address</th>\n          <th>MAC Address</th>\n          <th>MAB</th>\n          <th>Print Server</th>\n          <th>Driver</th>\n          <th>Printer Name</th>\n          <th>Share Name</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr ng-repeat=\"equipment in $ctrl.$rootScope.equipments | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.idFilter\">\n          <td class=\"pr-2\">{{equipment.name}}</td>\n          <td class=\"pr-2\">{{equipment.type[0].name}}</td>\n          <td class=\"pr-2\">{{equipment.host_name}}</td>\n          <td class=\"pr-2\">ROOM NAME</td>\n          <td class=\"pr-2\">{{equipment.ip_address}}</td>\n          <td class=\"pr-2\">{{equipment.mac_address}}</td>\n          <td class=\"pr-2\">{{equipment.mab}}</td>\n          <td class=\"pr-2\">{{equipment.printer_server}}</td>\n          <td class=\"pr-2\">{{equipment.driver}}</td>\n          <td class=\"pr-2\">{{equipment.printer_name}}</td>\n          <td class=\"pr-2\">{{equipment.share_name}}</td>\n        </tr>\n      </tbody>\n    </table>\n    </div>\n  </div>\n</div>\n\n\n";
 
 },{}],9:[function(require,module,exports){
 'use strict';
@@ -659,7 +659,7 @@ var sidebarComponent = {
 exports.default = sidebarComponent;
 
 },{"./sidebar.controller":19,"./sidebar.html":20}],19:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -675,35 +675,31 @@ var sidebarController = function sidebarController($rootScope, $http) {
     var ctrl = this;
     ctrl.$rootScope = $rootScope;
     ctrl.$rootScope.getSites();
-    ctrl.filter = {};
-    ctrl.filterSub = {};
 
-    ctrl.$rootScope.filterBySid = filterBySid;
-    ctrl.$rootScope.filterByid = filterByid;
-    // ctrl.getid = getid;
+    ctrl.$rootScope.idIncludes = [];
 
-    function filterByid(id) {
-        //console.log(id.site_id);
-        return ctrl.filter[id.site_id] || noFilter(ctrl.filter);
-    }
+    ctrl.$rootScope.$watch('showTab', function () {
+        ctrl.$rootScope.idIncludes = [];
+    });
 
-    function filterBySid(subnet) {
-        console.log(subnet.site_id);
-        ctrl.$rootScope.filterBySid = subnet.site_id;
-        return ctrl.$rootScope.filterbySid == 1;
-    }
+    ctrl.$rootScope.includeSite = function (id) {
+        var i = $.inArray(id, ctrl.$rootScope.idIncludes);
+        if (i > -1) {
+            ctrl.$rootScope.idIncludes.splice(i, 1);
+        } else {
+            ctrl.$rootScope.idIncludes.push(id);
+        }
+    };
 
-    // function getid() {
-    //     return (ctrl.sites || [])
-    //     .map(function (subnet) { return subnet.site_id; })
-    //     .filter(function (cat, idx, arr) { return arr.indexOf(cat) === idx; });
-    // }
+    ctrl.$rootScope.idFilter = function (site) {
+        if (ctrl.$rootScope.idIncludes.length > 0) {
+            if ($.inArray(site.site_id, ctrl.$rootScope.idIncludes) < 0) return;
+        }
+        // console.log(site);
 
-    function noFilter(filterObj) {
-        return Object.keys(filterObj).every(function (key) {
-            return !filterObj[key];
-        });
-    }
+        return site.site_id;
+    };
+
     ctrl.$rootScope.search = function (searchText) {
         var ctrl = _this;
         ctrl.$rootScope.searchText = searchText;
@@ -720,7 +716,7 @@ var sidebarController = function sidebarController($rootScope, $http) {
 exports.default = sidebarController;
 
 },{}],20:[function(require,module,exports){
-module.exports = "<div class=\"container-fluid highz\">\n\t<div class=\"row\">\n\t\t<div class=\"col-6\">\n\t\t\t<input type=\"text\" id=\"searchText\" class=\"col\" placeholder=\"Keyword Search...\" ng-change=\"$ctrl.$rootScope.search($ctrl.$rootScope.searchText)\" ng-model=\"$ctrl.$rootScope.searchText\">\n\t\t</div>\n\t\t<div class=\"col-3\">\n\t\t\t<div class=\"dropdown\">\n\t\t\t  <button class=\"btn btn-secondary dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Subnet Filter</button>\n\t\t\t  <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n\t\t\t  \t<span ng-repeat=\"site in $ctrl.$rootScope.sites\" class=\"dropdown-item\">\n\t\t\t  \t<input type=\"checkbox\" ng-model=\"$ctrl.filterSub[site.id]\" ng-value=\"site.id\" class=\"filterbox\">{{site.id}}</input><br />\n\t\t\t  \t</span>\n\t\t\t  </div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"col-3\">\n\t\t\t<div class=\"dropdown\">\n\t\t\t  <button class=\"btn btn-secondary dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Equipment Filter</button>\n\t\t\t  <div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n\t\t\t  \t<span ng-repeat=\"site in $ctrl.$rootScope.sites\" class=\"dropdown-item\">\n\t\t\t  \t<input type=\"checkbox\" ng-model=\"$ctrl.filter[site.id]\" ng-value=\"site.id\" class=\"filterbox\">{{site.name}}</input><br />\n\t\t\t  \t</span>\n\t\t\t  </div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n\t\n";
+module.exports = "<div class=\"container-fluid highz\">\n\t<div class=\"row\">\n\t\t<div class=\"col-6\">\n\t\t\t<input type=\"text\" id=\"searchText\" class=\"col\" placeholder=\"Keyword Search...\" ng-change=\"$ctrl.$rootScope.search($ctrl.$rootScope.searchText)\" ng-model=\"$ctrl.$rootScope.searchText\">\n\t\t</div>\n\t\t<div class=\"col-3\">\n\t\t\t<div class=\"dropdown\">\n\t\t\t\t<button class=\"btn btn-secondary dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Site Filter</button>\n\t\t\t\t<div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n\t\t\t\t\t<span ng-repeat=\"site in $ctrl.$rootScope.sites\" class=\"dropdown-item\">\n\t\t\t\t\t\t<input type=\"checkbox\" ng-click=\"$ctrl.$rootScope.includeSite(site.id)\" value=\"site.id\" class=\"filterbox\">{{site.name}}</input><br />\n\t\t\t\t\t</span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>";
 
 },{}],21:[function(require,module,exports){
 'use strict';
@@ -886,7 +882,7 @@ var subnetsController = function subnetsController($rootScope) {
 exports.default = subnetsController;
 
 },{}],29:[function(require,module,exports){
-module.exports = "<div class=\"container-fluid\">\n\t<div class=\"row\">\n\t\t<sidebar class=\"col-9\"></sidebar>\n\t\t <a href=\"/#!/subnetform\" class=\"col-3\"><button id=\"addSubnet\"> Add Subnet</button></a>\n\t\t </div>\n\t<div class=\"row\">\n\t\t<div class= \"col\">\n\t\t<table class=\"data\">\n\t\t\t<thead>\n\t\t\t\t<tr>\n\t\t\t\t\t<th>Name</th>\n\t\t\t\t\t<th>Site Id</th>\n\t\t\t\t\t<th>Address</th>\n\t\t\t\t\t<th>Mask Bits</th>\n\t\t\t\t\t<th>vLan</th>\n\t\t\t\t</tr>\n\t\t\t</thead>\n\t\t\t<tbody>\n\t\t\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter: $ctrl.$rootScope.filterBySid\">\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.site_id}}</td>\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t\t\t</tr>\n\t\t\t</tbody>\n\t\t</table>\n\t\t</div>\n\t</div>\n</div>\n\n\n";
+module.exports = "<div class=\"container-fluid\">\n\t<div class=\"row\">\n\t\t<!-- <sidebar class=\"col-9\"></sidebar> -->\n\t\t <a href=\"/#!/subnetform\" class=\"col-3\"><button id=\"addSubnet\"> Add Subnet</button></a>\n\t\t </div>\n\t<div class=\"row\">\n\t\t<div class= \"col\">\n\t\t<table class=\"data\">\n\t\t\t<thead>\n\t\t\t\t<tr>\n\t\t\t\t\t<th>Name</th>\n\t\t\t\t\t<th>Site Id</th>\n\t\t\t\t\t<th>Address</th>\n\t\t\t\t\t<th>Mask Bits</th>\n\t\t\t\t\t<th>vLan</th>\n\t\t\t\t</tr>\n\t\t\t</thead>\n\t\t\t<tbody>\n\t\t\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter: $ctrl.$rootScope.idFilter\">\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.site_id}}</td>\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t\t\t</tr>\n\t\t\t</tbody>\n\t\t</table>\n\t\t</div>\n\t</div>\n</div>\n\n\n";
 
 },{}],30:[function(require,module,exports){
 'use strict';
@@ -973,7 +969,7 @@ var tabboardController = function () {
 exports.default = tabboardController;
 
 },{}],32:[function(require,module,exports){
-module.exports = "\n<ul class=\"nav nav-tabs\"> <!-- Tabs -->\n  <li class=\"nav-item\">\n    <a class=\"nav-link active\" id=\"sitesTab\" value=\"sites\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#!/home\">Sites</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" id=\"subnetsTab\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#!/home\">Subnets</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" id=\"equipmentTab\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#!/home\">Equipment</a>\n  </li>\n</ul> <!-- End Tabs -->\n\n<sites ng-show=\"$ctrl.showTab == 'sites'\"></sites>\n<subnets ng-show=\"$ctrl.showTab == 'subnets'\"></subnets>\n<equipment ng-show=\"$ctrl.showTab == 'equipment'\"></equipment>";
+module.exports = "\n<ul class=\"nav nav-tabs\"> <!-- Tabs -->\n  <li class=\"nav-item\">\n    <a class=\"nav-link active\" id=\"sitesTab\" value=\"sites\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#!/home\">Sites</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" id=\"subnetsTab\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#!/home\">Subnets</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" id=\"equipmentTab\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#!/home\">Equipment</a>\n  </li>\n</ul> <!-- End Tabs -->\n\n<sidebar class=\"col-9\" ng-if=\"$ctrl.showTab != 'sites'\"></sidebar>\n<sites ng-show=\"$ctrl.showTab == 'sites'\"></sites>\n<subnets ng-show=\"$ctrl.showTab == 'subnets'\"></subnets>\n<equipment ng-show=\"$ctrl.showTab == 'equipment'\"></equipment>";
 
 },{}],33:[function(require,module,exports){
 'use strict';

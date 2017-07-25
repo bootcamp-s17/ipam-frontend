@@ -11,6 +11,7 @@
   </li>
 </ul> <!-- End Tabs -->
 
+<sidebar class="col-9" ng-if="$ctrl.showTab != 'sites'"></sidebar>
 <sites ng-show="$ctrl.showTab == 'sites'"></sites>
 <subnets ng-show="$ctrl.showTab == 'subnets'"></subnets>
 <equipment ng-show="$ctrl.showTab == 'equipment'"></equipment>

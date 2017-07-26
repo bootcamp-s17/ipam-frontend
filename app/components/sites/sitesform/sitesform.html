@@ -1,33 +1,30 @@
 
 <form id="sitesForm">
-<div class="container main-center">
-<h1>Add Site</h1>
-  <div class="form-group">
-    <label for="siteName">Site Name</label>
-      <input class="form-control" type="text" value="" id="siteName" required>
+  <div class="container main-center">
+  <h1>Add Site</h1>
+    <div class="form-group">
+      <label for="siteName">Site Name</label>
+        <input class="form-control" type="text" value="" id="siteName" required>
+    </div>
+     <div class="form-group">
+      <label for="siteAbbreviation">Site Abbreviation</label>
+        <input class="form-control" type="text" value="" id="siteAbbreviation" required>
+    </div>
+     <div class="form-group">
+      <label for="siteAddress">Site Address</label>
+        <input class="form-control" type="text" value="" id="siteAddress" required>
+    </div>
+     <div class="form-group">
+      <label for="siteContact">Site Contact</label>
+        <input class="form-control" type="text" value="" id="siteContact" >
+    </div>
+     <div class="form-group">
+      <label for="siteNotes">Notes</label>
+        <input class="form-control" type="textarea" value="" id="siteNotes" >
+    </div>
+    <div class="clearfix">
+      <a href="/" ng-click="$ctrl.$rootScope.dashboard = true"><button class="btn btn-danger">Cancel</button></a>
+      <button class="btn btn-primary" type="submit">Save Site</button>
+    </div>
   </div>
-   <div class="form-group">
-    <label for="siteAbbreviation">Site Abbreviation</label>
-      <input class="form-control" type="text" value="" id="siteAbbreviation" required>
-  </div>
-   <div class="form-group">
-    <label for="siteAddress">Site Address</label>
-      <input class="form-control" type="text" value="" id="siteAddress" required>
-  </div>
-   <div class="form-group">
-    <label for="siteContact">Site Contact</label>
-      <input class="form-control" type="text" value="" id="siteContact" >
-  </div>
-   <div class="form-group">
-    <label for="siteNotes">Notes</label>
-      <input class="form-control" type="textarea" value="" id="siteNotes" >
-  </div>
-
-  <div class="clearfix">
-  <a href="/home"><button class="btn btn-danger">Cancel</button></a>
-    <button ng-click='$ctrl.$rootScope.addSite()' class="btn btn-primary" type="submit">Save Site</button>
-  </div>
-</div>
-
-
 </form>

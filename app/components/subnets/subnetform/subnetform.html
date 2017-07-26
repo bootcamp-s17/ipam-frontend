@@ -1,47 +1,46 @@
 <form id="subnetForm">
-<div class="container main-center" >
-<h1>Add A Subnet</h1>
-  <div class="" >
-      <label for="siteSelect">Sites</label>
-      <select class="form-control form-inline mr-2" id="siteSelect" ng-model="site.Select" " required>
-      <option ng-repeat="site in $ctrl.$rootScope.sites" value="{{site.id}}">{{site.name}}</option>
-    </select>
-    </div>
+  <div class="container main-center" >
+    <h1>Add A Subnet</h1>
+      <div class="" >
+        <label for="siteSelect">Sites</label>
+        <select class="form-control form-inline mr-2" id="siteSelect" ng-model="site.Select" " required>
+          <option ng-repeat="site in $ctrl.$rootScope.sites" value="{{site.id}}">{{site.name}}</option>
+        </select>
+        </div>
 
+        <div >
+          <label for="subnetName">Subnet Name</label>
+            <input class="form-control form-inline" type="text" id="subnetName" required>
+        </div>
     <div >
-      <label for="subnetName">Subnet Name</label>
-        <input class="form-control form-inline" type="text" id="subnetName" required>
+      <div >                                                                    
+          <label for="subnetIpAddress">Subnet IP Address</label>
+          <input class="form-control" type="text" id="subnetIpAddress" required>
+      </div>
+      <div >
+        <label for="subnetMaskBits">Subnet Mask Bits</label>
+          <input class="form-control" type="number" id="subnetMaskBits" required>
+      </div>
     </div>
-<div >
-  <div >                                                                    
-      <label for="subnetIpAddress">Subnet Ip Address</label>
-      <input class="form-control" type="text" id="subnetIpAddress" required>
+    <div >
+      <div >
+        <label for="vlanNumber">VLAN Number</label>
+          <input class="form-control" type="number" id="vlanNumber">
+      </div>
+      <div >
+        <label for="leaseTime">Lease Time</label>
+          <input class="form-control" type="time" id="leaseTime">
+      </div>
+    </div>
+    <div >
+      <div >
+        <label for="subnetNotes">Notes</label>
+          <textarea class="form-control" type="text" id="subnetNotes"></textarea>
+      </div>
+    </div>
+      <div class="clearfix">
+        <a href="/" ng-click="$ctrl.$rootScope.dashboard = true"><button class="btn btn-danger">Cancel</button></a>
+        <button class="btn btn-primary" type="submit">Save Subnet</button>
+      </div>
   </div>
-  <div >
-    <label for="subnetMaskBits">Subnet Mask Bits</label>
-      <input class="form-control" type="number" id="subnetMaskBits" required>
-  </div>
-</div>
-<div >
-  <div >
-    <label for="vlanNumber">VLAN Number</label>
-      <input class="form-control" type="number" id="vlanNumber">
-  </div>
-  <div >
-    <label for="leaseTime">Lease Time</label>
-      <input class="form-control" type="time" id="leaseTime">
-  </div>
-</div>
-<div >
-  <div >
-    <label for="subnetNotes">Notes</label>
-      <textarea class="form-control" type="text" id="subnetNotes"></textarea>
-  </div>
-</div>
-
-  <div class="clearfix">
-  <a href="/home" ><button class="btn btn-danger  "><class="">Cancel</button></a>
-    <button ng-click="$ctrl.$rootScope.addSubnet()" class="btn btn-primary" type="submit">Save Subnet</button>
-  </div>
-  </form>
-</div>
+</form>

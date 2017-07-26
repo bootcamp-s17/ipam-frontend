@@ -5,7 +5,7 @@ class equipmentController {
 		ctrl.$rootScope = $rootScope;
 
 		ctrl.$rootScope.getEquipments();
-
+		ctrl.sortReverse = false;
 
 	};
 }

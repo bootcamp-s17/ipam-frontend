@@ -4,7 +4,7 @@ class subnetsController {
 		let ctrl=this;
 		ctrl.$rootScope = $rootScope;
 		ctrl.$rootScope.getSubnets();
-		console.log(ctrl.$rootScope);
+		ctrl.sortReverse = false;
 	};
 
 }

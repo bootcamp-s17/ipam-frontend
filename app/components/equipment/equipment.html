@@ -13,7 +13,6 @@
     </ul>
   </div>
   <div class="row">
-    <sidebar class="col-9"></sidebar>
     <a href="/#!/equipmentform" class="col-3"><button id="addEquipment"> Add Equipment</button></a>
   </div>
   <div class="row">
@@ -35,7 +34,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="equipment in $ctrl.$rootScope.equipments | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid">
+        <tr ng-repeat="equipment in $ctrl.$rootScope.equipments | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.idFilter">
           <td class="pr-2">{{equipment.name}}</td>
           <td class="pr-2">{{equipment.type[0].name}}</td>
           <td class="pr-2">{{equipment.host_name}}</td>

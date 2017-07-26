@@ -17,9 +17,9 @@ class sidebarController {
         }
 
         function filterBySid(subnet) {
-            console.log(subnet.site_id);
-            ctrl.$rootScope.filterBySid = subnet.site_id;
-            return ctrl.$rootScope.filterbySid == 1;
+            if (subnet.site_id == 1){
+                return ctrl.$rootScope.filterBySid;
+            }
         }
 
         // function getid() {

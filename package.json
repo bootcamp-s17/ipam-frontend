@@ -38,6 +38,7 @@
     "angular-cookies": "^1.5.6",
     "angular-resource": "^1.6.5",
     "angular-route": "^1.5.6",
-    "ng-ip-address": "^1.1.12"
+    "ng-ip-address": "^1.1.12",
+    "sortablejs": "^1.6.0"
   }
 }

@@ -8,9 +8,19 @@
     </select>
     </div>
 
+        <div >
+          <label for="subnetName">Subnet Name</label>
+            <input class="form-control form-inline" type="text" id="subnetName" required>
+        </div>
     <div >
-      <label for="subnetName">Subnet Name</label>
-        <input class="form-control form-inline" type="text" id="subnetName" required>
+      <div >                                                                    
+          <label for="subnetIpAddress">Subnet IP Address</label>
+          <input class="form-control" type="text" id="subnetIpAddress" required>
+      </div>
+      <div >
+        <label for="subnetMaskBits">Subnet Mask Bits</label>
+          <input class="form-control" type="number" id="subnetMaskBits" required>
+      </div>
     </div>
 <div >
   <div >                                                                    
@@ -41,8 +51,7 @@
 </div>
 
   <div class="clearfix">
-  <a href="/home" ><button class="btn btn-danger  "><class="">Cancel</button></a>
+  <a href="#!/subnet" ><button class="btn btn-danger  "><class="">Cancel</button></a>
     <button ng-click="$ctrl.$rootScope.addSubnet()" class="btn btn-primary" type="submit">Save Subnet</button>
   </div>
-  </form>
-</div>
+</form>

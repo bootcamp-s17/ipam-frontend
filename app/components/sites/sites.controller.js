@@ -8,14 +8,13 @@ class sitesController {
         ctrl.$rootScope = $rootScope;
         ctrl.$rootScope.getSites();
 
-
-
-		// $http request for sites endpoint
+        ctrl.$rootScope.csite = "";
 
 	};
 
-	addNewSite() {
-		alert('You want to add a new site!');
+	currentsite() {
+		ctrl.$rootScope.csite = csite;
+		
 	}
 }
 

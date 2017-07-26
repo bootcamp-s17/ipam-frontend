@@ -4,27 +4,35 @@ class sidebarController {
         let ctrl = this;
         ctrl.$rootScope = $rootScope;
         ctrl.$rootScope.getSites();
-        ctrl.filter = {};
 
-        ctrl.$rootScope.filterByid = filterByid;
-        ctrl.getid = getid;
+        ctrl.$rootScope.idIncludes = [];
 
-        function filterByid(subnet) {
-            return ctrl.filter[subnet.site_id] || noFilter(ctrl.filter);
-            console.log(rootScope);
+        ctrl.$rootScope.$watch('showTab', () => {
+                ctrl.$rootScope.idIncludes = [];
+        });
+
+        ctrl.$rootScope.includeSite = function(id) {
+            var i = $.inArray(id, ctrl.$rootScope.idIncludes);
+            if (i > -1) {
+                ctrl.$rootScope.idIncludes.splice(i, 1);
+            } else {
+                ctrl.$rootScope.idIncludes.push(id);
+            }
+
+
+            
+        }
+        
+        ctrl.$rootScope.idFilter = function(site) {
+            if (ctrl.$rootScope.idIncludes.length > 0) {
+                if ($.inArray(site.site_id, ctrl.$rootScope.idIncludes) < 0)
+                    return;
+            }
+            // console.log(site);
+            
+            return site.site_id;
         }
 
-        function getid() {
-            return (ctrl.sites || [])
-            .map(function (subnet) { return subnet.site_id; })
-            .filter(function (cat, idx, arr) { return arr.indexOf(cat) === idx; });
-        }
-
-        function noFilter(filterObj) {
-            return Object
-            .keys(filterObj)
-            .every(function (key) { return !filterObj[key]; });
-        }
         ctrl.$rootScope.search = (searchText) => {
             const ctrl = this;
             ctrl.$rootScope.searchText = searchText;

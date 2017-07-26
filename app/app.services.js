@@ -19,6 +19,9 @@ function ipamService($resource) {
 		let getIpBySubnet =()=> $resource('http://localhost:7000/api/ip/:subnet', {subnet: "@subnet"});
 		let getNextIp = () => $resource('http://localhost:7000/api/ip/:subnet/next', {subnet: "@subnet"});
 		let checkIp = () => $resource('http://localhost:7000/api/ip/:subnet/check/:checkIp', {subnet: "@subnet", checkIp: "@checkIp"});
+
+	// Mac Addresss endpoints
+		let checkMac = () => $resource('http://localhost:7000/api/mac_address/:mac', {mac: "@mac"});
 	// all of the equipment api functions
 		let getEquipments = () => $resource('http://localhost:7000/api/equipment/:equipment', {equipment: "@equipment"});
 		let addEquipment =() => $resource('http://localhost:7000/api/equipment');
@@ -40,6 +43,8 @@ function ipamService($resource) {
 				getIpBySubnet: getIpBySubnet,
 				getNextIp: getNextIp,
 				checkIp: checkIp,
+			// MAC ADDRESS
+				checkMac: checkMac,
 			// EQUIPMENT
 				getEquipments: getEquipments,
 				addEquipment: addEquipment,

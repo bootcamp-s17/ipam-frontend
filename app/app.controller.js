@@ -148,11 +148,11 @@ class appCtrl {
 
 				ctrl.$rootScope.NextIp = Object.values(ctrl.$rootScope.NextIp).join('').slice(0, ctrl.length-2);
 
-				console.log('data');
-				console.log(Object.values(data).join('').slice(0, ctrl.length-2));
+				// console.log('data');
+				// console.log(Object.values(data).join('').slice(0, ctrl.length-2));
 
-				console.log('next');
-				console.log(ctrl.$rootScope.NextIp);
+				// console.log('next');
+				// console.log(ctrl.$rootScope.NextIp);
 
 			})	
 
@@ -168,7 +168,19 @@ class appCtrl {
 			})
 		}// end checkIp()
 
+/* ------------------------------------------------------
+						MAC ADDRESS
+----------------------------------------------------------*/
 
+//Check if Mac Address is available
+		ctrl.$rootScope.checkMac = (address) => {
+			ipamService.checkMac().get({mac: address})
+			.$promise
+			.then((data) => {
+				console.log('Mac Address Check');
+				console.log(data);
+			});
+		} //end checkMac
 
 /* ------------------------------------------------------
 						EQUIPMENT
@@ -213,19 +225,6 @@ class appCtrl {
 			  "computer_type":$('#computerType').val()
 			 }
 
-			 // ctrl.newEquipment = {
-				// // grab values with JQuery from form
-			 //  "site_id": 1,
-			 //  "subnet_id": 1,
-			 //  "equipment_type_id": 8,
-			 //  "name": 'deathstar',
-			 //  "host_name": 'Hoth',
-			 //  "room_id": 1,
-			 //  "serial_number": 123,
-			 //  "mac_address": 'AB-24-6F-69-9E-3D',
-			 //  "ip_address": '10.34.138.1',
-			 //  "mab": true,
-			 // }
  			// specific call to save from $resource
 			ipamService.addEquipment().save({}, ctrl.newEquipment)
 				.$promise

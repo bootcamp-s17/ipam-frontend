@@ -168,11 +168,11 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 
 			ctrl.$rootScope.NextIp = Object.values(ctrl.$rootScope.NextIp).join('').slice(0, ctrl.length - 2);
 
-			console.log('data');
-			console.log(Object.values(data).join('').slice(0, ctrl.length - 2));
+			// console.log('data');
+			// console.log(Object.values(data).join('').slice(0, ctrl.length-2));
 
-			console.log('next');
-			console.log(ctrl.$rootScope.NextIp);
+			// console.log('next');
+			// console.log(ctrl.$rootScope.NextIp);
 		});
 	}; // end getNextUp()
 
@@ -186,6 +186,17 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 		});
 	}; // end checkIp()
 
+	/* ------------------------------------------------------
+ 						MAC ADDRESS
+ ----------------------------------------------------------*/
+
+	//Check if Mac Address is available
+	ctrl.$rootScope.checkMac = function (address) {
+		ipamService.checkMac().get({ mac: address }).$promise.then(function (data) {
+			console.log('Mac Address Check');
+			console.log(data);
+		});
+	}; //end checkMac
 
 	/* ------------------------------------------------------
  						EQUIPMENT
@@ -227,19 +238,6 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 			"operating_system": $('#operatingSystem').val(),
 			"computer_type": $('#computerType').val()
 
-			// ctrl.newEquipment = {
-			// // grab values with JQuery from form
-			//  "site_id": 1,
-			//  "subnet_id": 1,
-			//  "equipment_type_id": 8,
-			//  "name": 'deathstar',
-			//  "host_name": 'Hoth',
-			//  "room_id": 1,
-			//  "serial_number": 123,
-			//  "mac_address": 'AB-24-6F-69-9E-3D',
-			//  "ip_address": '10.34.138.1',
-			//  "mab": true,
-			// }
 			// specific call to save from $resource
 		};ipamService.addEquipment().save({}, ctrl.newEquipment).$promise
 		// says wait for the data and push it to the array
@@ -406,6 +404,11 @@ function ipamService($resource) {
 	var checkIp = function checkIp() {
 		return $resource('http://localhost:7000/api/ip/:subnet/check/:checkIp', { subnet: "@subnet", checkIp: "@checkIp" });
 	};
+
+	// Mac Addresss endpoints
+	var checkMac = function checkMac() {
+		return $resource('http://localhost:7000/api/mac_address/:mac', { mac: "@mac" });
+	};
 	// all of the equipment api functions
 	var getEquipments = function getEquipments() {
 		return $resource('http://localhost:7000/api/equipment/:equipment', { equipment: "@equipment" });
@@ -434,6 +437,8 @@ function ipamService($resource) {
 		getIpBySubnet: getIpBySubnet,
 		getNextIp: getNextIp,
 		checkIp: checkIp,
+		// MAC ADDRESS
+		checkMac: checkMac,
 		// EQUIPMENT
 		getEquipments: getEquipments,
 		addEquipment: addEquipment,

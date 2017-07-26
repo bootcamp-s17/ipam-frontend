@@ -18,40 +18,106 @@
   </div>
   <div class="row">
     <div class="col">
-    <table class="table data lowz">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Hostname</th>
-          <th>Room Number</th>
-          <th>IP Address</th>
-          <th>MAC Address</th>
-          <th>MAB</th>
-          <th>Print Server</th>
-          <th>Driver</th>
-          <th>Printer Name</th>
-          <th>Share Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="equipment in $ctrl.$rootScope.equipments | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.idFilter">
-          <td class="pr-2">{{equipment.name}}</td>
-          <td class="pr-2">{{equipment.type[0].name}}</td>
-          <td class="pr-2">{{equipment.host_name}}</td>
-          <td class="pr-2">ROOM NAME</td>
-          <td class="pr-2">{{equipment.ip_address}}</td>
-          <td class="pr-2">{{equipment.mac_address}}</td>
-          <td class="pr-2">{{equipment.mab}}</td>
-          <td class="pr-2">{{equipment.printer_server}}</td>
-          <td class="pr-2">{{equipment.driver}}</td>
-          <td class="pr-2">{{equipment.printer_name}}</td>
-          <td class="pr-2">{{equipment.share_name}}</td>
-        </tr>
-      </tbody>
-    </table>
+      <table class="table data lowz">
+        <thead>
+          <tr>
+            <th>
+            <!-- ng-click for sortability and reversing sort with change of variable in the controller, the sortType refers to the data points i.e. site.NAME-->
+              <a href="" ng-click="sortReverse = !sortReverse; sortType = 'name'">
+                Name
+                <!-- ng-show based on both sortReverse and sortType to show an up and down arrow -->
+                <span ng-show="sortReverse && sortType == 'name'" class="fa fa-caret-down"></span>
+                <span ng-show="!sortReverse && sortType == 'name'" class="fa fa-caret-up"></span>
+              </a>
+            </th>
+            <th>
+              <a href="" ng-click="sortReverse = !sortReverse; sortType = 'type[0].name'">
+                Type
+                <span ng-show="sortReverse && sortType == 'type[0].name'" class="fa fa-caret-down"></span>
+                <span ng-show="!sortReverse && sortType == 'type[0].name'" class="fa fa-caret-up"></span>
+              </a>
+            </th>
+            <th>
+              <a href="" ng-click="sortReverse = !sortReverse; sortType = 'host_name'">
+                Hostname
+                <span ng-show="sortReverse && sortType == 'host_name'" class="fa fa-caret-down"></span>
+                <span ng-show="!sortReverse && sortType == 'host_name'" class="fa fa-caret-up"></span>
+              </a>
+            </th>
+            <th>
+              <a href="" ng-click="sortReverse = !sortReverse; sortType = ''">
+                Room Number
+                <span ng-show="sortReverse && sortType == ''" class="fa fa-caret-down"></span>
+                <span ng-show="!sortReverse && sortType == ''" class="fa fa-caret-up"></span>
+              </a>
+            </th>
+            <th>
+              <a href="" ng-click="sortReverse = !sortReverse; sortType = 'ip_address'">
+              IP Address
+                <span ng-show="sortReverse && sortType == 'ip_address'" class="fa fa-caret-down"></span>
+                <span ng-show="!sortReverse && sortType == 'ip_address'" class="fa fa-caret-up"></span>
+              </a>
+            </th>
+            <th>
+              <a href="" ng-click="sortReverse = !sortReverse; sortType = 'mac_address'">
+                MAC Address
+                <span ng-show="sortReverse && sortType == 'mac_address'" class="fa fa-caret-down"></span>
+                <span ng-show="!sortReverse && sortType == 'mac_address'" class="fa fa-caret-up"></span>
+              </a></th>
+              <th>
+                <a href="" ng-click="sortReverse = !sortReverse; sortType = 'mab'">
+                  MAB
+                  <span ng-show="sortReverse && sortType == 'mab'" class="fa fa-caret-down"></span>
+                  <span ng-show="!sortReverse && sortType == 'mab'" class="fa fa-caret-up"></span>
+                </a>
+              </th>
+              <th>
+                <a href="" ng-click="sortReverse = !sortReverse; sortType = 'printer_server'">
+                  Print Server
+                  <span ng-show="sortReverse && sortType == 'printer_server'" class="fa fa-caret-down"></span>
+                  <span ng-show="!sortReverse && sortType == 'printer_server'" class="fa fa-caret-up"></span>
+                </a>
+              </th>
+              <th>
+                <a href="" ng-click="sortReverse = !sortReverse; sortType = 'driver'">
+                  Driver
+                  <span ng-show="sortReverse && sortType == 'driver'" class="fa fa-caret-down"></span>
+                  <span ng-show="!sortReverse && sortType == 'driver'" class="fa fa-caret-up"></span>
+                </a>
+              </th>
+              <th>
+                <a href="" ng-click="sortReverse = !sortReverse; sortType = 'printer_name'">
+                  Printer Name
+                  <span ng-show="sortReverse && sortType == 'printer_name'" class="fa fa-caret-down"></span>
+                  <span ng-show="!sortReverse && sortType == 'printer_name'" class="fa fa-caret-up"></span>
+                </a>
+              </th>
+              <th>
+                <a href="" ng-click="sortReverse = !sortReverse; sortType = 'share_name'">
+                  Share Name
+                  <span ng-show="sortReverse && sortType == 'share_name'" class="fa fa-caret-down"></span>
+                  <span ng-show="!sortReverse && sortType == 'share_name'" class="fa fa-caret-up"></span>
+                </a>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- repeating the data in equipments, filtering from the search bar with a variable in the $rootScope and also by the site ID from the checkboxes, tacks on a sorting option-->
+            <tr ng-repeat="equipment in $ctrl.$rootScope.equipments | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid | orderBy:sortType:sortReverse">
+              <td class="pr-2">{{equipment.name}}</td>
+              <td class="pr-2">{{equipment.type[0].name}}</td>
+              <td class="pr-2">{{equipment.host_name}}</td>
+              <td class="pr-2">ROOM NAME</td>
+              <td class="pr-2">{{equipment.ip_address}}</td>
+              <td class="pr-2">{{equipment.mac_address}}</td>
+              <td class="pr-2">{{equipment.mab}}</td>
+              <td class="pr-2">{{equipment.printer_server}}</td>
+              <td class="pr-2">{{equipment.driver}}</td>
+              <td class="pr-2">{{equipment.printer_name}}</td>
+              <td class="pr-2">{{equipment.share_name}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
-
-

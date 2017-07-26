@@ -255,10 +255,6 @@ var _login = require('./components/login/login.component');
 
 var _login2 = _interopRequireDefault(_login);
 
-var _tabboard = require('./components/tabboard/tabboard.component');
-
-var _tabboard2 = _interopRequireDefault(_tabboard);
-
 var _sidebar = require('./components/sidebar/sidebar.component');
 
 var _sidebar2 = _interopRequireDefault(_sidebar);
@@ -281,7 +277,7 @@ var _subnetform2 = _interopRequireDefault(_subnetform);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-angular.module('app', ['ngRoute', 'ngCookies', 'ngResource']).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('tabboard', _tabboard2.default).component('nav', _nav2.default).factory('ipamService', _appServices2.default).component('equipmentform', _equipmentform2.default).component('subnetform', _subnetform2.default).component('sidebar', _sidebar2.default).config(config).run(run);
+angular.module('app', ['ngRoute', 'ngCookies', 'ngResource']).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('nav', _nav2.default).factory('ipamService', _appServices2.default).component('equipmentform', _equipmentform2.default).component('subnetform', _subnetform2.default).component('sidebar', _sidebar2.default).config(config).run(run);
 
 config.$inject = ['$routeProvider', '$locationProvider'];
 function config($routeProvider, $locationProvider) {
@@ -297,7 +293,7 @@ function config($routeProvider, $locationProvider) {
     }).when('/editsite', {
         templateUrl: 'app/components/sites/editsite/editsite.html'
     }).when('/home', {
-        controller: _tabboard2.default.controller,
+        controller: tabboardComponent.controller,
         templateUrl: 'app/components/tabboard/tabboard.html',
         controllerAs: '$ctrl'
 
@@ -322,7 +318,7 @@ function run($rootScope, $location, $cookies, $http) {
     });
 }
 
-},{"./app.component":1,"./app.services.js":5,"./components/equipment/equipment.component":6,"./components/equipment/equipmentform/equipmentform.component":9,"./components/login/login.component":12,"./components/nav/nav.component":15,"./components/sidebar/sidebar.component":18,"./components/sites/sites.component":21,"./components/subnets/subnetform/subnetform.component":24,"./components/subnets/subnets.component":27,"./components/tabboard/tabboard.component":30,"./components/users/users.component":33}],5:[function(require,module,exports){
+},{"./app.component":1,"./app.services.js":5,"./components/equipment/equipment.component":6,"./components/equipment/equipmentform/equipmentform.component":9,"./components/login/login.component":12,"./components/nav/nav.component":15,"./components/sidebar/sidebar.component":18,"./components/sites/sites.component":21,"./components/subnets/subnetform/subnetform.component":24,"./components/subnets/subnets.component":27,"./components/users/users.component":30}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -441,20 +437,26 @@ Object.defineProperty(exports, "__esModule", {
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var equipmentController = function equipmentController($rootScope, ModalService) {
+var equipmentController = function equipmentController($rootScope) {
 	_classCallCheck(this, equipmentController);
 
 	var ctrl = this;
+
+	// allows global variables to be defined. 
 	ctrl.$rootScope = $rootScope;
 
+	// calling the function to get the equipment from the api endpoint
+	// the getEquipments function is defined in app.services.js
 	ctrl.$rootScope.getEquipments();
+
+	// declaring a local variable to change the sorting method
 	ctrl.sortReverse = false;
 };
 
 exports.default = equipmentController;
 
 },{}],8:[function(require,module,exports){
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <sidebar class=\"col-9\"></sidebar>\n    <a href=\"/#!/equipmentform\" class=\"col-3\"><button id=\"addEquipment\"> Add Equipment</button></a>\n  </div>\n  <div class=\"row\">\n    <div class=\"col\">\n      <table class=\"table data lowz\">\n        <thead>\n          <tr>\n            <th>\n              <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'name'\">\n                Name\n                <span ng-show=\"sortReverse && sortType == 'name'\" class=\"fa fa-caret-down\"></span>\n                <span ng-show=\"!sortReverse && sortType == 'name'\" class=\"fa fa-caret-up\"></span>\n              </a>\n            </th>\n            <th>\n              <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'type[0].name'\">\n                Type\n                <span ng-show=\"sortReverse && sortType == 'type[0].name'\" class=\"fa fa-caret-down\"></span>\n                <span ng-show=\"!sortReverse && sortType == 'type[0].name'\" class=\"fa fa-caret-up\"></span>\n              </a>\n            </th>\n            <th>\n              <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'host_name'\">\n                Hostname\n                <span ng-show=\"sortReverse && sortType == 'host_name'\" class=\"fa fa-caret-down\"></span>\n                <span ng-show=\"!sortReverse && sortType == 'host_name'\" class=\"fa fa-caret-up\"></span>\n              </a>\n            </th>\n            <th>\n              <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = ''\">\n                Room Number\n                <span ng-show=\"sortReverse && sortType == ''\" class=\"fa fa-caret-down\"></span>\n                <span ng-show=\"!sortReverse && sortType == ''\" class=\"fa fa-caret-up\"></span>\n              </a>\n            </th>\n            <th>\n              <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'ip_address'\">\n              IP Address\n                <span ng-show=\"sortReverse && sortType == 'ip_address'\" class=\"fa fa-caret-down\"></span>\n                <span ng-show=\"!sortReverse && sortType == 'ip_address'\" class=\"fa fa-caret-up\"></span>\n              </a>\n            </th>\n            <th>\n              <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'mac_address'\">\n                MAC Address\n                <span ng-show=\"sortReverse && sortType == 'mac_address'\" class=\"fa fa-caret-down\"></span>\n                <span ng-show=\"!sortReverse && sortType == 'mac_address'\" class=\"fa fa-caret-up\"></span>\n              </a></th>\n              <th>\n                <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'mab'\">\n                  MAB\n                  <span ng-show=\"sortReverse && sortType == 'mab'\" class=\"fa fa-caret-down\"></span>\n                  <span ng-show=\"!sortReverse && sortType == 'mab'\" class=\"fa fa-caret-up\"></span>\n                </a>\n              </th>\n              <th>\n                <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'printer_server'\">\n                  Print Server\n                  <span ng-show=\"sortReverse && sortType == 'printer_server'\" class=\"fa fa-caret-down\"></span>\n                  <span ng-show=\"!sortReverse && sortType == 'printer_server'\" class=\"fa fa-caret-up\"></span>\n                </a>\n              </th>\n              <th>\n                <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'driver'\">\n                  Driver\n                  <span ng-show=\"sortReverse && sortType == 'driver'\" class=\"fa fa-caret-down\"></span>\n                  <span ng-show=\"!sortReverse && sortType == 'driver'\" class=\"fa fa-caret-up\"></span>\n                </a>\n              </th>\n              <th>\n                <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'printer_name'\">\n                  Printer Name\n                  <span ng-show=\"sortReverse && sortType == 'printer_name'\" class=\"fa fa-caret-down\"></span>\n                  <span ng-show=\"!sortReverse && sortType == 'printer_name'\" class=\"fa fa-caret-up\"></span>\n                </a>\n              </th>\n              <th>\n                <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'share_name'\">\n                  Share Name\n                  <span ng-show=\"sortReverse && sortType == 'share_name'\" class=\"fa fa-caret-down\"></span>\n                  <span ng-show=\"!sortReverse && sortType == 'share_name'\" class=\"fa fa-caret-up\"></span>\n                </a>\n              </th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr ng-repeat=\"equipment in $ctrl.$rootScope.equipments | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid | orderBy:sortType:sortReverse\">\n              <td class=\"pr-2\">{{equipment.name}}</td>\n              <td class=\"pr-2\">{{equipment.type[0].name}}</td>\n              <td class=\"pr-2\">{{equipment.host_name}}</td>\n              <td class=\"pr-2\">ROOM NAME</td>\n              <td class=\"pr-2\">{{equipment.ip_address}}</td>\n              <td class=\"pr-2\">{{equipment.mac_address}}</td>\n              <td class=\"pr-2\">{{equipment.mab}}</td>\n              <td class=\"pr-2\">{{equipment.printer_server}}</td>\n              <td class=\"pr-2\">{{equipment.driver}}</td>\n              <td class=\"pr-2\">{{equipment.printer_name}}</td>\n              <td class=\"pr-2\">{{equipment.share_name}}</td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n  </div>";
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <sidebar class=\"col-9\"></sidebar>\n    <a href=\"/#!/equipmentform\" class=\"col-3\"><button id=\"addEquipment\"> Add Equipment</button></a>\n  </div>\n  <div class=\"row\">\n    <div class=\"col\">\n      <table class=\"table data lowz\">\n        <thead>\n          <tr>\n            <th>\n            <!-- ng-click for sortability and reversing sort with change of variable in the controller, the sortType refers to the data points i.e. site.NAME-->\n              <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'name'\">\n                Name\n                <!-- ng-show based on both sortReverse and sortType to show an up and down arrow -->\n                <span ng-show=\"sortReverse && sortType == 'name'\" class=\"fa fa-caret-down\"></span>\n                <span ng-show=\"!sortReverse && sortType == 'name'\" class=\"fa fa-caret-up\"></span>\n              </a>\n            </th>\n            <th>\n              <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'type[0].name'\">\n                Type\n                <span ng-show=\"sortReverse && sortType == 'type[0].name'\" class=\"fa fa-caret-down\"></span>\n                <span ng-show=\"!sortReverse && sortType == 'type[0].name'\" class=\"fa fa-caret-up\"></span>\n              </a>\n            </th>\n            <th>\n              <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'host_name'\">\n                Hostname\n                <span ng-show=\"sortReverse && sortType == 'host_name'\" class=\"fa fa-caret-down\"></span>\n                <span ng-show=\"!sortReverse && sortType == 'host_name'\" class=\"fa fa-caret-up\"></span>\n              </a>\n            </th>\n            <th>\n              <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = ''\">\n                Room Number\n                <span ng-show=\"sortReverse && sortType == ''\" class=\"fa fa-caret-down\"></span>\n                <span ng-show=\"!sortReverse && sortType == ''\" class=\"fa fa-caret-up\"></span>\n              </a>\n            </th>\n            <th>\n              <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'ip_address'\">\n              IP Address\n                <span ng-show=\"sortReverse && sortType == 'ip_address'\" class=\"fa fa-caret-down\"></span>\n                <span ng-show=\"!sortReverse && sortType == 'ip_address'\" class=\"fa fa-caret-up\"></span>\n              </a>\n            </th>\n            <th>\n              <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'mac_address'\">\n                MAC Address\n                <span ng-show=\"sortReverse && sortType == 'mac_address'\" class=\"fa fa-caret-down\"></span>\n                <span ng-show=\"!sortReverse && sortType == 'mac_address'\" class=\"fa fa-caret-up\"></span>\n              </a></th>\n              <th>\n                <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'mab'\">\n                  MAB\n                  <span ng-show=\"sortReverse && sortType == 'mab'\" class=\"fa fa-caret-down\"></span>\n                  <span ng-show=\"!sortReverse && sortType == 'mab'\" class=\"fa fa-caret-up\"></span>\n                </a>\n              </th>\n              <th>\n                <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'printer_server'\">\n                  Print Server\n                  <span ng-show=\"sortReverse && sortType == 'printer_server'\" class=\"fa fa-caret-down\"></span>\n                  <span ng-show=\"!sortReverse && sortType == 'printer_server'\" class=\"fa fa-caret-up\"></span>\n                </a>\n              </th>\n              <th>\n                <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'driver'\">\n                  Driver\n                  <span ng-show=\"sortReverse && sortType == 'driver'\" class=\"fa fa-caret-down\"></span>\n                  <span ng-show=\"!sortReverse && sortType == 'driver'\" class=\"fa fa-caret-up\"></span>\n                </a>\n              </th>\n              <th>\n                <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'printer_name'\">\n                  Printer Name\n                  <span ng-show=\"sortReverse && sortType == 'printer_name'\" class=\"fa fa-caret-down\"></span>\n                  <span ng-show=\"!sortReverse && sortType == 'printer_name'\" class=\"fa fa-caret-up\"></span>\n                </a>\n              </th>\n              <th>\n                <a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'share_name'\">\n                  Share Name\n                  <span ng-show=\"sortReverse && sortType == 'share_name'\" class=\"fa fa-caret-down\"></span>\n                  <span ng-show=\"!sortReverse && sortType == 'share_name'\" class=\"fa fa-caret-up\"></span>\n                </a>\n              </th>\n            </tr>\n          </thead>\n          <tbody>\n            <!-- repeating the data in equipments, filtering from the search bar with a variable in the $rootScope and also by the site ID from the checkboxes, tacks on a sorting option-->\n            <tr ng-repeat=\"equipment in $ctrl.$rootScope.equipments | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid | orderBy:sortType:sortReverse\">\n              <td class=\"pr-2\">{{equipment.name}}</td>\n              <td class=\"pr-2\">{{equipment.type[0].name}}</td>\n              <td class=\"pr-2\">{{equipment.host_name}}</td>\n              <td class=\"pr-2\">ROOM NAME</td>\n              <td class=\"pr-2\">{{equipment.ip_address}}</td>\n              <td class=\"pr-2\">{{equipment.mac_address}}</td>\n              <td class=\"pr-2\">{{equipment.mab}}</td>\n              <td class=\"pr-2\">{{equipment.printer_server}}</td>\n              <td class=\"pr-2\">{{equipment.driver}}</td>\n              <td class=\"pr-2\">{{equipment.printer_name}}</td>\n              <td class=\"pr-2\">{{equipment.share_name}}</td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n    </div>\n  </div>";
 
 },{}],9:[function(require,module,exports){
 'use strict';
@@ -479,8 +481,6 @@ var equipmentformComponent = {
 	controller: ['$rootScope', '$interval', _equipmentform4.default],
 	controllerAs: '$ctrl'
 };
-
-console.log('equipmentform.component');
 
 exports.default = equipmentformComponent;
 
@@ -810,8 +810,6 @@ var subnetformComponent = {
 	controllerAs: '$ctrl'
 };
 
-console.log('subnetform.component');
-
 exports.default = subnetformComponent;
 
 },{"./subnetform.controller":25,"./subnetform.html":26}],25:[function(require,module,exports){
@@ -879,104 +877,24 @@ var subnetsController = function subnetsController($rootScope) {
 	_classCallCheck(this, subnetsController);
 
 	var ctrl = this;
+
+	// allows global variables to be defined. 
 	ctrl.$rootScope = $rootScope;
+
+	// calling the function to get the equipment from the api endpoint
+	// the getEquipments function is defined in app.services.js
 	ctrl.$rootScope.getSubnets();
+
+	// declaring a local variable to change the sorting method
 	ctrl.sortReverse = false;
 };
 
 exports.default = subnetsController;
 
 },{}],29:[function(require,module,exports){
-module.exports = "<div class=\"container-fluid\">\n\t<div class=\"row\">\n\t\t<sidebar class=\"col-9\"></sidebar>\n\t\t<a href=\"/#!/subnetform\" class=\"col-3\"><button id=\"addSubnet\"> Add Subnet</button></a>\n\t</div>\n\t<div class=\"row\">\n\t\t<div class= \"col\">\n\t\t\t<table class=\"data\">\n\t\t\t\t<thead>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'name'\">\n\t\t\t\t\t\t\tName\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'name'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'name'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'site[0].name'\">\n\t\t\t\t\t\t\tSite Name\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'site[0].name'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'site[0].name'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'subnet_address'\">\n\t\t\t\t\t\t\tSub Address\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'subnet_address'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'subnet_address'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'mask_bits'\">\n\t\t\t\t\t\t\tMask Bits\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'mask_bits'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'mask_bits'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'vLan'\">\n\t\t\t\t\t\t\tvLan\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'vLan'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'vLan'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'lease_time'\">\n\t\t\t\t\t\t\tLease Time\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'lease_time'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'lease_time'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'note[0].text'\">\n\t\t\t\t\t\t\tNotes\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'note[0].text'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'note[0].text'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t</tr>\n\t\t\t\t</thead>\n\t\t\t\t<tbody>\n\t\t\t\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter: $ctrl.$rootScope.filterBySid | orderBy:sortType:sortReverse\">\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.site[0].name}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.lease_time}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.notes[0].text | limitTo: 50}}...</td>\n\t\t\t\t\t</tr>\n\t\t\t\t</tbody>\n\t\t\t</table>\n\t\t</div>\n\t</div>\n</div>";
+module.exports = "<div class=\"container-fluid\">\n\t<div class=\"row\">\n\t\t<sidebar class=\"col-9\"></sidebar>\n\t\t<a href=\"/#!/subnetform\" class=\"col-3\"><button id=\"addSubnet\"> Add Subnet</button></a>\n\t</div>\n\t<div class=\"row\">\n\t\t<div class= \"col\">\n\t\t\t<table class=\"data\">\n\t\t\t\t<thead>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<!-- ng-click for sortability and reversing sort with change of variable in the controller, the sortType refers to the data points i.e. site.NAME -->\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'name'\">\n\t\t\t\t\t\t\tName\n\t\t\t\t\t\t\t\t<!-- ng-show based on both sortReverse and sortType to show an up and down arrow -->\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'name'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'name'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'site[0].name'\">\n\t\t\t\t\t\t\tSite Name\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'site[0].name'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'site[0].name'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'subnet_address'\">\n\t\t\t\t\t\t\tSub Address\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'subnet_address'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'subnet_address'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'mask_bits'\">\n\t\t\t\t\t\t\tMask Bits\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'mask_bits'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'mask_bits'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'vLan'\">\n\t\t\t\t\t\t\tvLan\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'vLan'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'vLan'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'lease_time'\">\n\t\t\t\t\t\t\tLease Time\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'lease_time'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'lease_time'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'note[0].text'\">\n\t\t\t\t\t\t\tNotes\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'note[0].text'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'note[0].text'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t</tr>\n\t\t\t\t</thead>\n\t\t\t\t<tbody>\n\t\t\t\t<!-- repeating the data in equipments, filtering from the search bar with a variable in the $rootScope and also by the site ID from the checkboxes, tacks on a sorting option-->\n\t\t\t\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter: $ctrl.$rootScope.filterBySid | orderBy:sortType:sortReverse\">\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.site[0].name}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.lease_time}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.notes[0].text | limitTo: 50}}...</td>\n\t\t\t\t\t</tr>\n\t\t\t\t</tbody>\n\t\t\t</table>\n\t\t</div>\n\t</div>\n</div>";
 
 },{}],30:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _tabboard = require('./tabboard.html');
-
-var _tabboard2 = _interopRequireDefault(_tabboard);
-
-var _tabboard3 = require('./tabboard.controller');
-
-var _tabboard4 = _interopRequireDefault(_tabboard3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var tabboardComponent = {
-	bindings: {},
-	template: _tabboard2.default,
-	controller: ['$rootScope', '$interval', '$http', '$q', _tabboard4.default],
-	controllerAs: '$ctrl'
-};
-
-exports.default = tabboardComponent;
-
-},{"./tabboard.controller":31,"./tabboard.html":32}],31:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var tabboardController = function () {
-	function tabboardController($rootScope, $http, $q, $interval) {
-		_classCallCheck(this, tabboardController);
-
-		var ctrl = this;
-		ctrl.$rootScope = $rootScope;
-		ctrl.sitesTab = $('#sitesTab').attr('id');
-		ctrl.subnetsTab = $('#subnetsTab').attr('id');
-		ctrl.equipmentTab = $('#equipmentTab').attr('id');
-		ctrl.showTab = 'sites';
-
-		$(".nav-link").on("click", function () {
-			$(".nav-link").removeClass("active");
-			$(this).addClass("active");
-		});
-	}
-
-	_createClass(tabboardController, [{
-		key: 'switchTabView',
-
-
-		//tab logic
-		value: function switchTabView(event) {
-			var ctrl = this;
-			var showTab = ctrl.$rootScope.showTab;
-			var currentTab = $(event.target).attr('id');
-			switch (currentTab) {
-				case 'sitesTab':
-					ctrl.showTab = 'sites';
-					break;
-				case 'subnetsTab':
-					ctrl.showTab = 'subnets';
-					break;
-				case 'equipmentTab':
-					ctrl.showTab = 'equipment';
-					break;
-			}
-		} //end tab logic
-
-
-	}]);
-
-	return tabboardController;
-}();
-
-exports.default = tabboardController;
-
-},{}],32:[function(require,module,exports){
-module.exports = "\n<ul class=\"nav nav-tabs\"> <!-- Tabs -->\n  <li class=\"nav-item\">\n    <a class=\"nav-link active\" id=\"sitesTab\" value=\"sites\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#!/home\">Sites</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" id=\"subnetsTab\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#!/home\">Subnets</a>\n  </li>\n  <li class=\"nav-item\">\n    <a class=\"nav-link\" id=\"equipmentTab\" ng-click=\"$ctrl.switchTabView($event)\" href=\"#!/home\">Equipment</a>\n  </li>\n</ul> <!-- End Tabs -->\n\n<sites ng-show=\"$ctrl.showTab == 'sites'\"></sites>\n<subnets ng-show=\"$ctrl.showTab == 'subnets'\"></subnets>\n<equipment ng-show=\"$ctrl.showTab == 'equipment'\"></equipment>";
-
-},{}],33:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1002,7 +920,7 @@ var usersComponent = {
 
 exports.default = usersComponent;
 
-},{"./users.controller":34,"./users.html":35}],34:[function(require,module,exports){
+},{"./users.controller":31,"./users.html":32}],31:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1019,7 +937,7 @@ var UsersController = function UsersController($rootScope) {
 
 exports.default = UsersController;
 
-},{}],35:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 module.exports = "<div class=\"col-md-6 col-md-offset-3\">\n    <h2>Manage Users</h2>\n    <form name=\"form\" ng-submit=\"ctrl.user()\" role=\"form\">\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }\">\n            <label for=\"username\">First name</label>\n            <input type=\"text\" name=\"firstName\" id=\"firstName\" class=\"form-control\" ng-model=\"ctrl.user.firstName\" required />\n            <span ng-show=\"form.firstName.$dirty && form.firstName.$error.required\" class=\"help-block\">First name is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.lastName.$dirty && form.lastName.$error.required }\">\n            <label for=\"username\">Last name</label>\n            <input type=\"text\" name=\"lastName\" id=\"Text1\" class=\"form-control\" ng-model=\"ctrl.user.lastName\" required />\n            <span ng-show=\"form.lastName.$dirty && form.lastName.$error.required\" class=\"help-block\">Last name is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.username.$dirty && form.username.$error.required }\">\n            <label for=\"username\">Username</label>\n            <input type=\"text\" name=\"username\" id=\"username\" class=\"form-control\" ng-model=\"ctrl.user.username\" required />\n            <span ng-show=\"form.username.$dirty && form.username.$error.required\" class=\"help-block\">Username is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.password.$dirty && form.password.$error.required }\">\n            <label for=\"password\">Password</label>\n            <input type=\"password\" name=\"password\" id=\"password\" class=\"form-control\" ng-model=\"ctrl.user.password\" required />\n            <span ng-show=\"form.password.$dirty && form.password.$error.required\" class=\"help-block\">Password is required</span>\n        </div>\n        <div class=\"form-actions\">\n            <button type=\"submit\" ng-disabled=\"form.$invalid || ctrl.dataLoading\" class=\"btn btn-primary\">Register</button>\n            \n            <a href=\"#!/login\" class=\"btn btn-link\">Cancel</a>\n        </div>\n    </form>\n</div>";
 
 },{}]},{},[4]);

@@ -8,6 +8,5 @@ let equipmentformComponent = {
 	controllerAs : '$ctrl'
 };
 
-console.log('equipmentform.component');
 
 export default equipmentformComponent;

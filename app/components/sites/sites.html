@@ -1,5 +1,5 @@
 
-<div class="container-fluid">
+<div id="whole-page" class="container-fluid">
 	<div>
 		<ul class="nav nav-tabs"> <!-- Tabs -->
 		  <li class="nav-item">
@@ -14,24 +14,24 @@
 		</ul>
 	</div>
 	<div class="row">
-		<div  class="col-4" ng-repeat="site in $ctrl.$rootScope.sites">
+		<div id="card-backdrop" class="col-4" ng-repeat="site in $ctrl.$rootScope.sites">
 			<a class="nav-link" id="subnetsTab" href="#!/subnets">
-			<div class="card card-block" >
-				<div class="card-title">
-						<h4 class="col-8">{{site.name}}</h4>
-						<h5 class="col-4">{{site.abbreviation}}</h5>
+			<div id="card" class="card card-block" >
+				<div id="title" class="card-title">
+						<h4 id="name" class="col-8">{{site.name}}</h4>
+						<h5 id="abbr" class="col-4">{{site.abbreviation}}</h5>
 				</div>
 				</a>
 				<ul class="list-group list-group-flush">
-					<li class="list-group-item">Address: {{site.address}} </li>
-					<li class="list-group-item btn"><a href='/#!/editsite' ng-click="$ctrl.$rootScope.getSite(site.id) ">Edit Site</a></li>	
+					<li id="address" class="list-group-item">Address: {{site.address}} </li>
+					<li id="edit-site" class="list-group-item btn"><a href='/#!/editsite' ng-click="$ctrl.$rootScope.getSite(site.id) ">Edit Site</a></li>	
 				</ul>
 			</div>
 		</div>
 
 		<div class="col-4">
 			<a href='/#!/sitesform' class="text-center">
-			<div class="card card-block">
+			<div id="add-site" class="card card-block">
 				<div class="card-title">
 					<div class="row">
 						<h4 class="col text-center">Add New Site</h4>

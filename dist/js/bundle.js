@@ -129,6 +129,14 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 			ctrl.$rootScope.subnets = data;
 		});
 	};
+	ctrl.$rootScope.getSubnet = function (id) {
+		ctrl.get = ipamService.getSubnets().get({ subnet: id });
+
+		ctrl.get.$promise.then(function (data) {
+			ctrl.$rootScope.subnet = data;
+			console.log(ctrl.$rootScope.subnet);
+		});
+	};
 	ctrl.$rootScope.addSubnet = function () {
 		// instantiate new subnet JSON
 		ctrl.newSubnet = {
@@ -145,7 +153,30 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 		.then(function (data) {
 			ctrl.$rootScope.subnets.push(data);
 		});
-	}; // end getSubnets()
+	};
+	ctrl.$rootScope.updateSubnet = function (id) {
+
+		// instantiate new site JSON
+		ctrl.saveSubnet = {
+			// grab values with JQuery from form
+			"id": id,
+			"site_id": $('#editSubnetSiteId').val(),
+			"name": $('#editSubnetName').val(),
+			"subnet_address": $('#editSubnetIpAddress').val(),
+			"mask_bits": $('#editSubnetMaskBits').val(),
+			"vLan": $('#editSubnetVlan').val()
+		};
+
+		console.log(ctrl.saveSubnet);
+		// specific call to save from $resource
+		ipamService.updateSubnet().update({ subnet: id }, ctrl.saveSubnet).$promise
+		// says wait for the data and push it to the array
+		.then(function (data) {
+			//pull the sites from db for fresh info with updated site
+			ctrl.$rootScope.getSubnets();
+		});
+	};
+	// end getSubnets()
 	/* ------------------------------------------------------
  						IP Adsress
  ----------------------------------------------------------*/
@@ -185,6 +216,14 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 			ctrl.$rootScope.equipments = data;
 		});
 	};
+	ctrl.$rootScope.getEquipment = function (id) {
+		ctrl.get = ipamService.getEquipments().get({ equipment: id });
+
+		ctrl.get.$promise.then(function (data) {
+			ctrl.$rootScope.equipment = data;
+			console.log(ctrl.$rootScope.equipment);
+		});
+	};
 
 	ctrl.$rootScope.addEquipment = function () {
 		// instantiate new equipment JSON
@@ -216,6 +255,46 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 		// says wait for the data and push it to the array
 		.then(function (data) {
 			ctrl.$rootScope.equipments.push(data);
+		});
+	};
+	ctrl.$rootScope.updateEquipment = function (id) {
+
+		// instantiate new site JSON
+		ctrl.saveEquipment = {
+			// grab values with JQuery from form
+			"id": id,
+			"site_id": $('#editEquipmentSite').val(),
+			"subnet_id": $('#subnetSelect').val(),
+			"equipment_type_id": $('#editEquipmentType').val(),
+			"name": $('#editEquipmentName').val(),
+			"host_name": $('#editHostName').val(),
+			"room_id": $('#editRoom_Id').val(),
+			"serial_number": $('#editSerialNumber').val(),
+			"mac_address": $('#editMacAddress').val(),
+			"ip_address": $('#editEquipaddress').val(),
+			"mab": $('#editMabBoxYes').val(),
+			"switch_name": $('#editSwitchName').val(),
+			"switch_ip": $('#editSwitchManagementIp').val(),
+			"switch_room_number": $('#editSwitchRoomNumber').val(),
+			"printer_server": $('#editPrinterServer').val(),
+			"driver": $('#editDriverInput').val(),
+			"printer_name": $('#editPrinterName').val(),
+			"share_name": $('#editShareName').val(),
+			"share_comment": $('#editShareComment').val(),
+			"model": $('#editModelType').val(),
+			"operating_system": $('#editOperatingSystem').val(),
+			"computer_type": $('#editComputerType').val()
+
+		};
+		console.log($('#editRoom_id'));
+		console.log(ctrl.saveEquipment);
+		// specific call to save from $resource
+		ipamService.updateEquipment().update({ equipment: id }, ctrl.saveEquipment).$promise
+		// says wait for the data and push it to the array
+		.then(function (data) {
+			//pull the sites from db for fresh info with updated site
+			console.log(data);
+			ctrl.$rootScope.getEquipments();
 		});
 	}; //end quipments
 
@@ -299,11 +378,19 @@ function config($routeProvider, $locationProvider) {
         templateUrl: 'app/components/sites/sites.html',
         controllerAs: '$ctrl'
 
+    }).when('/editsubnet', {
+        templateUrl: 'app/components/subnets/editsubnet/editsubnet.html'
+    }).when('/viewsubnet', {
+        templateUrl: 'app/components/subnets/viewsubnet/viewsubnet.html'
     }).when('/subnets', {
         controller: _subnets2.default.controller,
         templateUrl: 'app/components/subnets/subnets.html',
         controllerAs: '$ctrl'
 
+    }).when('/viewequipment', {
+        templateUrl: 'app/components/equipment/viewequipment/viewequipment.html'
+    }).when('/editequipment', {
+        templateUrl: 'app/components/equipment/editequipment/editequipment.html'
     }).when('/equipment', {
         controller: _equipment2.default.controller,
         templateUrl: 'app/components/equipment/equipment.html',
@@ -466,7 +553,7 @@ var equipmentController = function equipmentController($rootScope, ModalService)
 exports.default = equipmentController;
 
 },{}],8:[function(require,module,exports){
-module.exports = "<div class=\"container-fluid\">\n  <div>\n    <ul class=\"nav nav-tabs\"> <!-- Tabs -->\n      <li class=\"nav-item\">\n        <a class=\"nav-link\" id=\"sitesTab\" value=\"sites\" href=\"#!/sites\">Sites</a>\n      </li>\n      <li class=\"nav-item\">\n        <a class=\"nav-link\" id=\"subnetsTab\" href=\"#!/subnets\">Subnets</a>\n      </li>\n      <li class=\"nav-item\">\n        <a class=\"nav-link active\" id=\"equipmentTab\" href=\"#!/equipment\">Equipment</a>\n      </li>\n    </ul>\n  </div>\n  <div class=\"row\">\n    <a href=\"/#!/equipmentform\" class=\"col-3\"><button id=\"addEquipment\"> Add Equipment</button></a>\n  </div>\n  <div class=\"row\">\n    <div class=\"col\">\n    <table class=\"table data lowz\">\n      <thead>\n        <tr>\n          <th>Name</th>\n          <th>Type</th>\n          <th>Hostname</th>\n          <th>Room Number</th>\n          <th>IP Address</th>\n          <th>MAC Address</th>\n          <th>MAB</th>\n          <th>Print Server</th>\n          <th>Driver</th>\n          <th>Printer Name</th>\n          <th>Share Name</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr ng-repeat=\"equipment in $ctrl.$rootScope.equipments | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.idFilter\">\n          <td class=\"pr-2\">{{equipment.name}}</td>\n          <td class=\"pr-2\">{{equipment.type[0].name}}</td>\n          <td class=\"pr-2\">{{equipment.host_name}}</td>\n          <td class=\"pr-2\">ROOM NAME</td>\n          <td class=\"pr-2\">{{equipment.ip_address}}</td>\n          <td class=\"pr-2\">{{equipment.mac_address}}</td>\n          <td class=\"pr-2\">{{equipment.mab}}</td>\n          <td class=\"pr-2\">{{equipment.printer_server}}</td>\n          <td class=\"pr-2\">{{equipment.driver}}</td>\n          <td class=\"pr-2\">{{equipment.printer_name}}</td>\n          <td class=\"pr-2\">{{equipment.share_name}}</td>\n        </tr>\n      </tbody>\n    </table>\n    </div>\n  </div>\n</div>\n\n\n";
+module.exports = "<div class=\"container-fluid\">\n  <div>\n    <ul class=\"nav nav-tabs\"> <!-- Tabs -->\n      <li class=\"nav-item\">\n        <a class=\"nav-link\" id=\"sitesTab\" value=\"sites\" href=\"#!/sites\">Sites</a>\n      </li>\n      <li class=\"nav-item\">\n        <a class=\"nav-link\" id=\"subnetsTab\" href=\"#!/subnets\">Subnets</a>\n      </li>\n      <li class=\"nav-item\">\n        <a class=\"nav-link active\" id=\"equipmentTab\" href=\"#!/equipment\">Equipment</a>\n      </li>\n    </ul>\n  </div>\n  <div class=\"row\">\n    <a href=\"/#!/equipmentform\" class=\"col-3\"><button id=\"addEquipment\"> Add Equipment</button></a>\n  </div>\n  <div class=\"row\">\n    <div class=\"col\">\n    <table class=\"table data lowz\">\n      <thead>\n        <tr>\n          <th>Name</th>\n          <th>Type</th>\n          <th>Hostname</th>\n          <th>Room Number</th>\n          <th>IP Address</th>\n          <th>MAC Address</th>\n          <th>MAB</th>\n          <th>Print Server</th>\n          <th>Driver</th>\n          <th>Printer Name</th>\n          <th>Share Name</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr ng-repeat=\"equipment in $ctrl.$rootScope.equipments | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.idFilter\">\n          <td class=\"pr-2\">{{equipment.name}}</td>\n          <td class=\"pr-2\">{{equipment.type[0].name}}</td>\n          <td class=\"pr-2\">{{equipment.host_name}}</td>\n          <td class=\"pr-2\">ROOM NAME</td>\n          <td class=\"pr-2\">{{equipment.ip_address}}</td>\n          <td class=\"pr-2\">{{equipment.mac_address}}</td>\n          <td class=\"pr-2\">{{equipment.mab}}</td>\n          <td class=\"pr-2\">{{equipment.printer_server}}</td>\n          <td class=\"pr-2\">{{equipment.driver}}</td>\n          <td class=\"pr-2\">{{equipment.printer_name}}</td>\n          <td class=\"pr-2\">{{equipment.share_name}}</td>\n          <td class=\"pr-2\"><li class=\"list-group-item btn\"><a href='/#!/viewequipment' ng-click=\"$ctrl.$rootScope.getEquipment(equipment.id) \">View Equipment</a></li>\n        </tr>\n      </tbody>\n    </table>\n    </div>\n  </div>\n</div>\n\n\n";
 
 },{}],9:[function(require,module,exports){
 'use strict';
@@ -528,7 +615,7 @@ var equipmentformController = function equipmentformController($rootScope) {
 exports.default = equipmentformController;
 
 },{}],11:[function(require,module,exports){
-module.exports = "\n\n<form id=\"eqipForm\" name=\"equipmentForm\">\n  <div class=\"container main-center\">\n      <div class=\"form-group\">\n        <label for=\"siteSelect\">Site</label>\n        <select class=\"form-control\" id=\"siteSelect\" ng-model=\"site.Select\" \" required>\n          <option ng-repeat=\"site in $ctrl.$rootScope.sites\" value=\"{{site.id}}\">{{site.name}}</option>\n        </select>\n      </div>\n      <div class=\"form-group\" >\n        <label for=\"subnetSelect\" >Subnet</label>\n        <select class=\"form-control\" id=\"subnetSelect\" ng-dropdown required \">\n          <option ng-repeat=\"subnet in $ctrl.$rootScope.subnets\" value=\"{{subnet.id}}\">{{subnet.name}}</option>\n        </select>\n      </div>\n      <div class=\"form-group\" >\n        <label for=\"typeSelect\">Type</label>\n        <select id=\"typeId\" class=\"form-control\" ng-model=\"type.Select\" ng-dropdown ng-change=\"changeme()\" required >\n          <option value=\"8\">Other</option>\n          <option value=\"1\">Printer</option>\n          <option value=\"2\">Computer</option>\n\n        </select>\n        <!-- <option ng-repeat=\"equipment_type in $ctrl.$rootScope.equipment_types\" value=\"{{equipment_type.id}}\">{{equipment_type.name}}</option> -->\n      </div>\n      \n      <div class=\"form-group\">\n        <label for=\"equipmentName\">Equipment Name</label>\n        <input class=\"form-control\" type=\"text\" id=\"equipmentName\" ng-pattern='/^[a-zA-Z][a-zA-Z0-9]*$/' required>\n      </div>\n      <div class=\"form-group\">\n        <label for=\"hostName\">Host Name</label>\n        <input class=\"form-control\" type=\"text\" id=\"hostName\" required>\n      </div>\n      <div class=\"form-group\">\n        <label for=\"room_id\">Room Number</label>\n        <input class=\"form-control\" type=\"number\" id=\"room_id\" required>\n      </div>\n      <div class=\"form-group\">\n        <label for=\"serialNumber\">Serial Number</label>\n        <input class=\"form-control\" type=\"text\" id=\"serialNumber\">\n\n      </div>\n      <label for=\"macAdress\">Mac Address:</label>\n      <input id=\"macAddress\" placeholder=\"xx.xx.xx.xx.xx\" id=\"macAddress\" placeholder=\"\" type=\"text\" name=\"macaddress\" ng-model=\"macpin\" ng-pattern=\"/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/\" />\n      <span style=\"color:Red\" ng-show=\"equipmentForm.macaddress.$error.pattern\">Please Enter a Valid Mac Address</span>\n      <br>\n      <label for=\"ipaddress\">IP Address:</label>\n      <input id=\"equipaddress\" placeholder=\"xx.xxx.xxx.xxx\" type=\"text\" name=\"equipaddress\" ng-model=\"txtpin\" ng-pattern=\"/\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b/\" />\n      <span style=\"color:Red\" ng-show=\"equipmentForm.equipipaddress.$error.pattern\">Please Enter a Valid IP Address</span>\n\n      <div class=\"form-inline\">\n        <label class=\"mr-sm-2\" for=\"mabBoxYes\">MAB</label>\n        <select class=\"custom-select mb-2 mr-sm-2 mb-sm-0\" id=\"mabBoxYes\">\n          <option selected>Choose...</option>\n          <option value=\"1\">Yes</option>\n          <option value=\"0\">No</option>\n        </select>\n      </div>\n      <div class=\"form-group\">\n        <label for=\"notesInput\">Notes</label>\n        <textarea class=\"form-control\" type=\"textarea\" id=\"notesInput\"></textarea>\n      </div>\n      <!-- These will be additional fields -->\n      <div class=\"form-group\" ng-if=\"subnet.Select == 'true'; type.Select == 'switch'\">\n        <label for=\"switchName\">Switch Name</label>\n\n        <input class=\"form-control\" type=\"text\" id=\"switchName\" required>\n        <label for=\"switchManagementIp\">Switch Management IP</label>\n        <input class=\"form-control\" type=\"text\" id=\"switchManagementIp\" required>\n        <!-- Autofill from room number already entered -->\n        <label for=\"switchRoomNumber\">Switch Room Number</label>\n        <input class=\"form-control\" type=\"number\" id=\"switchRoomNumber\" required>\n      </div>\n      <!-- Printer fields -->\n      <div class=\"container\" ng-if=\"type.Select =='1'\">\n        <div class=\"form-group\">\n          <label for=\"printServer\">Print Server</label>\n          <input class=\"form-control\" type=\"text\" id=\"printServer\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"driverInput\">Driver</label>\n          <input class=\"form-control\" type=\"text\" id=\"driverInput\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"printServer\">Print Server</label>\n          <input class=\"form-control\" type=\"text\" id=\"printServer\" required>\n        </div>\n        <!-- Need to autopopulate site abrev. & -room number -->\n        <div class=\"form-group\">\n          <label for=\"printerName\">Printer Name</label>\n          <input class=\"form-control\" type=\"text\" id=\"printerName\" required>\n        </div>\n        <!-- Should autopopulate again -->\n        <div class=\"form-group\">\n          <label for=\"shareName\">Share Name</label>\n          <input class=\"form-control\" type=\"text\" id=\"shareName\" required>\n        </div>\n        <!-- should autopopulate again -->\n        <div class=\"form-group\">\n          <label for=\"shareComment\">Share Comment</label>\n          <input class=\"form-control\" type=\"text\" id=\"shareComment\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"modelNumber\">Model Type</label>\n          <input class=\"form-control\" type=\"text\" id=\"modelType\" required>\n        </div>\n      </div>\n      <!-- Computer Affitional Fields -->\n      <div  ng-if=\"type.Select =='2'\">\n        <div class=\"form-group\">\n          <label for=\"operatingSystem\">Operating System</label>\n          <input class=\"form-control\" type=\"text\" id=\"operatingSystem\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"computerType\">Computer Type</label>\n          <select class=\"form-control\" id=\"computerType\" required>\n            <option>Virtual Machine</option>\n            <option>Physical Computer</option>\n          </select>\n        </div>\n      </div>\n  \n\n\n  <!-- Printer fields -->\n    <div class=\"container\" ng-if=\"type.Select =='printer'\">\n      <div class=\"form-group\">\n        <label for=\"printServer\">Print Server</label>\n          <input class=\"form-control\" type=\"text\" id=\"printServer\" required>\n      </div>\n        <div class=\"form-group\">\n        <label for=\"driverInput\">Driver</label>\n          <input class=\"form-control\" type=\"text\" id=\"driverInput\" required>\n      </div>\n      <div class=\"form-group\">\n        <label for=\"printServer\">Print Server</label>\n          <input class=\"form-control\" type=\"text\" id=\"printServer\" required>\n      </div>\n      <!-- Need to autopopulate site abrev. & -room number -->\n      <div class=\"form-group\">\n        <label for=\"printerName\">Printer Name</label>\n          <input class=\"form-control\" type=\"text\" id=\"printerName\" required>\n      </div> \n    <!-- Should autopopulate again -->\n     <div class=\"form-group\">\n        <label for=\"shareName\">Share Name</label>\n          <input class=\"form-control\" type=\"text\" id=\"shareName\" required>\n      </div>\n      <!-- should autopopulate again -->\n      <div class=\"form-group\">\n        <label for=\"shareComment\">Share Comment</label>\n          <input class=\"form-control\" type=\"text\" id=\"shareComment\" required>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"modelNumber\">Model Number</label>\n          <input class=\"form-control\" type=\"number\" id=\"modelNumber\" required>\n      </div>\n      </div>\n      <!-- Computer Additional Fields -->\n      <div  ng-if=\"type.Select =='computer'\">\n      <div class=\"form-group\">\n        <label for=\"operatingSystem\">Operating System</label>\n          <input class=\"form-control\" type=\"text\" id=\"operatingSystem\" required>\n      </div>\n      <div class=\"form-group\">\n        <label for=\"computerType\">Computer Type</label>\n          <select class=\"form-control\" id=\"computerType\" required>\n            <option>Virtual Machine</option>\n            <option>Physical Computer</option>\n          </select>\n      </div>\n      </div>\n        <div class=\"clearfix\">\n          <a href=\"/\" ng-click=\"$ctrl.$rootScope.dashboard = true\"><button class=\"btn btn-danger\">Cancel</button></a>\n          <button class=\"btn btn-primary\" type=\"submit\">Save Equipment</button>\n      </div>\n  </div>\n</form>\n\n  \n\n\n\n\n <div class=\"clearfix\">\n    <button class=\"btn btn-primary\" ng-click=\"$ctrl.$rootScope.addEquipment()\" type=\"submit\">Save Equipment</button>\n     <a href=\"#!/equipment\"><button class=\"btn btn-danger\">Cancel</button></a>\n  </div>\n</form>\n\n\n\n\n";
+module.exports = "<form id=\"eqipForm\" name=\"equipmentForm\">\n  <div class=\"container main-center\">\n      <div class=\"form-group\">\n        <label for=\"siteSelect\">Site</label>\n        <select class=\"form-control\" id=\"siteSelect\" ng-model=\"site.Select\" \" required>\n          <option ng-repeat=\"site in $ctrl.$rootScope.sites\" value=\"{{site.id}}\">{{site.name}}</option>\n        </select>\n      </div>\n      <div class=\"form-group\" >\n        <label for=\"subnetSelect\" >Subnet</label>\n        <select class=\"form-control\" id=\"subnetSelect\" ng-dropdown required \">\n          <option ng-repeat=\"subnet in $ctrl.$rootScope.subnets\" value=\"{{subnet.id}}\">{{subnet.name}}</option>\n        </select>\n      </div>\n      <div class=\"form-group\" >\n        <label for=\"typeSelect\">Type</label>\n        <select id=\"typeId\" class=\"form-control\" ng-model=\"type.Select\" ng-dropdown ng-change=\"changeme()\" required >\n          <option value=\"8\">Other</option>\n          <option value=\"1\">Printer</option>\n          <option value=\"2\">Computer</option>\n\n        </select>\n        <!-- <option ng-repeat=\"equipment_type in $ctrl.$rootScope.equipment_types\" value=\"{{equipment_type.id}}\">{{equipment_type.name}}</option> -->\n      </div>\n      \n      <div class=\"form-group\">\n        <label for=\"equipmentName\">Equipment Name</label>\n        <input class=\"form-control\" type=\"text\" id=\"equipmentName\" ng-pattern='/^[a-zA-Z][a-zA-Z0-9]*$/' required>\n      </div>\n      <div class=\"form-group\">\n        <label for=\"hostName\">Host Name</label>\n        <input class=\"form-control\" type=\"text\" id=\"hostName\" required>\n      </div>\n      <div class=\"form-group\">\n        <label for=\"room_id\">Room Number</label>\n        <input class=\"form-control\" type=\"number\" id=\"room_id\" required>\n      </div>\n      <div class=\"form-group\">\n        <label for=\"serialNumber\">Serial Number</label>\n        <input class=\"form-control\" type=\"text\" id=\"serialNumber\">\n\n      </div>\n      <label for=\"macAdress\">Mac Address:</label>\n      <input id=\"macAddress\" placeholder=\"xx.xx.xx.xx.xx\" id=\"macAddress\" placeholder=\"\" type=\"text\" name=\"macaddress\" ng-model=\"macpin\" ng-pattern=\"/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/\" />\n      <span style=\"color:Red\" ng-show=\"equipmentForm.macaddress.$error.pattern\">Please Enter a Valid Mac Address</span>\n      <br>\n      <label for=\"ipaddress\">IP Address:</label>\n      <input id=\"equipaddress\" placeholder=\"xx.xxx.xxx.xxx\" type=\"text\" name=\"equipaddress\" ng-model=\"txtpin\" ng-pattern=\"/\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b/\" />\n      <span style=\"color:Red\" ng-show=\"equipmentForm.equipipaddress.$error.pattern\">Please Enter a Valid IP Address</span>\n\n      <div class=\"form-inline\">\n        <label class=\"mr-sm-2\" for=\"mabBoxYes\">MAB</label>\n        <select class=\"custom-select mb-2 mr-sm-2 mb-sm-0\" id=\"mabBoxYes\">\n          <option selected>Choose...</option>\n          <option value=\"1\">Yes</option>\n          <option value=\"0\">No</option>\n        </select>\n      </div>\n      <div class=\"form-group\">\n        <label for=\"notesInput\">Notes</label>\n        <textarea class=\"form-control\" type=\"textarea\" id=\"notesInput\"></textarea>\n      </div>\n      <!-- These will be additional fields -->\n      <div class=\"form-group\" ng-if=\"subnet.Select == 'true'; type.Select == 'switch'\">\n        <label for=\"switchName\">Switch Name</label>\n\n        <input class=\"form-control\" type=\"text\" id=\"switchName\" required>\n        <label for=\"switchManagementIp\">Switch Management IP</label>\n        <input class=\"form-control\" type=\"text\" id=\"switchManagementIp\" required>\n        <!-- Autofill from room number already entered -->\n        <label for=\"switchRoomNumber\">Switch Room Number</label>\n        <input class=\"form-control\" type=\"number\" id=\"switchRoomNumber\" required>\n      </div>\n      <!-- Printer fields -->\n      <div class=\"container\" ng-if=\"type.Select =='1'\">\n        <div class=\"form-group\">\n          <label for=\"printServer\">Print Server</label>\n          <input class=\"form-control\" type=\"text\" id=\"printServer\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"driverInput\">Driver</label>\n          <input class=\"form-control\" type=\"text\" id=\"driverInput\" required>\n        </div>\n        <!-- Need to autopopulate site abrev. & -room number -->\n        <div class=\"form-group\">\n          <label for=\"printerName\">Printer Name</label>\n          <input class=\"form-control\" type=\"text\" id=\"printerName\" required>\n        </div>\n        <!-- Should autopopulate again -->\n        <div class=\"form-group\">\n          <label for=\"shareName\">Share Name</label>\n          <input class=\"form-control\" type=\"text\" id=\"shareName\" required>\n        </div>\n        <!-- should autopopulate again -->\n        <div class=\"form-group\">\n          <label for=\"shareComment\">Share Comment</label>\n          <input class=\"form-control\" type=\"text\" id=\"shareComment\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"modelNumber\">Model Type</label>\n          <input class=\"form-control\" type=\"text\" id=\"modelType\" required>\n        </div>\n      </div>\n      <!-- Computer Affitional Fields -->\n      <div  ng-if=\"type.Select =='2'\">\n        <div class=\"form-group\">\n          <label for=\"operatingSystem\">Operating System</label>\n          <input class=\"form-control\" type=\"text\" id=\"operatingSystem\" required>\n        </div>\n        <div class=\"form-group\">\n          <label for=\"computerType\">Computer Type</label>\n          <select class=\"form-control\" id=\"computerType\" required>\n            <option>Virtual Machine</option>\n            <option>Physical Computer</option>\n          </select>\n        </div>\n      </div>\n  \n\n\n  <!-- Printer fields -->\n    <div class=\"container\" ng-if=\"type.Select =='printer'\">\n      <div class=\"form-group\">\n        <label for=\"printServer\">Print Server</label>\n          <input class=\"form-control\" type=\"text\" id=\"printServer\" required>\n      </div>\n        <div class=\"form-group\">\n        <label for=\"driverInput\">Driver</label>\n          <input class=\"form-control\" type=\"text\" id=\"driverInput\" required>\n      </div>\n      <div class=\"form-group\">\n        <label for=\"printServer\">Print Server</label>\n          <input class=\"form-control\" type=\"text\" id=\"printServer\" required>\n      </div>\n      <!-- Need to autopopulate site abrev. & -room number -->\n      <div class=\"form-group\">\n        <label for=\"printerName\">Printer Name</label>\n          <input class=\"form-control\" type=\"text\" id=\"printerName\" required>\n      </div> \n    <!-- Should autopopulate again -->\n     <div class=\"form-group\">\n        <label for=\"shareName\">Share Name</label>\n          <input class=\"form-control\" type=\"text\" id=\"shareName\" required>\n      </div>\n      <!-- should autopopulate again -->\n      <div class=\"form-group\">\n        <label for=\"shareComment\">Share Comment</label>\n          <input class=\"form-control\" type=\"text\" id=\"shareComment\" required>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"modelNumber\">Model Number</label>\n          <input class=\"form-control\" type=\"number\" id=\"modelNumber\" required>\n      </div>\n      </div>\n      <!-- Computer Additional Fields -->\n      <div  ng-if=\"type.Select =='computer'\">\n      <div class=\"form-group\">\n        <label for=\"operatingSystem\">Operating System</label>\n          <input class=\"form-control\" type=\"text\" id=\"operatingSystem\" required>\n      </div>\n      <div class=\"form-group\">\n        <label for=\"computerType\">Computer Type</label>\n          <select class=\"form-control\" id=\"computerType\" required>\n            <option>Virtual Machine</option>\n            <option>Physical Computer</option>\n          </select>\n      </div>\n      </div>\n        <div class=\"clearfix\">\n          <a href=\"/\" ng-click=\"$ctrl.$rootScope.dashboard = true\"><button class=\"btn btn-danger\">Cancel</button></a>\n          <button class=\"btn btn-primary\" type=\"submit\">Save Equipment</button>\n      </div>\n  </div>\n</form>\n\n  \n\n\n\n\n <div class=\"clearfix\">\n    <button class=\"btn btn-primary\" ng-click=\"$ctrl.$rootScope.addEquipment()\" type=\"submit\">Save Equipment</button>\n     <a href=\"#!/equipment\"><button class=\"btn btn-danger\">Cancel</button></a>\n  </div>\n</form>\n\n\n\n\n";
 
 },{}],12:[function(require,module,exports){
 'use strict';
@@ -895,7 +982,7 @@ var subnetsController = function subnetsController($rootScope) {
 exports.default = subnetsController;
 
 },{}],29:[function(require,module,exports){
-module.exports = "<div class=\"container-fluid\">\n\t<div>\n\t\t<ul class=\"nav nav-tabs\"> <!-- Tabs -->\n\t\t  <li class=\"nav-item\">\n\t\t    <a class=\"nav-link\" id=\"sitesTab\" value=\"sites\" href=\"#!/sites\">Sites</a>\n\t\t  </li>\n\t\t  <li class=\"nav-item\">\n\t\t    <a class=\"nav-link active\" id=\"subnetsTab\" href=\"#!/subnets\">Subnets</a>\n\t\t  </li>\n\t\t  <li class=\"nav-item\">\n\t\t    <a class=\"nav-link\" id=\"equipmentTab\" href=\"#!/equipment\">Equipment</a>\n\t\t  </li>\n\t\t</ul>\n\t</div>\n\t<div class=\"row\">\n\t\t<!-- <sidebar class=\"col-9\"></sidebar> -->\n\t\t <a href=\"/#!/subnetform\" class=\"col-3\"><button id=\"addSubnet\"> Add Subnet</button></a>\n\t\t </div>\n\t<div class=\"row\">\n\t\t<div class= \"col\">\n\t\t<table class=\"data\">\n\t\t\t<thead>\n\t\t\t\t<tr>\n\t\t\t\t\t<th>Name</th>\n\t\t\t\t\t<th>Site Id</th>\n\t\t\t\t\t<th>Address</th>\n\t\t\t\t\t<th>Mask Bits</th>\n\t\t\t\t\t<th>vLan</th>\n\t\t\t\t</tr>\n\t\t\t</thead>\n\t\t\t<tbody>\n\t\t\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter: $ctrl.$rootScope.idFilter\">\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.site_id}}</td>\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t\t\t</tr>\n\t\t\t</tbody>\n\t\t</table>\n\t\t</div>\n\t</div>\n</div>\n\n\n";
+module.exports = "<div class=\"container-fluid\">\n\t<div>\n\t\t<ul class=\"nav nav-tabs\"> <!-- Tabs -->\n\t\t  <li class=\"nav-item\">\n\t\t    <a class=\"nav-link\" id=\"sitesTab\" value=\"sites\" href=\"#!/sites\">Sites</a>\n\t\t  </li>\n\t\t  <li class=\"nav-item\">\n\t\t    <a class=\"nav-link active\" id=\"subnetsTab\" href=\"#!/subnets\">Subnets</a>\n\t\t  </li>\n\t\t  <li class=\"nav-item\">\n\t\t    <a class=\"nav-link\" id=\"equipmentTab\" href=\"#!/equipment\">Equipment</a>\n\t\t  </li>\n\t\t</ul>\n\t</div>\n\t<div class=\"row\">\n\t\t<!-- <sidebar class=\"col-9\"></sidebar> -->\n\t\t <a href=\"/#!/subnetform\" class=\"col-3\"><button id=\"addSubnet\"> Add Subnet</button></a>\n\t\t </div>\n\t<div class=\"row\">\n\t\t<div class= \"col\">\n\t\t<table class=\"data\">\n\t\t\t<thead>\n\t\t\t\t<tr>\n\t\t\t\t\t<th>Name</th>\n\t\t\t\t\t<th>Site Id</th>\n\t\t\t\t\t<th>Address</th>\n\t\t\t\t\t<th>Mask Bits</th>\n\t\t\t\t\t<th>vLan</th>\n\t\t\t\t</tr>\n\t\t\t</thead>\n\t\t\t<tbody>\n\t\t\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter: $ctrl.$rootScope.idFilter\">\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.site_id}}</td>\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t\t\t\t<td class=\"pr-2\"><li class=\"list-group-item btn\"><a href='/#!/viewsubnet' ng-click=\"$ctrl.$rootScope.getSubnet(subnet.id) \">View Subnet</a></li>\n\t\t\t\t</tr>\n\t\t\t</tbody>\n\t\t</table>\n\t\t</div>\n\t</div>\n</div>\n\n\n";
 
 },{}],30:[function(require,module,exports){
 'use strict';

@@ -61,11 +61,27 @@ config.$inject = ['$routeProvider', '$locationProvider'];
 
             })
 
+            .when('/editsubnet',{
+                templateUrl: 'app/components/subnets/editsubnet/editsubnet.html'
+            })
+
+            .when('/viewsubnet',{
+                templateUrl: 'app/components/subnets/viewsubnet/viewsubnet.html'
+            })
+
             .when('/subnets', {
                 controller: subnetsComponent.controller,
                 templateUrl: 'app/components/subnets/subnets.html',
                 controllerAs: '$ctrl'
 
+            })
+
+            .when('/viewequipment', {
+                templateUrl: 'app/components/equipment/viewequipment/viewequipment.html'
+            })
+
+            .when('/editequipment', {
+                templateUrl: 'app/components/equipment/editequipment/editequipment.html'
             })
 
             .when('/equipment', {

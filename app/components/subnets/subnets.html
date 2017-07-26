@@ -35,6 +35,7 @@
 					<td class="pr-2">{{subnet.subnet_address}}</td>
 					<td class="pr-2">{{subnet.mask_bits}}</td>
 					<td class="pr-2">{{subnet.vLan}}</td>
+					<td class="pr-2"><li class="list-group-item btn"><a href='/#!/viewsubnet' ng-click="$ctrl.$rootScope.getSubnet(subnet.id) ">View Subnet</a></li>
 				</tr>
 			</tbody>
 		</table>

@@ -105,6 +105,15 @@ class appCtrl {
 			})	
 
 		} 
+		ctrl.$rootScope.getSubnet = (id) => {
+			ctrl.get = ipamService.getSubnets().get({subnet:id});
+
+			ctrl.get.$promise.then( (data) => {
+				ctrl.$rootScope.subnet = data;
+				console.log(ctrl.$rootScope.subnet);
+			})
+
+		}
 		ctrl.$rootScope.addSubnet = () => {
 		// instantiate new subnet JSON
 			ctrl.newSubnet = {
@@ -124,7 +133,31 @@ class appCtrl {
 				.then((data) => {
 				ctrl.$rootScope.subnets.push(data);
 			});
-		}// end getSubnets()
+		}
+		ctrl.$rootScope.updateSubnet = (id) => {
+
+			// instantiate new site JSON
+			ctrl.saveSubnet = {
+				// grab values with JQuery from form
+			  "id": id,
+			  "site_id": $('#editSubnetSiteId').val(),
+			  "name": $('#editSubnetName').val(),
+			  "subnet_address": $('#editSubnetIpAddress').val(),
+			  "mask_bits": $('#editSubnetMaskBits').val(),
+			  "vLan": $('#editSubnetVlan').val(),	
+			}
+
+			console.log(ctrl.saveSubnet);
+ 			// specific call to save from $resource
+			ipamService.updateSubnet().update({subnet:id}, ctrl.saveSubnet)
+				.$promise
+				// says wait for the data and push it to the array
+				.then((data) => {
+				//pull the sites from db for fresh info with updated site
+				ctrl.$rootScope.getSubnets();
+			});	
+		}	
+	// end getSubnets()
 /* ------------------------------------------------------
 						IP Adsress
 ----------------------------------------------------------*/ 
@@ -166,6 +199,15 @@ class appCtrl {
 				ctrl.$rootScope.equipments = data;
 			})	
 		}
+		ctrl.$rootScope.getEquipment = (id) => {
+			ctrl.get = ipamService.getEquipments().get({equipment:id});
+
+			ctrl.get.$promise.then( (data) => {
+				ctrl.$rootScope.equipment = data;
+				console.log(ctrl.$rootScope.equipment);
+			})
+
+		}
 
 
 
@@ -202,7 +244,48 @@ class appCtrl {
 				.then((data) => {
 				ctrl.$rootScope.equipments.push(data);
 			});
-		} //end quipments
+		} 
+		ctrl.$rootScope.updateEquipment = (id) => {
+
+			// instantiate new site JSON
+			ctrl.saveEquipment = {
+				// grab values with JQuery from form
+			  "id": id,
+			  "site_id": $('#editEquipmentSite').val(),
+			  "subnet_id": $('#subnetSelect').val(),
+			  "equipment_type_id": $('#editEquipmentType').val(),
+			  "name": $('#editEquipmentName').val(),
+			  "host_name": $('#editHostName').val(),
+			  "room_id": $('#editRoom_Id').val(),
+			  "serial_number": $('#editSerialNumber').val(),
+			  "mac_address": $('#editMacAddress').val(),
+			  "ip_address": $('#editEquipaddress').val(),
+			  "mab": $('#editMabBoxYes').val(),
+			  "switch_name":$('#editSwitchName').val(),
+			  "switch_ip":$('#editSwitchManagementIp').val(),
+			  "switch_room_number":$('#editSwitchRoomNumber').val(),
+			  "printer_server": $('#editPrinterServer').val(),
+			  "driver": $('#editDriverInput').val(),
+			  "printer_name": $('#editPrinterName').val(),
+			  "share_name": $('#editShareName').val(),
+			  "share_comment": $('#editShareComment').val(),
+			  "model": $('#editModelType').val(),
+			  "operating_system":$('#editOperatingSystem').val(),
+			  "computer_type":$('#editComputerType').val()
+			  
+			}
+			console.log($('#editRoom_id'));
+			console.log(ctrl.saveEquipment);
+ 			// specific call to save from $resource
+			ipamService.updateEquipment().update({equipment:id}, ctrl.saveEquipment)
+				.$promise
+				// says wait for the data and push it to the array
+				.then((data) => {
+				//pull the sites from db for fresh info with updated site
+				console.log(data);
+				ctrl.$rootScope.getEquipments();
+			});	
+		}//end quipments
 
 
 	} // end constructor

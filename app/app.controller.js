@@ -31,6 +31,7 @@ class appCtrl {
 			ctrl.get.$promise.then( (data) => {
 				ctrl.$rootScope.site = data;
 				console.log(ctrl.$rootScope.site);
+				ctrl.$rootScope.currentSubnets  = data.subnets;
 			})
 
 		} // end getSite
@@ -68,14 +69,6 @@ class appCtrl {
 			  "site_contact": $('#editSiteContact').val(),
 			}
 
-			// ctrl.saveSite = {
-			// 	// grab values with JQuery from form
-			//   "id": id,
-			//   "name": 'test2',
-			//   "address": '300 Rose',
-			//   "abbreviation": 'tst',
-			//   "site_contact": 'david',
-			// }
 			console.log(ctrl.saveSite);
  			// specific call to save from $resource
 			ipamService.updateSite().update({site:id}, ctrl.saveSite)
@@ -169,6 +162,7 @@ class appCtrl {
 			// pushes data to sites object, .then means we wait on the promise
 			ctrl.query.$promise.then( (data) => {
 				ctrl.$rootScope.usedIps = data;
+
 			})	
 
 		} // end getIpBySubnet()
@@ -176,15 +170,50 @@ class appCtrl {
 // Setting a global function for getting sites from API
 		ctrl.$rootScope.getNextIp = (id) => {
 			// grabs api data for all the sites with the ngresource query()
-			ctrl.query = ipamService.getNextIp().query();
+			ctrl.get = ipamService.getNextIp().get({subnet: id});
 
 			// pushes data to sites object, .then means we wait on the promise
 			ctrl.get.$promise.then( (data) => {
+
 				ctrl.$rootScope.NextIp = data;
+
+				ctrl.length = Object.values(data).length;
+
+				ctrl.$rootScope.NextIp = Object.values(ctrl.$rootScope.NextIp).join('').slice(0, ctrl.length-2);
+
+				// console.log('data');
+				// console.log(Object.values(data).join('').slice(0, ctrl.length-2));
+
+				// console.log('next');
+				// console.log(ctrl.$rootScope.NextIp);
+
 			})	
 
 		}// end getNextUp()
 
+//Check ip input for availability
+		ctrl.$rootScope.checkIp = (id, ip) => {
+			console.log('id: ' + id + ' ' + 'ip: ' + ip);
+			ctrl.get = ipamService.checkIp().get({subnet: id, checkIp: ip});
+
+			ctrl.get.$promise.then((data) => {
+				console.log(data);
+			})
+		}// end checkIp()
+
+/* ------------------------------------------------------
+						MAC ADDRESS
+----------------------------------------------------------*/
+
+//Check if Mac Address is available
+		ctrl.$rootScope.checkMac = (address) => {
+			ipamService.checkMac().get({mac: address})
+			.$promise
+			.then((data) => {
+				console.log('Mac Address Check');
+				console.log(data);
+			});
+		} //end checkMac
 
 /* ------------------------------------------------------
 						EQUIPMENT
@@ -237,6 +266,7 @@ class appCtrl {
 			  "operating_system":$('#operatingSystem').val(),
 			  "computer_type":$('#computerType').val()
 			 }
+
  			// specific call to save from $resource
 			ipamService.addEquipment().save({}, ctrl.newEquipment)
 				.$promise
@@ -244,6 +274,20 @@ class appCtrl {
 				.then((data) => {
 				ctrl.$rootScope.equipments.push(data);
 			});
+
+		} //end equipments
+
+		// ctrl.$rootScope.addEquipment();
+
+		ctrl.$rootScope.getEquipmentTypes = () => {
+			ipamService.getEquipmentTypes().query()
+			.$promise
+			.then((data) => {
+				ctrl.$rootScope.equipmentTypes = data;
+				console.log(ctrl.$rootScope.equipmentTypes);
+			});
+		} //end get eqiupment types
+
 		} 
 		ctrl.$rootScope.updateEquipment = (id) => {
 
@@ -287,6 +331,9 @@ class appCtrl {
 			});	
 		}//end quipments
 
+
+		//run this function on page load to populate type list once
+		ctrl.$rootScope.getEquipmentTypes();
 
 	} // end constructor
 } // end appCtrl

@@ -66,12 +66,103 @@
   padding: 0;
   margin: 0; }
 
+li#tabs {
+  color: #3F86BA;
+  font-family: 'Open Sans', sans-serif; }
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
 .highz {
   z-index: 1000; }
 
+#searchText {
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 5px;
+  margin-top: 5px; }
+
+#dropdownMenuButton {
+  background: #F2F2F2;
+  color: #3F86BA;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+          box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+  height: 35px;
+  margin-top: 5px;
+  margin-bottom: 5px; }
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
+#card {
+  margin-top: 14px;
+  margin-bottom: 20px;
+  background: #F2F2F2;
+  color: #636C72;
+  font-family: 'Open Sans', sans-serif;
+  text-shadow: none;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31); }
+
+#add-site {
+  margin-bottom: 20px;
+  font-size: 28px;
+  background: #F2F2F2;
+  font-family: 'Open Sans', sans-serif;
+  text-shadow: none;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31); }
+
+#address {
+  margin-bottom: 5px; }
+
+#address, #edit-site {
+  color: #636C72;
+  font-family: 'Open Sans', sans-serif;
+  background: #e3dede;
+  border-radius: 3px; }
+
+#name {
+  font-size: 22px;
+  font-family: 'Open Sans', sans-serif;
+  color: #3F86BA;
+  text-align: left; }
+
+#abbr {
+  color: #3F86BA;
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
+  padding-left: 120px; }
+
+a {
+  color: #3F86BA;
+  font-family: 'Open Sans', sans-serif; }
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
+.subnets {
+  margin-top: 30px;
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 20px 100px;
+  background: #F2F2F2;
+  color: #666666;
+  text-shadow: none;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
+  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31); }
+
+<<<<<<< HEAD
+#addSubnet {
+  background: #F2F2F2;
+  color: #3F86BA;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 5px;
+  margin-top: 5px;
+  -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
+          box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31); }
 
 
-
+=======
+>>>>>>> 9a243e0ad65421841939ec13a297a972e0fb797e
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
 #eqipForm {
   margin-top: 20px;

@@ -1,0 +1,29 @@
+<form id="editsubnet">
+<h1>View Subnet</h1>
+  <div class="form-group">
+    <label for="editSubnetName">Subnet Name</label>
+      <input class="form-control" type="text" value="{{$ctrl.$rootScope.subnet.name}}" id="editSubnetName" >
+  </div>
+   <div class="form-group">
+    <label for="editSubnetSiteId">Site Id</label>
+      <input class="form-control" type="text" value="{{$ctrl.$rootScope.subnet.site_id}}" id="editSubnetSiteId" >
+  </div>
+   <div class="form-group">
+    <label for="editSubnetIpAddress">Subnet Ip Address</label>
+      <input class="form-control" type="text" value="{{$ctrl.$rootScope.subnet.subnet_address}}" id="editSubnetIpAddress"  >
+  </div>
+   <div class="form-group">
+    <label for="editSubnetMaskBits">Subnet Mask Bits</label>
+      <input class="form-control" type="text" value="{{$ctrl.$rootScope.subnet.mask_bits}}" id="editSubnetMaskBits"  >
+  </div>
+  <div class="form-group">
+    <label for="editSubnetVlan">Subnet vLan</label>
+      <input class="form-control" type="number" value="{{$ctrl.$rootScope.subnet.vLan}}" id="editSubnetVlan" >
+  </div>
+   <div class="form-group">
+    <label for="editSubnetNotes">Notes</label>
+      <textarea class="form-control" type="textarea" value="" id="editSubnetNotes"  ></textarea>
+  </div>
+  <a href="/#!/editsubnet"><button ng-click='$ctrl.$rootScope.updateSubnet($ctrl.$rootScope.subnet.id);'>Save Changes</button></a>
+  <a href="/#!/subnets"><button>Cancel</button></a>
+</form>

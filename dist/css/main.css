@@ -72,7 +72,6 @@
 
 
 
-
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
 #eqipForm {
   margin-top: 20px;
@@ -163,6 +162,7 @@
 #sitesForm button.btn.btn-danger {
   float: right;
   margin-top: 8px; }
+
 
 #subnetForm input, #subnetForm select, #subnetForm textarea {
   margin: 0 auto;

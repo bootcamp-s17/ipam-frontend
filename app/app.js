@@ -50,6 +50,10 @@ config.$inject = ['$routeProvider', '$locationProvider'];
                 templateUrl: 'app/components/sites/editsite/editsite.html'
             })
 
+            .when('/viewsite', {
+                templateUrl: 'app/components/sites/viewsite/viewsite.html'
+            })
+
             .when('/sites', {
                 controller: sitesComponent.controller,
                 templateUrl: 'app/components/sites/sites.html',

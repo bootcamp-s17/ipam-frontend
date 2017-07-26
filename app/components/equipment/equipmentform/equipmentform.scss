@@ -16,6 +16,8 @@ input, textarea, select {
 	margin: 0 auto;
 	width: 100%;
 	height: 40px;
+	border-radius: .25rem;
+	padding-left: 10px;
 }
 
 select {
@@ -55,17 +57,9 @@ label {
 	text-align: center;
 }
 
-div.form-check.form-inline input[type="checkbox"]{
-	margin-left: 12px;
-	-webkit-transform: scale(2);
-}
-
-input#ipaddress.ng-pristine.ng-untouched.ng-valid.ng-empty.ng-valid-pattern {
-	padding-left: 10px;
-}
-
-.btn {
-	overflow: hidden;
+label.form-check-label {
+	text-align: left;
+	clear: both;
 }
 
 button.btn.btn-primary {

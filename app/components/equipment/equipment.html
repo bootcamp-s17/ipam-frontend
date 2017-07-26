@@ -3,42 +3,95 @@
     <sidebar class="col-9"></sidebar>
     <a href="/#!/equipmentform" class="col-3"><button id="addEquipment"> Add Equipment</button></a>
   </div>
+  Sort Type: {{ sortType }}
   <div class="row">
     <div class="col">
-    <table class="table data lowz">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Hostname</th>
-          <th>Room Number</th>
-          <th>IP Address</th>
-          <th>MAC Address</th>
-          <th>MAB</th>
-          <th>Print Server</th>
-          <th>Driver</th>
-          <th>Printer Name</th>
-          <th>Share Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="equipment in $ctrl.$rootScope.equipments | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid">
-          <td class="pr-2">{{equipment.name}}</td>
-          <td class="pr-2">{{equipment.type[0].name}}</td>
-          <td class="pr-2">{{equipment.host_name}}</td>
-          <td class="pr-2">ROOM NAME</td>
-          <td class="pr-2">{{equipment.ip_address}}</td>
-          <td class="pr-2">{{equipment.mac_address}}</td>
-          <td class="pr-2">{{equipment.mab}}</td>
-          <td class="pr-2">{{equipment.printer_server}}</td>
-          <td class="pr-2">{{equipment.driver}}</td>
-          <td class="pr-2">{{equipment.printer_name}}</td>
-          <td class="pr-2">{{equipment.share_name}}</td>
-        </tr>
-      </tbody>
-    </table>
+      <table class="table data lowz">
+        <thead>
+          <tr>
+            <th>
+              <a href="" ng-click="sortType = 'name'">
+                Name
+                <span ng-show="sortType == 'name'" class="fa fa-caret-down"></span>
+              </a>
+            </th>
+            <th>
+              <a href="" ng-click="sortType = 'type[0].name'">
+                Type
+                <span ng-show="sortType == 'type[0].name'" class="fa fa-caret-down"></span>
+              </a>
+            </th>
+            <th>
+              <a href="" ng-click="sortType = 'host_name'">
+                Hostname
+                <span ng-show="sortType == 'host_name'" class="fa fa-caret-down"></span>
+              </a>
+            </th>
+            <th>
+              <a href="" ng-click="sortType = ''">
+                Room Number
+                <span ng-show="sortType == ''" class="fa fa-caret-down"></span>
+              </a>
+            </th>
+            <th>
+              <a href="" ng-click="sortType = 'ip_address'">
+              IP Address
+                <span ng-show="sortType == 'ip_address'" class="fa fa-caret-down"></span>
+              </a>
+            </th>
+            <th>
+              <a href="" ng-click="sortType = 'mac_address'">
+                MAC Address
+                <span ng-show="sortType == 'mac_address'" class="fa fa-caret-down"></span>
+              </a></th>
+              <th>
+                <a href="" ng-click="sortType = 'mab'">
+                  MAB
+                  <span ng-show="sortType == 'mab'" class="fa fa-caret-down"></span>
+                </a>
+              </th>
+              <th>
+                <a href="" ng-click="sortType = 'printer_server'">
+                  Print Server
+                  <span ng-show="sortType == 'printer_server'" class="fa fa-caret-down"></span>
+                </a>
+              </th>
+              <th>
+                <a href="" ng-click="sortType = 'driver'">
+                  Driver
+                  <span ng-show="sortType == 'driver'" class="fa fa-caret-down"></span>
+                </a>
+              </th>
+              <th>
+                <a href="" ng-click="sortType = 'printer_name'">
+                  Printer Name
+                  <span ng-show="sortType == 'printer_name'" class="fa fa-caret-down"></span>
+                </a>
+              </th>
+              <th>
+                <a href="" ng-click="sortType = 'share_name'">
+                  Share Name
+                  <span ng-show="sortType == 'share_name'" class="fa fa-caret-down"></span>
+                </a>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="equipment in $ctrl.$rootScope.equipments | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid | orderBy:sortType:reverse">
+              <td class="pr-2">{{equipment.name}}</td>
+              <td class="pr-2">{{equipment.type[0].name}}</td>
+              <td class="pr-2">{{equipment.host_name}}</td>
+              <td class="pr-2">ROOM NAME</td>
+              <td class="pr-2">{{equipment.ip_address}}</td>
+              <td class="pr-2">{{equipment.mac_address}}</td>
+              <td class="pr-2">{{equipment.mab}}</td>
+              <td class="pr-2">{{equipment.printer_server}}</td>
+              <td class="pr-2">{{equipment.driver}}</td>
+              <td class="pr-2">{{equipment.printer_name}}</td>
+              <td class="pr-2">{{equipment.share_name}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
-
-

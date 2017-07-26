@@ -8,6 +8,5 @@ let subnetformComponent = {
 	controllerAs : '$ctrl'
 };
 
-console.log('subnetform.component');
 
 export default subnetformComponent;

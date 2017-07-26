@@ -79,6 +79,17 @@ li#tabs {
   border-radius: 5px;
   margin-top: 5px; }
 
+#dropdownMenuButton {
+  background: #F2F2F2;
+  color: #3F86BA;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+          box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+  height: 35px;
+  margin-top: 5px;
+  margin-bottom: 5px; }
+
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
 #card {
   margin-top: 14px;
@@ -120,12 +131,13 @@ li#tabs {
   color: #3F86BA;
   font-family: 'Open Sans', sans-serif;
   text-align: center;
-  padding-left: 50px; }
+  padding-left: 120px; }
 
 a {
   color: #3F86BA;
   font-family: 'Open Sans', sans-serif; }
 
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
 .subnets {
   margin-top: 30px;
   margin: 0 auto;
@@ -137,6 +149,15 @@ a {
   border-radius: 10px;
   -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
   box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31); }
+
+#addSubnet {
+  background: #F2F2F2;
+  color: #3F86BA;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 5px;
+  margin-top: 5px;
+  -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
+          box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31); }
 
 
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");

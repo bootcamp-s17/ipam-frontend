@@ -138,7 +138,6 @@ a {
   -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
   box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31); }
 
-
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
 #eqipForm {
   margin-top: 20px;
@@ -229,6 +228,7 @@ a {
 #sitesForm button.btn.btn-danger {
   float: right;
   margin-top: 8px; }
+
 
 #subnetForm input, #subnetForm select, #subnetForm textarea {
   margin: 0 auto;

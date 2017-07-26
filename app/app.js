@@ -50,6 +50,10 @@ config.$inject = ['$routeProvider', '$locationProvider'];
                 templateUrl: 'app/components/sites/editsite/editsite.html'
             })
 
+            .when('/viewsite', {
+                templateUrl: 'app/components/sites/viewsite/viewsite.html'
+            })
+
             .when('/sites', {
                 controller: sitesComponent.controller,
                 templateUrl: 'app/components/sites/sites.html',
@@ -57,11 +61,27 @@ config.$inject = ['$routeProvider', '$locationProvider'];
 
             })
 
+            .when('/editsubnet',{
+                templateUrl: 'app/components/subnets/editsubnet/editsubnet.html'
+            })
+
+            .when('/viewsubnet',{
+                templateUrl: 'app/components/subnets/viewsubnet/viewsubnet.html'
+            })
+
             .when('/subnets', {
                 controller: subnetsComponent.controller,
                 templateUrl: 'app/components/subnets/subnets.html',
                 controllerAs: '$ctrl'
 
+            })
+
+            .when('/viewequipment', {
+                templateUrl: 'app/components/equipment/viewequipment/viewequipment.html'
+            })
+
+            .when('/editequipment', {
+                templateUrl: 'app/components/equipment/editequipment/editequipment.html'
             })
 
             .when('/equipment', {

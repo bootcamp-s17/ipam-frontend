@@ -18,10 +18,8 @@
     <div class="form-group" >
       <label for="typeSelect">Type</label>
       <select id="typeId" class="form-control" ng-model="type.Select" ng-dropdown ng-change="changeme()" required >
-        <option value="8">Other</option>
-        <option value="1">Printer</option>
-        <option value="2">Computer</option>
-
+        <option>Select a Type</option>
+        <option ng-repeat="type in $ctrl.$rootScope.equipmentTypes" value="{{type.id}}">{{type.name}}</option>
       </select>
       <!-- <option ng-repeat="equipment_type in $ctrl.$rootScope.equipment_types" value="{{equipment_type.id}}">{{equipment_type.name}}</option> -->
     </div>

@@ -69,14 +69,6 @@ class appCtrl {
 			  "site_contact": $('#editSiteContact').val(),
 			}
 
-			// ctrl.saveSite = {
-			// 	// grab values with JQuery from form
-			//   "id": id,
-			//   "name": 'test2',
-			//   "address": '300 Rose',
-			//   "abbreviation": 'tst',
-			//   "site_contact": 'david',
-			// }
 			console.log(ctrl.saveSite);
  			// specific call to save from $resource
 			ipamService.updateSite().update({site:id}, ctrl.saveSite)
@@ -227,9 +219,17 @@ class appCtrl {
 				.then((data) => {
 				ctrl.$rootScope.equipments.push(data);
 			});
-		} //end quipments
+		} //end equipments
 
-
+		ctrl.$rootScope.getEquipmentTypes = () => {
+			ipamService.getEquipmentTypes().query()
+			.$promise
+			.then((data) => {
+				ctrl.$rootScope.equipmentTypes = data;
+				console.log(ctrl.$rootScope.equipmentTypes);
+			});
+		} //end get eqiupment types
+		ctrl.$rootScope.getEquipmentTypes();
 	} // end constructor
 } // end appCtrl
 export default appCtrl;

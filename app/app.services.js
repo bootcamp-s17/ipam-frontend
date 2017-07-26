@@ -25,6 +25,7 @@ function ipamService($resource) {
 		let updateEquipment = () => $resource('http://localhost:7000/api/equipment/:equipment', {equipment: "@equipment"},
 		 {'update': {method: 'PUT'}
 			});
+		let getEquipmentTypes = () => $resource('http://localhost:7000/api/equipment_types');
 		
 		return {
 			// SITES
@@ -42,7 +43,8 @@ function ipamService($resource) {
 			// EQUIPMENT
 				getEquipments: getEquipments,
 				addEquipment: addEquipment,
-				updateEquipment: updateEquipment
+				updateEquipment: updateEquipment,
+				getEquipmentTypes: getEquipmentTypes,
 
 				}
 

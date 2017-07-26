@@ -52,14 +52,35 @@ config.$inject = ['$routeProvider', '$locationProvider'];
                 templateUrl: 'app/components/sites/editsite/editsite.html'
             })
 
-            .when('/home', {
-                controller: tabboardComponent.controller,
-                templateUrl: 'app/components/tabboard/tabboard.html',
+            .when('/sites', {
+                controller: sitesComponent.controller,
+                templateUrl: 'app/components/sites/sites.html',
                 controllerAs: '$ctrl'
 
             })
 
-            .otherwise({ redirectTo: '/home' });
+            .when('/subnets', {
+                controller: subnetsComponent.controller,
+                templateUrl: 'app/components/subnets/subnets.html',
+                controllerAs: '$ctrl'
+
+            })
+
+            .when('/equipment', {
+                controller: equipmentComponent.controller,
+                templateUrl: 'app/components/equipment/equipment.html',
+                controllerAs: '$ctrl'
+
+            })
+
+            .when('/home', {
+                controller: sitesComponent.controller,
+                templateUrl: 'app/components/sites/sites.html',
+                controllerAs: '$ctrl'
+
+            })
+
+            .otherwise({ redirectTo: '/sites' });
     }
 
     run.$inject = ['$rootScope', '$location', '$cookies', '$http'];

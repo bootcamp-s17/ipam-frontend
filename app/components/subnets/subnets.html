@@ -18,6 +18,31 @@
 	</div>
 	<div class="row">
 		<div class= "col">
+<<<<<<< HEAD
+		<table class="data">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Site Id</th>
+					<th>Address</th>
+					<th>Mask Bits</th>
+					<th>vLan</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter: $ctrl.$rootScope.idFilter">
+					<td class="pr-2">{{subnet.name}}</td>
+					<td class="pr-2">{{subnet.site_id}}</td>
+					<td class="pr-2">{{subnet.subnet_address}}</td>
+					<td class="pr-2">{{subnet.mask_bits}}</td>
+					<td class="pr-2">{{subnet.vLan}}</td>
+					<td class="pr-2"><li class="list-group-item btn"><a href='/#!/viewsubnet' ng-click="$ctrl.$rootScope.getSubnet(subnet.id) ">View Subnet</a></li>
+					<!-- work please
+					 -->
+				</tr>
+			</tbody>
+		</table>
+=======
 
 			<table class="data">
 				<thead>
@@ -88,6 +113,7 @@
 					</tr>
 				</tbody>
 			</table>
+>>>>>>> ca22f9ee9e622fb17115b4730b5e0e0b77d99707
 		</div>
 	</div>
 </div>

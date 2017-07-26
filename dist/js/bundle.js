@@ -226,6 +226,20 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 			"model": $('#modelType').val(),
 			"operating_system": $('#operatingSystem').val(),
 			"computer_type": $('#computerType').val()
+
+			// ctrl.newEquipment = {
+			// // grab values with JQuery from form
+			//  "site_id": 1,
+			//  "subnet_id": 1,
+			//  "equipment_type_id": 8,
+			//  "name": 'deathstar',
+			//  "host_name": 'Hoth',
+			//  "room_id": 1,
+			//  "serial_number": 123,
+			//  "mac_address": 'AB-24-6F-69-9E-3D',
+			//  "ip_address": '10.34.138.1',
+			//  "mab": true,
+			// }
 			// specific call to save from $resource
 		};ipamService.addEquipment().save({}, ctrl.newEquipment).$promise
 		// says wait for the data and push it to the array
@@ -233,6 +247,8 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 			ctrl.$rootScope.equipments.push(data);
 		});
 	}; //end equipments
+
+	// ctrl.$rootScope.addEquipment();
 
 	ctrl.$rootScope.getEquipmentTypes = function () {
 		ipamService.getEquipmentTypes().query().$promise.then(function (data) {

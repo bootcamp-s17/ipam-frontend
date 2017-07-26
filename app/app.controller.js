@@ -229,7 +229,10 @@ class appCtrl {
 				console.log(ctrl.$rootScope.equipmentTypes);
 			});
 		} //end get eqiupment types
+
+		//run this function on page load to populate type list once
 		ctrl.$rootScope.getEquipmentTypes();
+		
 	} // end constructor
 } // end appCtrl
 export default appCtrl;

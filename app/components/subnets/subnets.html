@@ -13,34 +13,81 @@
 		</ul>
 	</div>
 	<div class="row">
-		<!-- <sidebar class="col-9"></sidebar> -->
-		 <a href="/#!/subnetform" class="col-3"><button id="addSubnet"> Add Subnet</button></a>
-		 </div>
+		<sidebar class="col-9"></sidebar>
+		<a href="/#!/subnetform" class="col-3"><button id="addSubnet"> Add Subnet</button></a>
+	</div>
 	<div class="row">
 		<div class= "col">
-		<table class="data">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Site Id</th>
-					<th>Address</th>
-					<th>Mask Bits</th>
-					<th>vLan</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter: $ctrl.$rootScope.idFilter">
-					<td class="pr-2">{{subnet.name}}</td>
-					<td class="pr-2">{{subnet.site_id}}</td>
-					<td class="pr-2">{{subnet.subnet_address}}</td>
-					<td class="pr-2">{{subnet.mask_bits}}</td>
-					<td class="pr-2">{{subnet.vLan}}</td>
-					<td class="pr-2"><li class="list-group-item btn"><a href='/#!/viewsubnet' ng-click="$ctrl.$rootScope.getSubnet(subnet.id) ">View Subnet</a></li>
-				</tr>
-			</tbody>
-		</table>
+
+			<table class="data">
+				<thead>
+					<tr>
+						<th>
+							<!-- ng-click for sortability and reversing sort with change of variable in the controller, the sortType refers to the data points i.e. site.NAME -->
+							<a href="" ng-click="sortReverse = !sortReverse; sortType = 'name'">
+							Name
+								<!-- ng-show based on both sortReverse and sortType to show an up and down arrow -->
+								<span ng-show="sortReverse && sortType == 'name'" class="fa fa-caret-down"></span>
+								<span ng-show="!sortReverse && sortType == 'name'" class="fa fa-caret-up"></span>
+							</a>
+						</th>
+						<th>
+							<a href="" ng-click="sortReverse = !sortReverse; sortType = 'site[0].name'">
+							Site Name
+								<span ng-show="sortReverse && sortType == 'site[0].name'" class="fa fa-caret-down"></span>
+								<span ng-show="!sortReverse && sortType == 'site[0].name'" class="fa fa-caret-up"></span>
+							</a>
+						</th>
+						<th>
+							<a href="" ng-click="sortReverse = !sortReverse; sortType = 'subnet_address'">
+							Sub Address
+								<span ng-show="sortReverse && sortType == 'subnet_address'" class="fa fa-caret-down"></span>
+								<span ng-show="!sortReverse && sortType == 'subnet_address'" class="fa fa-caret-up"></span>
+							</a>
+						</th>
+						<th>
+							<a href="" ng-click="sortReverse = !sortReverse; sortType = 'mask_bits'">
+							Mask Bits
+								<span ng-show="sortReverse && sortType == 'mask_bits'" class="fa fa-caret-down"></span>
+								<span ng-show="!sortReverse && sortType == 'mask_bits'" class="fa fa-caret-up"></span>
+							</a>
+						</th>
+						<th>
+							<a href="" ng-click="sortReverse = !sortReverse; sortType = 'vLan'">
+							vLan
+								<span ng-show="sortReverse && sortType == 'vLan'" class="fa fa-caret-down"></span>
+								<span ng-show="!sortReverse && sortType == 'vLan'" class="fa fa-caret-up"></span>
+							</a>
+						</th>
+						<th>
+							<a href="" ng-click="sortReverse = !sortReverse; sortType = 'lease_time'">
+							Lease Time
+								<span ng-show="sortReverse && sortType == 'lease_time'" class="fa fa-caret-down"></span>
+								<span ng-show="!sortReverse && sortType == 'lease_time'" class="fa fa-caret-up"></span>
+							</a>
+						</th>
+						<th>
+							<a href="" ng-click="sortReverse = !sortReverse; sortType = 'note[0].text'">
+							Notes
+								<span ng-show="sortReverse && sortType == 'note[0].text'" class="fa fa-caret-down"></span>
+								<span ng-show="!sortReverse && sortType == 'note[0].text'" class="fa fa-caret-up"></span>
+							</a>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+				<!-- repeating the data in equipments, filtering from the search bar with a variable in the $rootScope and also by the site ID from the checkboxes, tacks on a sorting option-->
+					<tr ng-repeat="subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter: $ctrl.$rootScope.filterBySid | orderBy:sortType:sortReverse">
+						<td class="pr-2">{{subnet.name}}</td>
+						<td class="pr-2">{{subnet.site[0].name}}</td>
+						<td class="pr-2">{{subnet.subnet_address}}</td>
+						<td class="pr-2">{{subnet.mask_bits}}</td>
+						<td class="pr-2">{{subnet.vLan}}</td>
+						<td class="pr-2">{{subnet.lease_time}}</td>
+						<td class="pr-2">{{subnet.notes[0].text | limitTo: 50}}...</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>
-
-

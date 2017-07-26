@@ -11,6 +11,13 @@ class equipmentformController {
 
 		});
 
+		 $("#macAddress").focusout(() => {
+			ctrl.mac = $("#macAddress").val();
+			console.log(ctrl.mac);
+			ctrl.$rootScope.checkMac(ctrl.mac);
+
+		});
+
 		 $('#equipaddress').prop('disabled', true);
 		
 		$("#siteSelect").change(()=>{

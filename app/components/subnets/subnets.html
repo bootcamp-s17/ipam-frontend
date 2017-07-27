@@ -85,6 +85,7 @@
 						<td class="pr-2">{{subnet.vLan}}</td>
 						<td class="pr-2">{{subnet.lease_time}}</td>
 						<td class="pr-2">{{subnet.notes[0].text | limitTo: 50}}...</td>
+						<td class="pr-2"><li class="list-group-item btn"><a href='/#!/viewsubnet' ng-click="$ctrl.$rootScope.getSubnet(subnet.id) ">View Subnet</a></li>
 					</tr>
 				</tbody>
 			</table>

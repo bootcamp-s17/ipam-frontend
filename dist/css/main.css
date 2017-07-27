@@ -4,6 +4,15 @@
 .lowz {
   z-index: -100; }
 
+#addEquipment {
+  background: #F2F2F2;
+  color: #3F86BA;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 5px;
+  margin-top: 5px;
+  -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
+          box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31); }
+
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
 #login .form-control {
   width: 61%; }
@@ -150,7 +159,6 @@ a {
   -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
   box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31); }
 
-<<<<<<< HEAD
 #addSubnet {
   background: #F2F2F2;
   color: #3F86BA;
@@ -161,8 +169,6 @@ a {
           box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31); }
 
 
-=======
->>>>>>> 9a243e0ad65421841939ec13a297a972e0fb797e
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
 #eqipForm {
   margin-top: 20px;

@@ -1,0 +1,25 @@
+<form id="editsite">
+<h1>View Site</h1>
+  <div class="form-group">
+    <label for="editSiteName">Site Name</label>
+      <input class="form-control" type="text" value="{{$ctrl.$rootScope.site.name}}" id="editSiteName" disabled="">
+  </div>
+   <div class="form-group">
+    <label for="editSiteAbbreviation">Site Abbreviation</label>
+      <input class="form-control" type="text" value="{{$ctrl.$rootScope.site.abbreviation}}" id="editSiteAbbreviation" disabled="">
+  </div>
+   <div class="form-group">
+    <label for="editSiteAddress">Site Address</label>
+      <input class="form-control" type="text" value="{{$ctrl.$rootScope.site.address}}" id="editSiteAddress"  disabled="">
+  </div>
+   <div class="form-group">
+    <label for="editSiteContact">Site Contact</label>
+      <input class="form-control" type="text" value="{{$ctrl.$rootScope.site.site_contact}}" id="editSiteContact" disabled="" >
+  </div>
+   <div class="form-group">
+    <label for="editSiteNotes">Notes</label>
+      <textarea class="form-control" type="textarea" value="" id="editSiteNotes"  disabled=""></textarea>
+  </div>
+  <a href="/#!/editsite"><button ng-click='$ctrl.$rootScope.updateSite($ctrl.$rootScope.site.id);'>Edit Sites</button></a>
+  <a href="/#!/sites"><button>Cancel</button></a>
+</form>

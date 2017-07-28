@@ -74,20 +74,20 @@
 								<span ng-show="!sortReverse && sortType == 'note[0].text'" class="fa fa-caret-up"></span>
 							</a>
 						</th>
-						<th></th>
+						<th><a href="/#!/equipment">View Equipment</a></th>
 					</tr>
 				</thead>
 				<tbody>
 				<!-- repeating the data in equipments, filtering from the search bar with a variable in the $rootScope and also by the site ID from the checkboxes, tacks on a sorting option-->
 					<tr ng-repeat="subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter: $ctrl.$rootScope.filterById | orderBy:sortType:sortReverse">
-						<td class="pr-2">{{subnet.name}}</td>
+						<td class="pr-2"><a href='/#!/viewsubnet' ng-click="$ctrl.$rootScope.getSubnet(subnet.id) ">{{subnet.name}}</a></td>
 						<td class="pr-2">{{subnet.site[0].name}}</td>
 						<td class="pr-2">{{subnet.subnet_address}}</td>
 						<td class="pr-2">{{subnet.mask_bits}}</td>
 						<td class="pr-2">{{subnet.vLan}}</td>
 						<td class="pr-2">{{subnet.lease_time}}</td>
 						<td class="pr-2">{{subnet.notes[0].text | limitTo: 50}}...</td>
-						<td class="pr-2"><li class="list-group-item btn"><a href='/#!/viewsubnet' ng-click="$ctrl.$rootScope.getSubnet(subnet.id) ">View Subnet</a></li>
+						<td class="pr-2"><a href='/#!/equipment' ng-click="$ctrl.$rootScope.currentSite(subnet.site_id)"><button>></button></a></td>
 					</tr>
 				</tbody>
 			</table>

@@ -19,7 +19,7 @@ class sidebarController {
         //         ctrl.$rootScope.idIncludes.push(id);
         //     }
 
-        ctrl.firstTime = true;
+        ctrl.$rootScope.firstTime = true;
             
         // }
         

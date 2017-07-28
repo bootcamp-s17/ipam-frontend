@@ -9,7 +9,7 @@ class appCtrl {
 /*----------------------------------------------------------
 						SITES
 ----------------------------------------------------------*/
-
+		
 
 		// Setting a global function for getting ALL sites from API
 		ctrl.$rootScope.getSites = () => {
@@ -164,6 +164,68 @@ class appCtrl {
 				ctrl.$rootScope.getSubnets();
 			});	
 		}	
+
+		ctrl.$rootScope.checkit = (siteid) => {
+			if(ctrl.$rootScope.firstTime == true){
+				for (var i=(ctrl.$rootScope.subnets.length-1); i>-1; i--){
+					if(ctrl.$rootScope.subnets[i].site_id == siteid){
+					}
+					else{
+						ctrl.$rootScope.hiddenSubnets.push(ctrl.$rootScope.subnets[i]);
+						ctrl.$rootScope.subnets.splice(i,1);
+					}
+				}
+				for (var i=(ctrl.$rootScope.equipments.length-1); i>-1; i--){
+					if(ctrl.$rootScope.equipments[i].site_id == siteid){
+					}
+					else{
+						ctrl.$rootScope.hiddenEquipments.push(ctrl.$rootScope.equipments[i]);
+						ctrl.$rootScope.equipments.splice(i,1);
+					}
+				}
+				ctrl.$rootScope.firstTime = false;
+			}
+			else{
+				var madeSwapSub = false;
+				var madeSwapEquip = false;
+				if(madeSwapSub == false){
+					for (var i=(ctrl.$rootScope.subnets.length-1); i>-1; i--){
+						if(ctrl.$rootScope.subnets[i].site_id == siteid){
+							ctrl.$rootScope.hiddenSubnets.push(ctrl.$rootScope.subnets[i]);
+							ctrl.$rootScope.subnets.splice(i, 1);
+							madeSwapSub = true;
+						}
+					}
+				}
+				if(madeSwapSub == false){
+				for (var i=(ctrl.$rootScope.hiddenSubnets.length-1); i>-1; i--){
+					if(ctrl.$rootScope.hiddenSubnets[i].site_id == siteid){
+						ctrl.$rootScope.subnets.push(ctrl.$rootScope.hiddenSubnets[i]);
+						ctrl.$rootScope.hiddenSubnets.splice(i, 1);
+						madeSwapSub=true;
+					}
+				}}
+
+				if(madeSwapEquip == false){
+					for (var i=(ctrl.$rootScope.equipments.length-1); i>-1; i--){
+						if(ctrl.$rootScope.equipments[i].site_id == siteid){
+							ctrl.$rootScope.hiddenEquipments.push(ctrl.$rootScope.equipments[i]);
+							ctrl.$rootScope.equipments.splice(i, 1);
+							madeSwapEquip = true;
+						}
+					}
+				}
+				if(madeSwapEquip == false){
+				for (var i=(ctrl.$rootScope.hiddenEquipments.length-1); i>-1; i--){
+					if(ctrl.$rootScope.hiddenEquipments[i].site_id == siteid){
+						ctrl.$rootScope.equipments.push(ctrl.$rootScope.hiddenEquipments[i]);
+						ctrl.$rootScope.hiddenEquipments.splice(i, 1);
+						madeSwapEquip=true;
+					}
+				}}	
+			}
+			
+		}
 	// end getSubnets()
 /* ------------------------------------------------------
 						IP Adsress

@@ -1,68 +1,76 @@
-<form id="editequipment">
-<h1>Edit Equipment</h1>
-   <div class="form-group" >
-        <label for="subnetSelect" >Subnet</label>
-        <select class="form-control" id="subnetSelect" ng-dropdown required ">
-          <option ng-repeat="subnet in $ctrl.$rootScope.subnets" value="{{subnet.id}}">{{subnet.name}}</option>
-        </select>
-     </div>
-  <div class="form-group">
-    <label for="editEquipmentType">Equipment Type</label>
-      <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.equipment_type_id}}" id="editEquipmentType">
-  </div>
-  <div class="form-group">
-    <label for="editEquipmentName">Equipment Name</label>
-      <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.name}}" id="editEquipmentName">
-  </div>
-  <div class="form-group">
-    <label for="editHostName">Host Name</label>
-      <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.host_name}}" id="editHostName">
-  </div>
-  <div class="form-group">
-    <label for="editRoom_Id">Room Id</label>
-      <input class="form-control" type="number" value="{{$ctrl.$rootScope.equipment.room_id}}" id="editRoom_Id">
-  </div>
-   <div class="form-group">
-    <label for="editSerialNumber">Serial Number</label>
-      <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.serial_number}}" id="editSerialNumber">
-  </div>
-   <div class="form-group">
-    <label for="editMacAddress">Mac Address</label>
-      <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.mac_address}}" id="editMacAddress">
-  </div>
-  <div class="form-group">
-    <label for="editEquipaddress">Equipment Ip Address</label>
-      <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.ip_address}}" id="editEquipaddress">
-  </div>
-  <div class="form-group">
-    <label for="editPrinterServer">Printer Server</label>
-      <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.printer_server}}" id="editPrinterServer">
-  </div> 
-  <div class="form-group">
-    <label for="editDriverInput">Driver</label>
-      <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.driver}}" id="editDriverInput">
-  </div>
-   <div class="form-group">
-    <label for="editPrinterName">Printer Name</label>
-      <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.printer_name}}" id="editPrinterName">
-  </div>
-  <div class="form-group">
-    <label for="editShareName">Share Name</label>
-      <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.share_name}}" id="editShareName">
-  </div>
-  <div class="form-group">
-    <label for="editShareComment">Share Comment</label>
-      <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.share_comment}}" id="editShareComment">
-  </div>
+<form id="editEquipment" name="editEquipment">
+<div class="container main-center">
+  <h1>Edit Equipment</h1>
+     <div class="form-group" >
+          <label for="subnetSelect" >Subnet</label>
+          <select class="form-control" id="subnetSelect" ng-dropdown required ">
+            <option ng-repeat="subnet in $ctrl.$rootScope.subnets" value="{{subnet.id}}">{{subnet.name}}</option>
+          </select>
+       </div>
+    <div class="form-group">
+      <label for="editEquipmentType">Equipment Type</label>
+        <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.equipment_type_id}}" id="editEquipmentType">
+    </div>
+    <div class="form-group">
+      <label for="editEquipmentName">Equipment Name</label>
+        <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.name}}" id="editEquipmentName">
+    </div>
+    <div class="form-group">
+      <label for="editHostName">Host Name</label>
+        <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.host_name}}" id="editHostName">
+    </div>
+    <div class="form-group">
+      <label for="editRoom_Id">Room Id</label>
+        <input class="form-control" type="number" value="{{$ctrl.$rootScope.equipment.room_id}}" id="editRoom_Id">
+    </div>
+     <div class="form-group">
+      <label for="editSerialNumber">Serial Number</label>
+        <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.serial_number}}" id="editSerialNumber">
+    </div>
+     <div class="form-group">
+      <label for="editMacAddress">Mac Address</label>
+        <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.mac_address}}" id="editMacAddress">
+    </div>
+    <div class="form-group">
+      <label for="editEquipaddress">Equipment Ip Address</label>
+        <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.ip_address}}" id="editEquipaddress">
+    </div>
+    <div class="form-group">
+      <label for="editPrinterServer">Printer Server</label>
+        <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.printer_server}}" id="editPrinterServer">
+    </div> 
+    <div class="form-group">
+      <label for="editDriverInput">Driver</label>
+        <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.driver}}" id="editDriverInput">
+    </div>
+     <div class="form-group">
+      <label for="editPrinterName">Printer Name</label>
+        <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.printer_name}}" id="editPrinterName">
+    </div>
+    <div class="form-group">
+      <label for="editShareName">Share Name</label>
+        <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.share_name}}" id="editShareName">
+    </div>
+    <div class="form-group">
+      <label for="editShareComment">Share Comment</label>
+        <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.share_comment}}" id="editShareComment">
+    </div>
 
-  <div class="form-group">
-    <label for="editModelType">Model Type</label>
-      <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.model}}" id="editModelType">
-  </div>
-   <div class="form-group">
-    <label for="editEquipmentNotes">Notes</label>
-      <textarea class="form-control" type="textarea" value="" id="editEquipmentNotes" ></textarea>
-  </div>
-  <a href="/#!/editequipment"><button>Edit Equipment</button></a>
-  <a href="/#!/equipment"><button>Cancel</button></a>
+    <div class="form-group">
+      <label for="editModelType">Model Type</label>
+        <input class="form-control" type="text" value="{{$ctrl.$rootScope.equipment.model}}" id="editModelType">
+    </div>
+     <div class="form-group">
+      <label for="editEquipmentNotes">Notes</label>
+        <textarea class="form-control" type="textarea" value="" id="editEquipmentNotes" ></textarea>
+    </div>
+    <!-- <div class="clearfix">
+      <a href="/#!/editequipment"><button>Edit Equipment</button></a>
+      <a href="/#!/equipment"><button>Cancel</button></a>
+    </div> -->
+    <div class="clearfix">
+      <a href="#!/equipment"><button class="btn btn-danger">Cancel</button></a>
+      <a href="/#!/equipment"><button class="btn btn-primary">Save Equipment</button></a>
+    </div>
+</div>
 </form>

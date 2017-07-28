@@ -287,7 +287,7 @@ class appCtrl {
 				console.log(ctrl.$rootScope.equipmentTypes);
 			});
 		} //end get eqiupment types
- 
+
 		ctrl.$rootScope.updateEquipment = (id) => {
 
 			// instantiate new site JSON

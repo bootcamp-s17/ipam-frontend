@@ -9,6 +9,10 @@ import navComponent from './components/nav/nav.component';
 import ipamService from './app.services.js';
 import equipmentformComponent from './components/equipment/equipmentform/equipmentform.component';
 import subnetformComponent from './components/subnets/subnetform/subnetform.component';
+import viewEquipmentComponent from './components/equipment/viewequipment/viewequipment.component';
+import editEquipmentComponent from './components/equipment/editequipment/editequipment.component';
+import editSubnetComponent from './components/subnets/editsubnet/editsubnet.component';
+import viewSubnetComponent from './components/subnets/viewsubnet/viewsubnet.component';
 
 angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .component('app', appComponent)
@@ -22,6 +26,10 @@ angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .component('equipmentform', equipmentformComponent)
 .component('subnetform', subnetformComponent)
 .component('sidebar', sidebarComponent)
+.component('viewequipment', viewEquipmentComponent)
+.component('editequipment', editEquipmentComponent)
+.component('editsubnet', editSubnetComponent)
+.component('viewsubnet', viewSubnetComponent)
 .config(config)
 .run(run);
 

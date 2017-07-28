@@ -10,13 +10,20 @@
       <li class="nav-item">
         <a class="nav-link active" id="equipmentTab" href="#!/equipment">Equipment</a>
       </li>
+      <li >
+        <div class="row">
+          <sidebar class="col-9 pull-right"></sidebar> 
+          <a href="/#!/equipmentform" class="col-3"><button id="addEquipment">Add Equipment</button></a>
+        </div>
+
+      </li>
     </ul>
   </div>
-  <div class="row">
+ <!--  <div class="row">
     <sidebar class="col-9"></sidebar> 
     <a href="/#!/equipmentform" class="col-3"><button id="addEquipment"> Add Equipment</button></a>
-  </div>
-    <div class="alert alert-success text-center" role="alert" ng-if="$ctrl.$rootScope.alert !== ''">{{$ctrl.$rootScope.alert}}</div>
+  </div> -->
+      <div class="alert alert-success text-center" role="alert" ng-if="$ctrl.$rootScope.alert !== ''">{{$ctrl.$rootScope.alert}}</div>
   <div class="row">
     <div class="col">
       <table class="table data lowz">

@@ -1,6 +1,6 @@
 <form id="viewSubnet" name="viewSubnet">
-<h1>View Subnet</h1>
 <div class="containte main-center">
+<h1>View Subnet</h1> 
   <div class="form-group">
     <label for="editSubnetName">Subnet Name</label>
       <input class="form-control" type="text" value="{{$ctrl.$rootScope.subnet.name}}" id="editSiteName" disabled="">
@@ -25,7 +25,9 @@
     <label for="editSiteNotes">Notes</label>
       <textarea class="form-control" type="textarea" value="" id="editSiteNotes"  disabled=""></textarea>
   </div>
-  <a href="/#!/editsubnet"><button ng-click='$ctrl.$rootScope.updateSubnet($ctrl.$rootScope.subnet.id);'>Edit Subnets</button></a>
-  <a href="/#!/subnets"><button>Cancel</button></a>
+  <div class="clearfix">
+    <a href="/#!/subnets"><button class="btn btn-danger">Cancel</button></a>
+    <a href="/#!/editsubnet"><button class="btn btn-primary">Edit Subnets</button></a>
+  </div>
   </div>
 </form>

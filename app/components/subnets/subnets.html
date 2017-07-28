@@ -79,7 +79,7 @@
 				</thead>
 				<tbody>
 				<!-- repeating the data in equipments, filtering from the search bar with a variable in the $rootScope and also by the site ID from the checkboxes, tacks on a sorting option-->
-					<tr ng-repeat="subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter: $ctrl.$rootScope.filterBySid | orderBy:sortType:sortReverse">
+					<tr ng-repeat="subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter: $ctrl.$rootScope.filterById | orderBy:sortType:sortReverse">
 						<td class="pr-2">{{subnet.name}}</td>
 						<td class="pr-2">{{subnet.site[0].name}}</td>
 						<td class="pr-2">{{subnet.subnet_address}}</td>

@@ -8,14 +8,11 @@ class sitesController {
         ctrl.$rootScope = $rootScope;
         ctrl.$rootScope.getSites();
 
-        ctrl.$rootScope.csite = "";
+        ctrl.$rootScope.csite = -1;
 
 	};
 
-	currentsite() {
-		ctrl.$rootScope.csite = csite;
-		
-	}
+	
 }
 
 export default sitesController;

@@ -1,10 +1,10 @@
 'use strict';
 
-import sitesformComponent from './sitesform.component';
+import viewSiteComponent from './viewsite.component';
 
-let sitesformModule = angular.module('sitesform',[])
-.component('sitesform', sitesformComponent)
+let viewSiteModule = angular.module('viewsite',[])
+.component('viewsite', viewSiteComponent)
 
-console.log('sitesform.js');
+console.log('viewsite.js');
 
-export default sitesformModule;
+export default viewSiteModule;

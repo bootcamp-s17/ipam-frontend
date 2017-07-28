@@ -1,4 +1,4 @@
-class sitesformController {
+class editSiteController {
 
 	constructor($rootScope) {
 		let ctrl=this;
@@ -6,4 +6,4 @@ class sitesformController {
 	};
 }
 
-export default sitesformController;
+export default editSiteController;

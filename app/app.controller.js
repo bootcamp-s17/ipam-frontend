@@ -5,6 +5,7 @@ class appCtrl {
 		let ctrl = this;
 		ctrl.$rootScope = $rootScope;
 		ctrl.$rootScope.alert = '';
+
 /*----------------------------------------------------------
 						SITES
 ----------------------------------------------------------*/
@@ -135,6 +136,7 @@ class appCtrl {
 				.then((data) => {
 				ctrl.$rootScope.subnets.push(data);
 				ctrl.$rootScope.alert = data.message;
+				ctrl.$rootScope.getSubnets();
 
 			}, (error) => {
 				ctrl.$rootScope.alert = error.message;

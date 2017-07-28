@@ -15,7 +15,7 @@
 	</div>
 	<div class="row">
 		<div id="card-backdrop" class="col-4" ng-repeat="site in $ctrl.$rootScope.sites">
-			<a class="nav-link" id="subnetsTab" href="#!/subnets">
+			<a class="nav-link" id="subnetsTab" href="/#!/viewsite" ng-click="$ctrl.$rootScope.getSite(site.id)">
 			<div id="card" class="card card-block" >
 				<div id="title" class="card-title">
 						<h4 id="name" class="col-8">{{site.name}}</h4>
@@ -24,7 +24,7 @@
 				</a>
 				<ul class="list-group list-group-flush">
 					<li id="address" class="list-group-item">Address: {{site.address}} </li>
-					<li id="edit-site" class="list-group-item btn"><a href='/#!/viewsite' ng-click="$ctrl.$rootScope.getSite(site.id) ">View Site</a></li>
+					<li id="edit-site" class="list-group-item btn"><a href='/#!/subnets' ng-click="$ctrl.$rootScope.currentSite(site.id)">View Subnets</a></li>
 				</ul>
 			</div>
 		</div>

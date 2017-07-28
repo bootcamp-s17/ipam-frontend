@@ -38,7 +38,6 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 
 	var ctrl = this;
 	ctrl.$rootScope = $rootScope;
-
 	/*----------------------------------------------------------
  						SITES
  ----------------------------------------------------------*/
@@ -60,7 +59,6 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 
 		ctrl.get.$promise.then(function (data) {
 			ctrl.$rootScope.site = data;
-			console.log(ctrl.$rootScope.site);
 			ctrl.$rootScope.currentSubnets = data.subnets;
 		});
 	}; // end getSite
@@ -94,11 +92,8 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 			"abbreviation": $('#editSiteAbbreviation').val(),
 			"address": $('#editSiteAddress').val(),
 			"site_contact": $('#editSiteContact').val()
-		};
-
-		console.log(ctrl.saveSite);
-		// specific call to save from $resource
-		ipamService.updateSite().update({ site: id }, ctrl.saveSite).$promise
+			// specific call to save from $resource
+		};ipamService.updateSite().update({ site: id }, ctrl.saveSite).$promise
 		// says wait for the data and push it to the array
 		.then(function (data) {
 			//pull the sites from db for fresh info with updated site
@@ -106,6 +101,10 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 			// console.log(data);
 		});
 	}; //end updateSite
+
+	ctrl.$rootScope.currentSite = function (siteid) {
+		ctrl.$rootScope.csite = siteid;
+	};
 
 	// ctrl.$rootScope.updateSite(1);
 
@@ -128,7 +127,6 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 
 		ctrl.get.$promise.then(function (data) {
 			ctrl.$rootScope.subnet = data;
-			console.log(ctrl.$rootScope.subnet);
 		});
 	};
 	ctrl.$rootScope.addSubnet = function () {
@@ -159,11 +157,9 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 			"subnet_address": $('#editSubnetIpAddress').val(),
 			"mask_bits": $('#editSubnetMaskBits').val(),
 			"vLan": $('#editSubnetVlan').val()
-		};
 
-		console.log(ctrl.saveSubnet);
-		// specific call to save from $resource
-		ipamService.updateSubnet().update({ subnet: id }, ctrl.saveSubnet).$promise
+			// specific call to save from $resource
+		};ipamService.updateSubnet().update({ subnet: id }, ctrl.saveSubnet).$promise
 		// says wait for the data and push it to the array
 		.then(function (data) {
 			//pull the sites from db for fresh info with updated site
@@ -209,12 +205,8 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 
 	//Check ip input for availability
 	ctrl.$rootScope.checkIp = function (id, ip) {
-		console.log('id: ' + id + ' ' + 'ip: ' + ip);
 		ctrl.get = ipamService.checkIp().get({ subnet: id, checkIp: ip });
-
-		ctrl.get.$promise.then(function (data) {
-			console.log(data);
-		});
+		ctrl.get.$promise.then(function (data) {});
 	}; // end checkIp()
 
 	/* ------------------------------------------------------
@@ -223,10 +215,7 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 
 	//Check if Mac Address is available
 	ctrl.$rootScope.checkMac = function (address) {
-		ipamService.checkMac().get({ mac: address }).$promise.then(function (data) {
-			console.log('Mac Address Check');
-			console.log(data);
-		});
+		ipamService.checkMac().get({ mac: address }).$promise.then(function (data) {});
 	}; //end checkMac
 
 	/* ------------------------------------------------------
@@ -247,7 +236,6 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 
 		ctrl.get.$promise.then(function (data) {
 			ctrl.$rootScope.equipment = data;
-			console.log(ctrl.$rootScope.equipment);
 		});
 	};
 
@@ -290,7 +278,6 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 	ctrl.$rootScope.getEquipmentTypes = function () {
 		ipamService.getEquipmentTypes().query().$promise.then(function (data) {
 			ctrl.$rootScope.equipmentTypes = data;
-			console.log(ctrl.$rootScope.equipmentTypes);
 		});
 	}; //end get eqiupment types
 
@@ -345,7 +332,7 @@ var appCtrl = function appCtrl($rootScope, $http, $location, ipamService) {
 exports.default = appCtrl;
 
 },{}],3:[function(require,module,exports){
-module.exports = "\n\n<nav></nav>\n<ng-view></ng-view> \n\n\n";
+module.exports = "<nav></nav>\n<ng-view></ng-view> \n\n\n";
 
 },{}],4:[function(require,module,exports){
 'use strict';
@@ -838,7 +825,7 @@ var sidebarComponent = {
 exports.default = sidebarComponent;
 
 },{"./sidebar.controller":19,"./sidebar.html":20}],19:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -855,33 +842,67 @@ var sidebarController = function sidebarController($rootScope, $http) {
     ctrl.$rootScope = $rootScope;
     ctrl.$rootScope.getSites();
 
-    ctrl.$rootScope.idIncludes = [];
+    // ctrl.$rootScope.idIncludes = [];
 
-    ctrl.$rootScope.$watch('showTab', function () {
-        ctrl.$rootScope.idIncludes = [];
-    });
+    // ctrl.$rootScope.$watch('showTab', () => {
+    //         ctrl.$rootScope.idIncludes = [];
+    // });
 
-    ctrl.$rootScope.includeSite = function (id) {
-        var i = $.inArray(id, ctrl.$rootScope.idIncludes);
-        if (i > -1) {
-            ctrl.$rootScope.idIncludes.splice(i, 1);
-        } else {
-            ctrl.$rootScope.idIncludes.push(id);
-        }
-    };
+    // ctrl.$rootScope.includeSite = function(id) {
+    //     var i = $.inArray(id, ctrl.$rootScope.idIncludes);
+    //     if (i > -1) {
+    //         ctrl.$rootScope.idIncludes.splice(i, 1);
+    //     } else {
+    //         ctrl.$rootScope.idIncludes.push(id);
+    //     }
 
-    ctrl.$rootScope.idFilter = function (site) {
-        if (ctrl.$rootScope.idIncludes.length > 0) {
-            if ($.inArray(site.site_id, ctrl.$rootScope.idIncludes) < 0) return;
-        }
-        // console.log(site);
+    ctrl.firstTime = true;
 
-        return site.site_id;
-    };
+    // }
+
+    // ctrl.$rootScope.idFilter = function(site) {
+    //     if (ctrl.$rootScope.idIncludes.length > 0) {
+    //         if ($.inArray(site.site_id, ctrl.$rootScope.idIncludes) < 0)
+    //             return;
+    //     }
+    //     // console.log(site);
+
+    //     return site.site_id;
+    // }
+    // ctrl.$rootScope.firstCheck = (siteid, site) => {
+    //     if (ctrl.firstTime == true){    
+    //         angular.forEach(ctrl.$rootScope.sites, function(site) {              
+    //             site.checked = false;
+    //         });
+
+    //         for(var j = 0; j<ctrl.$rootScope.sites.length; j++){
+    //             if(ctrl.$rootScope.sites[j].id == siteid){
+    //                 console.log("hello");
+    //                 ctrl.$rootScope.sites[j].checked = true;
+    //             }
+    //         };
+    //     }
+    //     ctrl.firstTime = false;
+    //     }
 
     ctrl.$rootScope.search = function (searchText) {
         var ctrl = _this;
         ctrl.$rootScope.searchText = searchText;
+    };
+
+    ctrl.$rootScope.preselect = function (siteid, site) {
+        if (ctrl.$rootScope.csite > 0) {
+            if (ctrl.$rootScope.csite == siteid) {
+                site.checked = true;
+                return site.checked;
+            } else {
+                site.checked = false;
+                return site.checked;
+            }
+        } else {
+            site.checked = false;
+            return site.checked;
+        }
     };
 }
 
@@ -895,7 +916,7 @@ var sidebarController = function sidebarController($rootScope, $http) {
 exports.default = sidebarController;
 
 },{}],20:[function(require,module,exports){
-module.exports = "<div class=\"container-fluid highz\">\n\t<div class=\"row\">\n\t\t<div class=\"col-6\">\n\t\t\t<input type=\"text\" id=\"searchText\" class=\"col\" placeholder=\"Keyword Search...\" ng-change=\"$ctrl.$rootScope.search($ctrl.$rootScope.searchText)\" ng-model=\"$ctrl.$rootScope.searchText\">\n\t\t</div>\n\t\t<div class=\"col-3\">\n\t\t\t<div class=\"dropdown\">\n\t\t\t\t<button class=\"btn btn-secondary dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Site Filter</button>\n\t\t\t\t<div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n\t\t\t\t\t<span ng-repeat=\"site in $ctrl.$rootScope.sites\" class=\"dropdown-item\">\n\t\t\t\t\t\t<input type=\"checkbox\" ng-click=\"$ctrl.$rootScope.includeSite(site.id)\" value=\"site.id\" class=\"filterbox\">{{site.name}}</input><br />\n\t\t\t\t\t</span> \n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>";
+module.exports = "<div class=\"container-fluid highz\">\n\t<div class=\"row\">\n\t\t<div class=\"col-6\">\n\t\t\t<input type=\"text\" id=\"searchText\" class=\"col\" placeholder=\"Keyword Search...\" ng-change=\"$ctrl.$rootScope.search($ctrl.$rootScope.searchText)\" ng-model=\"$ctrl.$rootScope.searchText\">\n\t\t</div>\n\t\t<div class=\"col-3\">\n\t\t\t<div class=\"dropdown\">\n\t\t\t\t<button class=\"btn btn-secondary dropdown-toggle\" type=\"button\" id=\"dropdownMenuButton\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">Site Filter</button>\n\t\t\t\t<div class=\"dropdown-menu\" aria-labelledby=\"dropdownMenuButton\">\n\t\t\t\t\t<span ng-repeat=\"site in $ctrl.$rootScope.sites\" class=\"dropdown-item\">\n\t\t\t\t\t\t<input type=\"checkbox\" value=\"site.id\" class=\"filterbox\" ng-checked=\"site.checked\" ng-init=\"$ctrl.$rootScope.preselect(site.id, site); $ctrl.$rootScope.prefilter()\" ng-click=\"$ctrl.$rootScope.checkit(site.id); $ctrl.$rootScope.firstCheck(site.id, site)\">\n\t\t\t\t\t\t{{site.name}}<br />\n\t\t\t\t\t</span> \n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>";
 
 },{}],21:[function(require,module,exports){
 'use strict';
@@ -930,35 +951,22 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var sitesController = function () {
-	function sitesController($rootScope, $http) {
-		_classCallCheck(this, sitesController);
+var sitesController = function sitesController($rootScope, $http) {
+	_classCallCheck(this, sitesController);
 
-		var ctrl = this;
-		ctrl.$rootScope = $rootScope;
-		ctrl.$rootScope.getSites();
+	var ctrl = this;
+	ctrl.$rootScope = $rootScope;
+	ctrl.$rootScope.getSites();
 
-		ctrl.$rootScope.csite = "";
-	}
-
-	_createClass(sitesController, [{
-		key: "currentsite",
-		value: function currentsite() {
-			ctrl.$rootScope.csite = csite;
-		}
-	}]);
-
-	return sitesController;
-}();
+	ctrl.$rootScope.csite = -1;
+};
 
 exports.default = sitesController;
 
 },{}],23:[function(require,module,exports){
-module.exports = "\r\n<div id=\"whole-page\" class=\"container-fluid\">\r\n\t<div>\r\n\t\t<ul class=\"nav nav-tabs\"> <!-- Tabs -->\r\n\t\t  <li class=\"nav-item\">\r\n\t\t    <a class=\"nav-link active\" id=\"sitesTab\" value=\"sites\" href=\"#!/sites\">Sites</a>\r\n\t\t  </li>\r\n\t\t  <li class=\"nav-item\">\r\n\t\t    <a class=\"nav-link\" id=\"subnetsTab\" href=\"#!/subnets\">Subnets</a>\r\n\t\t  </li>\r\n\t\t  <li class=\"nav-item\">\r\n\t\t    <a class=\"nav-link\" id=\"equipmentTab\" href=\"#!/equipment\">Equipment</a>\r\n\t\t  </li>\r\n\t\t</ul>\r\n\t</div>\r\n\t<div class=\"row\">\r\n\t\t<div id=\"card-backdrop\" class=\"col-4\" ng-repeat=\"site in $ctrl.$rootScope.sites\">\r\n\t\t\t<a class=\"nav-link\" id=\"subnetsTab\" href=\"#!/subnets\">\r\n\t\t\t<div id=\"card\" class=\"card card-block\" >\r\n\t\t\t\t<div id=\"title\" class=\"card-title\">\r\n\t\t\t\t\t\t<h4 id=\"name\" class=\"col-8\">{{site.name}}</h4>\r\n\t\t\t\t\t\t<h5 id=\"abbr\" class=\"col-4\">{{site.abbreviation}}</h5>\r\n\t\t\t\t</div>\r\n\t\t\t\t</a>\r\n\t\t\t\t<ul class=\"list-group list-group-flush\">\r\n\t\t\t\t\t<li id=\"address\" class=\"list-group-item\">Address: {{site.address}} </li>\r\n\t\t\t\t\t<li id=\"edit-site\" class=\"list-group-item btn\"><a href='/#!/viewsite' ng-click=\"$ctrl.$rootScope.getSite(site.id) \">View Site</a></li>\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<a href='/#!/sitesform' class=\"text-center\">\r\n\t\t\t<div id=\"add-site\" class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<h4 class=\"col text-center\">Add New Site</h4>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col text-center\">\r\n\t\t\t\t\t\t<i class=\"fa fa-plus fa-5x text-center\"></i>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t</a>\r\n\t\t</div>\r\n\r\n\r\n\r\n\t</div> <!-- end main row -->\r\n\r\n\r\n</div> <!-- end container -->\r\n\r\n";
+module.exports = "\r\n<div id=\"whole-page\" class=\"container-fluid\">\r\n\t<div>\r\n\t\t<ul class=\"nav nav-tabs\"> <!-- Tabs -->\r\n\t\t  <li class=\"nav-item\">\r\n\t\t    <a class=\"nav-link active\" id=\"sitesTab\" value=\"sites\" href=\"#!/sites\">Sites</a>\r\n\t\t  </li>\r\n\t\t  <li class=\"nav-item\">\r\n\t\t    <a class=\"nav-link\" id=\"subnetsTab\" href=\"#!/subnets\">Subnets</a>\r\n\t\t  </li>\r\n\t\t  <li class=\"nav-item\">\r\n\t\t    <a class=\"nav-link\" id=\"equipmentTab\" href=\"#!/equipment\">Equipment</a>\r\n\t\t  </li>\r\n\t\t</ul>\r\n\t</div>\r\n\t<div class=\"row\">\r\n\t\t<div id=\"card-backdrop\" class=\"col-4\" ng-repeat=\"site in $ctrl.$rootScope.sites\">\r\n\t\t\t<a class=\"nav-link\" id=\"subnetsTab\" href=\"/#!/viewsite\" ng-click=\"$ctrl.$rootScope.getSite(site.id)\">\r\n\t\t\t<div id=\"card\" class=\"card card-block\" >\r\n\t\t\t\t<div id=\"title\" class=\"card-title\">\r\n\t\t\t\t\t\t<h4 id=\"name\" class=\"col-8\">{{site.name}}</h4>\r\n\t\t\t\t\t\t<h5 id=\"abbr\" class=\"col-4\">{{site.abbreviation}}</h5>\r\n\t\t\t\t</div>\r\n\t\t\t\t</a>\r\n\t\t\t\t<ul class=\"list-group list-group-flush\">\r\n\t\t\t\t\t<li id=\"address\" class=\"list-group-item\">Address: {{site.address}} </li>\r\n\t\t\t\t\t<li id=\"edit-site\" class=\"list-group-item btn\"><a href='/#!/subnets' ng-click=\"$ctrl.$rootScope.currentSite(site.id)\">View Subnets</a></li>\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\t\t<div class=\"col-4\">\r\n\t\t\t<a href='/#!/sitesform' class=\"text-center\">\r\n\t\t\t<div id=\"add-site\" class=\"card card-block\">\r\n\t\t\t\t<div class=\"card-title\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<h4 class=\"col text-center\">Add New Site</h4>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col text-center\">\r\n\t\t\t\t\t\t<i class=\"fa fa-plus fa-5x text-center\"></i>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t</a>\r\n\t\t</div>\r\n\r\n\r\n\r\n\t</div> <!-- end main row -->\r\n\r\n\r\n</div> <!-- end container -->\r\n\r\n";
 
 },{}],24:[function(require,module,exports){
 'use strict';
@@ -1059,14 +1067,61 @@ var subnetsController = function subnetsController($rootScope) {
 	// the getEquipments function is defined in app.services.js
 	ctrl.$rootScope.getSubnets();
 
+	ctrl.firstTime = true;
+
+	ctrl.$rootScope.hiddenSubnets = [];
+
 	// declaring a local variable to change the sorting method
 	ctrl.sortReverse = false;
+
+	ctrl.$rootScope.checkit = function (siteid) {
+		if (ctrl.firstTime == true) {
+			for (var i = ctrl.$rootScope.subnets.length - 1; i > -1; i--) {
+				if (ctrl.$rootScope.subnets[i].site_id == siteid) {} else {
+					ctrl.$rootScope.hiddenSubnets.push(ctrl.$rootScope.subnets[i]);
+					ctrl.$rootScope.subnets.splice(i, 1);
+				}
+			}
+			ctrl.firstTime = false;
+		} else {
+			var madeSwap = false;
+			if (madeSwap == false) {
+				for (var i = ctrl.$rootScope.subnets.length - 1; i > -1; i--) {
+					if (ctrl.$rootScope.subnets[i].site_id == siteid) {
+						ctrl.$rootScope.hiddenSubnets.push(ctrl.$rootScope.subnets[i]);
+						ctrl.$rootScope.subnets.splice(i, 1);
+						madeSwap = true;
+					}
+				}
+			}
+			if (madeSwap == false) {
+				for (var i = ctrl.$rootScope.hiddenSubnets.length - 1; i > -1; i--) {
+					if (ctrl.$rootScope.hiddenSubnets[i].site_id == siteid) {
+						ctrl.$rootScope.subnets.push(ctrl.$rootScope.hiddenSubnets[i]);
+						ctrl.$rootScope.hiddenSubnets.splice(i, 1);
+						madeSwap = true;
+					}
+				}
+			}
+		}
+	};
+
+	ctrl.$rootScope.prefilter = function (siteid) {
+		for (var i = ctrl.$rootScope.subnets.length - 1; i > -1; i--) {
+			if (ctrl.$rootScope.subnets[i].site_id == ctrl.$rootScope.csite) {
+				ctrl.firstTime = false;
+			} else if (ctrl.$rootScope.csite > 1) {
+				ctrl.$rootScope.hiddenSubnets.push(ctrl.$rootScope.subnets[i]);
+				ctrl.$rootScope.subnets.splice(i, 1);
+			} else {}
+		}
+	};
 };
 
 exports.default = subnetsController;
 
 },{}],29:[function(require,module,exports){
-module.exports = "<div id=\"subnets\" class=\"container-fluid\">\n\t<div>\n\t\t<ul class=\"nav nav-tabs\"> <!-- Tabs -->\n\t\t  <li class=\"nav-item\">\n\t\t    <a class=\"nav-link\" id=\"sitesTab\" value=\"sites\" href=\"#!/sites\">Sites</a>\n\t\t  </li>\n\t\t  <li class=\"nav-item\">\n\t\t    <a class=\"nav-link active\" id=\"subnetsTab\" href=\"#!/subnets\">Subnets</a>\n\t\t  </li>\n\t\t  <li class=\"nav-item\">\n\t\t    <a class=\"nav-link\" id=\"equipmentTab\" href=\"#!/equipment\">Equipment</a>\n\t\t  </li>\n\t\t</ul>\n\t</div>\n\t<div class=\"row\">\n\t\t<sidebar class=\"col-9\"></sidebar>\n\t\t<a href=\"/#!/subnetform\" class=\"col-3\"><button id=\"addSubnet\"> Add Subnet</button></a>\n\t</div>\n\t<div class=\"row\">\n\t\t<div class= \"col\">\n\t\t\t<table class=\"data\">\n\t\t\t\t<thead>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<!-- ng-click for sortability and reversing sort with change of variable in the controller, the sortType refers to the data points i.e. site.NAME -->\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'name'\">\n\t\t\t\t\t\t\tName\n\t\t\t\t\t\t\t\t<!-- ng-show based on both sortReverse and sortType to show an up and down arrow -->\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'name'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'name'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'site[0].name'\">\n\t\t\t\t\t\t\tSite Name\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'site[0].name'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'site[0].name'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'subnet_address'\">\n\t\t\t\t\t\t\tSub Address\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'subnet_address'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'subnet_address'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'mask_bits'\">\n\t\t\t\t\t\t\tMask Bits\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'mask_bits'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'mask_bits'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'vLan'\">\n\t\t\t\t\t\t\tvLan\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'vLan'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'vLan'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'lease_time'\">\n\t\t\t\t\t\t\tLease Time\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'lease_time'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'lease_time'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'note[0].text'\">\n\t\t\t\t\t\t\tNotes\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'note[0].text'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'note[0].text'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th></th>\n\t\t\t\t\t</tr>\n\t\t\t\t</thead>\n\t\t\t\t<tbody>\n\t\t\t\t<!-- repeating the data in equipments, filtering from the search bar with a variable in the $rootScope and also by the site ID from the checkboxes, tacks on a sorting option-->\n\t\t\t\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter: $ctrl.$rootScope.filterBySid | orderBy:sortType:sortReverse\">\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.site[0].name}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.lease_time}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.notes[0].text | limitTo: 50}}...</td>\n\t\t\t\t\t\t<td class=\"pr-2\"><li class=\"list-group-item btn\"><a href='/#!/viewsubnet' ng-click=\"$ctrl.$rootScope.getSubnet(subnet.id) \">View Subnet</a></li>\n\t\t\t\t\t</tr>\n\t\t\t\t</tbody>\n\t\t\t</table>\n\t\t</div>\n\t</div>\n</div>";
+module.exports = "<div id=\"subnets\" class=\"container-fluid\">\n\t<div>\n\t\t<ul class=\"nav nav-tabs\"> <!-- Tabs -->\n\t\t  <li class=\"nav-item\">\n\t\t    <a class=\"nav-link\" id=\"sitesTab\" value=\"sites\" href=\"#!/sites\">Sites</a>\n\t\t  </li>\n\t\t  <li class=\"nav-item\">\n\t\t    <a class=\"nav-link active\" id=\"subnetsTab\" href=\"#!/subnets\">Subnets</a>\n\t\t  </li>\n\t\t  <li class=\"nav-item\">\n\t\t    <a class=\"nav-link\" id=\"equipmentTab\" href=\"#!/equipment\">Equipment</a>\n\t\t  </li>\n\t\t</ul>\n\t</div>\n\t<div class=\"row\">\n\t\t<sidebar class=\"col-9\"></sidebar>\n\t\t<a href=\"/#!/subnetform\" class=\"col-3\"><button id=\"addSubnet\"> Add Subnet</button></a>\n\t</div>\n\t<div class=\"row\">\n\t\t<div class= \"col\">\n\t\t\t<table class=\"data\">\n\t\t\t\t<thead>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<!-- ng-click for sortability and reversing sort with change of variable in the controller, the sortType refers to the data points i.e. site.NAME -->\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'name'\">\n\t\t\t\t\t\t\tName\n\t\t\t\t\t\t\t\t<!-- ng-show based on both sortReverse and sortType to show an up and down arrow -->\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'name'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'name'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'site[0].name'\">\n\t\t\t\t\t\t\tSite Name\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'site[0].name'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'site[0].name'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'subnet_address'\">\n\t\t\t\t\t\t\tSub Address\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'subnet_address'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'subnet_address'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'mask_bits'\">\n\t\t\t\t\t\t\tMask Bits\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'mask_bits'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'mask_bits'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'vLan'\">\n\t\t\t\t\t\t\tvLan\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'vLan'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'vLan'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'lease_time'\">\n\t\t\t\t\t\t\tLease Time\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'lease_time'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'lease_time'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'note[0].text'\">\n\t\t\t\t\t\t\tNotes\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'note[0].text'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'note[0].text'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th></th>\n\t\t\t\t\t</tr>\n\t\t\t\t</thead>\n\t\t\t\t<tbody>\n\t\t\t\t<!-- repeating the data in equipments, filtering from the search bar with a variable in the $rootScope and also by the site ID from the checkboxes, tacks on a sorting option-->\n\t\t\t\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter: $ctrl.$rootScope.filterById | orderBy:sortType:sortReverse\">\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.site[0].name}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.lease_time}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.notes[0].text | limitTo: 50}}...</td>\n\t\t\t\t\t\t<td class=\"pr-2\"><li class=\"list-group-item btn\"><a href='/#!/viewsubnet' ng-click=\"$ctrl.$rootScope.getSubnet(subnet.id) \">View Subnet</a></li>\n\t\t\t\t\t</tr>\n\t\t\t\t</tbody>\n\t\t\t</table>\n\t\t</div>\n\t</div>\n</div>";
 
 },{}],30:[function(require,module,exports){
 'use strict';

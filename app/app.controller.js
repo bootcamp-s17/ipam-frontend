@@ -4,9 +4,6 @@ class appCtrl {
 
 		let ctrl = this;
 		ctrl.$rootScope = $rootScope;
-
-
-
 /*----------------------------------------------------------
 						SITES
 ----------------------------------------------------------*/
@@ -30,7 +27,6 @@ class appCtrl {
 
 			ctrl.get.$promise.then( (data) => {
 				ctrl.$rootScope.site = data;
-				console.log(ctrl.$rootScope.site);
 				ctrl.$rootScope.currentSubnets  = data.subnets;
 			})
 
@@ -68,8 +64,6 @@ class appCtrl {
 			  "address": $('#editSiteAddress').val(),
 			  "site_contact": $('#editSiteContact').val(),
 			}
-
-			console.log(ctrl.saveSite);
  			// specific call to save from $resource
 			ipamService.updateSite().update({site:id}, ctrl.saveSite)
 				.$promise
@@ -80,6 +74,12 @@ class appCtrl {
 				// console.log(data);
 				});
 		} //end updateSite
+
+		ctrl.$rootScope.currentSite = (siteid) => {
+			ctrl.$rootScope.csite = siteid;
+		};
+
+
 
 		// ctrl.$rootScope.updateSite(1);
 
@@ -103,7 +103,6 @@ class appCtrl {
 
 			ctrl.get.$promise.then( (data) => {
 				ctrl.$rootScope.subnet = data;
-				console.log(ctrl.$rootScope.subnet);
 			})
 
 		}
@@ -140,7 +139,6 @@ class appCtrl {
 			  "vLan": $('#editSubnetVlan').val(),	
 			}
 
-			console.log(ctrl.saveSubnet);
  			// specific call to save from $resource
 			ipamService.updateSubnet().update({subnet:id}, ctrl.saveSubnet)
 				.$promise
@@ -193,11 +191,8 @@ class appCtrl {
 
 //Check ip input for availability
 		ctrl.$rootScope.checkIp = (id, ip) => {
-			console.log('id: ' + id + ' ' + 'ip: ' + ip);
 			ctrl.get = ipamService.checkIp().get({subnet: id, checkIp: ip});
-
 			ctrl.get.$promise.then((data) => {
-				console.log(data);
 			})
 		}// end checkIp()
 
@@ -210,8 +205,7 @@ class appCtrl {
 			ipamService.checkMac().get({mac: address})
 			.$promise
 			.then((data) => {
-				console.log('Mac Address Check');
-				console.log(data);
+				
 			});
 		} //end checkMac
 
@@ -233,7 +227,7 @@ class appCtrl {
 
 			ctrl.get.$promise.then( (data) => {
 				ctrl.$rootScope.equipment = data;
-				console.log(ctrl.$rootScope.equipment);
+				
 			})
 
 		}
@@ -284,7 +278,7 @@ class appCtrl {
 			.$promise
 			.then((data) => {
 				ctrl.$rootScope.equipmentTypes = data;
-				console.log(ctrl.$rootScope.equipmentTypes);
+			
 			});
 		} //end get eqiupment types
  

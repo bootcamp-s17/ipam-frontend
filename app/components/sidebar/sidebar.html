@@ -8,7 +8,8 @@
 				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Site Filter</button>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					<span ng-repeat="site in $ctrl.$rootScope.sites" class="dropdown-item">
-						<input type="checkbox" ng-click="$ctrl.$rootScope.includeSite(site.id)" value="site.id" class="filterbox">{{site.name}}</input><br />
+						<input type="checkbox" value="site.id" class="filterbox" ng-checked="site.checked" ng-init="$ctrl.$rootScope.preselect(site.id, site); $ctrl.$rootScope.prefilter()" ng-click="$ctrl.$rootScope.checkit(site.id); $ctrl.$rootScope.firstCheck(site.id, site)">
+						{{site.name}}<br />
 					</span> 
 				</div>
 			</div>

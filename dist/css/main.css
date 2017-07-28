@@ -55,11 +55,15 @@
 .topNav {
   background: #3F86BA; }
 
-.topNav a {
-  color: white;
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 600px; }
+.some {
+  position: absolute;
+  right: 0; }
 
+/*.topNav a {
+	color: white;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 600px;
+}*/
 #navlogo {
   height: 25px;
   width: auto;
@@ -90,52 +94,65 @@ li#tabs {
   margin-top: 5px;
   margin-bottom: 5px; }
 
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
+/*@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+
 #card {
-  margin-top: 14px;
-  margin-bottom: 20px;
-  background: #F2F2F2;
-  color: #636C72;
-  font-family: 'Open Sans', sans-serif;
-  text-shadow: none;
-  border-radius: 5px;
-  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
-  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31); }
+	margin-top: 14px;
+	margin-bottom: 20px;
+	background: #F2F2F2;
+	color: #636C72;
+	font-family: 'Open Sans', sans-serif;
+	text-shadow: none;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.31);
+	-moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.31);
+	box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.31);
+}
 
 #add-site {
-  margin-bottom: 20px;
-  font-size: 28px;
-  background: #F2F2F2;
-  font-family: 'Open Sans', sans-serif;
-  text-shadow: none;
-  border-radius: 5px;
-  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
-  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31); }
+	margin-bottom: 20px;
+	font-size: 28px;
+	background: #F2F2F2;
+	font-family: 'Open Sans', sans-serif;
+	text-shadow: none;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.31);
+	-moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.31);
+	box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.31);
+}
 
 #address {
-  margin-bottom: 5px; }
-
+	margin-bottom: 5px;
+}
 #address, #edit-site {
-  color: #636C72;
-  font-family: 'Open Sans', sans-serif;
-  background: #e3dede;
-  border-radius: 3px; }
+	color: #636C72;
+	font-family: 'Open Sans', sans-serif;
+	background: #e3dede;
+	border-radius: 3px;
+}
 
 #name {
-  font-size: 22px;
-  font-family: 'Open Sans', sans-serif;
-  color: #3F86BA;
-  text-align: left; }
+	font-size: 22px;
+	font-family: 'Open Sans', sans-serif;
+	color:#3F86BA;
+	text-align: left;
+}
 
 #abbr {
-  color: #3F86BA;
-  font-family: 'Open Sans', sans-serif;
-  text-align: center;
-  padding-left: 120px; }
+	color:#3F86BA;
+	font-family: 'Open Sans', sans-serif;
+	text-align: center;
+	padding-left: 120px;
+}
 
 a {
-  color: #3F86BA;
-  font-family: 'Open Sans', sans-serif; }
+	color:#3F86BA;
+	font-family: 'Open Sans', sans-serif;
+}
+
+#siteCard{
+	width: 25%
+}*/
 
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
 .subnets {

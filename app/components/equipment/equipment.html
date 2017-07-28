@@ -104,7 +104,7 @@
           <tbody>
             <!-- repeating the data in equipments, filtering from the search bar with a variable in the $rootScope and also by the site ID from the checkboxes, tacks on a sorting option-->
             <tr ng-repeat="equipment in $ctrl.$rootScope.equipments | filter: $ctrl.$rootScope.searchText | filter:$ctrl.$rootScope.filterByid | orderBy:sortType:sortReverse">
-              <td class="pr-2">{{equipment.name}}</td>
+              <td class="pr-2"><a href='/#!/viewequipment' ng-click="$ctrl.$rootScope.getEquipment(equipment.id) ">{{equipment.name}}</a></td>
               <td class="pr-2">{{equipment.type[0].name}}</td>
               <td class="pr-2">{{equipment.host_name}}</td>
               <td class="pr-2">ROOM NAME</td>
@@ -115,7 +115,6 @@
               <td class="pr-2">{{equipment.driver}}</td>
               <td class="pr-2">{{equipment.printer_name}}</td>
               <td class="pr-2">{{equipment.share_name}}</td>
-              <td class="pr-2"><li class="list-group-item btn"><a href='/#!/viewequipment' ng-click="$ctrl.$rootScope.getEquipment(equipment.id) ">View Equipment</a></li>  
             </tr>
           </tbody>
         </table>

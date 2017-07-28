@@ -4,6 +4,7 @@ class appCtrl {
 
 		let ctrl = this;
 		ctrl.$rootScope = $rootScope;
+		ctrl.$rootScope.alert = '';
 /*----------------------------------------------------------
 						SITES
 ----------------------------------------------------------*/
@@ -42,6 +43,7 @@ class appCtrl {
 			  "abbreviation": $('#siteAbbreviation').val(),
 			  "address": $('#siteAddress').val(),
 			  "site_contact": $('#siteContact').val(),
+			  "notes": $('#siteNotes').val()
 			}
 
  			// specific call to save from $resource
@@ -50,6 +52,13 @@ class appCtrl {
 				// says wait for the data and push it to the array
 				.then((data) => {
 				ctrl.$rootScope.sites.push(data);
+				ctrl.$rootScope.getSites();
+				ctrl.$rootScope.alert = data.message;
+				console.log(ctrl.$rootScope.alert);
+
+			}, (error) => {
+				ctrl.$rootScope.alert = error.message;
+				console.log(error.message);
 			});
 		} //end addSite
 
@@ -114,7 +123,8 @@ class appCtrl {
 			   "name": $('#subnetName').val(),
 			   "subnet_address": $('#subnetIpAddress').val(),
 			   "mask_bits": $('#subnetMaskBits').val(),
-			   "vLan": $('#vlanNumber').val(),	
+			   "vLan": $('#vlanNumber').val(),
+			   "notes": $('#subnetNotes').val()
 
 			}
 
@@ -124,6 +134,10 @@ class appCtrl {
 				// says wait for the data and push it to the array
 				.then((data) => {
 				ctrl.$rootScope.subnets.push(data);
+				ctrl.$rootScope.alert = data.message;
+
+			}, (error) => {
+				ctrl.$rootScope.alert = error.message;
 			});
 		}
 		ctrl.$rootScope.updateSubnet = (id) => {
@@ -227,7 +241,6 @@ class appCtrl {
 
 			ctrl.get.$promise.then( (data) => {
 				ctrl.$rootScope.equipment = data;
-				
 			})
 
 		}
@@ -258,7 +271,8 @@ class appCtrl {
 			  "share_comment": $('#shareComment').val(),
 			  "model": $('#modelType').val(),
 			  "operating_system":$('#operatingSystem').val(),
-			  "computer_type":$('#computerType').val()
+			  "computer_type":$('#computerType').val(),
+			  "notes": $('#notesInput').val()
 			 }
 
  			// specific call to save from $resource
@@ -267,6 +281,10 @@ class appCtrl {
 				// says wait for the data and push it to the array
 				.then((data) => {
 				ctrl.$rootScope.equipments.push(data);
+				ctrl.$rootScope.alert = data.message;
+
+			}, (error) => {
+				ctrl.$rootScope.alert = error.message;
 			});
 
 		} //end equipments
@@ -278,7 +296,6 @@ class appCtrl {
 			.$promise
 			.then((data) => {
 				ctrl.$rootScope.equipmentTypes = data;
-			
 			});
 		} //end get eqiupment types
 
@@ -311,15 +328,12 @@ class appCtrl {
 			  "computer_type":$('#editComputerType').val()
 			  
 			}
-			console.log($('#editRoom_id'));
-			console.log(ctrl.saveEquipment);
  			// specific call to save from $resource
 			ipamService.updateEquipment().update({equipment:id}, ctrl.saveEquipment)
 				.$promise
 				// says wait for the data and push it to the array
 				.then((data) => {
 				//pull the sites from db for fresh info with updated site
-				console.log(data);
 				ctrl.$rootScope.getEquipments();
 			});	
 		}//end quipments

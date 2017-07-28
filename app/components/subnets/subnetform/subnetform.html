@@ -3,48 +3,48 @@
     <h1>Add A Subnet</h1>
 
     <div class="" >
-      <label for="siteSelect">Sites</label>
+      <label for="siteSelect">Sites:</label>
       <select class="form-control form-inline mr-2" id="siteSelect" ng-model="site.Select" " required>
         <option ng-repeat="site in $ctrl.$rootScope.sites" value="{{site.id}}">{{site.name}}</option>
       </select>
     </div>
 
     <div >
-      <label for="subnetName">Subnet Name</label>
+      <label for="subnetName">Subnet Name:</label>
       <input class="form-control form-inline" type="text" id="subnetName" required>
     </div>
 
 
       <div >
-        <label for="subnetIpAddress">Subnet Ip Address</label>
+        <label for="subnetIpAddress">Subnet Ip Address:</label>
         <input id="subnetIpAddress" placeholder="xx.xx.xx.xx" type="text" name="subnetIpAddress" ng-model="ip" ng-pattern="/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/" />
         <span style="color:Red" ng-show="subnetForm.subnetIpAddress.$error.pattern">Please Enter a Valid IP Address</span>
       </div>
 
       <div >
-        <label for="subnetMaskBits">Subnet Mask Bits</label>
+        <label for="subnetMaskBits">Subnet Mask Bits:</label>
         <input class="form-control" type="number" id="subnetMaskBits" required>
       </div>
 
 
       <div >
-        <label for="vlanNumber">VLAN Number</label>
+        <label for="vlanNumber">VLAN Number:</label>
         <input class="form-control" type="number" id="vlanNumber">
       </div>
 
       <div >
-        <label for="leaseTime">Lease Time</label>
+        <label for="leaseTime">Lease Time:</label>
         <input class="form-control" type="time" id="leaseTime">
       </div>
 
 
       <div >
-        <label for="subnetNotes">Notes</label>
+        <label for="subnetNotes">Notes:</label>
         <textarea class="form-control" type="text" id="subnetNotes"></textarea>
       </div>
 
     <div class="clearfix">
-      <a href="#!/subnets" ><button class="btn btn-danger  ">Cancel</button></a>
+      <a href="#!/subnets" ><button class="btn btn-danger">Cancel:</button></a>
       <a href="#!/subnets"><button ng-click="$ctrl.$rootScope.addSubnet()" class="btn btn-primary" type="submit">Save Subnet</button></a>
     </div>
     

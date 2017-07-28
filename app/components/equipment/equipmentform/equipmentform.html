@@ -1,41 +1,41 @@
 <form id="eqipForm" name="equipmentForm">
   <div class="container main-center">
     <div class="form-group">
-      <label for="siteSelect">Site</label>
+      <label for="siteSelect">Site:</label>
       <select class="form-control" id="siteSelect" ng-model="$ctrl.rootScope.site.name" " required>
         <option ng-repeat="site in $ctrl.$rootScope.sites" value="{{site.id}}">{{site.name}}</option>
       </select>
     </div>
     <div class="form-group" >
-      <label for="subnetSelect" >Subnet</label>
+      <label for="subnetSelect" >Subnet:</label>
       <select class="form-control" id="subnetSelect" ng-dropdown required ">
         <option value="none">Select a Subnet</option>
         <option ng-repeat="subnet in $ctrl.$rootScope.currentSubnets" value="{{subnet.id}}">{{subnet.name}}</option>
       </select>
     </div>
     <div class="form-group" >
-      <label for="typeSelect">Type</label>
+      <label for="typeSelect">Type:</label>
       <select id="typeId" class="form-control" ng-model="type.Select" ng-dropdown ng-change="changeme()" required >
-        <option>Select a Type</option>
+        <option>Select a Type:</option>
         <option ng-repeat="type in $ctrl.$rootScope.equipmentTypes" value="{{type.id}}">{{type.name}}</option>
       </select>
       <!-- <option ng-repeat="equipment_type in $ctrl.$rootScope.equipment_types" value="{{equipment_type.id}}">{{equipment_type.name}}</option> -->
     </div>
     
     <div class="form-group">
-      <label for="equipmentName">Equipment Name</label>
+      <label for="equipmentName">Equipment Name:</label>
       <input class="form-control" type="text" id="equipmentName" ng-pattern='/^[a-zA-Z][a-zA-Z0-9]*$/' required>
     </div>
     <div class="form-group">
-      <label for="hostName">Host Name</label>
+      <label for="hostName">Host Name:</label>
       <input class="form-control" type="text" id="hostName" required>
     </div>
     <div class="form-group">
-      <label for="room_id">Room Number</label>
+      <label for="room_id">Room Number:</label>
       <input class="form-control" type="number" id="room_id" required>
     </div>
     <div class="form-group">
-      <label for="serialNumber">Serial Number</label>
+      <label for="serialNumber">Serial Number:</label>
       <input class="form-control" type="text" id="serialNumber">
 
     </div>
@@ -54,58 +54,58 @@
       </label>
     </div>
     <div class="form-group">
-      <label for="notesInput">Notes</label>
+      <label for="notesInput">Notes:</label>
       <textarea class="form-control" type="textarea" id="notesInput"></textarea>
     </div>
     <!-- These will be additional fields -->
     <div class="form-group" ng-if="subnet.Select == 'true'; type.Select == 'switch'">
-      <label for="switchName">Switch Name</label>
+      <label for="switchName">Switch Name:</label>
 
       <input class="form-control" type="text" id="switchName" required>
-      <label for="switchManagementIp">Switch Management IP</label>
+      <label for="switchManagementIp">Switch Management IP:</label>
       <input class="form-control" type="text" id="switchManagementIp" required>
       <!-- Autofill from room number already entered -->
-      <label for="switchRoomNumber">Switch Room Number</label>
+      <label for="switchRoomNumber">Switch Room Number:</label>
       <input class="form-control" type="number" id="switchRoomNumber" required>
     </div>
     <!-- Printer fields -->
     <div class="container" ng-if="type.Select =='1'">
         <div class="form-group">
-          <label for="printServer">Print Server</label>
+          <label for="printServer">Print Server:</label>
           <input class="form-control" type="text" id="printServer" required>
         </div>
         <div class="form-group">
-          <label for="driverInput">Driver</label>
+          <label for="driverInput">Driver:</label>
           <input class="form-control" type="text" id="driverInput" required>
         </div>
         <!-- Need to autopopulate site abrev. & -room number -->
         <div class="form-group">
-          <label for="printerName">Printer Name</label>
+          <label for="printerName">Printer Name:</label>
           <input class="form-control" type="text" id="printerName" required>
         </div>
         <!-- Should autopopulate again -->
         <div class="form-group">
-          <label for="shareName">Share Name</label>
+          <label for="shareName">Share Name:</label>
           <input class="form-control" type="text" id="shareName" required>
         </div>
         <!-- should autopopulate again -->
         <div class="form-group">
-          <label for="shareComment">Share Comment</label>
+          <label for="shareComment">Share Comment:</label>
           <input class="form-control" type="text" id="shareComment" required>
         </div>
         <div class="form-group">
-          <label for="modelNumber">Model Type</label>
+          <label for="modelNumber">Model Type:</label>
           <input class="form-control" type="text" id="modelType" required>
         </div>
       </div>
       <!-- Computer Affitional Fields -->
       <div  ng-if="type.Select =='2'">
         <div class="form-group">
-          <label for="operatingSystem">Operating System</label>
+          <label for="operatingSystem">Operating System:</label>
           <input class="form-control" type="text" id="operatingSystem" required>
         </div>
         <div class="form-group">
-          <label for="computerType">Computer Type</label>
+          <label for="computerType">Computer Type:</label>
           <select class="form-control" id="computerType" required>
             <option>Virtual Machine</option>
             <option>Physical Computer</option>

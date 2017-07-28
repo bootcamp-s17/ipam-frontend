@@ -13,6 +13,8 @@ import viewEquipmentComponent from './components/equipment/viewequipment/viewequ
 import editEquipmentComponent from './components/equipment/editequipment/editequipment.component';
 import editSubnetComponent from './components/subnets/editsubnet/editsubnet.component';
 import viewSubnetComponent from './components/subnets/viewsubnet/viewsubnet.component';
+import editSiteComponent from './components/sites/editsite/editsite.component';
+import viewSiteComponent from './components/sites/viewsite/viewsite.component';
 
 angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .component('app', appComponent)
@@ -30,6 +32,8 @@ angular.module('app', ['ngRoute','ngCookies', 'ngResource'])
 .component('editequipment', editEquipmentComponent)
 .component('editsubnet', editSubnetComponent)
 .component('viewsubnet', viewSubnetComponent)
+.component('editsite', editSiteComponent)
+.component('viewsite', viewSiteComponent)
 .config(config)
 .run(run);
 

@@ -397,9 +397,17 @@ var _viewsubnet = require('./components/subnets/viewsubnet/viewsubnet.component'
 
 var _viewsubnet2 = _interopRequireDefault(_viewsubnet);
 
+var _editsite = require('./components/sites/editsite/editsite.component');
+
+var _editsite2 = _interopRequireDefault(_editsite);
+
+var _viewsite = require('./components/sites/viewsite/viewsite.component');
+
+var _viewsite2 = _interopRequireDefault(_viewsite);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-angular.module('app', ['ngRoute', 'ngCookies', 'ngResource']).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('nav', _nav2.default).factory('ipamService', _appServices2.default).component('equipmentform', _equipmentform2.default).component('subnetform', _subnetform2.default).component('sidebar', _sidebar2.default).component('viewequipment', _viewequipment2.default).component('editequipment', _editequipment2.default).component('editsubnet', _editsubnet2.default).component('viewsubnet', _viewsubnet2.default).config(config).run(run);
+angular.module('app', ['ngRoute', 'ngCookies', 'ngResource']).component('app', _app2.default).component('equipment', _equipment2.default).component('sites', _sites2.default).component('subnets', _subnets2.default).component('users', _users2.default).component('login', _login2.default).component('nav', _nav2.default).factory('ipamService', _appServices2.default).component('equipmentform', _equipmentform2.default).component('subnetform', _subnetform2.default).component('sidebar', _sidebar2.default).component('viewequipment', _viewequipment2.default).component('editequipment', _editequipment2.default).component('editsubnet', _editsubnet2.default).component('viewsubnet', _viewsubnet2.default).component('editsite', _editsite2.default).component('viewsite', _viewsite2.default).config(config).run(run);
 
 config.$inject = ['$routeProvider', '$locationProvider'];
 function config($routeProvider, $locationProvider) {
@@ -465,7 +473,7 @@ function run($rootScope, $location, $cookies, $http) {
     });
 }
 
-},{"./app.component":1,"./app.services.js":5,"./components/equipment/editequipment/editequipment.component":6,"./components/equipment/equipment.component":9,"./components/equipment/equipmentform/equipmentform.component":12,"./components/equipment/viewequipment/viewequipment.component":17,"./components/login/login.component":18,"./components/nav/nav.component":21,"./components/sidebar/sidebar.component":24,"./components/sites/sites.component":27,"./components/subnets/editsubnet/editsubnet.component":30,"./components/subnets/subnetform/subnetform.component":33,"./components/subnets/subnets.component":36,"./components/subnets/viewsubnet/viewsubnet.component":39,"./components/users/users.component":42}],5:[function(require,module,exports){
+},{"./app.component":1,"./app.services.js":5,"./components/equipment/editequipment/editequipment.component":6,"./components/equipment/equipment.component":9,"./components/equipment/equipmentform/equipmentform.component":12,"./components/equipment/viewequipment/viewequipment.component":17,"./components/login/login.component":18,"./components/nav/nav.component":21,"./components/sidebar/sidebar.component":24,"./components/sites/editsite/editsite.component":27,"./components/sites/sites.component":30,"./components/sites/viewsite/viewsite.component":33,"./components/subnets/editsubnet/editsubnet.component":36,"./components/subnets/subnetform/subnetform.component":39,"./components/subnets/subnets.component":42,"./components/subnets/viewsubnet/viewsubnet.component":45,"./components/users/users.component":48}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1033,6 +1041,54 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _editsite = require('./editsite.html');
+
+var _editsite2 = _interopRequireDefault(_editsite);
+
+var _editsite3 = require('./editsite.controller');
+
+var _editsite4 = _interopRequireDefault(_editsite3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var editSiteComponent = {
+	bindings: {},
+	template: _editsite2.default,
+	controller: ['$rootScope', '$interval', _editsite4.default],
+	controllerAs: '$ctrl'
+};
+
+console.log('editsite.component');
+
+exports.default = editSiteComponent;
+
+},{"./editsite.controller":28,"./editsite.html":29}],28:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var editSiteController = function editSiteController($rootScope) {
+	_classCallCheck(this, editSiteController);
+
+	var ctrl = this;
+};
+
+exports.default = editSiteController;
+
+},{}],29:[function(require,module,exports){
+module.exports = "<form id=\"editSite\" name=\"editSite\">\n<div class=\"container main-center\">\n<h1>Edit Site</h1>\n  <div class=\"form-group\">\n    <label for=\"editSiteName\">Site Name</label>\n      <input class=\"form-control\" type=\"text\" value=\"{{$ctrl.$rootScope.site.name}}\" id=\"editSiteName\" required>\n  </div>\n   <div class=\"form-group\">\n    <label for=\"editSiteAbbreviation\">Site Abbreviation</label>\n      <input class=\"form-control\" type=\"text\" value=\"{{$ctrl.$rootScope.site.abbreviation}}\" id=\"editSiteAbbreviation\" required>\n  </div>\n   <div class=\"form-group\">\n    <label for=\"editSiteAddress\">Site Address</label>\n      <input class=\"form-control\" type=\"text\" value=\"{{$ctrl.$rootScope.site.address}}\" id=\"editSiteAddress\" required>\n  </div>\n   <div class=\"form-group\">\n    <label for=\"editSiteContact\">Site Contact</label>\n      <input class=\"form-control\" type=\"text\" value=\"{{$ctrl.$rootScope.site.site_contact}}\" id=\"editSiteContact\" >\n  </div>\n   <div class=\"form-group\">\n    <label for=\"editSiteNotes\">Notes</label>\n      <textarea class=\"form-control\" type=\"textarea\" value=\"\" id=\"editSiteNotes\" ></textarea>\n  </div>\n  <div class=\"clearfix\">\n    <a href=\"/#!/sites\"><button class=\"btn btn-danger\">Cancel</button></a>\n    <a href=\"/#!/sites\"><button class=\"btn btn-primary\">Save Changes</button></a>\n  </div>\n</div>\n</form>";
+
+},{}],30:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
 var _sites = require('./sites.html');
 
 var _sites2 = _interopRequireDefault(_sites);
@@ -1052,7 +1108,7 @@ var sitesComponent = {
 
 exports.default = sitesComponent;
 
-},{"./sites.controller":28,"./sites.html":29}],28:[function(require,module,exports){
+},{"./sites.controller":31,"./sites.html":32}],31:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1073,10 +1129,58 @@ var sitesController = function sitesController($rootScope, $http) {
 
 exports.default = sitesController;
 
-},{}],29:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 module.exports = "\r\n<div id=\"whole-page\" >\r\n\t<div class=\"container-fluid\">\r\n\t\t<ul class=\"nav nav-tabs\"> <!-- Tabs -->\r\n\t\t  <li class=\"nav-item\">\r\n\t\t    <a class=\"nav-link active\" id=\"sitesTab\" value=\"sites\" href=\"#!/sites\">Sites</a>\r\n\t\t  </li>\r\n\t\t  <li class=\"nav-item\">\r\n\t\t    <a class=\"nav-link\" id=\"subnetsTab\" href=\"#!/subnets\">Subnets</a>\r\n\t\t  </li>\r\n\t\t  <li class=\"nav-item\">\r\n\t\t    <a class=\"nav-link\" id=\"equipmentTab\" href=\"#!/equipment\">Equipment</a>\r\n\t\t  </li>\r\n\t\t</ul>\r\n\t</div>\r\n\t<div class=\"row\">\r\n\t\t<div id=\"card-backdrop\" class=\"col-4\" ng-repeat=\"site in $ctrl.$rootScope.sites\">\r\n\t\t\t<a class=\"nav-link\" id=\"subnetsTab\" href=\"/#!/viewsite\" ng-click=\"$ctrl.$rootScope.getSite(site.id)\">\r\n\t\t\t<div id=\"card\" class=\"card card-block\" >\r\n\t\t\t\t<div id=\"title\" class=\"card-title\">\r\n\t\t\t\t\t\t<h4 id=\"name\" class=\"col-8\">{{site.name}}</h4>\r\n\t\t\t\t\t\t<h5 id=\"abbr\" class=\"col-4\">{{site.abbreviation}}</h5>\r\n\t\t\t\t</div>\r\n\t\t\t\t</a>\r\n\t\t\t\t<ul class=\"list-group list-group-flush\">\r\n\t\t\t\t\t<li id=\"address\" class=\"list-group-item\">Address: {{site.address}} </li>\r\n\t\t\t\t\t<li id=\"edit-site\" class=\"list-group-item btn\"><a href='/#!/subnets' ng-click=\"$ctrl.$rootScope.currentSite(site.id)\">View Subnets</a></li>\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\r\n\r\n\r\n\r\n\t</div> <!-- end main row -->\r\n\r\n\r\n</div> <!-- end container -->\r\n\r\n";
 
-},{}],30:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _viewsite = require('./viewsite.html');
+
+var _viewsite2 = _interopRequireDefault(_viewsite);
+
+var _viewsite3 = require('./viewsite.controller');
+
+var _viewsite4 = _interopRequireDefault(_viewsite3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var viewSiteComponent = {
+	bindings: {},
+	template: _viewsite2.default,
+	controller: ['$rootScope', '$interval', _viewsite4.default],
+	controllerAs: '$ctrl'
+};
+
+console.log('viewsite.component');
+
+exports.default = viewSiteComponent;
+
+},{"./viewsite.controller":34,"./viewsite.html":35}],34:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var viewSiteController = function viewSiteController($rootScope) {
+	_classCallCheck(this, viewSiteController);
+
+	var ctrl = this;
+};
+
+exports.default = viewSiteController;
+
+},{}],35:[function(require,module,exports){
+module.exports = "<form id=\"viewSite\" name=\"viewSite\">\n<div class=\"container main-center\">\n<h1>View Site</h1>\n  <div class=\"form-group\">\n    <label for=\"editSiteName\">Site Name</label>\n      <input class=\"form-control\" type=\"text\" value=\"{{$ctrl.$rootScope.site.name}}\" id=\"editSiteName\" disabled=\"\">\n  </div>\n   <div class=\"form-group\">\n    <label for=\"editSiteAbbreviation\">Site Abbreviation</label>\n      <input class=\"form-control\" type=\"text\" value=\"{{$ctrl.$rootScope.site.abbreviation}}\" id=\"editSiteAbbreviation\" disabled=\"\">\n  </div>\n   <div class=\"form-group\">\n    <label for=\"editSiteAddress\">Site Address</label>\n      <input class=\"form-control\" type=\"text\" value=\"{{$ctrl.$rootScope.site.address}}\" id=\"editSiteAddress\"  disabled=\"\">\n  </div>\n   <div class=\"form-group\">\n    <label for=\"editSiteContact\">Site Contact</label>\n      <input class=\"form-control\" type=\"text\" value=\"{{$ctrl.$rootScope.site.site_contact}}\" id=\"editSiteContact\" disabled=\"\" >\n  </div>\n   <div class=\"form-group\">\n    <label for=\"editSiteNotes\">Notes</label>\n      <textarea class=\"form-control\" type=\"textarea\" value=\"\" id=\"editSiteNotes\"  disabled=\"\"></textarea>\n  </div>\n<div class=\"clearfix\">\n    <a href=\"/#!/sites\"><button class=\"btn btn-danger\">Cancel</button></a>\n    <a href=\"/#!/editsite\"><button class=\"btn btn-primary\">Edit Site</button></a>\n  </div>\n</div>\n</form>";
+
+},{}],36:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1102,7 +1206,7 @@ var editSubnetComponent = {
 
 exports.default = editSubnetComponent;
 
-},{"./editsubnet.controller":31,"./editsubnet.html":32}],31:[function(require,module,exports){
+},{"./editsubnet.controller":37,"./editsubnet.html":38}],37:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1119,10 +1223,10 @@ var editSubnetController = function editSubnetController($rootScope) {
 
 exports.default = editSubnetController;
 
-},{}],32:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 module.exports = "<form id=\"editSubnet\" name=\"editSubnet\">\n<div class=\"container main-center\">\n<h1>View Subnet</h1>\n  <div class=\"form-group\">\n    <label for=\"editSubnetName\">Subnet Name</label>\n      <input class=\"form-control\" type=\"text\" value=\"{{$ctrl.$rootScope.subnet.name}}\" id=\"editSubnetName\" >\n  </div>\n   <div class=\"form-group\">\n    <label for=\"editSubnetSiteId\">Site Id</label>\n      <input class=\"form-control\" type=\"text\" value=\"{{$ctrl.$rootScope.subnet.site_id}}\" id=\"editSubnetSiteId\" >\n  </div>\n   <div class=\"form-group\">\n    <label for=\"editSubnetIpAddress\">Subnet Ip Address</label>\n      <input class=\"form-control\" type=\"text\" value=\"{{$ctrl.$rootScope.subnet.subnet_address}}\" id=\"editSubnetIpAddress\"  >\n  </div>\n   <div class=\"form-group\">\n    <label for=\"editSubnetMaskBits\">Subnet Mask Bits</label>\n      <input class=\"form-control\" type=\"text\" value=\"{{$ctrl.$rootScope.subnet.mask_bits}}\" id=\"editSubnetMaskBits\"  >\n  </div>\n  <div class=\"form-group\">\n    <label for=\"editSubnetVlan\">Subnet vLan</label>\n      <input class=\"form-control\" type=\"number\" value=\"{{$ctrl.$rootScope.subnet.vLan}}\" id=\"editSubnetVlan\" >\n  </div>\n   <div class=\"form-group\">\n    <label for=\"editSubnetNotes\">Notes</label>\n      <textarea class=\"form-control\" type=\"textarea\" value=\"\" id=\"editSubnetNotes\"  ></textarea>\n  </div>\n  <div class=\"clearfix\">\n    <a href=\"/#!/subnets\"><button class=\"btn btn-danger\">Cancel</button></a>\n    <a href=\"/#!/editsubnet\"><button class=\"btn btn-primary\">Save Changes</button></a>\n  </div>\n</div>\n</form>";
 
-},{}],33:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1148,7 +1252,7 @@ var subnetformComponent = {
 
 exports.default = subnetformComponent;
 
-},{"./subnetform.controller":34,"./subnetform.html":35}],34:[function(require,module,exports){
+},{"./subnetform.controller":40,"./subnetform.html":41}],40:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1171,10 +1275,10 @@ var subnetformController = function subnetformController($rootScope) {
 
 exports.default = subnetformController;
 
-},{}],35:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 module.exports = "<form id=\"subnetForm\" name=\"subnetForm\">\n<div class=\"container main-center\" >\n<h1>Add A Subnet</h1>\n  <div class=\"\" >\n      <label for=\"siteSelect\">Sites</label>\n      <select class=\"form-control form-inline mr-2\" id=\"siteSelect\" ng-model=\"site.Select\" \" required>\n      <option ng-repeat=\"site in $ctrl.$rootScope.sites\" value=\"{{site.id}}\">{{site.name}}</option>\n    </select>\n    </div>\n\n        <div >\n          <label for=\"subnetName\">Subnet Name</label>\n            <input class=\"form-control form-inline\" type=\"text\" id=\"subnetName\" required>\n        </div>\n    <div >\n      <div >                                                                    \n          <label for=\"subnetIpAddress\">Subnet IP Address</label>\n          <input class=\"form-control\" type=\"text\" id=\"subnetIpAddress\" required>\n      </div>\n      <div >\n        <label for=\"subnetMaskBits\">Subnet Mask Bits</label>\n          <input class=\"form-control\" type=\"number\" id=\"subnetMaskBits\" required>\n      </div>\n    </div>\n<div >\n  <div >                                                                    \n      <label for=\"subnetIpAddress\">Subnet Ip Address</label>\n      <input id=\"subnetIpAddress\" placeholder=\"xx.xx.xx.xx\" type=\"text\" name=\"subnetIpAddress\" ng-model=\"ip\" ng-pattern=\"/\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b/\" />\n    <span style=\"color:Red\" ng-show=\"subnetForm.subnetIpAddress.$error.pattern\">Please Enter a Valid IP Address</span>\n  </div>\n  <div >\n    <label for=\"subnetMaskBits\">Subnet Mask Bits</label>\n      <input class=\"form-control\" type=\"number\" id=\"subnetMaskBits\" required>\n  </div>\n</div>\n<div >\n  <div >\n    <label for=\"vlanNumber\">VLAN Number</label>\n      <input class=\"form-control\" type=\"number\" id=\"vlanNumber\">\n  </div>\n  <div >\n    <label for=\"leaseTime\">Lease Time</label>\n      <input class=\"form-control\" type=\"time\" id=\"leaseTime\">\n  </div>\n</div>\n<div >\n  <div >\n    <label for=\"subnetNotes\">Notes</label>\n      <textarea class=\"form-control\" type=\"text\" id=\"subnetNotes\"></textarea>\n  </div>\n</div>\n\n  <div class=\"clearfix\">\n  <a href=\"#!/subnet\" ><button class=\"btn btn-danger  \"><class=\"\">Cancel</button></a>\n    <button ng-click=\"$ctrl.$rootScope.addSubnet()\" class=\"btn btn-primary\" type=\"submit\">Save Subnet</button>\n  </div>\n</form>\n";
 
-},{}],36:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1200,7 +1304,7 @@ var subnetsComponent = {
 
 exports.default = subnetsComponent;
 
-},{"./subnets.controller":37,"./subnets.html":38}],37:[function(require,module,exports){
+},{"./subnets.controller":43,"./subnets.html":44}],43:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1274,10 +1378,10 @@ var subnetsController = function subnetsController($rootScope) {
 
 exports.default = subnetsController;
 
-},{}],38:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 module.exports = "<div id=\"subnets\" class=\"container-fluid\">\n\t<div>\n\t\t<ul class=\"nav nav-tabs\"> <!-- Tabs -->\n\t\t  <li class=\"nav-item\">\n\t\t    <a class=\"nav-link\" id=\"sitesTab\" value=\"sites\" href=\"#!/sites\">Sites</a>\n\t\t  </li>\n\t\t  <li class=\"nav-item\">\n\t\t    <a class=\"nav-link active\" id=\"subnetsTab\" href=\"#!/subnets\">Subnets</a>\n\t\t  </li>\n\t\t  <li class=\"nav-item\">\n\t\t    <a class=\"nav-link\" id=\"equipmentTab\" href=\"#!/equipment\">Equipment</a>\n\t\t  </li>\n\t\t</ul>\n\t</div>\n\t<div class=\"row\">\n\t\t<sidebar class=\"col-9\"></sidebar>\n\t\t<a href=\"/#!/subnetform\" class=\"col-3\"><button id=\"addSubnet\"> Add Subnet</button></a>\n\t</div>\n\t<div class=\"row\">\n\t\t<div class= \"col\">\n\t\t\t<table class=\"data\">\n\t\t\t\t<thead>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<!-- ng-click for sortability and reversing sort with change of variable in the controller, the sortType refers to the data points i.e. site.NAME -->\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'name'\">\n\t\t\t\t\t\t\tName\n\t\t\t\t\t\t\t\t<!-- ng-show based on both sortReverse and sortType to show an up and down arrow -->\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'name'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'name'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'site[0].name'\">\n\t\t\t\t\t\t\tSite Name\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'site[0].name'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'site[0].name'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'subnet_address'\">\n\t\t\t\t\t\t\tSub Address\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'subnet_address'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'subnet_address'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'mask_bits'\">\n\t\t\t\t\t\t\tMask Bits\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'mask_bits'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'mask_bits'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'vLan'\">\n\t\t\t\t\t\t\tvLan\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'vLan'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'vLan'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'lease_time'\">\n\t\t\t\t\t\t\tLease Time\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'lease_time'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'lease_time'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t<a href=\"\" ng-click=\"sortReverse = !sortReverse; sortType = 'note[0].text'\">\n\t\t\t\t\t\t\tNotes\n\t\t\t\t\t\t\t\t<span ng-show=\"sortReverse && sortType == 'note[0].text'\" class=\"fa fa-caret-down\"></span>\n\t\t\t\t\t\t\t\t<span ng-show=\"!sortReverse && sortType == 'note[0].text'\" class=\"fa fa-caret-up\"></span>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th></th>\n\t\t\t\t\t</tr>\n\t\t\t\t</thead>\n\t\t\t\t<tbody>\n\t\t\t\t<!-- repeating the data in equipments, filtering from the search bar with a variable in the $rootScope and also by the site ID from the checkboxes, tacks on a sorting option-->\n\t\t\t\t\t<tr ng-repeat=\"subnet in $ctrl.$rootScope.subnets | filter: $ctrl.$rootScope.searchText | filter: $ctrl.$rootScope.filterById | orderBy:sortType:sortReverse\">\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.name}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.site[0].name}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.subnet_address}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.mask_bits}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.vLan}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.lease_time}}</td>\n\t\t\t\t\t\t<td class=\"pr-2\">{{subnet.notes[0].text | limitTo: 50}}...</td>\n\t\t\t\t\t\t<td class=\"pr-2\"><li class=\"list-group-item btn\"><a href='/#!/viewsubnet' ng-click=\"$ctrl.$rootScope.getSubnet(subnet.id) \">View Subnet</a></li>\n\t\t\t\t\t</tr>\n\t\t\t\t</tbody>\n\t\t\t</table>\n\t\t</div>\n\t</div>\n</div>";
 
-},{}],39:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1303,7 +1407,7 @@ var viewSubnetComponent = {
 
 exports.default = viewSubnetComponent;
 
-},{"./viewsubnet.controller":40,"./viewsubnet.html":41}],40:[function(require,module,exports){
+},{"./viewsubnet.controller":46,"./viewsubnet.html":47}],46:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1320,10 +1424,10 @@ var viewSubnetController = function viewSubnetController($rootScope) {
 
 exports.default = viewSubnetController;
 
-},{}],41:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 module.exports = "<form id=\"viewSubnet\" name=\"viewSubnet\">\n<div class=\"containte main-center\">\n<h1>View Subnet</h1> \n  <div class=\"form-group\">\n    <label for=\"editSubnetName\">Subnet Name</label>\n      <input class=\"form-control\" type=\"text\" value=\"{{$ctrl.$rootScope.subnet.name}}\" id=\"editSiteName\" disabled=\"\">\n  </div>\n   <div class=\"form-group\">\n    <label for=\"editSubnetSiteId\">Site Id</label>\n      <input class=\"form-control\" type=\"text\" value=\"{{$ctrl.$rootScope.subnet.site_id}}\" id=\"editSubnetSiteId\" disabled=\"\">\n  </div>\n   <div class=\"form-group\">\n    <label for=\"editSubnetIpAddress\">Subnet Ip Address</label>\n      <input class=\"form-control\" type=\"text\" value=\"{{$ctrl.$rootScope.subnet.subnet_address}}\" id=\"editSubnetIpAddress\"  disabled=\"\">\n  </div>\n   <div class=\"form-group\">\n    <label for=\"editSubnetMaskBits\">Subnet Mask Bits</label>\n      <input class=\"form-control\" type=\"text\" value=\"{{$ctrl.$rootScope.subnet.mask_bits}}\" id=\"editSubnetMaskBits\" disabled=\"\" >\n  </div>\n  <div class=\"form-group\">\n    <label for=\"editSubnetVlan\">Subnet vLan</label>\n      <input class=\"form-control\" type=\"number\" value=\"{{$ctrl.$rootScope.subnet.vLan}}\" id=\"editSubnetVlan\" disabled=\"\">\n  </div>\n   <div class=\"form-group\">\n    <label for=\"editSiteNotes\">Notes</label>\n      <textarea class=\"form-control\" type=\"textarea\" value=\"\" id=\"editSiteNotes\"  disabled=\"\"></textarea>\n  </div>\n  <div class=\"clearfix\">\n    <a href=\"/#!/subnets\"><button class=\"btn btn-danger\">Cancel</button></a>\n    <a href=\"/#!/editsubnet\"><button class=\"btn btn-primary\">Edit Subnets</button></a>\n  </div>\n  </div>\n</form>";
 
-},{}],42:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1349,7 +1453,7 @@ var usersComponent = {
 
 exports.default = usersComponent;
 
-},{"./users.controller":43,"./users.html":44}],43:[function(require,module,exports){
+},{"./users.controller":49,"./users.html":50}],49:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1366,7 +1470,7 @@ var UsersController = function UsersController($rootScope) {
 
 exports.default = UsersController;
 
-},{}],44:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 module.exports = "<div class=\"col-md-6 col-md-offset-3\">\n    <h2>Manage Users</h2>\n    <form name=\"form\" ng-submit=\"ctrl.user()\" role=\"form\">\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }\">\n            <label for=\"username\">First name</label>\n            <input type=\"text\" name=\"firstName\" id=\"firstName\" class=\"form-control\" ng-model=\"ctrl.user.firstName\" required />\n            <span ng-show=\"form.firstName.$dirty && form.firstName.$error.required\" class=\"help-block\">First name is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.lastName.$dirty && form.lastName.$error.required }\">\n            <label for=\"username\">Last name</label>\n            <input type=\"text\" name=\"lastName\" id=\"Text1\" class=\"form-control\" ng-model=\"ctrl.user.lastName\" required />\n            <span ng-show=\"form.lastName.$dirty && form.lastName.$error.required\" class=\"help-block\">Last name is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.username.$dirty && form.username.$error.required }\">\n            <label for=\"username\">Username</label>\n            <input type=\"text\" name=\"username\" id=\"username\" class=\"form-control\" ng-model=\"ctrl.user.username\" required />\n            <span ng-show=\"form.username.$dirty && form.username.$error.required\" class=\"help-block\">Username is required</span>\n        </div>\n        <div class=\"form-group\" ng-class=\"{ 'has-error': form.password.$dirty && form.password.$error.required }\">\n            <label for=\"password\">Password</label>\n            <input type=\"password\" name=\"password\" id=\"password\" class=\"form-control\" ng-model=\"ctrl.user.password\" required />\n            <span ng-show=\"form.password.$dirty && form.password.$error.required\" class=\"help-block\">Password is required</span>\n        </div>\n        <div class=\"form-actions\">\n            <button type=\"submit\" ng-disabled=\"form.$invalid || ctrl.dataLoading\" class=\"btn btn-primary\">Register</button>\n            \n            <a href=\"#!/login\" class=\"btn btn-link\">Cancel</a>\n        </div>\n    </form>\n</div>";
 
 },{}]},{},[4]);

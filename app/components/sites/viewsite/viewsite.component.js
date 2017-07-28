@@ -1,13 +1,13 @@
-import template from './sitesform.html';
-import controller from './sitesform.controller';
+import template from './viewsite.html';
+import controller from './viewsite.controller';
 
-let sitesformComponent = {
+let viewSiteComponent = {
 	bindings : {},
 	template,
 	controller: ['$rootScope', '$interval', controller],
 	controllerAs : '$ctrl'
 };
 
-console.log('sitesform.component');
+console.log('viewsite.component');
 
-export default sitesformComponent;
+export default viewSiteComponent;

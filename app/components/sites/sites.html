@@ -13,6 +13,7 @@
 		  </li>
 		</ul>
 	</div>
+		<div class="alert alert-success text-center" role="alert" ng-if="$ctrl.$rootScope.alert !== ''">{{$ctrl.$rootScope.alert}}</div>
 	<div class="row">
 		<div id="card-backdrop" class="col-4" ng-repeat="site in $ctrl.$rootScope.sites">
 			<a class="nav-link" id="subnetsTab" href="/#!/viewsite" ng-click="$ctrl.$rootScope.getSite(site.id)">

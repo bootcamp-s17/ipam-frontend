@@ -4,6 +4,7 @@
 .lowz {
   z-index: -100; }
 
+
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
 #login .form-control {
   width: 61%; }
@@ -84,15 +85,15 @@ li#tabs {
   margin-top: 5px; }
 
 #dropdownMenuButton {
+}
+#addEquipment {
   background: #F2F2F2;
   color: #3F86BA;
   font-family: 'Open Sans', sans-serif;
   border-radius: 5px;
-  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
-          box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
-  height: 35px;
   margin-top: 5px;
-  margin-bottom: 5px; }
+  -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
+          box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31); }
 
 /*@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
 
@@ -178,6 +179,188 @@ a {
 
 
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
+.topNav {
+  background: #3F86BA; }
+
+.topNav a {
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600px; }
+
+#navlogo {
+  height: 25px;
+  width: auto;
+  padding: 0;
+  margin: 0; }
+
+li#tabs {
+  color: #3F86BA;
+  font-family: 'Open Sans', sans-serif; }
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
+#login .form-control {
+  width: 61%; }
+
+#login textarea:focus,
+#login input[type="text"]:focus,
+#login input[type="password"]:focus {
+  border-color: rgba(126, 239, 104, 0.8);
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
+          box-shadow: 0 2px 2px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
+  outline: 0 none;
+  font-family: 'Open Sans', sans-serif; }
+
+#login div.jumbotron {
+  margin-top: 100px; }
+
+#login .main-center {
+  margin-top: 30px;
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 20px 100px;
+  background: #F2F2F2;
+  color: #666666;
+  text-shadow: none;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31); }
+
+#login input#email, #login input#password {
+  width: 100%; }
+
+#login label {
+  margin-top: 10px;
+  font-family: 'Open Sans', sans-serif;
+  text-align: center; }
+
+#login .btn {
+  overflow: hidden; }
+
+#login button.btn.btn-success {
+  float: right;
+  background: #3F86BA; }
+
+#login button.btn.btn-secondary {
+  float: right;
+  margin-right: 5px; }
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
+.highz {
+  z-index: 1000; }
+
+#searchText {
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 5px;
+  margin-top: 5px; }
+
+#dropdownMenuButton {
+  background: #F2F2F2;
+  color: #3F86BA;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+          box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+  height: 35px;
+  margin-top: 5px;
+  margin-bottom: 5px; }
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
+#editEquipment {
+  margin-top: 20px;
+  margin-bottom: 10px; }
+  #editEquipment h1 {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600px; }
+  #editEquipment input, #editEquipment textarea, #editEquipment select {
+    margin: 0 auto;
+    width: 100%;
+    height: 40px;
+    border-radius: .25rem;
+    padding-left: 10px; }
+  #editEquipment select {
+    margin: 0 auto; }
+  #editEquipment .form-control {
+    height: 40px;
+    padding: 8px 12px;
+    float: left; }
+  #editEquipment .main-center {
+    margin-top: 30px;
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px 100px;
+    background: #F2F2F2 !important;
+    color: #666666;
+    text-shadow: none;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31); }
+  #editEquipment label.subnet, #editEquipment label.type {
+    position: relative; }
+  #editEquipment label {
+    margin-top: 10px;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center; }
+  #editEquipment label.form-check-label {
+    text-align: left;
+    clear: both; }
+  #editEquipment button.btn.btn-primary {
+    float: right;
+    margin-top: 8px;
+    margin-right: 5px; }
+  #editEquipment button.btn.btn-danger {
+    float: right;
+    margin-top: 8px; }
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
+#viewEquipment {
+  margin-top: 20px;
+  margin-bottom: 10px; }
+  #viewEquipment h1 {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600px; }
+  #viewEquipment input, #viewEquipment textarea, #viewEquipment select {
+    margin: 0 auto;
+    width: 100%;
+    height: 40px;
+    border-radius: .25rem;
+    padding-left: 10px; }
+  #viewEquipment select {
+    margin: 0 auto; }
+  #viewEquipment .form-control {
+    height: 40px;
+    padding: 8px 12px;
+    float: left; }
+  #viewEquipment .main-center {
+    margin-top: 30px;
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px 100px;
+    background: #F2F2F2 !important;
+    color: #666666;
+    text-shadow: none;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31); }
+  #viewEquipment label.subnet, #viewEquipment label.type {
+    position: relative; }
+  #viewEquipment label {
+    margin-top: 10px;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center; }
+  #viewEquipment label.form-check-label {
+    text-align: left;
+    clear: both; }
+  #viewEquipment button.btn.btn-primary {
+    float: right;
+    margin-top: 8px;
+    margin-right: 5px; }
+  #viewEquipment button.btn.btn-danger {
+    float: right;
+    margin-top: 8px; }
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
 #eqipForm {
   margin-top: 20px;
   margin-bottom: 10px; }
@@ -226,48 +409,54 @@ a {
     margin-top: 8px; }
 
 
+
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
-#sitesForm input {
-  margin: 0 auto;
-  width: 100%;
-  height: 40px; }
-
-#sitesForm select {
-  margin: 0 auto; }
-
-#sitesForm .form-control {
-  height: 40px;
-  padding: 8px 12px; }
-
-#sitesForm div.container.main-center {
-  margin-top: 20px; }
-
-#sitesForm .main-center {
-  margin-top: 30px;
-  margin: 0 auto;
-  max-width: 800px;
-  padding: 20px 100px;
-  background: #F2F2F2;
-  color: #666666;
-  text-shadow: none;
-  border-radius: 10px;
-  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
-  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
-  font-family: 'Open Sans', sans-serif; }
-
-#sitesForm h1 {
-  text-align: center;
-  font-family: 'Open Sans', sans-serif; }
-
-#sitesForm button.btn.btn-primary {
-  float: right;
-  margin-top: 8px;
-  margin-right: 5px; }
-
-#sitesForm button.btn.btn-danger {
-  float: right;
-  margin-top: 8px; }
-
+#editSubnet {
+  margin-top: 20px;
+  margin-bottom: 10px; }
+  #editSubnet h1 {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600px; }
+  #editSubnet input, #editSubnet textarea, #editSubnet select {
+    margin: 0 auto;
+    width: 100%;
+    height: 40px;
+    border-radius: .25rem;
+    padding-left: 10px; }
+  #editSubnet select {
+    margin: 0 auto; }
+  #editSubnet .form-control {
+    height: 40px;
+    padding: 8px 12px;
+    float: left; }
+  #editSubnet .main-center {
+    margin-top: 30px;
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px 100px;
+    background: #F2F2F2 !important;
+    color: #666666;
+    text-shadow: none;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31); }
+  #editSubnet label.subnet, #editSubnet label.type {
+    position: relative; }
+  #editSubnet label {
+    margin-top: 10px;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center; }
+  #editSubnet label.form-check-label {
+    text-align: left;
+    clear: both; }
+  #editSubnet button.btn.btn-primary {
+    float: right;
+    margin-top: 8px;
+    margin-right: 5px; }
+  #editSubnet button.btn.btn-danger {
+    float: right;
+    margin-top: 8px; }
 
 #subnetForm input, #subnetForm select, #subnetForm textarea {
   margin: 0 auto;
@@ -308,5 +497,95 @@ a {
   margin-right: 5px; }
 
 #subnetForm button.btn.btn-danger {
+  float: right;
+  margin-top: 8px; }
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
+#viewSubnet {
+  margin-top: 20px;
+  margin-bottom: 10px; }
+  #viewSubnet h1 {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600px; }
+  #viewSubnet input, #viewSubnet textarea, #viewSubnet select {
+    margin: 0 auto;
+    width: 100%;
+    height: 40px;
+    border-radius: .25rem;
+    padding-left: 10px; }
+  #viewSubnet select {
+    margin: 0 auto; }
+  #viewSubnet .form-control {
+    height: 40px;
+    padding: 8px 12px;
+    float: left; }
+  #viewSubnet .main-center {
+    margin-top: 30px;
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px 100px;
+    background: #F2F2F2 !important;
+    color: #666666;
+    text-shadow: none;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31); }
+  #viewSubnet label.subnet, #viewSubnet label.type {
+    position: relative; }
+  #viewSubnet label {
+    margin-top: 10px;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center; }
+  #viewSubnet label.form-check-label {
+    text-align: left;
+    clear: both; }
+  #viewSubnet button.btn.btn-primary {
+    float: right;
+    margin-top: 8px;
+    margin-right: 5px; }
+  #viewSubnet button.btn.btn-danger {
+    float: right;
+    margin-top: 8px; }
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
+#sitesForm input {
+  margin: 0 auto;
+  width: 100%;
+  height: 40px; }
+
+#sitesForm select {
+  margin: 0 auto; }
+
+#sitesForm .form-control {
+  height: 40px;
+  padding: 8px 12px; }
+
+#sitesForm div.container.main-center {
+  margin-top: 20px; }
+
+#sitesForm .main-center {
+  margin-top: 30px;
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 20px 100px;
+  background: #F2F2F2;
+  color: #666666;
+  text-shadow: none;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+  font-family: 'Open Sans', sans-serif; }
+
+#sitesForm h1 {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif; }
+
+#sitesForm button.btn.btn-primary {
+  float: right;
+  margin-top: 8px;
+  margin-right: 5px; }
+
+#sitesForm button.btn.btn-danger {
   float: right;
   margin-top: 8px; }

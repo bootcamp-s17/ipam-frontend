@@ -1,5 +1,5 @@
 <div id="subnets" class="container-fluid">
-	<div>
+	<div class="row">
 		<ul class="nav nav-tabs"> <!-- Tabs -->
 		  <li class="nav-item">
 		    <a class="nav-link" id="sitesTab" value="sites" href="#!/sites">Sites</a>
@@ -10,13 +10,9 @@
 		  <li class="nav-item">
 		    <a class="nav-link" id="equipmentTab" href="#!/equipment">Equipment</a>
 		  </li>
-		  <li>
-		  	<div class="row">
-				<sidebar class="col-9"></sidebar>
-				<a href="/#!/subnetform" class="col-3"><button id="addSubnet"> Add Subnet</button></a>
-			</div>
-		  </li>
 		</ul>
+				<sidebar class="col-6"></sidebar>
+				<a href="/#!/subnetform" class="col-3 text-right"><button id="addSubnet"> Add Subnet</button></a>
 	</div>	
 	<div class="alert alert-success text-center" role="alert" ng-if="$ctrl.$rootScope.alert !== ''">{{$ctrl.$rootScope.alert}}</div>
 	<div class="row">

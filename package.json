@@ -4,7 +4,9 @@
   "description": "ipam",
   "main": "gulpfile.babel.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "postinstall":  "gulp"
   },
   "repository": {
     "type": "git",
@@ -38,6 +40,7 @@
     "angular-cookies": "^1.5.6",
     "angular-resource": "^1.6.5",
     "angular-route": "^1.5.6",
+    "express": "^4.15.3",
     "ng-ip-address": "^1.1.12",
     "sortablejs": "^1.6.0"
   }
